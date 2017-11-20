@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.CopyrightMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.Copyright" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="production_name" property="productionName" jdbcType="VARCHAR" />
+    <result column="regist_no" property="registNo" jdbcType="VARCHAR" />
+    <result column="production_type" property="productionType" jdbcType="VARCHAR" />
+    <result column="complete_time" property="completeTime" jdbcType="VARCHAR" />
+    <result column="regist_time" property="registTime" jdbcType="VARCHAR" />
+    <result column="first_publish_time" property="firstPublishTime" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, production_name, regist_no, production_type, complete_time, regist_time, 
+    first_publish_time, last_update_time, status, creater, created_time, updater, updated_time, 
+    remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from copyright
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from copyright
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countCopyright" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from copyright
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="productionName != null" >
+  		and production_name like concat(concat('%',#{productionName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="productionType != null" >
+  		and production_type like concat(concat('%',#{productionType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageCopyright" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from copyright
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="productionName != null" >
+  		and production_name like concat(concat('%',#{productionName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="productionType != null" >
+  		and production_type like concat(concat('%',#{productionType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from copyright
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from copyright
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.Copyright" >
+    insert into copyright (id, regist_item_id, production_name, 
+      regist_no, production_type, complete_time, 
+      regist_time, first_publish_time, last_update_time, 
+      status, creater, created_time, 
+      updater, updated_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{productionName,jdbcType=VARCHAR}, 
+      #{registNo,jdbcType=VARCHAR}, #{productionType,jdbcType=VARCHAR}, #{completeTime,jdbcType=VARCHAR}, 
+      #{registTime,jdbcType=VARCHAR}, #{firstPublishTime,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, 
+      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.igreen.common.model.Copyright" >
+    insert into copyright
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="productionName != null" >
+        production_name,
+      </if>
+      <if test="registNo != null" >
+        regist_no,
+      </if>
+      <if test="productionType != null" >
+        production_type,
+      </if>
+      <if test="completeTime != null" >
+        complete_time,
+      </if>
+      <if test="registTime != null" >
+        regist_time,
+      </if>
+      <if test="firstPublishTime != null" >
+        first_publish_time,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="productionName != null" >
+        #{productionName,jdbcType=VARCHAR},
+      </if>
+      <if test="registNo != null" >
+        #{registNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productionType != null" >
+        #{productionType,jdbcType=VARCHAR},
+      </if>
+      <if test="completeTime != null" >
+        #{completeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null" >
+        #{registTime,jdbcType=VARCHAR},
+      </if>
+      <if test="firstPublishTime != null" >
+        #{firstPublishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.Copyright" >
+    update copyright
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="productionName != null" >
+        production_name = #{productionName,jdbcType=VARCHAR},
+      </if>
+      <if test="registNo != null" >
+        regist_no = #{registNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productionType != null" >
+        production_type = #{productionType,jdbcType=VARCHAR},
+      </if>
+      <if test="completeTime != null" >
+        complete_time = #{completeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null" >
+        regist_time = #{registTime,jdbcType=VARCHAR},
+      </if>
+      <if test="firstPublishTime != null" >
+        first_publish_time = #{firstPublishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.Copyright" >
+    update copyright
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      production_name = #{productionName,jdbcType=VARCHAR},
+      regist_no = #{registNo,jdbcType=VARCHAR},
+      production_type = #{productionType,jdbcType=VARCHAR},
+      complete_time = #{completeTime,jdbcType=VARCHAR},
+      regist_time = #{registTime,jdbcType=VARCHAR},
+      first_publish_time = #{firstPublishTime,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update copyright
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.PatentMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.Patent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="apply_time" property="applyTime" jdbcType="VARCHAR" />
+    <result column="patent_type" property="patentType" jdbcType="VARCHAR" />
+    <result column="patent_name" property="patentName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, apply_time, patent_type, patent_name, status, creater, created_time, 
+    updater, updated_time, remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from patent
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from patent
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countPatent" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from patent
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="patentType != null" >
+  		and patent_type like concat(concat('%',#{patentType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="patentName != null" >
+  		and patent_name like concat(concat('%',#{patentName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pagePatent" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from patent
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="patentType != null" >
+  		and patent_type like concat(concat('%',#{patentType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="patentName != null" >
+  		and patent_name like concat(concat('%',#{patentName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from patent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from patent
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.Patent" >
+    insert into patent (id, regist_item_id, apply_time, 
+      patent_type, patent_name, status, 
+      creater, created_time, updater, 
+      updated_time, remark)
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{applyTime,jdbcType=VARCHAR}, 
+      #{patentType,jdbcType=VARCHAR}, #{patentName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, #{updater,jdbcType=INTEGER}, 
+      #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.Patent" >
+    insert into patent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="patentType != null" >
+        patent_type,
+      </if>
+      <if test="patentName != null" >
+        patent_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="patentType != null" >
+        #{patentType,jdbcType=VARCHAR},
+      </if>
+      <if test="patentName != null" >
+        #{patentName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.Patent" >
+    update patent
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="patentType != null" >
+        patent_type = #{patentType,jdbcType=VARCHAR},
+      </if>
+      <if test="patentName != null" >
+        patent_name = #{patentName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.Patent" >
+    update patent
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      apply_time = #{applyTime,jdbcType=VARCHAR},
+      patent_type = #{patentType,jdbcType=VARCHAR},
+      patent_name = #{patentName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update patent
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

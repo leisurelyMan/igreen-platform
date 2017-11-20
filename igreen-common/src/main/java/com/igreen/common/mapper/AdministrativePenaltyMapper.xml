@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.AdministrativePenaltyMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.AdministrativePenalty" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="crime_time" property="crimeTime" jdbcType="VARCHAR" />
+    <result column="crime_reason" property="crimeReason" jdbcType="VARCHAR" />
+    <result column="case_type" property="caseType" jdbcType="VARCHAR" />
+    <result column="execute_type" property="executeType" jdbcType="VARCHAR" />
+    <result column="case_result" property="caseResult" jdbcType="VARCHAR" />
+    <result column="punish_time" property="punishTime" jdbcType="VARCHAR" />
+    <result column="punish_office" property="punishOffice" jdbcType="VARCHAR" />
+    <result column="fact_malfeasance" property="factMalfeasance" jdbcType="VARCHAR" />
+    <result column="punish_base" property="punishBase" jdbcType="VARCHAR" />
+    <result column="punish_type" property="punishType" jdbcType="VARCHAR" />
+    <result column="punish_result" property="punishResult" jdbcType="VARCHAR" />
+    <result column="punish_amount" property="punishAmount" jdbcType="DECIMAL" />
+    <result column="punishment" property="punishment" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, crime_time, crime_reason, case_type, execute_type, case_result, 
+    punish_time, punish_office, fact_malfeasance, punish_base, punish_type, punish_result, 
+    punish_amount, punishment, status, creater, created_time, updater, updated_time, 
+    remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from administrative_penalty
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from administrative_penalty
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countAdministrativePenalty" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from administrative_penalty
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="crimeReason != null" >
+  		and crime_reason like concat(concat('%',#{crimeReason,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="caseType != null" >
+  		and case_type like concat(concat('%',#{caseType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="executeType != null" >
+  		and execute_type like concat(concat('%',#{executeType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="punishOffice != null" >
+  		and punish_office like concat(concat('%',#{punishOffice,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageAdministrativePenalty" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from administrative_penalty
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="crimeReason != null" >
+  		and crime_reason like concat(concat('%',#{crimeReason,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="caseType != null" >
+  		and case_type like concat(concat('%',#{caseType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="executeType != null" >
+  		and execute_type like concat(concat('%',#{executeType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="punishOffice != null" >
+  		and punish_office like concat(concat('%',#{punishOffice,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from administrative_penalty
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from administrative_penalty
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.AdministrativePenalty" >
+    insert into administrative_penalty (id, regist_item_id, crime_time, 
+      crime_reason, case_type, execute_type, 
+      case_result, punish_time, punish_office, 
+      fact_malfeasance, punish_base, punish_type, 
+      punish_result, punish_amount, punishment, 
+      status, creater, created_time, 
+      updater, updated_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{crimeTime,jdbcType=VARCHAR}, 
+      #{crimeReason,jdbcType=VARCHAR}, #{caseType,jdbcType=VARCHAR}, #{executeType,jdbcType=VARCHAR}, 
+      #{caseResult,jdbcType=VARCHAR}, #{punishTime,jdbcType=VARCHAR}, #{punishOffice,jdbcType=VARCHAR}, 
+      #{factMalfeasance,jdbcType=VARCHAR}, #{punishBase,jdbcType=VARCHAR}, #{punishType,jdbcType=VARCHAR}, 
+      #{punishResult,jdbcType=VARCHAR}, #{punishAmount,jdbcType=DECIMAL}, #{punishment,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, 
+      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.igreen.common.model.AdministrativePenalty" >
+    insert into administrative_penalty
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="crimeTime != null" >
+        crime_time,
+      </if>
+      <if test="crimeReason != null" >
+        crime_reason,
+      </if>
+      <if test="caseType != null" >
+        case_type,
+      </if>
+      <if test="executeType != null" >
+        execute_type,
+      </if>
+      <if test="caseResult != null" >
+        case_result,
+      </if>
+      <if test="punishTime != null" >
+        punish_time,
+      </if>
+      <if test="punishOffice != null" >
+        punish_office,
+      </if>
+      <if test="factMalfeasance != null" >
+        fact_malfeasance,
+      </if>
+      <if test="punishBase != null" >
+        punish_base,
+      </if>
+      <if test="punishType != null" >
+        punish_type,
+      </if>
+      <if test="punishResult != null" >
+        punish_result,
+      </if>
+      <if test="punishAmount != null" >
+        punish_amount,
+      </if>
+      <if test="punishment != null" >
+        punishment,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="crimeTime != null" >
+        #{crimeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="crimeReason != null" >
+        #{crimeReason,jdbcType=VARCHAR},
+      </if>
+      <if test="caseType != null" >
+        #{caseType,jdbcType=VARCHAR},
+      </if>
+      <if test="executeType != null" >
+        #{executeType,jdbcType=VARCHAR},
+      </if>
+      <if test="caseResult != null" >
+        #{caseResult,jdbcType=VARCHAR},
+      </if>
+      <if test="punishTime != null" >
+        #{punishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="punishOffice != null" >
+        #{punishOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="factMalfeasance != null" >
+        #{factMalfeasance,jdbcType=VARCHAR},
+      </if>
+      <if test="punishBase != null" >
+        #{punishBase,jdbcType=VARCHAR},
+      </if>
+      <if test="punishType != null" >
+        #{punishType,jdbcType=VARCHAR},
+      </if>
+      <if test="punishResult != null" >
+        #{punishResult,jdbcType=VARCHAR},
+      </if>
+      <if test="punishAmount != null" >
+        #{punishAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="punishment != null" >
+        #{punishment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.AdministrativePenalty" >
+    update administrative_penalty
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="crimeTime != null" >
+        crime_time = #{crimeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="crimeReason != null" >
+        crime_reason = #{crimeReason,jdbcType=VARCHAR},
+      </if>
+      <if test="caseType != null" >
+        case_type = #{caseType,jdbcType=VARCHAR},
+      </if>
+      <if test="executeType != null" >
+        execute_type = #{executeType,jdbcType=VARCHAR},
+      </if>
+      <if test="caseResult != null" >
+        case_result = #{caseResult,jdbcType=VARCHAR},
+      </if>
+      <if test="punishTime != null" >
+        punish_time = #{punishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="punishOffice != null" >
+        punish_office = #{punishOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="factMalfeasance != null" >
+        fact_malfeasance = #{factMalfeasance,jdbcType=VARCHAR},
+      </if>
+      <if test="punishBase != null" >
+        punish_base = #{punishBase,jdbcType=VARCHAR},
+      </if>
+      <if test="punishType != null" >
+        punish_type = #{punishType,jdbcType=VARCHAR},
+      </if>
+      <if test="punishResult != null" >
+        punish_result = #{punishResult,jdbcType=VARCHAR},
+      </if>
+      <if test="punishAmount != null" >
+        punish_amount = #{punishAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="punishment != null" >
+        punishment = #{punishment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.AdministrativePenalty" >
+    update administrative_penalty
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      crime_time = #{crimeTime,jdbcType=VARCHAR},
+      crime_reason = #{crimeReason,jdbcType=VARCHAR},
+      case_type = #{caseType,jdbcType=VARCHAR},
+      execute_type = #{executeType,jdbcType=VARCHAR},
+      case_result = #{caseResult,jdbcType=VARCHAR},
+      punish_time = #{punishTime,jdbcType=VARCHAR},
+      punish_office = #{punishOffice,jdbcType=VARCHAR},
+      fact_malfeasance = #{factMalfeasance,jdbcType=VARCHAR},
+      punish_base = #{punishBase,jdbcType=VARCHAR},
+      punish_type = #{punishType,jdbcType=VARCHAR},
+      punish_result = #{punishResult,jdbcType=VARCHAR},
+      punish_amount = #{punishAmount,jdbcType=DECIMAL},
+      punishment = #{punishment,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update administrative_penalty
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

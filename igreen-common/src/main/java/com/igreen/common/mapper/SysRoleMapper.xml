@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.SysRoleMapper" >
+
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.SysRole" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMap1" extends="BaseResultMap" type="com.igreen.common.model.SysRole" >
+  	<result column="checked" property="checked" jdbcType="BOOLEAN" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, name, short_name, status, creater, created_time, updater, updated_time, remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countSysRole" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from sys_role
+  	where 1 = 1
+  	<if test="name != null" >
+  		and name = #{name,jdbcType=VARCHAR}
+  	</if>
+  	<if test="shortName != null" >
+  		and short_name = #{shortName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageSysRole" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from sys_role
+  	where 1 = 1
+  	<if test="name != null" >
+  		and name = #{name,jdbcType=VARCHAR}
+  	</if>
+  	<if test="shortName != null" >
+  		and short_name = #{shortName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <select id="getUserRole" resultMap="BaseResultMap1" parameterType="java.lang.Integer">
+	select distinct sr.id,sr.name,sr.short_name,IFNULL(ur.id,false) checked 
+	from sys_role sr 
+	left join sys_user_role ur 
+	on ur.user_id= #{userId,jdbcType=INTEGER} 
+	and ur.status=1 
+	and ur.role_id=sr.id 
+	where sr.status=1
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.SysRole" >
+    insert into sys_role (id, name, short_name, 
+      status, creater, created_time, 
+      updater, updated_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, 
+      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.igreen.common.model.SysRole" >
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="shortName != null" >
+        short_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.SysRole" >
+    update sys_role
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        short_name = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.SysRole" >
+    update sys_role
+    set name = #{name,jdbcType=VARCHAR},
+      short_name = #{shortName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

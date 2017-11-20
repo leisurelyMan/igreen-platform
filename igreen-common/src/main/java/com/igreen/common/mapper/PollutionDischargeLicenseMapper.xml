@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.PollutionDischargeLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.PollutionDischargeLicense" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="license_number" property="licenseNumber" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="valid_date" property="validDate" jdbcType="VARCHAR" />
+    <result column="start_valid_date" property="startValidDate" jdbcType="DATE" />
+    <result column="end_valid_date" property="endValidDate" jdbcType="DATE" />
+    <result column="certification_date" property="certificateDate" jdbcType="DATE" />
+    <result column="data_id" property="dataId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="certificate_organization" property="certificateOrganization" jdbcType="VARCHAR" />
+    <result column="pollution_type" property="pollutionType" jdbcType="VARCHAR" />
+    <result column="air_pollution_type" property="airPollutionType" jdbcType="VARCHAR" />
+    <result column="air_pollution_discharge_rule" property="airPollutionDischargeRule" jdbcType="VARCHAR" />
+    <result column="air_pollution_discharge_standard" property="airPollutionDischargeStandard" jdbcType="VARCHAR" />
+    <result column="water_pollution_type" property="waterPollutionType" jdbcType="VARCHAR" />
+    <result column="water_pollution_discharge_rule" property="waterPollutionDischargeRule" jdbcType="VARCHAR" />
+    <result column="water_pollution_discharge_standard" property="waterPollutionDischargeStandard" jdbcType="VARCHAR" />
+    <result column="pollution_trade" property="pollutionTrade" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, province, city, license_number, company_name, industry, valid_date, start_valid_date, end_valid_date,
+    certification_date, data_id, address, certificate_organization, pollution_type, air_pollution_type,
+    air_pollution_discharge_rule, air_pollution_discharge_standard, water_pollution_type,
+    water_pollution_discharge_rule, water_pollution_discharge_standard, pollution_trade
+  </sql>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.PollutionDischargeLicense" useGeneratedKeys="true" keyProperty="id">
+    insert into pollution_discharge_license
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="licenseNumber != null" >
+        license_number,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      
+      <if test="validDate != null" >
+        valid_date,
+      </if>
+      <if test="startValidDate != null" >
+        start_valid_date,
+      </if>
+      <if test="endValidDate != null" >
+        end_valid_date,
+      </if>
+      <if test="certificateDate != null" >
+        certification_date,
+      </if>
+      <if test="dataId != null" >
+        data_id,
+      </if>
+      
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="certificateOrganization != null" >
+        certificate_organization,
+      </if>
+      <if test="pollutionType != null" >
+        pollution_type,
+      </if>
+      <if test="airPollutionType != null" >
+        air_pollution_type,
+      </if>
+      <if test="airPollutionDischargeRule != null" >
+        air_pollution_discharge_rule,
+      </if>
+      
+      <if test="airPollutionDischargeStandard != null" >
+        air_pollution_discharge_standard,
+      </if>
+      <if test="waterPollutionType != null" >
+        water_pollution_type,
+      </if>
+      <if test="waterPollutionDischargeRule != null" >
+        water_pollution_discharge_rule,
+      </if>
+      <if test="waterPollutionDischargeStandard != null" >
+        water_pollution_discharge_standard,
+      </if>
+      <if test="pollutionTrade != null" >
+        pollution_trade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNumber != null" >
+        #{licenseNumber,jdbcType=VARCHAR},
+      </if>
+       <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="validDate != null" >
+        #{validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="startValidDate != null" >
+        #{startValidDate,jdbcType=DATE},
+      </if>
+      <if test="endValidDate != null" >
+        #{endValidDate,jdbcType=DATE},
+      </if>
+       <if test="certificateDate != null" >
+        #{certificateDate,jdbcType=DATE},
+      </if>
+      <if test="dataId != null" >
+        #{dataId,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateOrganization != null" >
+        #{certificateOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutionType != null" >
+        #{pollutionType,jdbcType=VARCHAR},
+      </if>
+       <if test="airPollutionType != null" >
+        #{airPollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="airPollutionDischargeRule != null" >
+        #{airPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="airPollutionDischargeStandard != null" >
+        #{airPollutionDischargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="waterPollutionType != null" >
+        #{waterPollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="waterPollutionDischargeRule != null" >
+        #{waterPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+       <if test="waterPollutionDischargeStandard != null" >
+        #{waterPollutionDischargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutionTrade != null" >
+        #{pollutionTrade,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.PollutionDischargeLicense" >
+    update pollution_discharge_license
+    <set >
+      <if test="pollutionType != null" >
+        pollution_type = #{pollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="airPollutionDischargeRule != null" >
+        air_pollution_discharge_rule = #{airPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+      <if test="waterPollutionDischargeRule != null" >
+        water_pollution_discharge_rule = #{waterPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByParameter" resultMap="BaseResultMap" parameterType="com.igreen.common.model.PollutionDischargeLicense" >
+    select 
+    <include refid="Base_Column_List" />
+    from pollution_discharge_license
+    where 1 = 1
+    <if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="province != null" >
+      and province = #{province,jdbcType=VARCHAR}
+    </if>
+    <if test="city != null" >
+      and city like concat(concat('%',#{city,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="licenseNumber != null" >
+      and license_number = #{licenseNumber,jdbcType=VARCHAR}
+    </if>
+     <if test="companyName != null" >
+      and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="industry != null" >
+      and industry like concat(concat('%',#{industry,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="startValidDate != null" >
+      and start_valid_date = #{startValidDate,jdbcType=DATE}
+    </if>
+     <if test="endValidDate != null" >
+      and end_valid_date = #{endValidDate,jdbcType=DATE}
+    </if>
+    <if test="certificateDate != null" >
+      and certificate_date = #{certificateDate,jdbcType=DATE}
+    </if>
+    
+    <if test="dataId != null" >
+      and data_id = #{dataId,jdbcType=VARCHAR}
+    </if>
+     <if test="address != null" >
+      and address like concat(concat('%',#{address,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="certificateOrganization != null" >
+      and certificate_organization like concat(concat('%',#{certificateOrganization,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="pollutionType != null" >
+      and pollution_type like concat(concat('%',#{pollutionType,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="airPollutionType != null" >
+      and air_pollution_type like concat(concat('%',#{airPollutionType,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="airPollutionDischargeRule != null" >
+      and air_pollution_discharge_rule like concat(concat('%',#{airPollutionDischargeRule,jdbcType=VARCHAR}),'%')
+    </if>
+    
+    <if test="airPollutionDischargeStandard != null" >
+      and air_pollution_discharge_standard like concat(concat('%',#{airPollutionDischargeStandard,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="waterPollutionType != null" >
+      and water_pollution_type like concat(concat('%',#{waterPollutionType,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="waterPollutionDischargeRule != null" >
+      and water_pollution_discharge_rule like concat(concat('%',#{waterPollutionDischargeRule,jdbcType=VARCHAR}),'%')
+    </if>
+    
+    <if test="waterPollutionDischargeStandard != null" >
+      and water_pollution_discharge_standard like concat(concat('%',#{waterPollutionDischargeStandard,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="pollutionTrade != null" >
+      and pollution_trade like concat(concat('%',#{pollutionTrade,jdbcType=VARCHAR}),'%')
+    </if>
+  </select>
+  
+  <select id="selectNullPollutionTypeRecords" resultMap="BaseResultMap" parameterType="map" >
+  	select id,data_id from pollution_discharge_license 
+  	where pollution_type is null
+  	limit #{pageRows}
+  </select>
+  
+  <select id="pageLicense" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from pollution_discharge_license 
+  	where 1 =1 
+  	<if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="province != null" >
+      and province = #{province,jdbcType=VARCHAR}
+    </if>
+    <if test="city != null" >
+      and city like concat(concat('%',#{city,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="licenseNumber != null" >
+      and license_number = #{licenseNumber,jdbcType=VARCHAR}
+    </if>
+     <if test="companyName != null" >
+      and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="industry != null" >
+      and industry like concat(concat('%',#{industry,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="startValidDate != null" >
+      and start_valid_date = #{startValidDate,jdbcType=DATE}
+    </if>
+     <if test="endValidDate != null" >
+      and end_valid_date = #{endValidDate,jdbcType=DATE}
+    </if>
+    <if test="certificateDate != null" >
+      and certificate_date = #{certificateDate,jdbcType=DATE}
+    </if>
+    
+    <if test="dataId != null" >
+      and data_id = #{dataId,jdbcType=VARCHAR}
+    </if>
+     <if test="address != null" >
+      and address like concat(concat('%',#{address,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="certificateOrganization != null" >
+      and certificate_organization like concat(concat('%',#{certificateOrganization,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="pollutionType != null" >
+      and pollution_type like concat(concat('%',#{pollutionType,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="airPollutionType != null" >
+      and air_pollution_type like concat(concat('%',#{airPollutionType,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="airPollutionDischargeRule != null" >
+      and air_pollution_discharge_rule like concat(concat('%',#{airPollutionDischargeRule,jdbcType=VARCHAR}),'%')
+    </if>
+    
+    <if test="airPollutionDischargeStandard != null" >
+      and air_pollution_discharge_standard like concat(concat('%',#{airPollutionDischargeStandard,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="waterPollutionType != null" >
+      and water_pollution_type like concat(concat('%',#{waterPollutionType,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="waterPollutionDischargeRule != null" >
+      and water_pollution_discharge_rule like concat(concat('%',#{waterPollutionDischargeRule,jdbcType=VARCHAR}),'%')
+    </if>
+    
+    <if test="waterPollutionDischargeStandard != null" >
+      and water_pollution_discharge_standard like concat(concat('%',#{waterPollutionDischargeStandard,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="pollutionTrade != null" >
+      and pollution_trade like concat(concat('%',#{pollutionTrade,jdbcType=VARCHAR}),'%')
+    </if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countLicense" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from pollution_discharge_license
+  	where 1 =1 
+	<if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="province != null" >
+      and province = #{province,jdbcType=VARCHAR}
+    </if>
+    <if test="city != null" >
+      and city like concat(concat('%',#{city,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="licenseNumber != null" >
+      and license_number = #{licenseNumber,jdbcType=VARCHAR}
+    </if>
+     <if test="companyName != null" >
+      and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="industry != null" >
+      and industry like concat(concat('%',#{industry,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="startValidDate != null" >
+      and start_valid_date = #{startValidDate,jdbcType=DATE}
+    </if>
+     <if test="endValidDate != null" >
+      and end_valid_date = #{endValidDate,jdbcType=DATE}
+    </if>
+    <if test="certificateDate != null" >
+      and certificate_date = #{certificateDate,jdbcType=DATE}
+    </if>
+    
+    <if test="dataId != null" >
+      and data_id = #{dataId,jdbcType=VARCHAR}
+    </if>
+     <if test="address != null" >
+      and address like concat(concat('%',#{address,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="certificateOrganization != null" >
+      and certificate_organization like concat(concat('%',#{certificateOrganization,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="pollutionType != null" >
+      and pollution_type like concat(concat('%',#{pollutionType,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="airPollutionType != null" >
+      and air_pollution_type like concat(concat('%',#{airPollutionType,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="airPollutionDischargeRule != null" >
+      and air_pollution_discharge_rule like concat(concat('%',#{airPollutionDischargeRule,jdbcType=VARCHAR}),'%')
+    </if>
+    
+    <if test="airPollutionDischargeStandard != null" >
+      and air_pollution_discharge_standard like concat(concat('%',#{airPollutionDischargeStandard,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="waterPollutionType != null" >
+      and water_pollution_type like concat(concat('%',#{waterPollutionType,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="waterPollutionDischargeRule != null" >
+      and water_pollution_discharge_rule like concat(concat('%',#{waterPollutionDischargeRule,jdbcType=VARCHAR}),'%')
+    </if>
+    
+    <if test="waterPollutionDischargeStandard != null" >
+      and water_pollution_discharge_standard like concat(concat('%',#{waterPollutionDischargeStandard,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="pollutionTrade != null" >
+      and pollution_trade like concat(concat('%',#{pollutionTrade,jdbcType=VARCHAR}),'%')
+    </if>
+  </select>
+</mapper>

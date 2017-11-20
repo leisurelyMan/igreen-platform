@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.AirQualityMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.AirQuality" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="record_date" property="recordDate" jdbcType="DATE" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="air_quality_index" property="airQualityIndex" jdbcType="VARCHAR" />
+    <result column="main_pollutant" property="mainPollutant" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, record_date, city, air_quality_index, main_pollutant, status
+  </sql>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.AirQuality" useGeneratedKeys="true" keyProperty="id">
+    insert into air_quality
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recordDate != null" >
+        record_date,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="airQualityIndex != null" >
+        air_quality_index,
+      </if>
+      <if test="mainPollutant != null" >
+        main_pollutant,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recordDate != null" >
+        #{recordDate,jdbcType=DATE},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="airQualityIndex != null" >
+        #{airQualityIndex,jdbcType=VARCHAR},
+      </if>
+       <if test="mainPollutant != null" >
+        #{mainPollutant,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 批量插入空气质量记录 -->
+  <insert id ="insertBatch" useGeneratedKeys="true" parameterType="java.util.List" >
+    <selectKey resultType ="java.lang.Integer" keyProperty= "id" order= "AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey >
+    insert into air_quality
+    (record_date, city, air_quality_index, main_pollutant, status)
+    values
+     <foreach collection ="list" item="quality" index= "index" separator =",">
+         (
+         #{quality.recordDate},#{quality.city},
+         #{quality.airQualityIndex},
+         #{quality.mainPollutant},
+         #{quality.status}
+         )
+     </foreach >
+  </insert >
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="airQualityCount" resultType="java.lang.Integer">
+  	select count(1) from air_quality
+  </select>
+  
+  <select id="selectByParameter" resultMap="BaseResultMap" parameterType="com.igreen.common.model.AirQuality" >
+    select 
+    <include refid="Base_Column_List" />
+    from air_quality
+    where 1 = 1
+    <if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="recordDate != null" >
+      and record_date = #{recordDate,jdbcType=DATE}
+    </if>
+    <if test="city != null" >
+      and city like concat(concat('%',#{city,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="airQualityIndex != null" >
+      and air_quality_index = #{airQualityIndex,jdbcType=VARCHAR}
+    </if>
+     <if test="mainPollutant != null" >
+      and main_pollutant like concat(concat('%',#{mainPollutant,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="status != null" >
+      and status like concat(concat('%',#{status,jdbcType=VARCHAR}),'%')
+    </if>
+  </select>
+  
+  <select id="selectByCityAndDate" resultMap="BaseResultMap" parameterType="com.igreen.common.model.AirQuality" >
+    select 
+    <include refid="Base_Column_List" />
+    from air_quality
+    where 1 = 1
+    <if test="city != null" >
+      and city = #{city,jdbcType=VARCHAR}
+    </if>
+    <if test="recordDate != null" >
+      and record_date = #{recordDate,jdbcType=DATE}
+    </if>
+  </select>
+  
+  <select id="pageAirQuality" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from air_quality 
+  	where 1 =1 
+  	<if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="recordDate != null" >
+      and record_date = #{recordDate,jdbcType=DATE}
+    </if>
+    <if test="city != null" >
+      and city like concat(concat('%',#{city,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="airQualityIndex != null" >
+      and air_quality_index = #{airQualityIndex,jdbcType=VARCHAR}
+    </if>
+     <if test="mainPollutant != null" >
+      and main_pollutant like concat(concat('%',#{mainPollutant,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="status != null" >
+      and status like concat(concat('%',#{status,jdbcType=VARCHAR}),'%')
+    </if>
+  	order by record_date desc limit #{startRow},#{pageRows}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countAirQuality" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from air_quality
+  	where 1 =1 
+	<if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="recordDate != null" >
+      and record_date = #{recordDate,jdbcType=DATE}
+    </if>
+    <if test="city != null" >
+      and city like concat(concat('%',#{city,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="airQualityIndex != null" >
+      and air_quality_index = #{airQualityIndex,jdbcType=VARCHAR}
+    </if>
+     <if test="mainPollutant != null" >
+      and main_pollutant like concat(concat('%',#{mainPollutant,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="status != null" >
+      and status like concat(concat('%',#{status,jdbcType=VARCHAR}),'%')
+    </if>
+  </select>
+</mapper>

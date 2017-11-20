@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.OtherInformationMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.OtherInformation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pollution_id" property="pollutionId" jdbcType="INTEGER" />
+    <result column="management_requirement" property="managementRequirement" jdbcType="CLOB" javaType = "java.lang.String"/>
+    <result column="other_info" property="otherInfo" jdbcType="CLOB" javaType = "java.lang.String"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, pollution_id, management_requirement, other_info
+  </sql>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.OtherInformation" useGeneratedKeys="true" keyProperty="id">
+    insert into other_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pollutionId != null" >
+        pollution_id,
+      </if>
+      <if test="managementRequirement != null" >
+        management_requirement,
+      </if>
+      <if test="otherInfo != null" >
+        other_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pollutionId != null" >
+        #{pollutionId,jdbcType=INTEGER},
+      </if>
+      <if test="managementRequirement != null" >
+        #{managementRequirement,jdbcType=CLOB},
+      </if>
+       <if test="otherInfo != null" >
+        #{otherInfo,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="pageRecord" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from other_information 
+  	where 1 =1 
+  	<if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countRecord" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from other_information
+  	where 1 =1 
+	<if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>

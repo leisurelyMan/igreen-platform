@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.PledgeStockRightMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.PledgeStockRight" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="pledgee" property="pledgee" jdbcType="VARCHAR" />
+    <result column="pledgee_type" property="pledgeeType" jdbcType="VARCHAR" />
+    <result column="pledge_amount" property="pledgeAmount" jdbcType="DECIMAL" />
+    <result column="record_time" property="recordTime" jdbcType="VARCHAR" />
+    <result column="examined_office" property="examinedOffice" jdbcType="VARCHAR" />
+    <result column="examined_time" property="examinedTime" jdbcType="VARCHAR" />
+    <result column="examined_end_time" property="examinedEndTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, pledgee, pledgee_type, pledge_amount, record_time, examined_office, 
+    examined_time, examined_end_time, status, creater, created_time, updater, updated_time, 
+    remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pledge_stock_right
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pledge_stock_right
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countPledgeStockRight" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from pledge_stock_right
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="pledgee != null" >
+  		and pledgee like concat(concat('%',#{pledgee,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="pledgeeType != null" >
+  		and pledgee_type like concat(concat('%',#{pledgeeType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pagePledgeStockRight" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from pledge_stock_right
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="pledgee != null" >
+  		and pledgee like concat(concat('%',#{pledgee,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="pledgeeType != null" >
+  		and pledgee_type like concat(concat('%',#{pledgeeType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pledge_stock_right
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from pledge_stock_right
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.PledgeStockRight" >
+    insert into pledge_stock_right (id, regist_item_id, pledgee, 
+      pledgee_type, pledge_amount, record_time, 
+      examined_office, examined_time, examined_end_time, 
+      status, creater, created_time, 
+      updater, updated_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{pledgee,jdbcType=VARCHAR}, 
+      #{pledgeeType,jdbcType=VARCHAR}, #{pledgeAmount,jdbcType=DECIMAL}, #{recordTime,jdbcType=VARCHAR}, 
+      #{examinedOffice,jdbcType=VARCHAR}, #{examinedTime,jdbcType=VARCHAR}, #{examinedEndTime,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, 
+      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.igreen.common.model.PledgeStockRight" >
+    insert into pledge_stock_right
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="pledgee != null" >
+        pledgee,
+      </if>
+      <if test="pledgeeType != null" >
+        pledgee_type,
+      </if>
+      <if test="pledgeAmount != null" >
+        pledge_amount,
+      </if>
+      <if test="recordTime != null" >
+        record_time,
+      </if>
+      <if test="examinedOffice != null" >
+        examined_office,
+      </if>
+      <if test="examinedTime != null" >
+        examined_time,
+      </if>
+      <if test="examinedEndTime != null" >
+        examined_end_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="pledgee != null" >
+        #{pledgee,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgeeType != null" >
+        #{pledgeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgeAmount != null" >
+        #{pledgeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime,jdbcType=VARCHAR},
+      </if>
+      <if test="examinedOffice != null" >
+        #{examinedOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="examinedTime != null" >
+        #{examinedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="examinedEndTime != null" >
+        #{examinedEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.PledgeStockRight" >
+    update pledge_stock_right
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="pledgee != null" >
+        pledgee = #{pledgee,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgeeType != null" >
+        pledgee_type = #{pledgeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgeAmount != null" >
+        pledge_amount = #{pledgeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="recordTime != null" >
+        record_time = #{recordTime,jdbcType=VARCHAR},
+      </if>
+      <if test="examinedOffice != null" >
+        examined_office = #{examinedOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="examinedTime != null" >
+        examined_time = #{examinedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="examinedEndTime != null" >
+        examined_end_time = #{examinedEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.PledgeStockRight" >
+    update pledge_stock_right
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      pledgee = #{pledgee,jdbcType=VARCHAR},
+      pledgee_type = #{pledgeeType,jdbcType=VARCHAR},
+      pledge_amount = #{pledgeAmount,jdbcType=DECIMAL},
+      record_time = #{recordTime,jdbcType=VARCHAR},
+      examined_office = #{examinedOffice,jdbcType=VARCHAR},
+      examined_time = #{examinedTime,jdbcType=VARCHAR},
+      examined_end_time = #{examinedEndTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update pledge_stock_right
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.ThingChattelMortgageMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.ThingChattelMortgage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="mortgage_id" property="mortgageId" jdbcType="VARCHAR" />
+    <result column="thing_name" property="thingName" jdbcType="VARCHAR" />
+    <result column="thing_num" property="thingNum" jdbcType="INTEGER" />
+    <result column="thing_amount" property="thingAmount" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, mortgage_id, thing_name, thing_num, thing_amount, status, creater, 
+    created_time, updater, updated_time, remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from thing_chattel_mortgage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from thing_chattel_mortgage
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countThingChattelMortgage" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from thing_chattel_mortgage
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="mortgageId != null" >
+  		and mortgage_id like concat(concat('%',#{mortgageId,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="thingName != null" >
+  		and thing_name like concat(concat('%',#{thingName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageThingChattelMortgage" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from thing_chattel_mortgage
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="mortgageId != null" >
+  		and mortgage_id like concat(concat('%',#{mortgageId,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="thingName != null" >
+  		and thing_name like concat(concat('%',#{thingName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from thing_chattel_mortgage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from thing_chattel_mortgage
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.ThingChattelMortgage" >
+    insert into thing_chattel_mortgage (id, regist_item_id, mortgage_id, 
+      thing_name, thing_num, thing_amount, 
+      status, creater, created_time, 
+      updater, updated_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{mortgageId,jdbcType=VARCHAR}, 
+      #{thingName,jdbcType=VARCHAR}, #{thingNum,jdbcType=INTEGER}, #{thingAmount,jdbcType=DECIMAL}, 
+      #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, 
+      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.ThingChattelMortgage" >
+    insert into thing_chattel_mortgage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="mortgageId != null" >
+        mortgage_id,
+      </if>
+      <if test="thingName != null" >
+        thing_name,
+      </if>
+      <if test="thingNum != null" >
+        thing_num,
+      </if>
+      <if test="thingAmount != null" >
+        thing_amount,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="mortgageId != null" >
+        #{mortgageId,jdbcType=VARCHAR},
+      </if>
+      <if test="thingName != null" >
+        #{thingName,jdbcType=VARCHAR},
+      </if>
+      <if test="thingNum != null" >
+        #{thingNum,jdbcType=INTEGER},
+      </if>
+      <if test="thingAmount != null" >
+        #{thingAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.ThingChattelMortgage" >
+    update thing_chattel_mortgage
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="mortgageId != null" >
+        mortgage_id = #{mortgageId,jdbcType=VARCHAR},
+      </if>
+      <if test="thingName != null" >
+        thing_name = #{thingName,jdbcType=VARCHAR},
+      </if>
+      <if test="thingNum != null" >
+        thing_num = #{thingNum,jdbcType=INTEGER},
+      </if>
+      <if test="thingAmount != null" >
+        thing_amount = #{thingAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.ThingChattelMortgage" >
+    update thing_chattel_mortgage
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      mortgage_id = #{mortgageId,jdbcType=VARCHAR},
+      thing_name = #{thingName,jdbcType=VARCHAR},
+      thing_num = #{thingNum,jdbcType=INTEGER},
+      thing_amount = #{thingAmount,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update thing_chattel_mortgage
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

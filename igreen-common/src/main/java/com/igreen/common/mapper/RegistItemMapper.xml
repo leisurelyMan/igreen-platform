@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.RegistItemMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.RegistItem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="legal_representative" property="legalRepresentative" jdbcType="VARCHAR" />
+    <result column="regist_number" property="registNumber" jdbcType="VARCHAR" />
+    <result column="old_regist_number" property="oldRegistNumber" jdbcType="VARCHAR" />
+    <result column="registered_capital" property="registeredCapital" jdbcType="DECIMAL" />
+    <result column="paid_in_capital" property="paidInCapital" jdbcType="DECIMAL" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="company_type" property="companyType" jdbcType="VARCHAR" />
+    <result column="operate_state" property="operateState" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="open_time" property="openTime" jdbcType="VARCHAR" />
+    <result column="cancel_time" property="cancelTime" jdbcType="VARCHAR" />
+    <result column="revoke_time" property="revokeTime" jdbcType="VARCHAR" />
+    <result column="regist_office" property="registOffice" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="annual_year" property="annualYear" jdbcType="VARCHAR" />
+    <result column="annual_day" property="annualDay" jdbcType="VARCHAR" />
+    <result column="trade_code" property="tradeCode" jdbcType="VARCHAR" />
+    <result column="trade_name" property="tradeName" jdbcType="VARCHAR" />
+    <result column="country_trade_code" property="countryTradeCode" jdbcType="VARCHAR" />
+    <result column="country_trade_name" property="countryTradeName" jdbcType="VARCHAR" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="general" property="general" jdbcType="VARCHAR" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="business_way" property="businessWay" jdbcType="VARCHAR" />
+    <result column="data_source" property="dataSource" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    
+    <result column="group_company_public" property="groupCompanyPublic" jdbcType="VARCHAR" />
+    <result column="group_company_name" property="groupCompanyName" jdbcType="VARCHAR" />
+    <result column="group_company_exchange_name" property="groupCompanyExchangeName" jdbcType="INTEGER" />
+    <result column="group_company_stock_code" property="groupCompanyStockCode" jdbcType="VARCHAR" />
+    <result column="sewage_facility" property="sweageFacility" jdbcType="VARCHAR" />
+    <result column="process_gas_facility" property="processGasFacility" jdbcType="INTEGER" />
+    <result column="boiler_gas_facility" property="boilerGasFacility" jdbcType="VARCHAR" />
+    <result column="industrial_sewage_discharge" property="industrialSweageDischarge" jdbcType="VARCHAR" />
+    <result column="life_sweage_discharge" property="lifeSewageDischarge" jdbcType="INTEGER" />
+    <result column="industrial_sewage_emission_standard" property="indistrialSweageEmissionStandard" jdbcType="VARCHAR" />
+    <result column="life_sweage_emission_standard" property="lifeSweageEmissionStandard" jdbcType="VARCHAR" />
+    <result column="gas_emission_standard" property="gasEmissionStandard" jdbcType="INTEGER" />
+    <result column="pollutant_source" property="pollutantSource" jdbcType="VARCHAR" />
+    <result column="main_production" property="mainProduction" jdbcType="VARCHAR" />
+    <result column="pollutant_desc" property="pollutantDesc" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, company_name, legal_representative, regist_number, old_regist_number, registered_capital, 
+    paid_in_capital, currency, company_type, operate_state, start_time, end_time, open_time, 
+    cancel_time, revoke_time, regist_office, address, annual_year, annual_day, trade_code, 
+    trade_name, country_trade_code, country_trade_name, permission, general, business_scope, 
+    business_way, data_source, status, creater, created_time, updater, updated_time, remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from regist_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from regist_item
+    where regist_number = #{registNumber,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByCompanyName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from regist_item
+    where company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  </select>
+  
+  <select id="selectByIPECompanyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from regist_item
+    where remark = #{remark,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByCompanyNameAndStatus" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from regist_item
+    where status = #{status,jdbcType=INTEGER}
+    and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  </select>
+  
+  <select id="countByRegistNumber" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(1)
+    from regist_item
+    where regist_number = #{registNumber,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countRegistItem" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from regist_item
+  	where 1 = 1
+  	<if test="id != null" >
+  		and id = #{id,jdbcType=INTEGER}
+  	</if>
+  	<if test="companyName != null" >
+  		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="registNumber != null" >
+  		and regist_number like concat(concat('%',#{registNumber,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageRegistItem" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from regist_item
+  	where 1 = 1
+  	<if test="id != null" >
+  		and id = #{id,jdbcType=INTEGER}
+  	</if>
+  	<if test="companyName != null" >
+  		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="registNumber != null" >
+  		and regist_number like concat(concat('%',#{registNumber,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from regist_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.RegistItem" useGeneratedKeys="true" keyProperty="id">
+    insert into regist_item (id, company_name, legal_representative, 
+      regist_number, old_regist_number, registered_capital, 
+      paid_in_capital, currency, company_type, 
+      operate_state, start_time, end_time, 
+      open_time, cancel_time, revoke_time, 
+      regist_office, address, annual_year, 
+      annual_day, trade_code, trade_name, 
+      country_trade_code, country_trade_name, permission, 
+      general, business_scope, business_way, 
+      status, creater, created_time, 
+      updater, updated_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{legalRepresentative,jdbcType=VARCHAR}, 
+      #{registNumber,jdbcType=VARCHAR}, #{oldRegistNumber,jdbcType=VARCHAR}, #{registeredCapital,jdbcType=DECIMAL}, 
+      #{paidInCapital,jdbcType=DECIMAL}, #{currency,jdbcType=VARCHAR}, #{companyType,jdbcType=VARCHAR}, 
+      #{operateState,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{openTime,jdbcType=VARCHAR}, #{cancelTime,jdbcType=VARCHAR}, #{revokeTime,jdbcType=VARCHAR}, 
+      #{registOffice,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{annualYear,jdbcType=VARCHAR}, 
+      #{annualDay,jdbcType=VARCHAR}, #{tradeCode,jdbcType=VARCHAR}, #{tradeName,jdbcType=VARCHAR}, 
+      #{countryTradeCode,jdbcType=VARCHAR}, #{countryTradeName,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR}, 
+      #{general,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, #{businessWay,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, 
+      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.RegistItem" useGeneratedKeys="true" keyProperty="id">
+    insert into regist_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative,
+      </if>
+      <if test="registNumber != null" >
+        regist_number,
+      </if>
+      <if test="oldRegistNumber != null" >
+        old_regist_number,
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital,
+      </if>
+      <if test="paidInCapital != null" >
+        paid_in_capital,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="companyType != null" >
+        company_type,
+      </if>
+      <if test="operateState != null" >
+        operate_state,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="openTime != null" >
+        open_time,
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time,
+      </if>
+      <if test="revokeTime != null" >
+        revoke_time,
+      </if>
+      <if test="registOffice != null" >
+        regist_office,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="annualYear != null" >
+        annual_year,
+      </if>
+      <if test="annualDay != null" >
+        annual_day,
+      </if>
+      <if test="tradeCode != null" >
+        trade_code,
+      </if>
+      <if test="tradeName != null" >
+        trade_name,
+      </if>
+      <if test="countryTradeCode != null" >
+        country_trade_code,
+      </if>
+      <if test="countryTradeName != null" >
+        country_trade_name,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="general != null" >
+        general,
+      </if>
+      <if test="businessScope != null" >
+        business_scope,
+      </if>
+      <if test="businessWay != null" >
+        business_way,
+      </if>
+      <if test="dataSource != null" >
+        data_source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      
+      
+      <if test="groupCompanyPublic != null" >
+        group_company_public,
+      </if>
+      <if test="groupCompanyName != null" >
+        group_company_name,
+      </if>
+      <if test="groupCompanyExchangeName != null" >
+        group_company_exchange_name,
+      </if>
+       <if test="groupCompanyStockCode != null" >
+        group_company_stock_code,
+      </if>
+      <if test="sweageFacility != null" >
+        sewage_facility,
+      </if>
+      <if test="processGasFacility != null" >
+        process_gas_facility,
+      </if>
+      <if test="boilerGasFacility != null" >
+        boiler_gas_facility,
+      </if>
+      <if test="industrialSweageDischarge != null" >
+        industrial_sewage_discharge,
+      </if>
+      <if test="lifeSewageDischarge != null" >
+        life_sweage_discharge,
+      </if>
+      <if test="indistrialSweageEmissionStandard != null" >
+        industrial_sewage_emission_standard,
+      </if>
+      <if test="lifeSweageEmissionStandard != null" >
+        life_sweage_emission_standard,
+      </if>
+      <if test="gasEmissionStandard != null" >
+        gas_emission_standard,
+      </if>
+      <if test="pollutantSource != null" >
+        pollutant_source,
+      </if>
+      <if test="mainProduction != null" >
+        main_production,
+      </if>
+      <if test="pollutantDesc != null" >
+        pollutant_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="registNumber != null" >
+        #{registNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="oldRegistNumber != null" >
+        #{oldRegistNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInCapital != null" >
+        #{paidInCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null" >
+        #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="operateState != null" >
+        #{operateState,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null" >
+        #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        #{cancelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="revokeTime != null" >
+        #{revokeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="registOffice != null" >
+        #{registOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="annualYear != null" >
+        #{annualYear,jdbcType=VARCHAR},
+      </if>
+      <if test="annualDay != null" >
+        #{annualDay,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeCode != null" >
+        #{tradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeName != null" >
+        #{tradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryTradeCode != null" >
+        #{countryTradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countryTradeName != null" >
+        #{countryTradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="general != null" >
+        #{general,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="businessWay != null" >
+        #{businessWay,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSource != null" >
+        #{dataSource,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+      	 #{companyId,jdbcType=INTEGER},
+      </if>
+      
+      <if test="groupCompanyPublic != null" >
+        #{groupCompanyPublic,jdbcType=VARCHAR},
+      </if>
+      <if test="groupCompanyName != null" >
+        #{groupCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupCompanyExchangeName != null" >
+        #{groupCompanyExchangeName,jdbcType=VARCHAR},
+      </if>
+       <if test="groupCompanyStockCode != null" >
+        #{groupCompanyStockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sweageFacility != null" >
+        #{sweageFacility,jdbcType=VARCHAR},
+      </if>
+      <if test="processGasFacility != null" >
+        #{processGasFacility,jdbcType=VARCHAR},
+      </if>
+      <if test="boilerGasFacility != null" >
+        #{boilerGasFacility,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialSweageDischarge != null" >
+        #{industrialSweageDischarge,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeSewageDischarge != null" >
+        #{lifeSewageDischarge,jdbcType=VARCHAR},
+      </if>
+      <if test="indistrialSweageEmissionStandard != null" >
+        #{indistrialSweageEmissionStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeSweageEmissionStandard != null" >
+        #{lifeSweageEmissionStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="gasEmissionStandard != null" >
+        #{gasEmissionStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutantSource != null" >
+        #{pollutantSource,jdbcType=VARCHAR},
+      </if>
+      <if test="mainProduction != null" >
+        #{mainProduction,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutantDesc != null" >
+        #{pollutantDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.RegistItem" >
+    update regist_item
+    <set >
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="registNumber != null" >
+        regist_number = #{registNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="oldRegistNumber != null" >
+        old_regist_number = #{oldRegistNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital = #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInCapital != null" >
+        paid_in_capital = #{paidInCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null" >
+        company_type = #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="operateState != null" >
+        operate_state = #{operateState,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null" >
+        open_time = #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time = #{cancelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="revokeTime != null" >
+        revoke_time = #{revokeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="registOffice != null" >
+        regist_office = #{registOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="annualYear != null" >
+        annual_year = #{annualYear,jdbcType=VARCHAR},
+      </if>
+      <if test="annualDay != null" >
+        annual_day = #{annualDay,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeCode != null" >
+        trade_code = #{tradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeName != null" >
+        trade_name = #{tradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryTradeCode != null" >
+        country_trade_code = #{countryTradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countryTradeName != null" >
+        country_trade_name = #{countryTradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="general != null" >
+        general = #{general,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="businessWay != null" >
+        business_way = #{businessWay,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSource != null" >
+        data_source = #{dataSource,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="companyId != null" >
+      	 company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="groupCompanyPublic != null" >
+        group_company_public = #{groupCompanyPublic,jdbcType=VARCHAR},
+      </if>
+      <if test="groupCompanyName != null" >
+        group_company_name = #{groupCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupCompanyExchangeName != null" >
+        group_company_exchange_name = #{groupCompanyExchangeName,jdbcType=VARCHAR},
+      </if>
+       <if test="groupCompanyStockCode != null" >
+        group_company_stock_code = #{groupCompanyStockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sweageFacility != null" >
+        sewage_facility = #{sweageFacility,jdbcType=VARCHAR},
+      </if>
+      <if test="processGasFacility != null" >
+        process_gas_facility = #{processGasFacility,jdbcType=VARCHAR},
+      </if>
+      <if test="boilerGasFacility != null" >
+        boiler_gas_facility = #{boilerGasFacility,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialSweageDischarge != null" >
+        industrial_sewage_discharge = #{industrialSweageDischarge,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeSewageDischarge != null" >
+        life_sweage_discharge = #{lifeSewageDischarge,jdbcType=VARCHAR},
+      </if>
+      <if test="indistrialSweageEmissionStandard != null" >
+        industrial_sewage_emission_standard = #{indistrialSweageEmissionStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="lifeSweageEmissionStandard != null" >
+        life_sweage_emission_standard = #{lifeSweageEmissionStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="gasEmissionStandard != null" >
+        gas_emission_standard = #{gasEmissionStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutantSource != null" >
+        pollutant_source = #{pollutantSource,jdbcType=VARCHAR},
+      </if>
+      <if test="mainProduction != null" >
+        main_production = #{mainProduction,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutantDesc != null" >
+        pollutant_desc = #{pollutantDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.RegistItem" >
+    update regist_item
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      regist_number = #{registNumber,jdbcType=VARCHAR},
+      old_regist_number = #{oldRegistNumber,jdbcType=VARCHAR},
+      registered_capital = #{registeredCapital,jdbcType=DECIMAL},
+      paid_in_capital = #{paidInCapital,jdbcType=DECIMAL},
+      currency = #{currency,jdbcType=VARCHAR},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      operate_state = #{operateState,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      open_time = #{openTime,jdbcType=VARCHAR},
+      cancel_time = #{cancelTime,jdbcType=VARCHAR},
+      revoke_time = #{revokeTime,jdbcType=VARCHAR},
+      regist_office = #{registOffice,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      annual_year = #{annualYear,jdbcType=VARCHAR},
+      annual_day = #{annualDay,jdbcType=VARCHAR},
+      trade_code = #{tradeCode,jdbcType=VARCHAR},
+      trade_name = #{tradeName,jdbcType=VARCHAR},
+      country_trade_code = #{countryTradeCode,jdbcType=VARCHAR},
+      country_trade_name = #{countryTradeName,jdbcType=VARCHAR},
+      permission = #{permission,jdbcType=VARCHAR},
+      general = #{general,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      business_way = #{businessWay,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditById" parameterType="java.lang.Integer" >
+    update regist_item
+    set status = 1
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectMaxCompanyId" resultType="java.lang.Integer">
+    select max(company_id) from regist_item
+  </select>
+</mapper>

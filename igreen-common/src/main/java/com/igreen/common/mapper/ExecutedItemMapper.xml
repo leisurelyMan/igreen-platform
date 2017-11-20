@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.ExecutedItemMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.ExecutedItem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="case_filing_time" property="caseFilingTime" jdbcType="VARCHAR" />
+    <result column="case_status" property="caseStatus" jdbcType="VARCHAR" />
+    <result column="case_no" property="caseNo" jdbcType="VARCHAR" />
+    <result column="execute_target" property="executeTarget" jdbcType="VARCHAR" />
+    <result column="execute_court" property="executeCourt" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, case_filing_time, case_status, case_no, execute_target, execute_court, 
+    status, creater, created_time, updater, updated_time, remark
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from executed_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from executed_item
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+
+  <!-- 查询有效的总记录数 -->
+  <select id="countExecutedItem" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from executed_item
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="caseStatus != null" >
+  		and case_status like concat(concat('%',#{caseStatus,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="caseNo != null" >
+  		and case_no like concat(concat('%',#{caseNo,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="executeTarget != null" >
+  		and execute_target like concat(concat('%',#{executeTarget,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="executeCourt != null" >
+  		and execute_court like concat(concat('%',#{executeCourt,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageExecutedItem" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from executed_item
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="caseStatus != null" >
+  		and case_status like concat(concat('%',#{caseStatus,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="caseNo != null" >
+  		and case_no like concat(concat('%',#{caseNo,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="executeTarget != null" >
+  		and execute_target like concat(concat('%',#{executeTarget,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="executeCourt != null" >
+  		and execute_court like concat(concat('%',#{executeCourt,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from executed_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from executed_item
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.igreen.common.model.ExecutedItem" >
+    insert into executed_item (id, regist_item_id, case_filing_time, 
+      case_status, case_no, execute_target, 
+      execute_court, status, creater, 
+      created_time, updater, updated_time, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{caseFilingTime,jdbcType=VARCHAR}, 
+      #{caseStatus,jdbcType=VARCHAR}, #{caseNo,jdbcType=VARCHAR}, #{executeTarget,jdbcType=VARCHAR}, 
+      #{executeCourt,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=DATE}, #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.igreen.common.model.ExecutedItem" >
+    insert into executed_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="caseFilingTime != null" >
+        case_filing_time,
+      </if>
+      <if test="caseStatus != null" >
+        case_status,
+      </if>
+      <if test="caseNo != null" >
+        case_no,
+      </if>
+      <if test="executeTarget != null" >
+        execute_target,
+      </if>
+      <if test="executeCourt != null" >
+        execute_court,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="caseFilingTime != null" >
+        #{caseFilingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="caseStatus != null" >
+        #{caseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="caseNo != null" >
+        #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="executeTarget != null" >
+        #{executeTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="executeCourt != null" >
+        #{executeCourt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.ExecutedItem" >
+    update executed_item
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="caseFilingTime != null" >
+        case_filing_time = #{caseFilingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="caseStatus != null" >
+        case_status = #{caseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="caseNo != null" >
+        case_no = #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="executeTarget != null" >
+        execute_target = #{executeTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="executeCourt != null" >
+        execute_court = #{executeCourt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.ExecutedItem" >
+    update executed_item
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      case_filing_time = #{caseFilingTime,jdbcType=VARCHAR},
+      case_status = #{caseStatus,jdbcType=VARCHAR},
+      case_no = #{caseNo,jdbcType=VARCHAR},
+      execute_target = #{executeTarget,jdbcType=VARCHAR},
+      execute_court = #{executeCourt,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update executed_item
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

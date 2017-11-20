@@ -1,0 +1,502 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../css/main.css">
+<script type="text/javascript" src="../js/jquery.js"></script>
+<style type="text/css">
+.btn em{ color: #f00; padding-left: 3px;}
+.preparer-info em{ color: #f00; padding-left: 3px;}
+</style>
+<title>调查问卷</title>
+</head>
+<body>
+<!--页头begin-->
+<div class="header-2" style="background:#fff;">
+  <div class="mainBox">
+    <div class="logo"><a href="../pages/index.html"><img src="../images/logo-2.png" height="40" width="186" alt=""></a></div>
+    <ul>
+      <li><a href="../pages/index.html"">首页</a></li>
+      <!--<li><a href="#link2" rid="link2">主营业务</a></li>
+      <li><a href="#link1" rid="link1">产品模块</a></li>-->
+      <li><a href="http://www.igreenbank.cn/pages/questionnaire.html">绿色债券评估</a></li>
+    </ul>
+    <div class="head-links"><a href="#">个人中心</a><i></i><a href="#">注册</a><i></i><a href="#">登录</a></div>
+  </div>
+</div>
+<!--页头end-->
+<!--页中begin-->
+<div class="mainBox problem-body">
+  <div class="que-head">
+    <div class="que-tit">绿色债券免费评估工具</div>
+     <div class="dear-user">
+      <i></i>
+       <h3>亲爱的用户：</h3>
+       <p>感谢您一直以来对绿色债券的支持，为了帮助您判断债券的绿色属性，请您抽出几分钟宝贵时间认真填写一下问卷。</p>
+       <p>请准确填写相关信息，我们将在24小时之内给予回复。</p>
+     </div>
+  </div>   
+     <div class="problem-main">
+       <div class="problem-box">
+         <h3>1.填表人企业<em>*</em><span>并请输入企业名称</span></h3>
+         <ul class="answer clearfix">
+           <li><label for=""><input type="radio" name="customerCompany" value="2"><span>发行人</span></label></li>
+           <li><label for=""><input type="radio" name="customerCompany" value="3"><span>承销商</span></label></li>
+           <li><label for=""><input type="radio" name="customerCompany" value="4"><span class="other">其他（请说明）</span></label><input type="text" id="customerCompanyOther" name="customerCompanyOther" class="input-other"></li>
+         </ul>
+       </div>
+       <div class="problem-box">
+         <h3>2.募投项目所在地区<em>*</em></h3>
+         <ul class="answer clearfix">
+           <li><span class="china"><i class="icon-china"></i>中国</span><select name="province" id="province">
+				<option value="2">北京市</option>
+				<option value="19">天津市</option>
+				<option value="36">河北省</option>
+				<option value="230">山西省</option>
+				<option value="372">内蒙古自治区</option>
+				<option value="496">辽宁省</option>
+				<option value="625">吉林省</option>
+				<option value="703">黑龙江省</option>
+				<option value="857">上海市</option>
+				<option value="875">江苏省</option>
+				<option value="1001">浙江省</option>
+				<option value="1114">安徽省</option>
+				<option value="1252">福建省</option>
+				<option value="1356">江西省</option>
+				<option value="1479">山东省</option>
+				<option value="1651">河南省</option>
+				<option value="1845">湖北省</option>
+				<option value="1975">湖南省</option>
+				<option value="2125">广东省</option>
+				<option value="2285">广西壮族自治区</option>
+				<option value="2425">海南省</option>
+				<option value="2459">重庆市</option>
+				<option value="2498">四川省</option>
+				<option value="2721">贵州省</option>
+				<option value="2824">云南省</option>
+				<option value="2978">西藏自治区</option>
+				<option value="3063">陕西省</option>
+				<option value="3191">甘肃省</option>
+				<option value="3304">青海省</option>
+				<option value="3358">宁夏回族自治区</option>
+				<option value="3391">新疆维吾尔自治区</option>
+				<option value="3512">台湾省</option>
+				<option value="3891">香港特别行政区</option>
+				<option value="3913">澳门特别行政区</option>
+           </select></li>
+         </ul>
+       </div>
+       <div class="problem-box">
+         <h3>3.发行人性质<em>*</em></h3>
+         <ul class="answer clearfix">
+           <li><label for=""><input type="radio" name="issuerQuality" value="6"><span>国有企业</span></label></li>
+           <li><label for=""><input type="radio" name="issuerQuality" value="7"><span>民营企业</span></label></li>
+           <li><label for=""><input type="radio" name="issuerQuality" value="8"><span>中外合资企业（含港澳台）</span></label></li>
+           <li><label for=""><input type="radio" name="issuerQuality" value="9"><span>外资企业（含港澳台）</span></label></li>
+         </ul>
+       </div>
+        <div class="problem-box">
+         <h3>4.拟发行绿色债券类型？<em>*</em></h3>
+         <ul class="answer clearfix" id="plan1">
+           <li><label for=""><input type="radio" name="bondType" value="11"><span>金融债</span></label></li>
+           <li><label for=""><input type="radio" name="bondType" value="12"><span>公司债</span></label></li>
+           <li><label for=""><input type="radio" name="bondType" value="13" class="plan"><span>资产支持专项计划</span></label></li>
+           <li><label for=""><input type="radio" name="bondType" value="14"><span>债务融资工具</span></label></li>
+           <li><label for=""><input type="radio" name="bondType" value="15"><span>待定</span></label></li>
+           <li><label for=""><input type="radio" name="bondType" value="16"><span class="other">其他（请说明）</span></label><input id="bondTypeOther" name="bondTypeOther" type="text" class="input-other"></li>
+         </ul>
+       </div>
+       <div class="problem-box">
+         <h3>5.拟发行绿色债券场所？<em>*</em></h3>
+         <ul class="answer clearfix">
+           <li><label for=""><input type="radio" name="issueBondsArea" value="18"><span>上海证券交易所</span></label></li>
+           <li><label for=""><input type="radio" name="issueBondsArea" value="19"><span>深圳证券交易所</span></label></li>
+           <li><label for=""><input type="radio" name="issueBondsArea" value="20"><span>银行间市场交易商协会</span></label></li>
+           <li><label for=""><input type="radio" name="issueBondsArea" value="21"><span>中证机构间报价系统</span></label></li>
+           <li><label for=""><input type="radio" name="issueBondsArea" value="22"><span>待定</span></label></li>
+         </ul>
+       </div>
+       <div class="problem-box">
+         <h3>6.拟发行绿色债券规模（亿元）？<em>*</em><span>并请于选项后输入框中输入拟发行数额</span></h3>
+         <ul class="answer clearfix" id="scale">
+           <li><label for=""><input type="radio" name="issueBondsScope" value="24"><span><5</span></label><input type='text' class='input-other'></li>
+           <li><label for=""><input type="radio" name="issueBondsScope" value="25"><span>5~10</span></label><input type='text' class='input-other'></li>
+           <li><label for=""><input type="radio" name="issueBondsScope" value="26"><span>10~20</span></label><input type='text' class='input-other'></li>
+           <li><label for=""><input type="radio" name="issueBondsScope" value="27"><span>20~100</span></label><input type='text' class='input-other'></li>
+           <li><label for=""><input type="radio" name="issueBondsScope" value="28"><span>>100</span></label><input type='text' class='input-other'></li>
+           <li><label for=""><input type="radio" name="issueBondsScope" value="29"><span>待定</span></label><input type='text' class='input-other'></li>
+         </ul>
+       </div>
+       <div class="problem-box">
+         <h3>7.发行人近三年债券发行记录？<em>*</em></h3>
+         <ul class="answer clearfix">
+           <li><label for=""><input type="radio" name="issueBondsRecords" value="31"><span>未发行债券</span></label></li>
+           <li><label for=""><input type="radio" name="issueBondsRecords" value="32"><span>只发行过普通债券</span></label></li>
+           <li><label for=""><input type="radio" name="issueBondsRecords" value="33"><span>发行过绿色债券</span></label></li>
+         </ul>
+       </div>
+       <div class="problem-box">
+         <h3>8.发行绿债拟募投项目类型？<em>*</em><span>依据《绿色债券支持项目目录（2015年版）》</span></h3>
+         <ul class="answer clearfix">
+          <li><select id="type1" style="width:200px;">
+             <option value="">请选择</option>
+             <option value="40">节能</option>
+             <option value="41">污染防治</option>
+             <option value="42">资源节约与循环利用</option>
+             <option value="43">清洁交通</option>
+             <option value="44">清洁能源</option>
+             <option value="45">生态保护和适应气候变化</option>
+             <option value="46">其他</option>
+           </select></li>
+           <li><select id="type2" name="greenBondsType" style="width:200px;" disabled>
+             <option value="">请选择</option>
+           </select></li>
+           <li class="hide"><input type="text" id="greenBondsTypeOther" name="greenBondsTypeOther" class="input-other" value="请填写项目名称" style="width:140px"></li>
+         </ul>
+       </div>
+      <div class="problem-box">
+        <h3>9.发行绿债拟募投项目主要技术？<span>请填写技术关键词，或者简要描述项目或技术特征</span></h3>
+        <ul class="answer clearfix">
+          <li><textarea id="majorTechnique" name="majorTechnique"></textarea></li>
+         </ul>
+      </div>
+      <div class="problem-box">
+        <h3>10.拟发行绿债募投项目已获得下列哪些合规性文件？<em>*</em><span>（可多选）</span></h3>
+        <ul class="answer clearfix">
+          <li><label for=""><input type="checkbox" name="complianceDocument" value="35"><span>核准文件或可行性研究报告批复</span></label></li>
+          <li><label for=""><input type="checkbox" name="complianceDocument" value="36"><span>环境影响评价报告书或备案表批复</span></label></li>
+          <li><label for=""><input type="checkbox" name="complianceDocument" value="37"><span>土地使用证</span></label></li>
+          <li><label for=""><input type="checkbox" name="complianceDocument" value="38"><span class="other">其他</span></label><input id="complianceDocumentsOther" name="complianceDocumentsOther" type="text" class="input-other"></li>
+         </ul>
+      </div>
+      <div class="problem-box" id="problem11">
+         <h3>11.拟发行绿色资产支持专项计划的基础资产项目类型？<em>*</em><span>依据《绿色债券支持项目目录（2015年版）》</span></h3>
+         <ul class="answer clearfix">
+          <li><select id="type3" style="width:200px;">
+             <option value="">请选择</option>
+             <option value="40">节能</option>
+             <option value="41">污染防治</option>
+             <option value="42">资源节约与循环利用</option>
+             <option value="43">清洁交通</option>
+             <option value="44">清洁能源</option>
+             <option value="45">生态保护和适应气候变化</option>
+             <option value="46">其他</option>
+           </select></li>
+           <li><select id="type4" name="complianceProjectType" style="width:200px;" disabled>
+             <option value="">请选择</option>
+           </select></li>
+           <li class="hide"><input type="text" id="complianceProjectTypeOther" name="complianceProjectTypeOther" class="input-other" value="请填写项目名称" style="width:140px"></li>
+         </ul>
+       </div>
+      <div class="problem-box" id="problem12">
+        <h3>12.拟发行绿色资产支持专项计划的基础资产项目主要技术？<span>请填写技术关键词，或者简要描述项目或技术特征</span></h3>
+        <ul class="answer clearfix">
+          <li><textarea name="baseProjectMajorTechnique" id="baseProjectMajorTechnique"></textarea></li>
+         </ul>
+      </div>
+      <div class="problem-box" id="problem13">
+        <h3>13.拟发行绿色资产支持专项计划的基础资产项目已获得下列哪些合规性文件？<em>*</em></h3>
+        <ul class="answer clearfix">
+          <li><label for=""><input type="checkbox" name="awardedComplianceDocument" value="35"><span>核准文件或可行性研究报告批复</span></label></li>
+          <li><label for=""><input type="checkbox" name="awardedComplianceDocument" value="36"><span>环境影响评价报告书或备案表批复</span></label></li>
+          <li><label for=""><input type="checkbox" name="awardedComplianceDocument" value="37"><span>土地使用证</span></label></li>
+          <li><label for=""><input type="checkbox" name="awardedComplianceDocument" value="38"><span class="other">其他</span></label><input id="awardedComplianceDocumentsOther" name="awardedComplianceDocumentsOther" type="text" class="input-other"></li>
+         </ul>
+      </div>
+       <div class="preparer-info">
+         <ul>
+           <li><h3>填表人姓名<em>*</em></h3><input name="customerName" id="customerName" type="text"></li>
+           <li><h3>填表人电话<em>*</em></h3><input name="customerMobile" id="customerMobile" type="text"></li>
+           <li><h3>填表人邮箱<em>*</em></h3><input name="customerMail" id="customerMail" type="text"></li>
+           <li><h3>填表人微信</h3><input name="customerWechart" id="customerWechart" type="text"></li>
+         </ul>
+       </div>
+     </div>
+   <div class="que-bt">
+     <div class="btn"><a onclick="javascript:submit();" >填好了，我要提交</a><span><em id="errorMsg"></em></span></div>
+   </div>
+</div>
+<!--页中end-->
+<!--页脚begin-->
+<div class="footer">
+  <div class="mainBox clearfix">
+    <dl class="left-links">
+      <dt>公司概况</dt>
+      <dd><a href="#">关于我们</a></dd>
+      <dd><a href="#">媒体报道</a></dd>
+      <dd><a href="#">公司动态</a></dd>
+      <dd><a href="#">联系我们</a></dd>
+    </dl>
+    <i class="line"></i>
+    <dl>
+      <dt>新手帮助</dt>
+      <dd><a href="#">新手指引</a></dd>
+      <dd><a href="#">产品介绍</a></dd>
+    </dl>
+    <i class="line"></i>
+    <dl>
+      <dt>平台安全</dt>
+      <dd><a href="#">安全保障</a></dd>
+      <dd><a href="#">隐私保护</a></dd>
+      <dd><a href="#">政策法规</a></dd>
+    </dl>
+    <i class="line"></i>
+    <dl>
+      <dt>联系我们</dt>
+      <dd><a href="#">联系邮箱</a></dd>
+      <dd><a href="#">客服电话</a></dd>
+      <dd><a href="#">工作时间</a></dd>
+    </dl>
+    <i class="line"></i>
+    <dl class="right-links">
+      <dt>关注我们</dt>
+      <dd><a href="#">关注微信</a></dd>
+      <dd><a href="#">关注微博</a></dd>
+    </dl>
+  </div>
+  <div class="copyright">集团公司 版权所有 Copyright © 2017-2020  </div>
+  <div class="copyright">京ICP备17045942号  </div>
+</div>
+<!--页脚end-->
+<script type="text/javascript">
+  $(function(){
+    $("#scale .input-other").hide();
+    $("#scale input:radio").click(function(){
+      $(this).parent().siblings(".input-other").show().parents("li").siblings("li").children(".input-other").hide();   
+    });
+    $("#type1").change(function(){
+
+              var values = $(this).val();
+
+              if(values == 40){
+                $("#type2").removeAttr("disabled").html("<option value=''>请选择</option><option value='47'>工业节能</option><option value='48'>可持续建筑</option><option value='49'>能源管理中心</option><option value='50'>具有节能效益的城乡基础设施建设</option>").parent("li").show().next("li").addClass("hide"); 
+              }
+              if(values == 41){
+                $("#type2").removeAttr("disabled").html("<option value=''>请选择</option><option value='51'>污染防治</option><option value='52'>环境修复工程</option><option value='53'>煤炭清洁利用</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 42){
+                $("#type2").removeAttr("disabled").html("<option value=''>请选择</option><option value='54'>节水及非常规水源利用</option><option value='55'>尾矿、伴生矿再开发及综合利用</option><option value='56'>工业固废、废气、废液回收和资源化利用</option><option value='57'>再生资源回收加工及循环利用</option><option value='58'>机电产品再制造</option><option value='59'>生物质资源回收利用</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 43){
+                $("#type2").removeAttr("disabled").html("<option value=''>请选择</option><option value='60'>铁路交通</option><option value='61'>城市轨道交通</option><option value='62'>城乡公路运输公共客运</option><option value='63'>水路交通</option><option value='64'>清洁燃油</option><option value='65'>新能源汽车</option><option value='66'>交通领域互联网应用</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 44){
+                $("#type2").removeAttr("disabled").html("<option value=''>请选择</option><option value='67'>风力发电</option><option value='68'>太阳能光伏发电</option><option value='69'>只能电网及能源互联网</option><option value='70'>分布式能源</option><option value='71'>太阳能热利用</option><option value='72'>水力发电</option><option value='73'>其他新能源利用</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 45){
+                $("#type2").removeAttr("disabled").html("<option value=''>请选择</option><option value='74'>自然生态保护及旅游资源保护性开发</option><option value='75'>生态农牧渔业</option><option value='76'>林业开发</option><option value='77'>灾害应急防控</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 46){
+                $("#type2").parent("li").hide().next("li").removeClass("hide");
+              }
+              if(values == ""){
+                $("#type2").parent("li").show().next("li").addClass("hide");
+              }
+           })
+          $("#type3").change(function(){
+
+              var values = $(this).val();
+
+              if(values == 40){
+                $("#type4").removeAttr("disabled").html("<option value=''>请选择</option><option value='47'>工业节能</option><option value='48'>可持续建筑</option><option value='49'>能源管理中心</option><option value='50'>具有节能效益的城乡基础设施建设</option>").parent("li").show().next("li").addClass("hide"); 
+              }
+              if(values == 41){
+                $("#type4").removeAttr("disabled").html("<option value=''>请选择</option><option value='51'>污染防治</option><option value='52'>环境修复工程</option><option value='53'>煤炭清洁利用</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 42){
+                $("#type4").removeAttr("disabled").html("<option value=''>请选择</option><option value='54'>节水及非常规水源利用</option><option value='55'>尾矿、伴生矿再开发及综合利用</option><option value='56'>工业固废、废气、废液回收和资源化利用</option><option value='57'>再生资源回收加工及循环利用</option><option value='58'>机电产品再制造</option><option value='59'>生物质资源回收利用</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 43){
+                $("#type4").removeAttr("disabled").html("<option value=''>请选择</option><option value='60'>铁路交通</option><option value='61'>城市轨道交通</option><option value='62'>城乡公路运输公共客运</option><option value='63'>水路交通</option><option value='64'>清洁燃油</option><option value='65'>新能源汽车</option><option value='66'>交通领域互联网应用</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 44){
+                $("#type4").removeAttr("disabled").html("<option value=''>请选择</option><option value='67'>风力发电</option><option value='68'>太阳能光伏发电</option><option value='69'>只能电网及能源互联网</option><option value='70'>分布式能源</option><option value='71'>太阳能热利用</option><option value='72'>水力发电</option><option value='73'>其他新能源利用</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 45){
+                $("#type4").removeAttr("disabled").html("<option value=''>请选择</option><option value='74'>自然生态保护及旅游资源保护性开发</option><option value='75'>生态农牧渔业</option><option value='76'>林业开发</option><option value='77'>灾害应急防控</option>").parent("li").show().next("li").addClass("hide");
+              }
+              if(values == 46){
+                $("#type4").parent("li").hide().next("li").removeClass("hide");
+              }
+              if(values == ""){
+                $("#type4").parent("li").show().next("li").addClass("hide");
+              }
+           });
+         
+         $("#problem11,#problem12,#problem13").hide();
+        var $plan = $("#plan1 input[type='radio']")
+         $plan.click(function(){ 
+          var index = $plan.index(this);
+           if(index == 2){  
+             $("#problem11,#problem12,#problem13").show(); 
+            }
+            else{
+              $("#problem11,#problem12,#problem13").hide(); 
+            }
+          });              
+})
+
+         function submit(){
+	  	  var flag = true;
+     	  //参数验证
+     	  //填表人企业
+     	  var customerCompany = $("input[name='customerCompany']:checked").val();
+     	  if(customerCompany == null || customerCompany == ""){
+     		  $("#errorMsg").html("填表人企业为必填项");
+     		  flag = false;
+     		  return;
+     	  }
+     	  
+     	  //发行人性质
+     	  var issuerQuality = $('input[name="issuerQuality"]:checked').val();
+     	  if(issuerQuality == null || issuerQuality == ""){
+     		  $("#errorMsg").html("发行人性质为必填项");
+     		 flag = false;
+     		  return;
+     	  }
+     	  //拟发行绿色债券类型
+     	  var bondType = $('input[name="bondType"]:checked').val();
+     	  if(bondType == null || bondType == ""){
+     		  $("#errorMsg").html("拟发行绿色债券类型为必填项");
+     		 flag = false;
+     		  return;
+     	  }
+     	  
+     	  var complianceProjectType;
+     	  var awardedComplianceDocuments;
+     	  if(bondType == 13){
+     		  //拟发行绿色资产支持专项计划的基础资产项目类型
+     		  if($('#type3').val()=='46'){
+      			 complianceProjectType = "0";
+      		  }else{
+      			 complianceProjectType = $('#type4').val();
+      		  }
+         	  if(complianceProjectType == null || complianceProjectType == ""){
+         		  $("#errorMsg").html("拟发行绿色资产支持专项计划的基础资产项目类型为必填项");
+         		 flag = false;
+         		  return;
+         	  }
+     		  //拟发行绿色资产支持专项计划的基础资产项目已获得下列哪些合规性文件
+         	  var array=new Array(); 
+    		  $('input[name="awardedComplianceDocument"]:checked').each(function(){  
+    			  array.push($(this).val());//向数组中添加元素  
+    		  });  
+    		  if(array.length == 0){
+         		  $("#errorMsg").html("拟发行绿债募投项目已获得下列哪些合规性文件为必填项");
+         		 flag = false;
+         		  return;
+    		  }
+    		  awardedComplianceDocuments=array.join(',');//将数组元素连接起来以构建一个字符串  
+     		  
+     	  }
+     	  
+     	  //拟发行绿色债券场所
+     	  var issueBondsArea = $('input[name="issueBondsArea"]:checked').val();
+     	  if(issueBondsArea == null || issueBondsArea == ""){
+     		  $("#errorMsg").html("拟发行绿色债券场所为必填项");
+     		 flag = false;
+     		  return;
+     	  }
+     	  
+     	  //发行人近三年债券发行记录
+     	  var issueBondsRecords = $('input[name="issueBondsRecords"]:checked').val();
+     	  if(issueBondsRecords == null || issueBondsRecords == ""){
+     		  $("#errorMsg").html("发行人近三年债券发行记录为必填项");
+     		 flag = false;
+     		  return;
+     	  }
+     	 
+     	 //拟发行绿色债券规模（亿元）
+     	 var issueBondsScope = $('input[name="issueBondsScope"]:checked').val();
+     	 
+     	var issueBondsScopeValue = $('input[name="issueBondsScope"]:checked').parent("label").children("input[type='text']").val();
+     	  
+     	  //发行绿债拟募投项目类型
+	   	  var greenBondsType;
+	 	  if($('#type1').val() == '46'){
+	 		 greenBondsType = "0";
+	 	  }else{
+	 		 greenBondsType = $('#type2').val();
+	 	  }
+     	  if(greenBondsType == null || greenBondsType == ""){
+     		  $("#errorMsg").html("发行绿债拟募投项目类型为必填项");
+     		 flag = false;
+     		  return;
+     	  }
+     	  
+     	  //拟发行绿债募投项目已获得下列哪些合规性文件
+     	  var id_array=new Array(); 
+		  $('input[name="complianceDocument"]:checked').each(function(){  
+		  	id_array.push($(this).val());//向数组中添加元素  
+		  });  
+		  if(id_array.length == 0){
+     		  $("#errorMsg").html("拟发行绿债募投项目已获得下列哪些合规性文件为必填项");
+     		 flag = false;
+     		  return;
+		  }
+			  
+		  var complianceDocuments=id_array.join(',');//将数组元素连接起来以构建一个字符串  
+		  
+		  
+   	      var customerName = $("#customerName").val();
+     	  if(customerName == null || customerName == ""){
+     		  $("#errorMsg").html("填表人姓名为必填项");
+     		 flag = false;
+     		  return;
+     	  }
+   	   	  var customerMobile = $("#customerMobile").val();
+     	  if(customerMobile == null || customerMobile == ""){
+     		  $("#errorMsg").html("填表人电话为必填项");
+     		 flag = false;
+     		  return;
+     	  }
+     	 var mobile=/^\d{11}$/;
+     	  if(!mobile.test(customerMobile)){
+     		  $("#errorMsg").html("请填写11位手机号码");
+     		 flag = false;
+     		  return;
+     	  }
+     	  
+   		  var customerMail = $("#customerMail").val();
+     	  if(customerMail == null || customerMail == ""){
+     		  $("#errorMsg").html("填表人邮箱为必填项");
+     		 flag = false;
+     		  return;
+     	  }
+     	  var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+     	  if(!myreg.test(customerMail)){
+     		  $("#errorMsg").html("填表人邮箱格式错误");
+     		 flag = false;
+     		  return;
+     	  }
+     	  
+     	  if(flag){
+         	  $.ajax({
+        		   type: "POST",
+        		   url: "../questionnaire/addQuestionnaire",
+        		   data: {"customerCompany":customerCompany,"customerCompanyOther":$("#customerCompanyOther").val(),
+        			   "province":$("#province").val(),"issuerQuality":issuerQuality,"bondType":bondType,"bondTypeOther":$("#bondTypeOther").val(),
+        			   "issueBondsArea":issueBondsArea,"issueBondsScope":issueBondsScope,"issueBondsScopeValue":issueBondsScopeValue,
+        			   "issueBondsRecords":issueBondsRecords,"greenBondsType":greenBondsType,"greenBondsTypeOther":$("#greenBondsTypeOther").val(),
+        			   "majorTechnique":$("#majorTechnique").val(),"complianceDocuments":complianceDocuments,
+        			   "complianceDocumentsOther":$("#complianceDocumentsOther").val(),"complianceProjectType":complianceProjectType,
+        			   "complianceProjectTypeOther":$("#complianceProjectTypeOther").val(),
+        			   "baseProjectMajorTechnique":$("#baseProjectMajorTechnique").val(),"awardedComplianceDocuments":awardedComplianceDocuments,
+        			   "awardedComplianceDocumentsOther":$("#awardedComplianceDocumentsOther").val(),
+        			   "customerName":customerName,"customerMobile":customerMobile,"customerMail":customerMail,
+        			   "customerWechart":$("#customerWechart").val()},
+        		   success: function(msg){
+        			   if(msg.code == 1){
+        				   alert("提交评估信息成功，我们将尽快与您联系");
+        				  window.location.href="http://47.94.240.82/igreen-web/pages/index.html";
+        			   }else{
+        				  alert("提交评估信息失败");
+        			   }
+        			  
+        		   }
+        		});
+     	  }
+       }
+</script>
+</body>
+</html>

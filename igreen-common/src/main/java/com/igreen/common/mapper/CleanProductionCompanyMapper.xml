@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.CleanProductionCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.CleanProductionCompany" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="check_year" property="year" jdbcType="VARCHAR" />
+    <result column="batch_no" property="batchNo" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="trade" property="trade" jdbcType="VARCHAR" />
+    <result column="product_sales_amount" property="productSalesAmount" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="report_time" property="reportTime" jdbcType="VARCHAR" />
+    <result column="submit_check_time" property="submitCheckTime" jdbcType="VARCHAR" />
+    <result column="complete_estimate_time" property="completeEstimateTime" jdbcType="VARCHAR" />
+    <result column="complete_check_time" property="completeCheckTime" jdbcType="VARCHAR" />
+    <result column="check_organization" property="checkOrganization" jdbcType="VARCHAR" />
+    <result column="create_tm" property="createTm" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, check_year, batch_no, city, serial_number, company_name,trade, 
+    product_sales_amount, region, address, report_time, submit_check_time, complete_estimate_time, 
+    complete_check_time, check_organization,create_tm
+  </sql>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.CleanProductionCompany" useGeneratedKeys="true" keyProperty="id">
+    insert into clean_production_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="year != null" >
+        check_year,
+      </if>
+      <if test="batchNo != null" >
+        batch_no,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="serialNumber != null" >
+        serial_number,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="trade != null" >
+        trade,
+      </if>
+      <if test="productSalesAmount != null" >
+        product_sales_amount,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="reportTime != null" >
+        report_time,
+      </if>
+      <if test="submitCheckTime != null" >
+        submit_check_time,
+      </if>
+      <if test="completeEstimateTime != null" >
+        complete_estimate_time,
+      </if>
+      <if test="completeCheckTime != null" >
+        complete_check_time,
+      </if>
+      <if test="checkOrganization != null" >
+        check_organization,
+      </if>
+      <if test="createTm != null" >
+        create_tm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        #{batchNo,jdbcType=VARCHAR},
+      </if>
+       <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="trade != null" >
+        #{trade,jdbcType=VARCHAR},
+      </if>
+      <if test="productSalesAmount != null" >
+        #{productSalesAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null" >
+         #{reportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="submitCheckTime != null" >
+        #{submitCheckTime,jdbcType=VARCHAR},
+      </if>
+      <if test="completeEstimateTime != null" >
+        #{completeEstimateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="completeCheckTime != null" >
+        #{completeCheckTime,jdbcType=VARCHAR},
+      </if>
+      <if test="checkOrganization != null" >
+        #{checkOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null" >
+        #{createTm,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectByPatameter" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CleanProductionCompany" >
+    select 
+    <include refid="Base_Column_List" />
+    from clean_production_company
+    where 1 = 1
+     <if test="id != null" >
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="registItemId != null" >
+        and regist_item_id = #{registItemId,jdbcType=INTEGER}
+      </if>
+      <if test="year != null" >
+        and check_year = #{year,jdbcType=VARCHAR}
+      </if>
+      <if test="batchNo != null" >
+        and batch_no = #{batchNo,jdbcType=VARCHAR}
+      </if>
+      <if test="city != null" >
+        and city = #{city,jdbcType=VARCHAR}
+      </if>
+      <if test="serialNumber != null" >
+        and serial_number = #{serialNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="companyName != null" >
+        and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+      </if>
+      <if test="trade != null" >
+        and trade = #{trade,jdbcType=VARCHAR}
+      </if>
+      <if test="productSalesAmount != null" >
+        and product_sales_amount = #{productSalesAmount,jdbcType=VARCHAR}
+      </if>
+      <if test="region != null" >
+        and region = #{region,jdbcType=VARCHAR}
+      </if>
+      <if test="address != null" >
+        and address = #{address,jdbcType=VARCHAR}
+      </if>
+      <if test="reportTime != null" >
+        and report_time = #{reportTime,jdbcType=VARCHAR}
+      </if>
+      <if test="submitCheckTime != null" >
+        and submit_check_time = #{submitCheckTime,jdbcType=VARCHAR}
+      </if>
+      <if test="completeEstimateTime != null" >
+        and complete_estimate_time = #{completeEstimateTime,jdbcType=VARCHAR}
+      </if>
+      <if test="completeCheckTime != null" >
+        and complete_check_time = #{completeCheckTime,jdbcType=VARCHAR}
+      </if>
+      <if test="checkOrganization != null" >
+        and check_organization = #{checkOrganization,jdbcType=VARCHAR}
+      </if>
+      <if test="createTm != null" >
+        and create_tm = #{createTm,jdbcType=TIMESTAMP}
+      </if>
+  </select>
+  
+   <select id="pageCleanProductionCompany" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from clean_production_company 
+  	where 1 =1 
+  	<if test="year != null" >
+		and check_year = #{year,jdbcType=VARCHAR}
+  	</if>
+  	<if test="batchNo != null" >
+		and batch_no = #{batchNo,jdbcType=VARCHAR}
+  	</if>
+  	<if test="city != null" >
+		and city = #{city,jdbcType=VARCHAR}
+  	</if>
+  	<if test="serialNumber != null" >
+		and serial_number = #{serialNumber,jdbcType=VARCHAR}
+  	</if>
+  	<if test="companyName != null" >
+		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="trade != null" >
+		and trade like concat(concat('%',#{trade,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="productSalesAmount != null" >
+		and product_sales_amount like concat(concat('%',#{productSalesAmount,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="region != null" >
+		and region like concat(concat('%',#{region,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="address != null" >
+		and address like concat(concat('%',#{address,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="reportTime != null" >
+		and report_time = #{reportTime,jdbcType=VARCHAR}
+  	</if>
+  	<if test="submitCheckTime != null" >
+		and submit_check_time = #{submitCheckTime,jdbcType=VARCHAR}
+  	</if>
+  	<if test="completeEstimateTime != null" >
+		and complete_estimate_time = #{completeEstimateTime,jdbcType=VARCHAR}
+  	</if>
+  	<if test="completeCheckTime != null" >
+		and complete_check_time = #{completeCheckTime,jdbcType=VARCHAR}
+  	</if>
+  	<if test="checkOrganization != null" >
+		and check_organization like concat(concat('%',#{checkOrganization,jdbcType=VARCHAR}),'%')
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countCleanProductionCompany" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from clean_production_company
+  	where 1 =1 
+	<if test="year != null" >
+		and check_year = #{year,jdbcType=VARCHAR}
+  	</if>
+  	<if test="batchNo != null" >
+		and batch_no = #{batchNo,jdbcType=VARCHAR}
+  	</if>
+  	<if test="city != null" >
+		and city = #{city,jdbcType=VARCHAR}
+  	</if>
+  	<if test="serialNumber != null" >
+		and serial_number = #{serialNumber,jdbcType=VARCHAR}
+  	</if>
+  	<if test="companyName != null" >
+		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="trade != null" >
+		and trade like concat(concat('%',#{trade,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="productSalesAmount != null" >
+		and product_sales_amount like concat(concat('%',#{productSalesAmount,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="region != null" >
+		and region like concat(concat('%',#{region,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="address != null" >
+		and address like concat(concat('%',#{address,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="reportTime != null" >
+		and report_time = #{reportTime,jdbcType=VARCHAR}
+  	</if>
+  	<if test="submitCheckTime != null" >
+		and submit_check_time = #{submitCheckTime,jdbcType=VARCHAR}
+  	</if>
+  	<if test="completeEstimateTime != null" >
+		and complete_estimate_time = #{completeEstimateTime,jdbcType=VARCHAR}
+  	</if>
+  	<if test="completeCheckTime != null" >
+		and complete_check_time = #{completeCheckTime,jdbcType=VARCHAR}
+  	</if>
+  	<if test="checkOrganization != null" >
+		and check_organization like concat(concat('%',#{checkOrganization,jdbcType=VARCHAR}),'%')
+  	</if>
+  </select>
+</mapper>

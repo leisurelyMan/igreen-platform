@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc" 
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context 
+         http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd
+         http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd"
+  default-autowire="byName">
+
+	<!-- Jackson Mapping -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 处理请求时返回json字符串的中文乱码问题 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<mvc:annotation-driven />
+
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+	<context:component-scan base-package="com.igreen.web.controller" />
+
+		<!--默认的spring mvc 拦截所有请求，为了引用资源的访问不会类似CONTROLLER一样被拦截 -->
+<!-- 	<mvc:resources location="/static/" mapping="/static/**" cache-period="604800" /> -->
+
+	<bean id="handlerAdapter"
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+
+		<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">  
+		     <property name="urlMap">  
+		         <map>  
+		              <entry key="/pages/**" value="myResourceHandler" />  
+		         </map>  
+		     </property>  
+		     <property name="order" value="100000" />         
+		</bean>  
+  
+  
+<bean id="myResourceHandler" name="myResourceHandler"  
+      class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">  
+      <property name="locations" value="/pages/" />  
+      <property name="supportedMethods">  
+         <list>  
+            <value>GET</value>  
+            <value>HEAD</value>  
+            <value>POST</value>  
+         </list>  
+     </property>  
+    
+</bean> 
+
+
+ 	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>/pages/</value>
+		</property>
+<!-- 		<property name="suffix">
+			<value>.html</value>
+		</property> -->
+	</bean>
+
+	<!-- <mvc:default-servlet-handler/> -->
+
+	<mvc:annotation-driven/>
+	<mvc:resources location="/index.html" mapping="/index.html" />
+	<mvc:resources location="/pages/**" mapping="/,/pages/" />
+	<mvc:resources mapping="/css/**" location="/,/css/" />
+	<mvc:resources mapping="/images/**" location="/,/images/" />
+	<mvc:resources mapping="/js/**" location="/,/js/" />
+</beans>

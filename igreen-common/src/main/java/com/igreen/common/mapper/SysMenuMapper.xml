@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.SysMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.SysMenu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="close_icon" property="closeIcon" jdbcType="VARCHAR" />
+    <result column="open_icon" property="openIcon" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, name, url, parent_id, order_num, close_icon, open_icon, status, creater, created_time, 
+    updater, updated_time, remark
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    order by order_num
+  </select>
+  
+  <select id="selectMenuIdByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  	select distinct id,name, url, parent_id, order_num, close_icon, open_icon, status
+	from sys_menu where status=1 
+	and (
+	id in (select rm.menu_id from sys_role_menu rm 
+	where rm.role_id=#{roleId,jdbcType=INTEGER} and rm.status=1) 
+	or id in (select sm.parent_id from sys_role_menu rm,sys_menu sm 
+	where rm.role_id=#{roleId,jdbcType=INTEGER} and rm.status=1 and sm.id=rm.menu_id and sm.status=1) 
+	)
+  </select>
+  
+  <select id="selectUserMenu" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	SELECT DISTINCT	id,NAME,parent_id,url,remark,order_num,open_icon,close_icon
+	FROM (
+			SELECT id,NAME,parent_id,url,remark,order_num,open_icon,close_icon
+			FROM
+				sys_menu
+			WHERE
+				STATUS = 1
+			AND (
+				id IN (
+					SELECT rm.menu_id
+					FROM sys_user_role ur,sys_role_menu rm
+					WHERE ur.user_id = #{userId,jdbcType=INTEGER}
+					AND ur.role_id = rm.role_id
+					AND ur. STATUS = 1
+					AND rm. STATUS = 1
+				)
+				OR id IN (
+					SELECT sm.parent_id
+					FROM sys_user_role ur,sys_role_menu rm,sys_menu sm
+					WHERE ur.user_id = #{userId,jdbcType=INTEGER}
+					AND ur.role_id = rm.role_id
+					AND ur. STATUS = 1
+					AND rm. STATUS = 1
+					AND sm.id = rm.menu_id
+					AND sm. STATUS = 1
+				)
+			)
+			ORDER BY order_num
+		) ss
+	ORDER BY order_num
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.SysMenu" >
+    insert into sys_menu (id, name, url, 
+      parent_id, order_num, close_icon, 
+      open_icon, status, creater, 
+      created_time, updater, updated_time, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{orderNum,jdbcType=INTEGER}, #{closeIcon,jdbcType=VARCHAR}, 
+      #{openIcon,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=DATE}, #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.SysMenu" >
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="closeIcon != null" >
+        close_icon,
+      </if>
+      <if test="openIcon != null" >
+        open_icon,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="closeIcon != null" >
+        #{closeIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="openIcon != null" >
+        #{openIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.SysMenu" >
+    update sys_menu
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="closeIcon != null" >
+        close_icon = #{closeIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="openIcon != null" >
+        open_icon = #{openIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.SysMenu" >
+    update sys_menu
+    set name = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      close_icon = #{closeIcon,jdbcType=VARCHAR},
+      open_icon = #{openIcon,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

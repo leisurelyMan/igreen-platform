@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.ChattelMortgageMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.ChattelMortgage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="mortgage_id" property="mortgageId" jdbcType="VARCHAR" />
+    <result column="mortgagee" property="mortgagee" jdbcType="VARCHAR" />
+    <result column="pledgee" property="pledgee" jdbcType="VARCHAR" />
+    <result column="regist_office" property="registOffice" jdbcType="VARCHAR" />
+    <result column="regist_time" property="registTime" jdbcType="VARCHAR" />
+    <result column="mortgage_status" property="mortgageStatus" jdbcType="VARCHAR" />
+    <result column="regist_no" property="registNo" jdbcType="VARCHAR" />
+    <result column="mortgage_reason" property="mortgageReason" jdbcType="VARCHAR" />
+    <result column="creditor_type" property="creditorType" jdbcType="VARCHAR" />
+    <result column="creditor_amount" property="creditorAmount" jdbcType="DECIMAL" />
+    <result column="begin_time" property="beginTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="cancel_time" property="cancelTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, mortgage_id, mortgagee, pledgee, regist_office, regist_time, 
+    mortgage_status, regist_no, mortgage_reason, creditor_type, creditor_amount, begin_time, 
+    end_time, cancel_time, status, creater, created_time, updater, updated_time, remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from chattel_mortgage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from chattel_mortgage
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+  
+    <!-- 查询有效的总记录数 -->
+  <select id="countChattelMortgage" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from chattel_mortgage
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="mortgagee != null" >
+  		and mortgagee like concat(concat('%',#{mortgagee,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="pledgee != null" >
+  		and pledgee like concat(concat('%',#{pledgee,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageChattelMortgage" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from chattel_mortgage
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="mortgagee != null" >
+  		and mortgagee like concat(concat('%',#{mortgagee,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="pledgee != null" >
+  		and pledgee like concat(concat('%',#{pledgee,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from chattel_mortgage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from chattel_mortgage
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.ChattelMortgage" >
+    insert into chattel_mortgage (id, regist_item_id, mortgage_id, 
+      mortgagee, pledgee, regist_office, 
+      regist_time, mortgage_status, regist_no, 
+      mortgage_reason, creditor_type, creditor_amount, 
+      begin_time, end_time, cancel_time, 
+      status, creater, created_time, 
+      updater, updated_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{mortgageId,jdbcType=VARCHAR}, 
+      #{mortgagee,jdbcType=VARCHAR}, #{pledgee,jdbcType=VARCHAR}, #{registOffice,jdbcType=VARCHAR}, 
+      #{registTime,jdbcType=VARCHAR}, #{mortgageStatus,jdbcType=VARCHAR}, #{registNo,jdbcType=VARCHAR}, 
+      #{mortgageReason,jdbcType=VARCHAR}, #{creditorType,jdbcType=VARCHAR}, #{creditorAmount,jdbcType=DECIMAL}, 
+      #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{cancelTime,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, 
+      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.ChattelMortgage" >
+    insert into chattel_mortgage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="mortgageId != null" >
+        mortgage_id,
+      </if>
+      <if test="mortgagee != null" >
+        mortgagee,
+      </if>
+      <if test="pledgee != null" >
+        pledgee,
+      </if>
+      <if test="registOffice != null" >
+        regist_office,
+      </if>
+      <if test="registTime != null" >
+        regist_time,
+      </if>
+      <if test="mortgageStatus != null" >
+        mortgage_status,
+      </if>
+      <if test="registNo != null" >
+        regist_no,
+      </if>
+      <if test="mortgageReason != null" >
+        mortgage_reason,
+      </if>
+      <if test="creditorType != null" >
+        creditor_type,
+      </if>
+      <if test="creditorAmount != null" >
+        creditor_amount,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="mortgageId != null" >
+        #{mortgageId,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgagee != null" >
+        #{mortgagee,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgee != null" >
+        #{pledgee,jdbcType=VARCHAR},
+      </if>
+      <if test="registOffice != null" >
+        #{registOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null" >
+        #{registTime,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgageStatus != null" >
+        #{mortgageStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="registNo != null" >
+        #{registNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgageReason != null" >
+        #{mortgageReason,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorType != null" >
+        #{creditorType,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorAmount != null" >
+        #{creditorAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        #{cancelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.ChattelMortgage" >
+    update chattel_mortgage
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="mortgageId != null" >
+        mortgage_id = #{mortgageId,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgagee != null" >
+        mortgagee = #{mortgagee,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgee != null" >
+        pledgee = #{pledgee,jdbcType=VARCHAR},
+      </if>
+      <if test="registOffice != null" >
+        regist_office = #{registOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null" >
+        regist_time = #{registTime,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgageStatus != null" >
+        mortgage_status = #{mortgageStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="registNo != null" >
+        regist_no = #{registNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgageReason != null" >
+        mortgage_reason = #{mortgageReason,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorType != null" >
+        creditor_type = #{creditorType,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorAmount != null" >
+        creditor_amount = #{creditorAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time = #{cancelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.ChattelMortgage" >
+    update chattel_mortgage
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      mortgage_id = #{mortgageId,jdbcType=VARCHAR},
+      mortgagee = #{mortgagee,jdbcType=VARCHAR},
+      pledgee = #{pledgee,jdbcType=VARCHAR},
+      regist_office = #{registOffice,jdbcType=VARCHAR},
+      regist_time = #{registTime,jdbcType=VARCHAR},
+      mortgage_status = #{mortgageStatus,jdbcType=VARCHAR},
+      regist_no = #{registNo,jdbcType=VARCHAR},
+      mortgage_reason = #{mortgageReason,jdbcType=VARCHAR},
+      creditor_type = #{creditorType,jdbcType=VARCHAR},
+      creditor_amount = #{creditorAmount,jdbcType=DECIMAL},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      cancel_time = #{cancelTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update chattel_mortgage
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.ExecutionRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.ExecutionRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pollution_id" property="pollutionId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="CLOB" javaType = "java.lang.String" />
+    <result column="frequency" property="frequency" jdbcType="VARCHAR" />
+    <result column="other_info" property="otherInfo" jdbcType="CLOB" javaType = "java.lang.String" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, pollution_id, content, frequency, other_info
+  </sql>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.ExecutionRecord" useGeneratedKeys="true" keyProperty="id">
+    insert into execution_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pollutionId != null" >
+        pollution_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="frequency != null" >
+        frequency,
+      </if>
+      <if test="otherInfo != null" >
+        other_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pollutionId != null" >
+        #{pollutionId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=CLOB},
+      </if>
+      <if test="frequency != null" >
+        #{frequency,jdbcType=VARCHAR},
+      </if>
+       <if test="otherInfo != null" >
+        #{otherInfo,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  
+  <insert id ="insertBatch" useGeneratedKeys="true" parameterType="java.util.List" >
+    <selectKey resultType ="java.lang.Integer" keyProperty= "id" order= "AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey >
+    insert into execution_record
+    (pollution_id, content, frequency, other_info)
+    values
+     <foreach collection ="list" item="item" index= "index" separator =",">
+         (
+         #{item.pollutionId},#{item.content},
+         #{item.frequency},
+         #{item.otherInfo}
+         )
+     </foreach >
+  </insert >
+  
+  <select id="pageRecord" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from execution_record 
+  	where 1 =1 
+  	<if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countRecord" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from execution_record
+  	where 1 =1 
+	<if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>

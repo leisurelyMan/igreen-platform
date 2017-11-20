@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.MonitorCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.MonitorCompany" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="monitor_sequence" property="monitorSequence" jdbcType="VARCHAR" />
+    <result column="region_code" property="regionCode" jdbcType="VARCHAR" />
+    <result column="legal_person_code" property="legalPersonCode" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="monitor_type" property="monitorType" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="monitor_year" property="monitorYear" jdbcType="VARCHAR" />
+    <result column="create_tm" property="createTm" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, monitor_sequence, region_code, 
+    legal_person_code, company_name, monitor_type,province, 
+    monitor_year,create_tm
+  </sql>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.MonitorCompany" useGeneratedKeys="true" keyProperty="id">
+    insert into monitor_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="monitorSequence != null" >
+        monitor_sequence,
+      </if>
+      <if test="regionCode != null" >
+        region_code,
+      </if>
+      <if test="legalPersonCode != null" >
+        legal_person_code,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="monitorType != null" >
+        monitor_type,
+      </if>
+      <if test="monitorYear != null" >
+        monitor_year,
+      </if>
+      <if test="createTm != null" >
+        create_tm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="monitorSequence != null" >
+        #{monitorSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null" >
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+       <if test="legalPersonCode != null" >
+        #{legalPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorType != null" >
+        #{monitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorYear != null" >
+        #{monitorYear,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null" >
+        #{createTm,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectByParameter" resultMap="BaseResultMap" parameterType="com.igreen.common.model.MonitorCompany" >
+    select 
+    <include refid="Base_Column_List" />
+    from monitor_company
+    where 1 = 1
+    <if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="registItemId != null" >
+      and regist_item_id = #{registItemId,jdbcType=INTEGER}
+    </if>
+    <if test="monitorSequence != null" >
+      and monitor_sequence = #{monitorSequence,jdbcType=VARCHAR}
+    </if>
+    <if test="regionCode != null" >
+      and region_code = #{regionCode,jdbcType=VARCHAR}
+    </if>
+     <if test="legalPersonCode != null" >
+      and legal_person_code = #{legalPersonCode,jdbcType=VARCHAR}
+    </if>
+    <if test="province != null" >
+      and province = #{province,jdbcType=VARCHAR}
+    </if>
+    <if test="companyName != null" >
+      and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="monitorType != null" >
+      and monitor_type = #{monitorType,jdbcType=VARCHAR}
+    </if>
+    <if test="monitorYear != null" >
+      and monitor_year = #{monitorYear,jdbcType=VARCHAR}
+    </if>
+    <if test="createTm != null" >
+      and create_tm = #{createTm,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+  
+  <select id="pageMonitorCompany" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from monitor_company 
+  	where 1 =1 
+  	<if test="monitorSequence != null" >
+		and monitor_sequence = #{monitorSequence,jdbcType=VARCHAR}
+  	</if>
+  	<if test="regionCode != null" >
+		and region_code = #{regionCode,jdbcType=VARCHAR}
+  	</if>
+  	<if test="legalPersonCode != null" >
+		and legal_person_code = #{legalPersonCode,jdbcType=VARCHAR}
+  	</if>
+  	<if test="companyName != null" >
+		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="monitorType != null" >
+		and monitor_type = #{monitorType,jdbcType=VARCHAR}
+  	</if>
+	<if test="province != null" >
+		and province like concat(concat('%',#{province,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="monitorYear != null" >
+		and monitor_year = #{monitorYear,jdbcType=VARCHAR}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countMonitorCompany" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from monitor_company
+  	where 1 =1 
+	<if test="monitorSequence != null" >
+		and monitor_sequence = #{monitorSequence,jdbcType=VARCHAR}
+  	</if>
+  	<if test="regionCode != null" >
+		and region_code = #{regionCode,jdbcType=VARCHAR}
+  	</if>
+  	<if test="legalPersonCode != null" >
+		and legal_person_code = #{legalPersonCode,jdbcType=VARCHAR}
+  	</if>
+  	<if test="companyName != null" >
+		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="monitorType != null" >
+		and monitor_type = #{monitorType,jdbcType=VARCHAR}
+  	</if>
+	<if test="province != null" >
+		and province like concat(concat('%',#{province,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="monitorYear != null" >
+		and monitor_year = #{monitorYear,jdbcType=VARCHAR}
+  	</if>
+  </select>
+</mapper>

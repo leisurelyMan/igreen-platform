@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.FreezeStockRightMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.FreezeStockRight" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="freeze_no" property="freezeNo" jdbcType="VARCHAR" />
+    <result column="freeze_office" property="freezeOffice" jdbcType="VARCHAR" />
+    <result column="freeze_begin_time" property="freezeBeginTime" jdbcType="VARCHAR" />
+    <result column="freeze_end_time" property="freezeEndTime" jdbcType="VARCHAR" />
+    <result column="freeze_amount" property="freezeAmount" jdbcType="DECIMAL" />
+    <result column="unfreeze_office" property="unfreezeOffice" jdbcType="VARCHAR" />
+    <result column="unfreeze_no" property="unfreezeNo" jdbcType="VARCHAR" />
+    <result column="unfreeze_time" property="unfreezeTime" jdbcType="VARCHAR" />
+    <result column="unfreeze_explain" property="unfreezeExplain" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, freeze_no, freeze_office, freeze_begin_time, freeze_end_time, 
+    freeze_amount, unfreeze_office, unfreeze_no, unfreeze_time, unfreeze_explain, status, 
+    creater, created_time, updater, updated_time, remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from freeze_stock_right
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from freeze_stock_right
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+  
+  
+    <!-- 查询有效的总记录数 -->
+  <select id="countFreezeStockRight" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from freeze_stock_right
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="freezeNo != null" >
+  		and freeze_no like concat(concat('%',#{freezeNo,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="freezeOffice != null" >
+  		and freeze_office like concat(concat('%',#{freezeOffice,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="unfreezeNo != null" >
+  		and unfreeze_no like concat(concat('%',#{unfreezeNo,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="unfreezeOffice != null" >
+  		and unfreeze_office like concat(concat('%',#{unfreezeOffice,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageFreezeStockRight" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from freeze_stock_right
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="freezeNo != null" >
+  		and freeze_no like concat(concat('%',#{freezeNo,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="freezeOffice != null" >
+  		and freeze_office like concat(concat('%',#{freezeOffice,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="unfreezeNo != null" >
+  		and unfreeze_no like concat(concat('%',#{unfreezeNo,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="unfreezeOffice != null" >
+  		and unfreeze_office like concat(concat('%',#{unfreezeOffice,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from freeze_stock_right
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from freeze_stock_right
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.FreezeStockRight" >
+    insert into freeze_stock_right (id, regist_item_id, freeze_no, 
+      freeze_office, freeze_begin_time, freeze_end_time, 
+      freeze_amount, unfreeze_office, unfreeze_no, 
+      unfreeze_time, unfreeze_explain, status, 
+      creater, created_time, updater, 
+      updated_time, remark)
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{freezeNo,jdbcType=VARCHAR}, 
+      #{freezeOffice,jdbcType=VARCHAR}, #{freezeBeginTime,jdbcType=VARCHAR}, #{freezeEndTime,jdbcType=VARCHAR}, 
+      #{freezeAmount,jdbcType=DECIMAL}, #{unfreezeOffice,jdbcType=VARCHAR}, #{unfreezeNo,jdbcType=VARCHAR}, 
+      #{unfreezeTime,jdbcType=VARCHAR}, #{unfreezeExplain,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, #{updater,jdbcType=INTEGER}, 
+      #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.igreen.common.model.FreezeStockRight" >
+    insert into freeze_stock_right
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="freezeNo != null" >
+        freeze_no,
+      </if>
+      <if test="freezeOffice != null" >
+        freeze_office,
+      </if>
+      <if test="freezeBeginTime != null" >
+        freeze_begin_time,
+      </if>
+      <if test="freezeEndTime != null" >
+        freeze_end_time,
+      </if>
+      <if test="freezeAmount != null" >
+        freeze_amount,
+      </if>
+      <if test="unfreezeOffice != null" >
+        unfreeze_office,
+      </if>
+      <if test="unfreezeNo != null" >
+        unfreeze_no,
+      </if>
+      <if test="unfreezeTime != null" >
+        unfreeze_time,
+      </if>
+      <if test="unfreezeExplain != null" >
+        unfreeze_explain,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="freezeNo != null" >
+        #{freezeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeOffice != null" >
+        #{freezeOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeBeginTime != null" >
+        #{freezeBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeEndTime != null" >
+        #{freezeEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeAmount != null" >
+        #{freezeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="unfreezeOffice != null" >
+        #{unfreezeOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="unfreezeNo != null" >
+        #{unfreezeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="unfreezeTime != null" >
+        #{unfreezeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="unfreezeExplain != null" >
+        #{unfreezeExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.FreezeStockRight" >
+    update freeze_stock_right
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="freezeNo != null" >
+        freeze_no = #{freezeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeOffice != null" >
+        freeze_office = #{freezeOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeBeginTime != null" >
+        freeze_begin_time = #{freezeBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeEndTime != null" >
+        freeze_end_time = #{freezeEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeAmount != null" >
+        freeze_amount = #{freezeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="unfreezeOffice != null" >
+        unfreeze_office = #{unfreezeOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="unfreezeNo != null" >
+        unfreeze_no = #{unfreezeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="unfreezeTime != null" >
+        unfreeze_time = #{unfreezeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="unfreezeExplain != null" >
+        unfreeze_explain = #{unfreezeExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.FreezeStockRight" >
+    update freeze_stock_right
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      freeze_no = #{freezeNo,jdbcType=VARCHAR},
+      freeze_office = #{freezeOffice,jdbcType=VARCHAR},
+      freeze_begin_time = #{freezeBeginTime,jdbcType=VARCHAR},
+      freeze_end_time = #{freezeEndTime,jdbcType=VARCHAR},
+      freeze_amount = #{freezeAmount,jdbcType=DECIMAL},
+      unfreeze_office = #{unfreezeOffice,jdbcType=VARCHAR},
+      unfreeze_no = #{unfreezeNo,jdbcType=VARCHAR},
+      unfreeze_time = #{unfreezeTime,jdbcType=VARCHAR},
+      unfreeze_explain = #{unfreezeExplain,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update freeze_stock_right
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

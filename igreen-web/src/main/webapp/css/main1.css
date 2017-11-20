@@ -1,0 +1,118 @@
+body, div, p, ul, li, dl, dt, dd, form, input, table, img, h1, h2, h3, h4, h5, h6, header, section, footer, nav, figure, figcaption, article {
+  margin: 0;
+  padding: 0; }
+
+header, section, footer, nav, figure, figcaption, article, menu {
+  display: block; }
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  height: 100%;
+  min-width: 6.4rem;
+  font-size: 312.5%; }
+
+body {
+  color: #333;
+  font-size: .28rem;
+  line-height: 1.5;
+  font-family: arial; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal; }
+
+img {
+  border: 0;
+  vertical-align: top;
+  -ms-interpolation-mode: bicubic; }
+
+fieldset {
+  border: 0; }
+
+ul, ol {
+  list-style: none; }
+
+em, address, i {
+  font-style: normal; }
+
+table {
+  border-collapse: collapse; }
+
+input[type="text"], input[type="password"], textarea, button {
+  border: none;
+  background: none;
+  outline-style: none;
+  -webkit-appearance: none; }
+
+input:focus {
+  border: none;
+  padding: 0; }
+
+textarea {
+  resize: none;
+  font-size: 100%;
+  margin: 0px;
+  padding: 0px; }
+
+a {
+  text-decoration: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0); }
+
+input, textarea, button {
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0); }
+
+body {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  -ms-tap-highlight-color: transparent;
+  -o-tap-highlight-color: transparent;
+  word-break: break-all; }
+
+
+
+.problem-body{ padding-bottom: .6rem;}
+.que-head{ height: 4rem; background: url(images1/img-1.jpg) no-repeat; background-size: 100% 100%; position: relative;}
+.que-head .que-tit{ text-align: center; font-size: .34rem; color: #fff; padding-top: .6rem;}
+.que-head .dear-user{ width: 5.9rem; position: relative; margin: .2rem auto 0;}
+.que-head .dear-user i{ position: absolute; left: 0; top: 0; width: 5.9rem; height: 2.2rem; background: #afaeac; filter:alpha(opacity=30); -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; -moz-opacity:0.3; -khtml-opacity: 0.3; opacity: 0.3;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; }
+
+.que-head .dear-user h3{ font-size: .24rem; color: #fff; line-height: .32rem; padding:.2rem 0 0 .2rem; position: relative;}
+.que-head .dear-user p{ text-indent: 2em; font-size: .2rem; color: #fff; line-height: .32rem; position: relative; padding-left: .2rem;}
+.problem-main{ margin-top: .3rem;}
+
+.problem-box,.preparer-info{ margin:0 .14rem 0 .14rem;}
+.problem-box h3{ font-size: .24rem; color: #130d03; padding: .1rem 0 .1rem .46rem;}
+.problem-box h3 em{ color: #f00; padding-left: .06rem;}
+.problem-box h3 span{ color: #999; padding-left: .1rem;}
+.problem-box ul,.preparer-info ul{ padding: .1rem 0 .1rem .7rem;}
+.problem-box li{ line-height:.6rem; font-size: .2rem; color: #130d03;}
+.problem-box li span{ padding-right: .1rem}
+.problem-box li .text-1{ color: #999;}
+.problem-box label input{ margin-right: .1rem; position: relative; top: .18rem; vertical-align: top;}
+.problem-box .input-other,.preparer-info input{ display: inline-block; width: 3rem; height: .44rem; line-height: .44rem; background: #fff; border: solid 1px #dad7cc; padding:0 .1rem; font-size: .24rem; top: 0;}
+.problem-box .hide{ display: none;}
+.problem-box li select{ height: .4rem;}
+.problem-box textarea{ width: 4.6rem; height:2rem;background: #fff; border: solid 1px #dad7cc; padding:.1rem; line-height: .4rem; color: #666;}
+.preparer-info li{ padding-bottom: .2rem;}
+.preparer-info h3{ font-size: .24rem; color: #130d03; padding-bottom: .1rem;}
+.problem-body .btn{ padding-top: .32rem; text-align: center;}
+.problem-body .btn a{ display: inline-block; width: 2.6rem; height: .6rem; background:#659422; border: solid 1px #324b0e; text-align: center; line-height: .6rem; color: #fff; font-size: .24rem; border-radius: .04rem;}
+.icon-china{ float: left; width: .25rem; height: .2rem; background: url(images1/1.png) no-repeat; background-size: 100% 100%; margin-top: .2rem; margin-right: .1rem;}
+.china{ margin-right: .1rem;}
+@media screen and (min-width: 350px) {
+  html {
+    font-size: 342%; } }
+@media screen and (min-width: 410px) {
+  html {
+    font-size: 400%; } }
+@media screen and (min-width: 480px) {
+  html {
+    font-size: 469%; } }
+@media screen and (min-width: 640px) {
+  html {
+    font-size: 625%; } }

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.OrganizationItemMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.OrganizationItem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="organization_code" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="organization_name" property="organizationName" jdbcType="VARCHAR" />
+    <result column="organization_type" property="organizationType" jdbcType="VARCHAR" />
+    <result column="organization_address" property="organizationAddress" jdbcType="VARCHAR" />
+    <result column="jurisdictional_agency" property="jurisdictionalAgency" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, organization_code, organization_name, organization_type, organization_address, 
+    jurisdictional_agency, status, creater, created_time, updater, updated_time, remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from organization_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from organization_item
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countOrganizationItem" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from organization_item
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="organizationCode != null" >
+  		and organization_code like concat(concat('%',#{organizationCode,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="organizationName != null" >
+  		and organization_name like concat(concat('%',#{organizationName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="organizationType != null" >
+  		and organization_type like concat(concat('%',#{organizationType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageOrganizationItem" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from organization_item
+  	where 1 = 1
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="organizationCode != null" >
+  		and organization_code like concat(concat('%',#{organizationCode,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="organizationName != null" >
+  		and organization_name like concat(concat('%',#{organizationName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="organizationType != null" >
+  		and organization_type like concat(concat('%',#{organizationType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from organization_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from organization_item
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.OrganizationItem" >
+    insert into organization_item (id, regist_item_id, organization_code, 
+      organization_name, organization_type, organization_address, 
+      jurisdictional_agency, status, creater, 
+      created_time, updater, updated_time, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{organizationCode,jdbcType=VARCHAR}, 
+      #{organizationName,jdbcType=VARCHAR}, #{organizationType,jdbcType=VARCHAR}, #{organizationAddress,jdbcType=VARCHAR}, 
+      #{jurisdictionalAgency,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=DATE}, #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.OrganizationItem" >
+    insert into organization_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="organizationCode != null" >
+        organization_code,
+      </if>
+      <if test="organizationName != null" >
+        organization_name,
+      </if>
+      <if test="organizationType != null" >
+        organization_type,
+      </if>
+      <if test="organizationAddress != null" >
+        organization_address,
+      </if>
+      <if test="jurisdictionalAgency != null" >
+        jurisdictional_agency,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="organizationCode != null" >
+        #{organizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null" >
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationType != null" >
+        #{organizationType,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationAddress != null" >
+        #{organizationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jurisdictionalAgency != null" >
+        #{jurisdictionalAgency,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.OrganizationItem" >
+    update organization_item
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="organizationCode != null" >
+        organization_code = #{organizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null" >
+        organization_name = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationType != null" >
+        organization_type = #{organizationType,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationAddress != null" >
+        organization_address = #{organizationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jurisdictionalAgency != null" >
+        jurisdictional_agency = #{jurisdictionalAgency,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.OrganizationItem" >
+    update organization_item
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      organization_code = #{organizationCode,jdbcType=VARCHAR},
+      organization_name = #{organizationName,jdbcType=VARCHAR},
+      organization_type = #{organizationType,jdbcType=VARCHAR},
+      organization_address = #{organizationAddress,jdbcType=VARCHAR},
+      jurisdictional_agency = #{jurisdictionalAgency,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update organization_item
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

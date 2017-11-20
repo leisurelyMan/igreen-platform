@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.EnvironmentalIssueMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.EnvironmentalIssue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="report_sequence" property="reportSequence" jdbcType="VARCHAR" />
+    <result column="report_year" property="reportYear" jdbcType="VARCHAR" />
+    <result column="report_month" property="reportMonth" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="report_issue" property="reportIssue" jdbcType="VARCHAR" />
+    <result column="deal_result" property="dealResult" jdbcType="VARCHAR" />
+    <result column="report_comment" property="reportComment" jdbcType="VARCHAR" />
+    <result column="create_tm" property="createTm" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, report_sequence, report_year, 
+    report_month, province, company_name,report_issue, 
+    deal_result, report_comment,create_tm
+  </sql>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.EnvironmentalIssue" useGeneratedKeys="true" keyProperty="id">
+    insert into environmental_protection_report_issue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="reportSequence != null" >
+        report_sequence,
+      </if>
+      <if test="reportYear != null" >
+        report_year,
+      </if>
+      <if test="reportMonth != null" >
+        report_month,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="reportIssue != null" >
+        report_issue,
+      </if>
+      <if test="dealResult != null" >
+        deal_result,
+      </if>
+      <if test="reportComment != null" >
+        report_comment,
+      </if>
+      <if test="createTm != null" >
+        create_tm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="reportSequence != null" >
+        #{reportSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="reportYear != null" >
+        #{reportYear,jdbcType=VARCHAR},
+      </if>
+       <if test="reportMonth != null" >
+        #{reportMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportIssue != null" >
+        #{reportIssue,jdbcType=VARCHAR},
+      </if>
+      <if test="dealResult != null" >
+        #{dealResult,jdbcType=VARCHAR},
+      </if>
+      <if test="reportComment != null" >
+        #{reportComment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null" >
+        #{createTm,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectByParameter" resultMap="BaseResultMap" parameterType="com.igreen.common.model.EnvironmentalIssue" >
+    select 
+    <include refid="Base_Column_List" />
+    from environmental_protection_report_issue
+    where 1 =1 
+    <if test="id != null" >
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="registItemId != null" >
+      and regist_item_id = #{registItemId,jdbcType=INTEGER}
+    </if>
+    <if test="reportSequence != null" >
+      and report_sequence = #{reportSequence,jdbcType=VARCHAR}
+    </if>
+    <if test="reportYear != null" >
+      and report_year = #{reportYear,jdbcType=VARCHAR}
+    </if>
+    <if test="reportMonth != null" >
+      and report_month = #{reportMonth,jdbcType=VARCHAR}
+    </if>
+    <if test="province != null" >
+      and province = #{province,jdbcType=VARCHAR}
+    </if>
+    <if test="companyName != null" >
+      and company_name = #{companyName,jdbcType=VARCHAR}
+    </if>
+    <if test="reportIssue != null" >
+      and report_issue = #{reportIssue,jdbcType=VARCHAR}
+    </if>
+    <if test="dealResult != null" >
+      and deal_result = #{dealResult,jdbcType=VARCHAR}
+    </if>
+    <if test="reportComment != null" >
+      and report_comment = #{reportComment,jdbcType=VARCHAR}
+    </if>
+    <if test="createTm != null" >
+      and create_tm = #{createTm,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+  
+  <select id="pageReport" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from environmental_protection_report_issue 
+  	where 1 =1 
+  	<if test="reportSequence != null" >
+		and report_sequence = #{reportSequence,jdbcType=VARCHAR}
+  	</if>
+  	<if test="reportYear != null" >
+      and report_year = #{reportYear,jdbcType=VARCHAR}
+    </if>
+    <if test="reportMonth != null" >
+      and report_month = #{reportMonth,jdbcType=VARCHAR}
+    </if>
+    <if test="province != null" >
+      and province like concat(concat('%',#{province,jdbcType=VARCHAR}),'%')
+    </if>
+	<if test="companyName != null" >
+		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="reportIssue != null" >
+      and report_issue like concat(concat('%',#{reportIssue,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="dealResult != null" >
+      and deal_result like concat(concat('%',#{dealResult,jdbcType=VARCHAR}),'%')
+    </if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countReport" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from environmental_protection_report_issue
+  	where 1 =1 
+	<if test="reportSequence != null" >
+		and report_sequence = #{reportSequence,jdbcType=VARCHAR}
+  	</if>
+  	<if test="reportYear != null" >
+      and report_year = #{reportYear,jdbcType=VARCHAR}
+    </if>
+    <if test="reportMonth != null" >
+      and report_month = #{reportMonth,jdbcType=VARCHAR}
+    </if>
+    <if test="province != null" >
+      and province like concat(concat('%',#{province,jdbcType=VARCHAR}),'%')
+    </if>
+	<if test="companyName != null" >
+		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="reportIssue != null" >
+      and report_issue like concat(concat('%',#{reportIssue,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="dealResult != null" >
+      and deal_result like concat(concat('%',#{dealResult,jdbcType=VARCHAR}),'%')
+    </if>
+  </select>
+</mapper>

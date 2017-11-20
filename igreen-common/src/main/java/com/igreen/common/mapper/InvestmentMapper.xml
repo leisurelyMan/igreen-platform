@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.InvestmentMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.Investment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="regist_no" property="registNo" jdbcType="VARCHAR" />
+    <result column="company_type" property="companyType" jdbcType="VARCHAR" />
+    <result column="regist_amount" property="registAmount" jdbcType="DECIMAL" />
+    <result column="regist_currency" property="registCurrency" jdbcType="VARCHAR" />
+    <result column="company_status" property="companyStatus" jdbcType="VARCHAR" />
+    <result column="cancel_time" property="cancelTime" jdbcType="VARCHAR" />
+    <result column="revoke_time" property="revokeTime" jdbcType="VARCHAR" />
+    <result column="regist_office" property="registOffice" jdbcType="VARCHAR" />
+    <result column="subscribe_capital" property="subscribeCapital" jdbcType="DECIMAL" />
+    <result column="subscribe_currency" property="subscribeCurrency" jdbcType="VARCHAR" />
+    <result column="ratio" property="ratio" jdbcType="VARCHAR" />
+    <result column="open_time" property="openTime" jdbcType="VARCHAR" />
+    <result column="legal_representative" property="legalRepresentative" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, regist_item_id, company_name, regist_no, company_type, regist_amount, regist_currency, 
+    company_status, cancel_time, revoke_time, regist_office, subscribe_capital, subscribe_currency, 
+    ratio, open_time, legal_representative, status, creater, created_time, updater, updated_time, 
+    remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from investment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from investment
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </select>
+  
+    <!-- 查询有效的总记录数 -->
+  <select id="countInvestment" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from investment
+  	where 1 = 1
+  	<if test="id != null" >
+  		and id = #{id,jdbcType=INTEGER}
+  	</if>
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="companyName != null" >
+  		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="registNo != null" >
+  		and regist_no like concat(concat('%',#{registNo,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="companyType != null" >
+  		and company_type like concat(concat('%',#{companyType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="pageInvestment" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from investment
+  	where 1 = 1
+  	<if test="id != null" >
+  		and id = #{id,jdbcType=INTEGER}
+  	</if>
+  	<if test="registItemId != null" >
+  		and regist_item_id = #{registItemId,jdbcType=INTEGER}
+  	</if>
+  	<if test="companyName != null" >
+  		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="registNo != null" >
+  		and regist_no like concat(concat('%',#{registNo,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="companyType != null" >
+  		and company_type like concat(concat('%',#{companyType,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from investment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByRegistItemId" parameterType="java.lang.Integer" >
+    delete from investment
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.Investment" >
+    insert into investment (id, regist_item_id, company_name, 
+      regist_no, company_type, regist_amount, 
+      regist_currency, company_status, cancel_time, 
+      revoke_time, regist_office, subscribe_capital, 
+      subscribe_currency, ratio, open_time, 
+      legal_representative, status, creater, 
+      created_time, updater, updated_time, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
+      #{registNo,jdbcType=VARCHAR}, #{companyType,jdbcType=VARCHAR}, #{registAmount,jdbcType=DECIMAL}, 
+      #{registCurrency,jdbcType=VARCHAR}, #{companyStatus,jdbcType=VARCHAR}, #{cancelTime,jdbcType=VARCHAR}, 
+      #{revokeTime,jdbcType=VARCHAR}, #{registOffice,jdbcType=VARCHAR}, #{subscribeCapital,jdbcType=DECIMAL}, 
+      #{subscribeCurrency,jdbcType=VARCHAR}, #{ratio,jdbcType=VARCHAR}, #{openTime,jdbcType=VARCHAR}, 
+      #{legalRepresentative,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=DATE}, #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.Investment" >
+    insert into investment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="registNo != null" >
+        regist_no,
+      </if>
+      <if test="companyType != null" >
+        company_type,
+      </if>
+      <if test="registAmount != null" >
+        regist_amount,
+      </if>
+      <if test="registCurrency != null" >
+        regist_currency,
+      </if>
+      <if test="companyStatus != null" >
+        company_status,
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time,
+      </if>
+      <if test="revokeTime != null" >
+        revoke_time,
+      </if>
+      <if test="registOffice != null" >
+        regist_office,
+      </if>
+      <if test="subscribeCapital != null" >
+        subscribe_capital,
+      </if>
+      <if test="subscribeCurrency != null" >
+        subscribe_currency,
+      </if>
+      <if test="ratio != null" >
+        ratio,
+      </if>
+      <if test="openTime != null" >
+        open_time,
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="registNo != null" >
+        #{registNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null" >
+        #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="registAmount != null" >
+        #{registAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="registCurrency != null" >
+        #{registCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="companyStatus != null" >
+        #{companyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        #{cancelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="revokeTime != null" >
+        #{revokeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="registOffice != null" >
+        #{registOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeCapital != null" >
+        #{subscribeCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeCurrency != null" >
+        #{subscribeCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="ratio != null" >
+        #{ratio,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null" >
+        #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.Investment" >
+    update investment
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="registNo != null" >
+        regist_no = #{registNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null" >
+        company_type = #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="registAmount != null" >
+        regist_amount = #{registAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="registCurrency != null" >
+        regist_currency = #{registCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="companyStatus != null" >
+        company_status = #{companyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time = #{cancelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="revokeTime != null" >
+        revoke_time = #{revokeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="registOffice != null" >
+        regist_office = #{registOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeCapital != null" >
+        subscribe_capital = #{subscribeCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeCurrency != null" >
+        subscribe_currency = #{subscribeCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="ratio != null" >
+        ratio = #{ratio,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null" >
+        open_time = #{openTime,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.Investment" >
+    update investment
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      regist_no = #{registNo,jdbcType=VARCHAR},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      regist_amount = #{registAmount,jdbcType=DECIMAL},
+      regist_currency = #{registCurrency,jdbcType=VARCHAR},
+      company_status = #{companyStatus,jdbcType=VARCHAR},
+      cancel_time = #{cancelTime,jdbcType=VARCHAR},
+      revoke_time = #{revokeTime,jdbcType=VARCHAR},
+      regist_office = #{registOffice,jdbcType=VARCHAR},
+      subscribe_capital = #{subscribeCapital,jdbcType=DECIMAL},
+      subscribe_currency = #{subscribeCurrency,jdbcType=VARCHAR},
+      ratio = #{ratio,jdbcType=VARCHAR},
+      open_time = #{openTime,jdbcType=VARCHAR},
+      legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="auditByRegistItemId" parameterType="java.lang.Integer" >
+    update investment
+    set status = 1
+    where regist_item_id = #{registItemId,jdbcType=INTEGER}
+  </delete>
+</mapper>

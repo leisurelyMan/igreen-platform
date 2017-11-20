@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.QuestionnaireMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.Questionnaire" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="customer_company" property="customerCompany" jdbcType="INTEGER" />
+    <result column="customer_company_other" property="customerCompanyOther" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="INTEGER" />
+    <result column="issuer_quality" property="issuerQuality" jdbcType="INTEGER" />
+    <result column="Bond_type" property="bondType" jdbcType="INTEGER" />
+    <result column="Bond_type_other" property="bondTypeOther" jdbcType="VARCHAR" />
+    <result column="issue_bonds_area" property="issueBondsArea" jdbcType="INTEGER" />
+    <result column="issue_bonds_scope" property="issueBondsScope" jdbcType="INTEGER" />
+    <result column="issue_bonds_scope_value" property="issueBondsScopeValue" jdbcType="VARCHAR" />
+    <result column="issue_bonds_records" property="issueBondsRecords" jdbcType="INTEGER" />
+    <result column="green_bonds_type" property="greenBondsType" jdbcType="INTEGER" />
+    <result column="green_bonds_type_other" property="greenBondsTypeOther" jdbcType="VARCHAR" />
+    <result column="major_technique" property="majorTechnique" jdbcType="VARCHAR" />
+    <result column="compliance_documents" property="complianceDocuments" jdbcType="VARCHAR" />
+    <result column="compliance_documents_other" property="complianceDocumentsOther" jdbcType="VARCHAR" />
+    <result column="compliance_project_type" property="complianceProjectType" jdbcType="INTEGER" />
+    <result column="compliance_project_type_other" property="complianceProjectTypeOther" jdbcType="VARCHAR" />
+    <result column="base_project_major_technique" property="baseProjectMajorTechnique" jdbcType="VARCHAR" />
+    <result column="Awarded_compliance_documents" property="awardedComplianceDocuments" jdbcType="VARCHAR" />
+    <result column="Awarded_compliance_documents_other" property="awardedComplianceDocumentsOther" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_mobile" property="customerMobile" jdbcType="VARCHAR" />
+    <result column="customer_mail" property="customerMail" jdbcType="VARCHAR" />
+    <result column="customer_wechart" property="customerWechart" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, customer_company, customer_company_other, country, province, issuer_quality, 
+    Bond_type, Bond_type_other, issue_bonds_area, issue_bonds_scope, issue_bonds_scope_value, 
+    issue_bonds_records, green_bonds_type, green_bonds_type_other, major_technique, compliance_documents, 
+    compliance_documents_other, compliance_project_type, compliance_project_type_other, 
+    base_project_major_technique, Awarded_compliance_documents, Awarded_compliance_documents_other, 
+    customer_name, customer_mobile, customer_mail, customer_wechart, status, creater, 
+    created_time, updater, updated_time, remark
+  </sql>
+  
+  <!-- 查询有效的总记录数 -->
+  <select id="countQuestionnaire" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from questionnaire
+  	where 1 = 1
+  	<if test="province != null" >
+  		and province = #{province,jdbcType=INTEGER}
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	<if test="customerName != null" >
+  		and customer_name = #{customerName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="customerMobile != null" >
+  		and customer_mobile = #{customerMobile,jdbcType=VARCHAR}
+  	</if>
+  	<if test="customerMail != null" >
+  		and customer_mail = #{customerMail,jdbcType=VARCHAR}
+  	</if>
+  	<if test="customerWechart != null" >
+  		and customer_wechart = #{customerWechart,jdbcType=VARCHAR}
+  	</if>
+  </select>
+  
+  <select id="pageQuestionnaire" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from questionnaire
+  	where 1 = 1
+  	<if test="province != null" >
+  		and province = #{province,jdbcType=INTEGER}
+  	</if>
+  	<if test="status != null" >
+  		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	<if test="customerName != null" >
+  		and customer_name = #{customerName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="customerMobile != null" >
+  		and customer_mobile = #{customerMobile,jdbcType=VARCHAR}
+  	</if>
+  	<if test="customerMail != null" >
+  		and customer_mail = #{customerMail,jdbcType=VARCHAR}
+  	</if>
+  	<if test="customerWechart != null" >
+  		and customer_wechart = #{customerWechart,jdbcType=VARCHAR}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <select id="selectByCustomerNameAndCustomerMobileAndCustomerMail" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from questionnaire
+  	where 1 = 1
+  	<if test="customerName != null" >
+  		and customer_name = #{customerName,jdbcType=INTEGER}
+  	</if>
+  	<if test="customerMobile != null" >
+  		and customer_mobile = #{customerMobile,jdbcType=INTEGER}
+  	</if>
+  	<if test="customerMail != null" >
+  		and customer_mail = #{customerMail,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from questionnaire
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from questionnaire
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.Questionnaire" >
+    insert into questionnaire (id, customer_company, customer_company_other, 
+      country, province, issuer_quality, 
+      Bond_type, Bond_type_other, issue_bonds_area, 
+      issue_bonds_scope, issue_bonds_scope_value, 
+      issue_bonds_records, green_bonds_type, green_bonds_type_other, 
+      major_technique, compliance_documents, compliance_documents_other, 
+      compliance_project_type, compliance_project_type_other, 
+      base_project_major_technique, Awarded_compliance_documents, 
+      Awarded_compliance_documents_other, customer_name, 
+      customer_mobile, customer_mail, customer_wechart, 
+      status, creater, created_time, 
+      updater, updated_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{customerCompany,jdbcType=INTEGER}, #{customerCompanyOther,jdbcType=VARCHAR}, 
+      #{country,jdbcType=INTEGER}, #{province,jdbcType=INTEGER}, #{issuerQuality,jdbcType=INTEGER}, 
+      #{bondType,jdbcType=INTEGER}, #{bondTypeOther,jdbcType=VARCHAR}, #{issueBondsArea,jdbcType=INTEGER}, 
+      #{issueBondsScope,jdbcType=INTEGER}, #{issueBondsScopeValue,jdbcType=VARCHAR}, 
+      #{issueBondsRecords,jdbcType=INTEGER}, #{greenBondsType,jdbcType=INTEGER}, #{greenBondsTypeOther,jdbcType=VARCHAR}, 
+      #{majorTechnique,jdbcType=VARCHAR}, #{complianceDocuments,jdbcType=VARCHAR}, #{complianceDocumentsOther,jdbcType=VARCHAR}, 
+      #{complianceProjectType,jdbcType=INTEGER}, #{complianceProjectTypeOther,jdbcType=VARCHAR}, 
+      #{baseProjectMajorTechnique,jdbcType=VARCHAR}, #{awardedComplianceDocuments,jdbcType=VARCHAR}, 
+      #{awardedComplianceDocumentsOther,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{customerMobile,jdbcType=VARCHAR}, #{customerMail,jdbcType=VARCHAR}, #{customerWechart,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, 
+      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.igreen.common.model.Questionnaire" >
+    insert into questionnaire
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="customerCompany != null" >
+        customer_company,
+      </if>
+      <if test="customerCompanyOther != null" >
+        customer_company_other,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="issuerQuality != null" >
+        issuer_quality,
+      </if>
+      <if test="bondType != null" >
+        Bond_type,
+      </if>
+      <if test="bondTypeOther != null" >
+        Bond_type_other,
+      </if>
+      <if test="issueBondsArea != null" >
+        issue_bonds_area,
+      </if>
+      <if test="issueBondsScope != null" >
+        issue_bonds_scope,
+      </if>
+      <if test="issueBondsScopeValue != null" >
+        issue_bonds_scope_value,
+      </if>
+      <if test="issueBondsRecords != null" >
+        issue_bonds_records,
+      </if>
+      <if test="greenBondsType != null" >
+        green_bonds_type,
+      </if>
+      <if test="greenBondsTypeOther != null" >
+        green_bonds_type_other,
+      </if>
+      <if test="majorTechnique != null" >
+        major_technique,
+      </if>
+      <if test="complianceDocuments != null" >
+        compliance_documents,
+      </if>
+      <if test="complianceDocumentsOther != null" >
+        compliance_documents_other,
+      </if>
+      <if test="complianceProjectType != null" >
+        compliance_project_type,
+      </if>
+      <if test="complianceProjectTypeOther != null" >
+        compliance_project_type_other,
+      </if>
+      <if test="baseProjectMajorTechnique != null" >
+        base_project_major_technique,
+      </if>
+      <if test="awardedComplianceDocuments != null" >
+        Awarded_compliance_documents,
+      </if>
+      <if test="awardedComplianceDocumentsOther != null" >
+        Awarded_compliance_documents_other,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerMobile != null" >
+        customer_mobile,
+      </if>
+      <if test="customerMail != null" >
+        customer_mail,
+      </if>
+      <if test="customerWechart != null" >
+        customer_wechart,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="customerCompany != null" >
+        #{customerCompany,jdbcType=INTEGER},
+      </if>
+      <if test="customerCompanyOther != null" >
+        #{customerCompanyOther,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="issuerQuality != null" >
+        #{issuerQuality,jdbcType=INTEGER},
+      </if>
+      <if test="bondType != null" >
+        #{bondType,jdbcType=INTEGER},
+      </if>
+      <if test="bondTypeOther != null" >
+        #{bondTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="issueBondsArea != null" >
+        #{issueBondsArea,jdbcType=INTEGER},
+      </if>
+      <if test="issueBondsScope != null" >
+        #{issueBondsScope,jdbcType=INTEGER},
+      </if>
+      <if test="issueBondsScopeValue != null" >
+        #{issueBondsScopeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="issueBondsRecords != null" >
+        #{issueBondsRecords,jdbcType=INTEGER},
+      </if>
+      <if test="greenBondsType != null" >
+        #{greenBondsType,jdbcType=INTEGER},
+      </if>
+      <if test="greenBondsTypeOther != null" >
+        #{greenBondsTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="majorTechnique != null" >
+        #{majorTechnique,jdbcType=VARCHAR},
+      </if>
+      <if test="complianceDocuments != null" >
+        #{complianceDocuments,jdbcType=VARCHAR},
+      </if>
+      <if test="complianceDocumentsOther != null" >
+        #{complianceDocumentsOther,jdbcType=VARCHAR},
+      </if>
+      <if test="complianceProjectType != null" >
+        #{complianceProjectType,jdbcType=INTEGER},
+      </if>
+      <if test="complianceProjectTypeOther != null" >
+        #{complianceProjectTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="baseProjectMajorTechnique != null" >
+        #{baseProjectMajorTechnique,jdbcType=VARCHAR},
+      </if>
+      <if test="awardedComplianceDocuments != null" >
+        #{awardedComplianceDocuments,jdbcType=VARCHAR},
+      </if>
+      <if test="awardedComplianceDocumentsOther != null" >
+        #{awardedComplianceDocumentsOther,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMobile != null" >
+        #{customerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMail != null" >
+        #{customerMail,jdbcType=VARCHAR},
+      </if>
+      <if test="customerWechart != null" >
+        #{customerWechart,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.Questionnaire" >
+    update questionnaire
+    <set >
+      <if test="customerCompany != null" >
+        customer_company = #{customerCompany,jdbcType=INTEGER},
+      </if>
+      <if test="customerCompanyOther != null" >
+        customer_company_other = #{customerCompanyOther,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="issuerQuality != null" >
+        issuer_quality = #{issuerQuality,jdbcType=INTEGER},
+      </if>
+      <if test="bondType != null" >
+        Bond_type = #{bondType,jdbcType=INTEGER},
+      </if>
+      <if test="bondTypeOther != null" >
+        Bond_type_other = #{bondTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="issueBondsArea != null" >
+        issue_bonds_area = #{issueBondsArea,jdbcType=INTEGER},
+      </if>
+      <if test="issueBondsScope != null" >
+        issue_bonds_scope = #{issueBondsScope,jdbcType=INTEGER},
+      </if>
+      <if test="issueBondsScopeValue != null" >
+        issue_bonds_scope_value = #{issueBondsScopeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="issueBondsRecords != null" >
+        issue_bonds_records = #{issueBondsRecords,jdbcType=INTEGER},
+      </if>
+      <if test="greenBondsType != null" >
+        green_bonds_type = #{greenBondsType,jdbcType=INTEGER},
+      </if>
+      <if test="greenBondsTypeOther != null" >
+        green_bonds_type_other = #{greenBondsTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="majorTechnique != null" >
+        major_technique = #{majorTechnique,jdbcType=VARCHAR},
+      </if>
+      <if test="complianceDocuments != null" >
+        compliance_documents = #{complianceDocuments,jdbcType=VARCHAR},
+      </if>
+      <if test="complianceDocumentsOther != null" >
+        compliance_documents_other = #{complianceDocumentsOther,jdbcType=VARCHAR},
+      </if>
+      <if test="complianceProjectType != null" >
+        compliance_project_type = #{complianceProjectType,jdbcType=INTEGER},
+      </if>
+      <if test="complianceProjectTypeOther != null" >
+        compliance_project_type_other = #{complianceProjectTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="baseProjectMajorTechnique != null" >
+        base_project_major_technique = #{baseProjectMajorTechnique,jdbcType=VARCHAR},
+      </if>
+      <if test="awardedComplianceDocuments != null" >
+        Awarded_compliance_documents = #{awardedComplianceDocuments,jdbcType=VARCHAR},
+      </if>
+      <if test="awardedComplianceDocumentsOther != null" >
+        Awarded_compliance_documents_other = #{awardedComplianceDocumentsOther,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMobile != null" >
+        customer_mobile = #{customerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMail != null" >
+        customer_mail = #{customerMail,jdbcType=VARCHAR},
+      </if>
+      <if test="customerWechart != null" >
+        customer_wechart = #{customerWechart,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.Questionnaire" >
+    update questionnaire
+    set customer_company = #{customerCompany,jdbcType=INTEGER},
+      customer_company_other = #{customerCompanyOther,jdbcType=VARCHAR},
+      country = #{country,jdbcType=INTEGER},
+      province = #{province,jdbcType=INTEGER},
+      issuer_quality = #{issuerQuality,jdbcType=INTEGER},
+      Bond_type = #{bondType,jdbcType=INTEGER},
+      Bond_type_other = #{bondTypeOther,jdbcType=VARCHAR},
+      issue_bonds_area = #{issueBondsArea,jdbcType=INTEGER},
+      issue_bonds_scope = #{issueBondsScope,jdbcType=INTEGER},
+      issue_bonds_scope_value = #{issueBondsScopeValue,jdbcType=VARCHAR},
+      issue_bonds_records = #{issueBondsRecords,jdbcType=INTEGER},
+      green_bonds_type = #{greenBondsType,jdbcType=INTEGER},
+      green_bonds_type_other = #{greenBondsTypeOther,jdbcType=VARCHAR},
+      major_technique = #{majorTechnique,jdbcType=VARCHAR},
+      compliance_documents = #{complianceDocuments,jdbcType=VARCHAR},
+      compliance_documents_other = #{complianceDocumentsOther,jdbcType=VARCHAR},
+      compliance_project_type = #{complianceProjectType,jdbcType=INTEGER},
+      compliance_project_type_other = #{complianceProjectTypeOther,jdbcType=VARCHAR},
+      base_project_major_technique = #{baseProjectMajorTechnique,jdbcType=VARCHAR},
+      Awarded_compliance_documents = #{awardedComplianceDocuments,jdbcType=VARCHAR},
+      Awarded_compliance_documents_other = #{awardedComplianceDocumentsOther,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_mobile = #{customerMobile,jdbcType=VARCHAR},
+      customer_mail = #{customerMail,jdbcType=VARCHAR},
+      customer_wechart = #{customerWechart,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
