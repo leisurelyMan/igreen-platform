@@ -33,6 +33,17 @@ public class IpeIndustryDto {
      * 标题
      */
     private String title;
+    
+    
+    /**
+     * 行业门类名称
+     */
+    private String tradeName;
+    
+    /**
+     * 地址
+     */
+    private String address;
 
     /**
      * ipe记录ID
@@ -169,6 +180,22 @@ public class IpeIndustryDto {
     public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
     }
+
+	public String getTradeName() {
+		return tradeName;
+	}
+
+	public void setTradeName(String tradeName) {
+		this.tradeName = tradeName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 
 }

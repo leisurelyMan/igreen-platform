@@ -19,32 +19,19 @@
     <script type="text/javascript" src="../static/laydate/laydate.dev.js"></script>
 <title>用户管理</title>
 <!-- 本页面初始化用到的js包，创建jqGrid的代码就在里面 -->
-<script type="text/javascript" src="../static/esSearch/ipesearch.js"></script>
+<script type="text/javascript" src="../static/wordFrequency/wordFrequency.js"></script>
 </head>
 <body>
 	<div class="rightinfo">
 		<div class="tools">
-			关键词可以输入多个，以英文,分隔</br>
 			<ul class="toolbar">
-				<li>关键词：<input id="searchwords"	name="searchwords" style="width:300px;" type="text" class="searchinput" /></li>
-				<li>省：<input id="searchprovince"	name="searchprovince" style="width:300px;" type="text" class="searchinput" /></li>
-				<li>市：<input id="searchcity"	name="searchcity" style="width:300px;" type="text" class="searchinput" /></li>
-				<li>时间：<input id="searchtime"	name="searchtime" style="width:300px;" type="text" class="searchinput" /></li>
+				<li>热词：<input id="searchName"	name="searchName" type="text" class="searchinput" /></li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
-				<li class="click" id="add"><span><img src="../static/images/t01.png" /></span>添加</li>
 			</ul>
 		</div>
 		<table id="list2"></table>
 		<div id="pager2" class="pagin"></div>
 		
-		<div id="dialog" title="编辑角色信息">
-			<form class="registItemform" id="registItemform">
-				<input type="hidden" id="id" name="id" value="" />
-				<ul class="forminfo">
-					<li><label>热词</label><input id="word" name="word" type="text" class="dfinput" /></li>
-				</ul>
-			</form>
-		</div>
 	</div>
 </body>
 </html>

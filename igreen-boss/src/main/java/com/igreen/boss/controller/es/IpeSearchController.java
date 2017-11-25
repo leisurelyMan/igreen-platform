@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.igreen.boss.controller.BaseController;
+import com.igreen.boss.dto.IpeSearchDto;
 import com.igreen.boss.service.es.IpeIndustrySearch;
 import com.igreen.common.util.ListRange;
 import com.igreen.common.util.StrUtil;
@@ -45,18 +46,23 @@ public class IpeSearchController extends BaseController{
 	 * @throws Exception 
 	 */
 	@RequestMapping(value="ipeSearchList", method = { RequestMethod.POST,RequestMethod.GET })
-	public @ResponseBody ListRange ipeSearchList(String words,Integer currentPage,Integer pageRows) throws Exception{
-		if(StrUtil.isNull(words))
+	public @ResponseBody ListRange ipeSearchList(IpeSearchDto dto,Integer currentPage,Integer pageRows) throws Exception{
+		if(dto.isEmpty())
 			return new ListRange(null, 0, 1, 10);
 		if(currentPage == null)
 			currentPage =1;
 		if(pageRows == null)
 			pageRows = 15;
-		return ipeIndustrySearch.ipeIndustryList(words,currentPage,pageRows);
+		return ipeIndustrySearch.ipeIndustryList(dto,currentPage,pageRows);
 	}
 	
 	@RequestMapping(value="addData", method = { RequestMethod.POST,RequestMethod.GET })
 	public void addData() throws Exception{
 		ipeIndustrySearch.bulkAdd();
+	}
+	
+	@RequestMapping(value="addAnalyze", method = { RequestMethod.POST,RequestMethod.GET })
+	public void addAnalyze(Integer startId,Integer endId) throws Exception{
+		ipeIndustrySearch.addAnalyze(startId, endId);
 	}
 }

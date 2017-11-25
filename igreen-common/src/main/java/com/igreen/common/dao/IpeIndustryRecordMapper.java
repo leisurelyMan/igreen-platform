@@ -32,4 +32,6 @@ public interface IpeIndustryRecordMapper {
 	List<IpeIndustryRecord> duplicateIpe( );
 	
 	List<IpeIndustryRecord> selectRecordById(Integer id);
+	
+	List<IpeIndustryRecord> selectById(Map<String, Integer> params);
 }

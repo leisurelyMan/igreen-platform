@@ -75,3 +75,24 @@ create table ipe_elasticsearch
 );
 
 alter table ipe_elasticsearch comment 'IPE写入ES记录';
+
+drop table if exists word_frequency;
+
+/*==============================================================*/
+/* Table: word_frequency                                        */
+/*==============================================================*/
+create table word_frequency
+(
+   ID                   int not null auto_increment comment 'ID',
+   word                 varchar(255) comment '热词',
+   times                int comment '出现次数',
+   statas               int comment '状态',
+   creater              int comment '创建者',
+   created_time         date comment '创建时间',
+   updater              int comment '更新者',
+   updated_time         date comment '更新时间',
+   remark               varchar(255) comment '备注',
+   primary key (ID)
+);
+
+alter table word_frequency comment '词频';
