@@ -84,6 +84,14 @@
     where company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
   </select>
   
+  <select id="selectMaxIdByCompanyName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select max(id) id,company_name
+    from regist_item
+    where company_name like concat(concat(#{companyName,jdbcType=VARCHAR}),'%')
+  </select>
+  
+ 
+  
   <select id="selectByIPECompanyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

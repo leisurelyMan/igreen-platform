@@ -246,4 +246,11 @@
 		select min(id) as id from ipe_industry_record group by ipe_id having (count(*) > 1)
 	) order by ipe_id limit 100
   </select>
+  
+   <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+       select year,file_name 
+       from ipe_industry_record 
+       where regist_item_id = #{registItemId,jdbcType=INTEGER} 
+       GROUP BY year order by year DESC
+  </select>
 </mapper>

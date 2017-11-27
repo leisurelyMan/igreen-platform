@@ -22,4 +22,6 @@ public interface CleanProductionCompanyMapper {
 	List<CleanProductionCompany> pageCleanProductionCompany(Map<String, Object> params);
 
 	Integer countCleanProductionCompany(Map<String, Object> params);
+	
+	CleanProductionCompany selectByRegistItemId(Integer registItemId);
 }

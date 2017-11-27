@@ -3,6 +3,7 @@ package com.igreen.common.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.igreen.common.model.CleanProductionCompany;
 import com.igreen.common.model.IpeIndustryRecord;
 
 public interface IpeIndustryRecordMapper {
@@ -32,4 +33,6 @@ public interface IpeIndustryRecordMapper {
 	List<IpeIndustryRecord> duplicateIpe( );
 	
 	List<IpeIndustryRecord> selectRecordById(Integer id);
+	
+	List<IpeIndustryRecord> selectByRegistItemId(Integer registItemId);
 }
