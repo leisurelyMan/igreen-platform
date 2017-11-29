@@ -5,18 +5,16 @@ jQuery(document).ready(function(){
 		url : '../basicInfo/registItemList.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : ['<b>企业名称</b>','<b>法人代表姓名</b>','<b>注册号</b>','<b>注册资本(万元)</b>','<b>实收资本(万元)</b>','<b>币种</b>','<b>企业(机构)类型</b>','<b>经营状态</b>','<b>行业门类代码</b>','<b>国民经济行业代码</b>','<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : ['<b>企业名称</b>','<b>法人代表姓名</b>','<b>地址</b>','<b>集团公司是否上市</b>','<b>集团公司名称</b>','<b>集团公司交易所名称</b>','<b>集团公司上市代码</b>','<b>行业类别</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'companyName',index:'companyName', width:80,sortable:false},
 					{name:'legalRepresentative',index:'legalRepresentative', width:80,sortable:false},
-					{name:'registNumber',index:'registNumber', width:80,sortable:false}, 
-					{name:'registeredCapital',index:'registeredCapital', width:80,sortable:false},
-					{name:'paidInCapital',index:'paidInCapital', width:80,sortable:false},
-					{name:'currency',index:'currency', width:50,sortable:false},
-					{name:'companyType',index:'companyType', width:80,sortable:false},
-					{name:'operateState',index:'operateState', width:80,sortable:false},
-					{name:'tradeCode',index:'tradeCode', width:80,sortable:false},
-					{name:'countryTradeCode',index:'countryTradeCode', width:80,sortable:false},
+					{name:'address',index:'address', width:80,sortable:false}, 
+					{name:'groupCompanyPublic',index:'groupCompanyPublic', width:80,sortable:false},
+					{name:'groupCompanyName',index:'groupCompanyName', width:80,sortable:false},
+					{name:'groupCompanyExchangeName',index:'groupCompanyExchangeName', width:50,sortable:false},
+					{name:'groupCompanyStockCode',index:'groupCompanyStockCode', width:80,sortable:false},
+					{name:'tradeName',index:'tradeName', width:80,sortable:false},
 					{name:'id',index:'id', width:230,formatter:getActions,sortable:false,resizable:false,align:'center'}
 		           ],
 		rowNum : 10,//一页显示多少条
@@ -115,8 +113,11 @@ jQuery(document).ready(function(){
 	
 	$("#search").click(function(){
 		var searchName = $('#searchName').val();
-		var searchShortName = $('#searchShortName').val();
-		$("#list2").jqGrid("setGridParam",{postData:{name:searchName, shortName:searchShortName},page:1} );//设置查询参数
+		var searchAddress = $('#searchAddress').val();
+		var searchGroupName = $('#searchGroupName').val();
+		var searchGroupPublic = $('#searchGroupPublic').val();
+		$("#list2").jqGrid("setGridParam",{postData:{companyName:searchName, address:searchAddress,
+			groupCompanyName:searchGroupName,groupCompanyPublic:searchGroupPublic},page:1} );//设置查询参数
 		$("#list2").trigger("reloadGrid");
 	});
 });

@@ -8,6 +8,7 @@ public class IpeSearchDto {
 	private String province;
 	private String city;
 	private String time;
+	private String address;
 	
 	private static String keys = "总汞,总镉,总铬,六价铬,总砷,总铅,总镍,苯并(a)芘,总铍,总银,生化需氧量,BOD5,化学需氧量,COD,"
 			+ "总有机碳,TOC,石油类,动植物油,挥发酚,总氰化物,硫化物,氨氮,氟化物,甲醛,苯胺类,硝基苯类,阴离子表面活性剂(LAS)总铜,总锌,"
@@ -54,6 +55,14 @@ public class IpeSearchDto {
 		this.time = time;
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public boolean isEmpty(){
 		if(StrUtil.isNull(words)&&StrUtil.isNull(province)&&StrUtil.isNull(city)&&StrUtil.isNull(time))
 			return true;

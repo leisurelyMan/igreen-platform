@@ -88,7 +88,8 @@ jQuery(document).ready(function(){
 		var searchprovince = $('#searchprovince').val();
 		var searchcity = $('#searchcity').val();
 		var searchtime = $('#searchtime').val();
-		$("#list2").jqGrid("setGridParam",{postData:{words:searchwords,province:searchprovince,city:searchcity,time:searchtime},page:1} );//设置查询参数
+		var searchaddress = $('#searchaddress').val();
+		$("#list2").jqGrid("setGridParam",{postData:{words:searchwords,province:searchprovince,city:searchcity,time:searchtime,address:searchaddress},page:1} );//设置查询参数
 		$("#list2").trigger("reloadGrid");
 	});
 });

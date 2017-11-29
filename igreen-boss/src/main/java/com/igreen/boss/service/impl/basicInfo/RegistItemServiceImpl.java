@@ -61,6 +61,12 @@ public class RegistItemServiceImpl implements RegistItemService {
 			params.put("registNumber", registItem.getRegistNumber());
 		if(!StrUtil.isNull(registItem.getStatus()))
 			params.put("status", registItem.getStatus());
+		if(!StrUtil.isNull(registItem.getAddress()))
+			params.put("address", registItem.getAddress());
+		if(!StrUtil.isNull(registItem.getGroupCompanyName()))
+			params.put("groupCompanyName", registItem.getGroupCompanyName());
+		if(!StrUtil.isNull(registItem.getGroupCompanyPublic()))
+			params.put("groupCompanyPublic", registItem.getGroupCompanyPublic());
 		params.put("startRow", (currentPage-1)*pageRows);
 		params.put("pageRows", pageRows);
 		ListRange result = new ListRange(registItemMapper.pageRegistItem(params), registItemMapper.countRegistItem(params), currentPage, pageRows);

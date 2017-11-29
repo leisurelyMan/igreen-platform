@@ -130,6 +130,15 @@
   	<if test="status != null" >
   		and status = #{status,jdbcType=INTEGER}
   	</if>
+  	<if test="address != null" >
+  		and address like concat(#{address,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="groupCompanyName != null" >
+  		and group_company_name like concat(#{groupCompanyName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="groupCompanyPublic != null" >
+  		and group_company_public = #{groupCompanyPublic,jdbcType=INTEGER}
+  	</if>
   </select>
   
   <select id="pageRegistItem" resultMap="BaseResultMap" parameterType="map" >
@@ -141,13 +150,22 @@
   		and id = #{id,jdbcType=INTEGER}
   	</if>
   	<if test="companyName != null" >
-  		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  		and company_name like concat(#{companyName,jdbcType=VARCHAR},'%')
   	</if>
   	<if test="registNumber != null" >
-  		and regist_number like concat(concat('%',#{registNumber,jdbcType=VARCHAR}),'%')
+  		and regist_number like concat(#{registNumber,jdbcType=VARCHAR},'%')
   	</if>
   	<if test="status != null" >
   		and status = #{status,jdbcType=INTEGER}
+  	</if>
+  	<if test="address != null" >
+  		and address like concat(#{address,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="groupCompanyName != null" >
+  		and group_company_name like concat(#{groupCompanyName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="groupCompanyPublic != null" >
+  		and group_company_public = #{groupCompanyPublic,jdbcType=INTEGER}
   	</if>
   	limit #{startRow},#{pageRows}
   </select>

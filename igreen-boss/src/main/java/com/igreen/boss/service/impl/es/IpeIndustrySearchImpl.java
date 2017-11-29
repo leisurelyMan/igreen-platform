@@ -43,6 +43,7 @@ import com.igreen.common.model.IpeElasticsearch;
 import com.igreen.common.model.IpeIndustryRecord;
 import com.igreen.common.model.RegistItem;
 import com.igreen.common.util.ListRange;
+import com.igreen.common.util.StrUtil;
 
 @Service
 public class IpeIndustrySearchImpl implements IpeIndustrySearch {
@@ -82,9 +83,11 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		scriptParams.put("from", (currentPage-1)*pageRows);
 		scriptParams.put("size", pageRows);
 		scriptParams.put("fields", dto.getArray());
+		if(!StrUtil.isNull(dto.getAddress()))
+			scriptParams.put("companyName", dto.getAddress());
 		
 		SearchResponse searchResponse = new SearchTemplateRequestBuilder(client)
-				.setScript("ipe_type")
+				.setScript("mul_match")
 				.setScriptType(ScriptType.FILE)
 				.setScriptParams(scriptParams)
 				.setRequest(new SearchRequest(INDEX).types(TYPE))
