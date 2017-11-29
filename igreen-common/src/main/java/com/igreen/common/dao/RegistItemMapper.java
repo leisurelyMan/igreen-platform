@@ -36,4 +36,6 @@ public interface RegistItemMapper {
 	void auditById(Integer id);
 	
 	Integer selectMaxCompanyId( );
+	
+	RegistItem selectMaxIdByCompanyName(String companyName);
 }

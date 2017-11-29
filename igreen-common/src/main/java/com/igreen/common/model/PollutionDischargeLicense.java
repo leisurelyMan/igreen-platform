@@ -93,7 +93,7 @@ public class PollutionDischargeLicense {
 	private String pollutionTrade;
 	
 	public String getCertificateDateStr( ){
-		return sdf.format(this.certificateDate);
+		return certificateDate !=null ? sdf.format(this.certificateDate) : "";
 	}
 	
 	public Integer getRegistItemId() {

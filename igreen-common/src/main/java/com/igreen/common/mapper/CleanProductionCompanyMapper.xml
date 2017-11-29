@@ -293,4 +293,12 @@
 		and check_organization like concat(concat('%',#{checkOrganization,jdbcType=VARCHAR}),'%')
   	</if>
   </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+      select 
+      <include refid="Base_Column_List" />
+       from clean_production_company 
+       where regist_item_id=#{registItemId,jdbcType=INTEGER}
+       ORDER BY id DESC limit 1
+  </select>
 </mapper>

@@ -14,6 +14,7 @@ import com.igreen.common.dao.BranchMapper;
 import com.igreen.common.dao.BrandMapper;
 import com.igreen.common.dao.BreakPromiseExecutedMapper;
 import com.igreen.common.dao.ChattelMortgageMapper;
+import com.igreen.common.dao.CleanProductionCompanyMapper;
 import com.igreen.common.dao.CompanyEmployeeMapper;
 import com.igreen.common.dao.CopyrightMapper;
 import com.igreen.common.dao.CourtNoticeMapper;
@@ -23,10 +24,12 @@ import com.igreen.common.dao.ExecutedItemMapper;
 import com.igreen.common.dao.FreezeStockRightMapper;
 import com.igreen.common.dao.InvestmentMapper;
 import com.igreen.common.dao.InviteMapper;
+import com.igreen.common.dao.IpeIndustryRecordMapper;
 import com.igreen.common.dao.OpenCourtNoticeMapper;
 import com.igreen.common.dao.OrganizationItemMapper;
 import com.igreen.common.dao.PatentMapper;
 import com.igreen.common.dao.PledgeStockRightMapper;
+import com.igreen.common.dao.PollutionDischargeLicenseMapper;
 import com.igreen.common.dao.RegistItemMapper;
 import com.igreen.common.dao.RelationCompanyMapper;
 import com.igreen.common.dao.ShareholderMapper;
@@ -34,13 +37,17 @@ import com.igreen.common.dao.SoftwareCopyrightMapper;
 import com.igreen.common.dao.ThingChattelMortgageMapper;
 import com.igreen.common.dao.WrittenJudgementMapper;
 import com.igreen.common.model.Branch;
+import com.igreen.common.model.CleanProductionCompany;
 import com.igreen.common.model.Exchange;
+import com.igreen.common.model.IpeIndustryRecord;
 import com.igreen.common.model.OrganizationItem;
+import com.igreen.common.model.PollutionDischargeLicense;
 import com.igreen.common.model.RegistItem;
 import com.igreen.common.model.RelationCompany;
 import com.igreen.web.service.IndexService;
 import com.igreen.web.view.Igreen;
 import com.igreen.web.view.RelationCompanyView;
+import com.igreen.web.view.SearchCompanyInfo;
 
 @Service
 public class IndexServiceImpl implements IndexService{
@@ -117,7 +124,17 @@ public class IndexServiceImpl implements IndexService{
 	
 	@Resource
 	DomainNameMapper domainNameMapper;
-
+	
+	
+	@Resource
+	PollutionDischargeLicenseMapper pollutionDischargeLicenseMapper;
+	
+	@Resource 
+	CleanProductionCompanyMapper cleanProductionCompanyMapper;
+	
+	@Resource
+	IpeIndustryRecordMapper ipeIndustryRecordMapper;
+	
 	@Override
 	public Igreen search(String companyName) {
 		
@@ -192,6 +209,50 @@ public class IndexServiceImpl implements IndexService{
 		igreen.setSoftwareCopyrights(softwareCopyrightMapper.selectByRegistItemId(item.getId()));
 		igreen.setDomainNames(domainNameMapper.selectByRegistItemId(item.getId()));
 		return igreen;
+	}
+
+	@Override
+	public SearchCompanyInfo searchCompany(String companyName) {
+		// TODO Auto-generated method stub
+		RegistItem registItem = registItemMapper.selectMaxIdByCompanyName(companyName);
+		if(registItem != null){
+			Integer registItemId = registItem.getId();
+			PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByRegistItemId(registItemId);
+			CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByRegistItemId(registItemId);
+			List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByRegistItemId(registItemId);
+			SearchCompanyInfo searchInfo = new SearchCompanyInfo();
+			searchInfo.setCompanyName(registItem.getCompanyName());
+			String region="";
+			String industry = "";
+			if(pollutionDischarge != null){
+				String province = pollutionDischarge.getProvince();
+				String city = pollutionDischarge.getCity();
+				region = province + city;
+				industry = pollutionDischarge.getIndustry();
+				searchInfo.setCertificateDate(pollutionDischarge.getCertificateDateStr());
+				searchInfo.setValidDate(pollutionDischarge.getValidDate());
+			}
+			searchInfo.setIpeIndustryRecord(ipeIndustry);
+			if(cleanProduction != null){
+				searchInfo.setSerialNumber(cleanProduction.getSerialNumber());
+				searchInfo.setProductSalesAmount(cleanProduction.getProductSalesAmount());
+				searchInfo.setReportTime(cleanProduction.getReportTime());
+				searchInfo.setSubmitCheckTime(cleanProduction.getSubmitCheckTime());
+				searchInfo.setCompleteEstimateTime(cleanProduction.getCompleteEstimateTime());
+				searchInfo.setCompleteCheckTime(cleanProduction.getCompleteCheckTime());
+				searchInfo.setCheckOrganization(cleanProduction.getCheckOrganization());
+				if("".equals(industry)){
+					industry = cleanProduction.getTrade();
+				}
+				if("".equals(region)){
+					region = cleanProduction.getRegion();
+				}
+			}
+			searchInfo.setIndustry(industry);
+			searchInfo.setRegion(region);
+			return searchInfo;
+		}
+		return null;
 	}
 
 	

@@ -411,4 +411,12 @@
       and pollution_trade like concat(concat('%',#{pollutionTrade,jdbcType=VARCHAR}),'%')
     </if>
   </select>
+  
+  <select id="selectByRegistItemId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select province,city,industry,valid_date,certification_date
+         from pollution_discharge_license
+         where regist_item_id=#{registItemId,jdbcType=INTEGER} ORDER BY id DESC limit 1
+  </select>
+  
+  
 </mapper>
