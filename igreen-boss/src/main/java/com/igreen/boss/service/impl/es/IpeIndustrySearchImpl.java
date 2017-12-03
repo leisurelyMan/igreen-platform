@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeAction;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeRequestBuilder;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeResponse.AnalyzeToken;
@@ -48,6 +49,8 @@ import com.igreen.common.util.StrUtil;
 @Service
 public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 	
+	Logger log = Logger.getLogger(IpeIndustrySearchImpl.class);
+	
 	@Resource
 	IpeElasticsearchMapper ipeElasticsearchMapper;
 	
@@ -71,6 +74,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 	
 	@Override
 	public ListRange ipeIndustryList(IpeSearchDto dto, Integer currentPage, Integer pageRows) throws Exception{
+		log.info("ipeIndustryList:"+JSON.toJSONString(dto));
 		Settings settings = Settings.builder()
 				.put("cluster.name", CLUSTER_NAME)
 				.build();
@@ -78,13 +82,17 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		TransportClient client = new PreBuiltTransportClient(settings)
 				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300)); 
 	
-		System.out.println(dto.getArray());
 		Map<String, Object> scriptParams = new HashMap<String, Object>();
 		scriptParams.put("from", (currentPage-1)*pageRows);
 		scriptParams.put("size", pageRows);
-		scriptParams.put("fields", dto.getArray());
+		if(!StrUtil.isNull(dto.wordsEmpty()))
+			scriptParams.put("fields", dto.getArray());
 		if(!StrUtil.isNull(dto.getAddress()))
-			scriptParams.put("companyName", dto.getAddress());
+			scriptParams.put("address", dto.getAddress());
+		if(!StrUtil.isNull(dto.getYear()))
+			scriptParams.put("year", dto.getYear());
+		if(!StrUtil.isNull(dto.getCompanyName()))
+			scriptParams.put("companyName", dto.getCompanyName());
 		
 		SearchResponse searchResponse = new SearchTemplateRequestBuilder(client)
 				.setScript("mul_match")
@@ -109,7 +117,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 	@Override
 	public void bulkAdd() throws Exception{
 		
-		int maxId = ipeElasticsearchMapper.selectMaxIpeId();
+		Integer maxId = ipeElasticsearchMapper.selectMaxIpeId();
 		
 		List<IpeIndustryRecord> records = ipeIndustryRecordMapper.selectRecordById(maxId);
 		maxId = records.get(records.size()-1).getId();
@@ -121,21 +129,19 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300)); 
 		
 		while(records != null && records.size() >0){
-			addData(records, client,maxId);
+			addData(records, client);
 			records = ipeIndustryRecordMapper.selectRecordById(maxId);
-			//if(records != null && records.size() >0)
-				//maxId = records.get(records.size()-1).getId();
+			if(records != null && records.size() >0)
+				maxId = records.get(records.size()-1).getId();
 		}
 		
 		client.close();
 	}
 
-	private void addData(List<IpeIndustryRecord> records, TransportClient client,int maxId) throws IOException {
+	private void addData(List<IpeIndustryRecord> records, TransportClient client) throws IOException {
 		
 		BulkRequestBuilder bulkRequestBuilder = client.prepareBulk();
 		for(IpeIndustryRecord record : records){
-			if(record.getId().intValue() > maxId)
-				maxId = record.getId().intValue();
 			RegistItem item = registItemMapper.selectByPrimaryKey(record.getRegistItemId());
 			String filestr = FileUtil.readFile(FILE_PATH+record.getFileName());
 			IndexRequestBuilder indexRequestBuilder = client.prepareIndex(INDEX, TYPE, record.getId().toString()) 
@@ -162,7 +168,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 				es.setCreatedTime(new Date());
 				ipeElasticsearchMapper.insertSelective(es);
 			}
-			ananyziWord(client,filestr);
+			//ananyziWord(client,filestr);
 			
 		}
 	}

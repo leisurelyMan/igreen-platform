@@ -60,7 +60,11 @@
     paid_in_capital, currency, company_type, operate_state, start_time, end_time, open_time, 
     cancel_time, revoke_time, regist_office, address, annual_year, annual_day, trade_code, 
     trade_name, country_trade_code, country_trade_name, permission, general, business_scope, 
-    business_way, data_source, status, creater, created_time, updater, updated_time, remark
+    business_way, data_source, status, creater, created_time, updater, updated_time, remark,
+    company_id,group_company_public,group_company_name,group_company_exchange_name,group_company_stock_code,
+    sewage_facility,process_gas_facility,boiler_gas_facility,industrial_sewage_discharge,life_sweage_discharge,
+    industrial_sewage_emission_standard,life_sweage_emission_standard,gas_emission_standard,
+    pollutant_source,main_production,pollutant_desc
   </sql>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -122,10 +126,10 @@
   		and id = #{id,jdbcType=INTEGER}
   	</if>
   	<if test="companyName != null" >
-  		and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  		and company_name like concat(#{companyName,jdbcType=VARCHAR},'%')
   	</if>
   	<if test="registNumber != null" >
-  		and regist_number like concat(concat('%',#{registNumber,jdbcType=VARCHAR}),'%')
+  		and regist_number like concat(#{registNumber,jdbcType=VARCHAR},'%')
   	</if>
   	<if test="status != null" >
   		and status = #{status,jdbcType=INTEGER}
@@ -137,7 +141,7 @@
   		and group_company_name like concat(#{groupCompanyName,jdbcType=VARCHAR},'%')
   	</if>
   	<if test="groupCompanyPublic != null" >
-  		and group_company_public = #{groupCompanyPublic,jdbcType=INTEGER}
+  		and group_company_public = #{groupCompanyPublic,jdbcType=VARCHAR}
   	</if>
   </select>
   
@@ -165,7 +169,7 @@
   		and group_company_name like concat(#{groupCompanyName,jdbcType=VARCHAR},'%')
   	</if>
   	<if test="groupCompanyPublic != null" >
-  		and group_company_public = #{groupCompanyPublic,jdbcType=INTEGER}
+  		and group_company_public = #{groupCompanyPublic,jdbcType=VARCHAR}
   	</if>
   	limit #{startRow},#{pageRows}
   </select>

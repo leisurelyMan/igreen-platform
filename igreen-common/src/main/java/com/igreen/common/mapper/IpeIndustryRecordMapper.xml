@@ -34,6 +34,7 @@
     <include refid="Base_Column_List" />
     from ipe_industry_record
     where id &gt; #{id,jdbcType=INTEGER}
+    order by id asc
     limit 10
   </select>
   

@@ -108,7 +108,7 @@ public class WordFrequencyServiceImpl implements WordFrequencyService {
 			criteria.andWordLike("%"+frequency.getWord()+"%");
 		if (!StrUtil.isNull(frequency.getStatas()))
 			criteria.andStatasEqualTo(frequency.getStatas());
-		example.setOrderByClause("id desc");
+		example.setOrderByClause("times desc,id desc");
 
 		List<WordFrequency> list = wordFrequencyMapper.selectByExample(example);
 		PageInfo<WordFrequency> p = new PageInfo<WordFrequency>(list);
