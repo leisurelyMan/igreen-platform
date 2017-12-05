@@ -17,9 +17,24 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   
+   <resultMap id="registItemMap" type="com.igreen.common.dto.IpeIndustryDto">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="ipe_id" property="ipeId" jdbcType="BIGINT" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+  	<result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     id, company_name, regist_item_id, year, title, ipe_id, file_name, status, creater, created_time, 
     updater, updated_time, remark
+  </sql>
+  
+   <sql id="registItem_List" >
+    ir.id, ir.company_name, ir.regist_item_id, ir.year, ir.title, ir.file_name, r.address
   </sql>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -51,6 +66,46 @@
     from ipe_industry_record
     where ipe_id = #{ipeId,jdbcType=BIGINT}
   </select>
+  
+  <!-- 查询有效的总记录数 -->
+   <select id="countIpeIndustryDto" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from ipe_industry_record ir,regist_item r
+  	where ir.regist_item_id = r.id
+  	<if test="companyName != null" >
+  		and ir.company_name like concat(#{companyName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="year != null" >
+  		and ir.year = #{year,jdbcType=VARCHAR}
+  	</if>
+  	<if test="title != null" >
+  		and ir.title like concat(#{title,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="address != null" >
+  		and r.address like concat(#{address,jdbcType=VARCHAR},'%')
+  	</if>
+  </select>
+  
+   <select id="pageIpeIndustryDto" resultMap="registItemMap" parameterType="map" >
+  	select 
+  	<include refid="registItem_List" />
+  	from ipe_industry_record ir,regist_item r
+  	where ir.regist_item_id = r.id
+  	<if test="companyName != null" >
+  		and ir.company_name like concat(#{companyName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="year != null" >
+  		and ir.year = #{year,jdbcType=VARCHAR}
+  	</if>
+  	<if test="title != null" >
+  		and ir.title like concat(#{title,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="address != null" >
+  		and r.address like concat(#{address,jdbcType=VARCHAR},'%')
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
   
   <!-- 查询有效的总记录数 -->
   <select id="countIpeIndustry" resultType="java.lang.Integer" parameterType="map">

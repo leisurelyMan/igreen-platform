@@ -94,6 +94,25 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		if(!StrUtil.isNull(dto.getCompanyName()))
 			scriptParams.put("companyName", dto.getCompanyName());
 		
+/*		SearchTemplateRequestBuilder builder = new SearchTemplateRequestBuilder(client);
+		builder.setScriptType(ScriptType.FILE).setScriptParams(scriptParams).setRequest(new SearchRequest(INDEX).types(TYPE));
+		if(!StrUtil.isNull(dto.getAddress()) && StrUtil.isNull(dto.getYear()) && StrUtil.isNull(dto.getCompanyName()))
+			builder.setScript("address_must");
+		if(!StrUtil.isNull(dto.getYear()) && StrUtil.isNull(dto.getAddress()) && StrUtil.isNull(dto.getCompanyName()))
+			builder.setScript("year_must");
+		if(!StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) && StrUtil.isNull(dto.getAddress()))
+			builder.setScript("company_must");
+		if(!StrUtil.isNull(dto.getYear()) && !StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getAddress()))
+			builder.setScript("year_company_must");
+		if(!StrUtil.isNull(dto.getYear()) && !StrUtil.isNull(dto.getAddress()) && StrUtil.isNull(dto.getCompanyName()))
+			builder.setScript("year_address_must");
+		if(!StrUtil.isNull(dto.getAddress()) && !StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()))
+			builder.setScript("company_address_must");
+		if(!StrUtil.isNull(dto.getAddress()) && !StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()))
+			builder.setScript("year_company_address_must");
+		else
+			builder.setScript("mul_match");
+		SearchResponse searchResponse = builder.get().getResponse();*/
 		SearchResponse searchResponse = new SearchTemplateRequestBuilder(client)
 				.setScript("mul_match")
 				.setScriptType(ScriptType.FILE)
@@ -101,6 +120,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 				.setRequest(new SearchRequest(INDEX).types(TYPE))
 				.get()
 				.getResponse();
+		
 		List<IpeIndustryDto> list = new ArrayList<IpeIndustryDto>();
 		for(SearchHit searchHit : searchResponse.getHits().getHits()) {
 			//System.out.println(searchHit.getSourceAsString());
@@ -162,12 +182,18 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 			bulkRequestBuilder.add(indexRequestBuilder);
 			BulkResponse bulkResponse = bulkRequestBuilder.get();
 			
-			for(BulkItemResponse bulkItemResponse : bulkResponse.getItems()) {
+			if(bulkResponse.getItems() != null && bulkResponse.getItems().length>0){
+				IpeElasticsearch es = new IpeElasticsearch();
+				es.setEsId(Integer.parseInt(bulkResponse.getItems()[0].getId()));
+				es.setCreatedTime(new Date());
+				ipeElasticsearchMapper.insertSelective(es);
+			}
+/*			for(BulkItemResponse bulkItemResponse : bulkResponse.getItems()) {
 				IpeElasticsearch es = new IpeElasticsearch();
 				es.setEsId(Integer.parseInt(bulkItemResponse.getId()));
 				es.setCreatedTime(new Date());
 				ipeElasticsearchMapper.insertSelective(es);
-			}
+			}*/
 			//ananyziWord(client,filestr);
 			
 		}

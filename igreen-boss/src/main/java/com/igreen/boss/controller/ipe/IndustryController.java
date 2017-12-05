@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.igreen.boss.controller.BaseController;
 import com.igreen.boss.service.ipe.IndustryService;
-import com.igreen.common.model.IpeIndustryRecord;
+import com.igreen.common.dto.IpeIndustryDto;
 import com.igreen.common.util.ListRange;
 
 @Controller
@@ -34,7 +34,7 @@ public class IndustryController extends BaseController {
 	}
 	
 	@RequestMapping(value="industryList", method = { RequestMethod.POST,RequestMethod.GET })
-	public @ResponseBody ListRange reportList(IpeIndustryRecord industry,Integer currentPage,Integer pageRows){
+	public @ResponseBody ListRange reportList(IpeIndustryDto industry,Integer currentPage,Integer pageRows){
 		if(currentPage == null)
 			currentPage =1;
 		if(pageRows == null)
