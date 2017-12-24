@@ -172,15 +172,12 @@
 		    type: 'get',
 		    data: "type="+type,
 		    contentType : 'application/json',
-		    url: 'http://localhost:3017/index/getmap',
+		    url: window.location.origin+'/index/getmap',
 		    dataType: "json",
 		    success: function(obj){
 		       if(obj.data != null){
 		    	   distCluster.setData(obj.data);
 		    	   $('#loadingTip').remove();
-		    	   
-		       }else{
-		    	   alert("111");
 		       }
 		    },
 		    error:function (obj) {
@@ -206,9 +203,7 @@
 	                     //拼接输出html
 	                     var lng = geocode[0].location.getLng(); 
 	                     var lat = geocode[0].location.getLat();
-	                     console.log(lng+"ddd"+lat)
 	                     alldata.push(lng+","+lat)
-	                     
 	                }
 	            });
     	    }
