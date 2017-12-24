@@ -3,7 +3,7 @@ package com.igreen.common.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.igreen.common.dto.IpeIndustryDto;
+import com.igreen.common.model.CleanProductionCompany;
 import com.igreen.common.model.IpeIndustryRecord;
 
 public interface IpeIndustryRecordMapper {
@@ -37,8 +37,5 @@ public interface IpeIndustryRecordMapper {
 	List<IpeIndustryRecord> selectById(Map<String, Integer> params);
 	List<IpeIndustryRecord> selectByRegistItemId(Integer registItemId);
 	
-	
-	Integer countIpeIndustryDto(Map<String, Object> params);
-
-	List<IpeIndustryDto> pageIpeIndustryDto(Map<String, Object> params);
+	List<IpeIndustryRecord> getRegion();
 }

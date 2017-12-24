@@ -301,4 +301,8 @@
        where regist_item_id=#{registItemId,jdbcType=INTEGER}
        ORDER BY id DESC limit 1
   </select>
+  
+   <select id="getRegion" resultMap="BaseResultMap">
+       select regist_item_id,city,address from clean_production_company
+  </select>
 </mapper>

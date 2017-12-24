@@ -29,9 +29,13 @@
 		<description>spring监听器</description>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
 	<!-- 防止spring内存溢出监听器 -->
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.igreen.web.listener.ApplicationListener</listener-class>
 	</listener>
 	<!-- spring mvc servlet -->
 	<servlet>

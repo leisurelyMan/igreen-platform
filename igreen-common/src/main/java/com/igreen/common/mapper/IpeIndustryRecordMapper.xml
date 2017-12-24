@@ -317,4 +317,8 @@
        where regist_item_id = #{registItemId,jdbcType=INTEGER} 
        GROUP BY year order by year DESC
   </select>
+  
+  <select id="getRegion" resultMap="BaseResultMap">
+      select regist_item_id from ipe_industry_record where year=DATE_FORMAT(NOW(), '%Y')
+  </select>
 </mapper>

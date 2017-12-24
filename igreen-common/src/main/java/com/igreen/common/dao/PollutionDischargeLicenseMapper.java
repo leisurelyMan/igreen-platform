@@ -19,4 +19,6 @@ public interface PollutionDischargeLicenseMapper {
 	Integer countLicense(Map<String,Object> params);
 	
 	PollutionDischargeLicense selectByRegistItemId(Integer registItemId);
+	
+	List<PollutionDischargeLicense> getRegion();
 }

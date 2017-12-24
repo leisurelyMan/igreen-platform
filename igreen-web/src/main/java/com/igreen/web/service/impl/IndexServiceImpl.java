@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import com.igreen.common.dao.AdministrativePenaltyMapper;
 import com.igreen.common.dao.BranchMapper;
 import com.igreen.common.dao.BrandMapper;
@@ -44,6 +41,7 @@ import com.igreen.common.model.OrganizationItem;
 import com.igreen.common.model.PollutionDischargeLicense;
 import com.igreen.common.model.RegistItem;
 import com.igreen.common.model.RelationCompany;
+import com.igreen.web.job.GetRegtionTaskJob;
 import com.igreen.web.service.IndexService;
 import com.igreen.web.view.Igreen;
 import com.igreen.web.view.RelationCompanyView;
@@ -135,6 +133,9 @@ public class IndexServiceImpl implements IndexService{
 	@Resource
 	IpeIndustryRecordMapper ipeIndustryRecordMapper;
 	
+	
+	
+	
 	@Override
 	public Igreen search(String companyName) {
 		
@@ -213,7 +214,6 @@ public class IndexServiceImpl implements IndexService{
 
 	@Override
 	public SearchCompanyInfo searchCompany(String companyName) {
-		// TODO Auto-generated method stub
 		RegistItem registItem = registItemMapper.selectMaxIdByCompanyName(companyName);
 		if(registItem != null){
 			Integer registItemId = registItem.getId();
@@ -255,6 +255,16 @@ public class IndexServiceImpl implements IndexService{
 		return null;
 	}
 
-	
-	
+	@Override
+	public List<String> getRegation(String type){
+		List<String> regationList = new ArrayList<String>();
+		if("1".equals(type)){
+			regationList = GetRegtionTaskJob.getCpcRegationList();
+		}else if("2".equals(type)){
+			regationList = GetRegtionTaskJob.getPdlRegationList();
+		}else if("3".equals(type)){
+			regationList = GetRegtionTaskJob.getIpeRegationList();
+		}
+		return regationList;
+	}
 }

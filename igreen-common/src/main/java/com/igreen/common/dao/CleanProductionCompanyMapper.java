@@ -24,4 +24,6 @@ public interface CleanProductionCompanyMapper {
 	Integer countCleanProductionCompany(Map<String, Object> params);
 	
 	CleanProductionCompany selectByRegistItemId(Integer registItemId);
+	
+	List<CleanProductionCompany> getRegion();
 }

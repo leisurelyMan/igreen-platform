@@ -38,4 +38,10 @@ public interface RegistItemMapper {
 	Integer selectMaxCompanyId( );
 	
 	RegistItem selectMaxIdByCompanyName(String companyName);
+	
+	List<RegistItem> selectRegion();
+	
+	List<RegistItem> getNeedUpdateRegion(Long startId);
+	
+	List<RegistItem> getAllRegion();
 }
