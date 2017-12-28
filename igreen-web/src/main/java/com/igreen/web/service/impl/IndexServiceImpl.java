@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import com.igreen.common.dao.AdministrativePenaltyMapper;
 import com.igreen.common.dao.BranchMapper;
 import com.igreen.common.dao.BrandMapper;
@@ -16,12 +19,14 @@ import com.igreen.common.dao.CompanyEmployeeMapper;
 import com.igreen.common.dao.CopyrightMapper;
 import com.igreen.common.dao.CourtNoticeMapper;
 import com.igreen.common.dao.DomainNameMapper;
+import com.igreen.common.dao.EnvironmentalIssueMapper;
 import com.igreen.common.dao.ExchangeMapper;
 import com.igreen.common.dao.ExecutedItemMapper;
 import com.igreen.common.dao.FreezeStockRightMapper;
 import com.igreen.common.dao.InvestmentMapper;
 import com.igreen.common.dao.InviteMapper;
 import com.igreen.common.dao.IpeIndustryRecordMapper;
+import com.igreen.common.dao.MonitorCompanyMapper;
 import com.igreen.common.dao.OpenCourtNoticeMapper;
 import com.igreen.common.dao.OrganizationItemMapper;
 import com.igreen.common.dao.PatentMapper;
@@ -35,8 +40,10 @@ import com.igreen.common.dao.ThingChattelMortgageMapper;
 import com.igreen.common.dao.WrittenJudgementMapper;
 import com.igreen.common.model.Branch;
 import com.igreen.common.model.CleanProductionCompany;
+import com.igreen.common.model.EnvironmentalIssue;
 import com.igreen.common.model.Exchange;
 import com.igreen.common.model.IpeIndustryRecord;
+import com.igreen.common.model.MonitorCompany;
 import com.igreen.common.model.OrganizationItem;
 import com.igreen.common.model.PollutionDischargeLicense;
 import com.igreen.common.model.RegistItem;
@@ -133,7 +140,11 @@ public class IndexServiceImpl implements IndexService{
 	@Resource
 	IpeIndustryRecordMapper ipeIndustryRecordMapper;
 	
+	@Resource 
+	MonitorCompanyMapper monitorCompanyMapper;
 	
+	@Resource
+	EnvironmentalIssueMapper environmentalIssueMapper;
 	
 	
 	@Override
@@ -220,6 +231,12 @@ public class IndexServiceImpl implements IndexService{
 			PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByRegistItemId(registItemId);
 			CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByRegistItemId(registItemId);
 			List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByRegistItemId(registItemId);
+			MonitorCompany monitorCompany = new MonitorCompany();
+			monitorCompany.setRegistItemId(registItemId);
+			List<MonitorCompany> monitorCompanys = monitorCompanyMapper.selectByParameter(monitorCompany);
+			EnvironmentalIssue environmentalIssue = new EnvironmentalIssue();
+			environmentalIssue.setRegistItemId(registItemId);
+			List<EnvironmentalIssue> environmentalIssues =  environmentalIssueMapper.selectByParameter(environmentalIssue);
 			SearchCompanyInfo searchInfo = new SearchCompanyInfo();
 			searchInfo.setCompanyName(registItem.getCompanyName());
 			String region="";
@@ -249,6 +266,8 @@ public class IndexServiceImpl implements IndexService{
 				}
 			}
 			searchInfo.setIndustry(industry);
+			searchInfo.setMonitorCompanys(monitorCompanys);
+			searchInfo.setEnvironmentalIssues(environmentalIssues);
 			searchInfo.setRegion(region);
 			return searchInfo;
 		}

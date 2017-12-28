@@ -115,6 +115,45 @@
       </table>
     </div>
     </div>
+    <div class="data-box">
+    <div class="data-tit"><i></i><h3>重点监管企业</h3></div>
+    <div class="data-tab tab-2">
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <th>监控类别</th>
+          <th>所属年份</th>
+        </tr>
+        <c:forEach var="item" items="${searchInfo.monitorCompanys}" varStatus="status">
+		<tr>
+	        <td><c:out value="${item.monitorType}"/></td>
+	        <td><c:out value="${item.monitorYear}"/></td>
+		</tr>
+		</c:forEach>
+      </table>
+    </div>
+  </div>
+  
+  <div class="data-box">
+    <div class="data-tit"><i></i><h3>群众举报案件</h3></div>
+    <div class="data-tab tab-2">
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <th>年份</th>
+          <th>月份</th>
+          <th>存在问题</th>
+          <th>处理情况</th>
+        </tr>
+        <c:forEach var="item" items="${searchInfo.environmentalIssues}" varStatus="status">
+		<tr style="height:100px;">
+	        <td style="width:30px;"><c:out value="${item.reportYear}"/></td>
+	        <td style="width:30px;"><c:out value="${item.reportMonth}"/></td>
+	        <td style="width:166px;text-align: left;"><c:out value="${item.reportIssue}"/></td>
+	        <td style="text-align: left;"><c:out value="${item.dealResult}"/></td>
+		</tr>
+		</c:forEach>
+      </table>
+    </div>
+  </div>
 </div>
 
 </div>

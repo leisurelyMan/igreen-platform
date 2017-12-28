@@ -2,7 +2,10 @@ package com.igreen.web.view;
 
 import java.util.Date;
 import java.util.List;
+
+import com.igreen.common.model.EnvironmentalIssue;
 import com.igreen.common.model.IpeIndustryRecord;
+import com.igreen.common.model.MonitorCompany;
 
 public class SearchCompanyInfo {
 	
@@ -70,7 +73,17 @@ public class SearchCompanyInfo {
      *审核咨询机构名称
      */
     private String checkOrganization;
-
+    
+    /**
+     * 重点监管企业
+     */
+    private List<MonitorCompany> monitorCompanys;
+    
+    /**
+     * 群众举报案件
+     */
+    private List<EnvironmentalIssue> environmentalIssues;
+    
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -174,5 +187,23 @@ public class SearchCompanyInfo {
 	public void setCheckOrganization(String checkOrganization) {
 		this.checkOrganization = checkOrganization;
 	}
+
+	public List<MonitorCompany> getMonitorCompanys() {
+		return monitorCompanys;
+	}
+
+	public void setMonitorCompanys(List<MonitorCompany> monitorCompanys) {
+		this.monitorCompanys = monitorCompanys;
+	}
+
+	public List<EnvironmentalIssue> getEnvironmentalIssues() {
+		return environmentalIssues;
+	}
+
+	public void setEnvironmentalIssues(List<EnvironmentalIssue> environmentalIssues) {
+		this.environmentalIssues = environmentalIssues;
+	}
+
+
 	   
 }
