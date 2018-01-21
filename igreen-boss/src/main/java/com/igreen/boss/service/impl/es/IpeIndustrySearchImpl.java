@@ -69,7 +69,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 	
 	private static String TYPE = "ipe_type";
 	
-	private static String FILE_PATH="/opt/files/ipe/";
+	private static String FILE_PATH="/data/files/ipe/";
 	
 	
 	@Override
@@ -80,7 +80,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 				.build();
 		
 		TransportClient client = new PreBuiltTransportClient(settings)
-				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300)); 
+				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("172.17.215.144"), 9300)); 
 	
 		Map<String, Object> scriptParams = new HashMap<String, Object>();
 		scriptParams.put("from", (currentPage-1)*pageRows);
@@ -146,7 +146,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 				.build();
 		
 		TransportClient client = new PreBuiltTransportClient(settings)
-				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300)); 
+				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("172.17.215.144"), 9300)); 
 		
 		while(records != null && records.size() >0){
 			addData(records, client);

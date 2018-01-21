@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.QichachaPatentMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.QichachaPatent" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="key_no" property="keyNo" jdbcType="VARCHAR" />
+    <result column="key_nop" property="keyNop" jdbcType="VARCHAR" />
+    <result column="ipc_list" property="ipcList" jdbcType="VARCHAR" />
+    <result column="kind_code" property="kindCode" jdbcType="VARCHAR" />
+    <result column="application_number" property="applicationNumber" jdbcType="VARCHAR" />
+    <result column="application_date" property="applicationDate" jdbcType="VARCHAR" />
+    <result column="publication_number" property="publicationNumber" jdbcType="VARCHAR" />
+    <result column="publication_date" property="publicationDate" jdbcType="VARCHAR" />
+    <result column="legal_status" property="legalStatus" jdbcType="VARCHAR" />
+    <result column="legal_status_desc" property="legalStatusDesc" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="agency" property="agency" jdbcType="VARCHAR" />
+    <result column="kind_code_desc" property="kindCodeDesc" jdbcType="VARCHAR" />
+    <result column="ipc_desc" property="ipcDesc" jdbcType="VARCHAR" />
+    <result column="inventor_string_list" property="inventorStringList" jdbcType="VARCHAR" />
+    <result column="assigneestring_list" property="assigneestringList" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, key_no, key_nop, ipc_list, kind_code, application_number, application_date, publication_number, 
+    publication_date, legal_status, legal_status_desc, title, agency, kind_code_desc, 
+    ipc_desc, inventor_string_list, assigneestring_list
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.QichachaPatentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qichacha_patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from qichacha_patent
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from qichacha_patent
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.igreen.common.model.QichachaPatentExample" >
+    delete from qichacha_patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.igreen.common.model.QichachaPatent" useGeneratedKeys="true" keyProperty="id" >
+    insert into qichacha_patent (key_no, key_nop, ipc_list, 
+      kind_code, application_number, application_date, 
+      publication_number, publication_date, legal_status, 
+      legal_status_desc, title, agency, 
+      kind_code_desc, ipc_desc, inventor_string_list, 
+      assigneestring_list)
+    values (#{keyNo,jdbcType=VARCHAR}, #{keyNop,jdbcType=VARCHAR}, #{ipcList,jdbcType=VARCHAR}, 
+      #{kindCode,jdbcType=VARCHAR}, #{applicationNumber,jdbcType=VARCHAR}, #{applicationDate,jdbcType=VARCHAR}, 
+      #{publicationNumber,jdbcType=VARCHAR}, #{publicationDate,jdbcType=VARCHAR}, #{legalStatus,jdbcType=VARCHAR}, 
+      #{legalStatusDesc,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{agency,jdbcType=VARCHAR}, 
+      #{kindCodeDesc,jdbcType=VARCHAR}, #{ipcDesc,jdbcType=VARCHAR}, #{inventorStringList,jdbcType=VARCHAR}, 
+      #{assigneestringList,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.QichachaPatent" useGeneratedKeys="true" keyProperty="id" >
+    insert into qichacha_patent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="keyNo != null" >
+        key_no,
+      </if>
+      <if test="keyNop != null" >
+        key_nop,
+      </if>
+      <if test="ipcList != null" >
+        ipc_list,
+      </if>
+      <if test="kindCode != null" >
+        kind_code,
+      </if>
+      <if test="applicationNumber != null" >
+        application_number,
+      </if>
+      <if test="applicationDate != null" >
+        application_date,
+      </if>
+      <if test="publicationNumber != null" >
+        publication_number,
+      </if>
+      <if test="publicationDate != null" >
+        publication_date,
+      </if>
+      <if test="legalStatus != null" >
+        legal_status,
+      </if>
+      <if test="legalStatusDesc != null" >
+        legal_status_desc,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="agency != null" >
+        agency,
+      </if>
+      <if test="kindCodeDesc != null" >
+        kind_code_desc,
+      </if>
+      <if test="ipcDesc != null" >
+        ipc_desc,
+      </if>
+      <if test="inventorStringList != null" >
+        inventor_string_list,
+      </if>
+      <if test="assigneestringList != null" >
+        assigneestring_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="keyNo != null" >
+        #{keyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="keyNop != null" >
+        #{keyNop,jdbcType=VARCHAR},
+      </if>
+      <if test="ipcList != null" >
+        #{ipcList,jdbcType=VARCHAR},
+      </if>
+      <if test="kindCode != null" >
+        #{kindCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationNumber != null" >
+        #{applicationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationDate != null" >
+        #{applicationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationNumber != null" >
+        #{publicationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationDate != null" >
+        #{publicationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="legalStatus != null" >
+        #{legalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="legalStatusDesc != null" >
+        #{legalStatusDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="agency != null" >
+        #{agency,jdbcType=VARCHAR},
+      </if>
+      <if test="kindCodeDesc != null" >
+        #{kindCodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ipcDesc != null" >
+        #{ipcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="inventorStringList != null" >
+        #{inventorStringList,jdbcType=VARCHAR},
+      </if>
+      <if test="assigneestringList != null" >
+        #{assigneestringList,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.igreen.common.model.QichachaPatentExample" resultType="java.lang.Integer" >
+    select count(*) from qichacha_patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update qichacha_patent
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyNo != null" >
+        key_no = #{record.keyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyNop != null" >
+        key_nop = #{record.keyNop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipcList != null" >
+        ipc_list = #{record.ipcList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kindCode != null" >
+        kind_code = #{record.kindCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicationNumber != null" >
+        application_number = #{record.applicationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicationDate != null" >
+        application_date = #{record.applicationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publicationNumber != null" >
+        publication_number = #{record.publicationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publicationDate != null" >
+        publication_date = #{record.publicationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalStatus != null" >
+        legal_status = #{record.legalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalStatusDesc != null" >
+        legal_status_desc = #{record.legalStatusDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agency != null" >
+        agency = #{record.agency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kindCodeDesc != null" >
+        kind_code_desc = #{record.kindCodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipcDesc != null" >
+        ipc_desc = #{record.ipcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inventorStringList != null" >
+        inventor_string_list = #{record.inventorStringList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assigneestringList != null" >
+        assigneestring_list = #{record.assigneestringList,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update qichacha_patent
+    set id = #{record.id,jdbcType=VARCHAR},
+      key_no = #{record.keyNo,jdbcType=VARCHAR},
+      key_nop = #{record.keyNop,jdbcType=VARCHAR},
+      ipc_list = #{record.ipcList,jdbcType=VARCHAR},
+      kind_code = #{record.kindCode,jdbcType=VARCHAR},
+      application_number = #{record.applicationNumber,jdbcType=VARCHAR},
+      application_date = #{record.applicationDate,jdbcType=VARCHAR},
+      publication_number = #{record.publicationNumber,jdbcType=VARCHAR},
+      publication_date = #{record.publicationDate,jdbcType=VARCHAR},
+      legal_status = #{record.legalStatus,jdbcType=VARCHAR},
+      legal_status_desc = #{record.legalStatusDesc,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      agency = #{record.agency,jdbcType=VARCHAR},
+      kind_code_desc = #{record.kindCodeDesc,jdbcType=VARCHAR},
+      ipc_desc = #{record.ipcDesc,jdbcType=VARCHAR},
+      inventor_string_list = #{record.inventorStringList,jdbcType=VARCHAR},
+      assigneestring_list = #{record.assigneestringList,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.QichachaPatent" >
+    update qichacha_patent
+    <set >
+      <if test="keyNo != null" >
+        key_no = #{keyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="keyNop != null" >
+        key_nop = #{keyNop,jdbcType=VARCHAR},
+      </if>
+      <if test="ipcList != null" >
+        ipc_list = #{ipcList,jdbcType=VARCHAR},
+      </if>
+      <if test="kindCode != null" >
+        kind_code = #{kindCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationNumber != null" >
+        application_number = #{applicationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationDate != null" >
+        application_date = #{applicationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationNumber != null" >
+        publication_number = #{publicationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationDate != null" >
+        publication_date = #{publicationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="legalStatus != null" >
+        legal_status = #{legalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="legalStatusDesc != null" >
+        legal_status_desc = #{legalStatusDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="agency != null" >
+        agency = #{agency,jdbcType=VARCHAR},
+      </if>
+      <if test="kindCodeDesc != null" >
+        kind_code_desc = #{kindCodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ipcDesc != null" >
+        ipc_desc = #{ipcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="inventorStringList != null" >
+        inventor_string_list = #{inventorStringList,jdbcType=VARCHAR},
+      </if>
+      <if test="assigneestringList != null" >
+        assigneestring_list = #{assigneestringList,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.QichachaPatent" >
+    update qichacha_patent
+    set key_no = #{keyNo,jdbcType=VARCHAR},
+      key_nop = #{keyNop,jdbcType=VARCHAR},
+      ipc_list = #{ipcList,jdbcType=VARCHAR},
+      kind_code = #{kindCode,jdbcType=VARCHAR},
+      application_number = #{applicationNumber,jdbcType=VARCHAR},
+      application_date = #{applicationDate,jdbcType=VARCHAR},
+      publication_number = #{publicationNumber,jdbcType=VARCHAR},
+      publication_date = #{publicationDate,jdbcType=VARCHAR},
+      legal_status = #{legalStatus,jdbcType=VARCHAR},
+      legal_status_desc = #{legalStatusDesc,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      agency = #{agency,jdbcType=VARCHAR},
+      kind_code_desc = #{kindCodeDesc,jdbcType=VARCHAR},
+      ipc_desc = #{ipcDesc,jdbcType=VARCHAR},
+      inventor_string_list = #{inventorStringList,jdbcType=VARCHAR},
+      assigneestring_list = #{assigneestringList,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

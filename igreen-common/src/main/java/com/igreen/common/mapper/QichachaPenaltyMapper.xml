@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.QichachaPenaltyMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.QichachaPenalty" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="key_no" property="keyNo" jdbcType="VARCHAR" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="doc_no" property="docNo" jdbcType="VARCHAR" />
+    <result column="penalty_type" property="penaltyType" jdbcType="VARCHAR" />
+    <result column="office_name" property="officeName" jdbcType="VARCHAR" />
+    <result column="public_date" property="publicDate" jdbcType="VARCHAR" />
+    <result column="penalty_date" property="penaltyDate" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="reg_no" property="regNo" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="ad_penalty_link" property="adPenaltyLink" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.igreen.common.model.QichachaPenaltyWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="ad_penalty_doc" property="adPenaltyDoc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, key_no, no, doc_no, penalty_type, office_name, public_date, penalty_date, remark, 
+    person_name, reg_no, operator, ad_penalty_link
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, ad_penalty_doc
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.igreen.common.model.QichachaPenaltyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from qichacha_penalty
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.QichachaPenaltyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qichacha_penalty
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from qichacha_penalty
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from qichacha_penalty
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.igreen.common.model.QichachaPenaltyExample" >
+    delete from qichacha_penalty
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.igreen.common.model.QichachaPenaltyWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
+    insert into qichacha_penalty (key_no, no, doc_no, 
+      penalty_type, office_name, public_date, 
+      penalty_date, remark, person_name, 
+      reg_no, operator, ad_penalty_link, 
+      content, ad_penalty_doc)
+    values (#{keyNo,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{docNo,jdbcType=VARCHAR}, 
+      #{penaltyType,jdbcType=VARCHAR}, #{officeName,jdbcType=VARCHAR}, #{publicDate,jdbcType=VARCHAR}, 
+      #{penaltyDate,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR}, 
+      #{regNo,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{adPenaltyLink,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{adPenaltyDoc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.QichachaPenaltyWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
+    insert into qichacha_penalty
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="keyNo != null" >
+        key_no,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="docNo != null" >
+        doc_no,
+      </if>
+      <if test="penaltyType != null" >
+        penalty_type,
+      </if>
+      <if test="officeName != null" >
+        office_name,
+      </if>
+      <if test="publicDate != null" >
+        public_date,
+      </if>
+      <if test="penaltyDate != null" >
+        penalty_date,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="personName != null" >
+        person_name,
+      </if>
+      <if test="regNo != null" >
+        reg_no,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="adPenaltyLink != null" >
+        ad_penalty_link,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="adPenaltyDoc != null" >
+        ad_penalty_doc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="keyNo != null" >
+        #{keyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null" >
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="docNo != null" >
+        #{docNo,jdbcType=VARCHAR},
+      </if>
+      <if test="penaltyType != null" >
+        #{penaltyType,jdbcType=VARCHAR},
+      </if>
+      <if test="officeName != null" >
+        #{officeName,jdbcType=VARCHAR},
+      </if>
+      <if test="publicDate != null" >
+        #{publicDate,jdbcType=VARCHAR},
+      </if>
+      <if test="penaltyDate != null" >
+        #{penaltyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null" >
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="regNo != null" >
+        #{regNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="adPenaltyLink != null" >
+        #{adPenaltyLink,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="adPenaltyDoc != null" >
+        #{adPenaltyDoc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.igreen.common.model.QichachaPenaltyExample" resultType="java.lang.Integer" >
+    select count(*) from qichacha_penalty
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update qichacha_penalty
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyNo != null" >
+        key_no = #{record.keyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.no != null" >
+        no = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docNo != null" >
+        doc_no = #{record.docNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.penaltyType != null" >
+        penalty_type = #{record.penaltyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeName != null" >
+        office_name = #{record.officeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publicDate != null" >
+        public_date = #{record.publicDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.penaltyDate != null" >
+        penalty_date = #{record.penaltyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personName != null" >
+        person_name = #{record.personName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regNo != null" >
+        reg_no = #{record.regNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adPenaltyLink != null" >
+        ad_penalty_link = #{record.adPenaltyLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.adPenaltyDoc != null" >
+        ad_penalty_doc = #{record.adPenaltyDoc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update qichacha_penalty
+    set id = #{record.id,jdbcType=VARCHAR},
+      key_no = #{record.keyNo,jdbcType=VARCHAR},
+      no = #{record.no,jdbcType=VARCHAR},
+      doc_no = #{record.docNo,jdbcType=VARCHAR},
+      penalty_type = #{record.penaltyType,jdbcType=VARCHAR},
+      office_name = #{record.officeName,jdbcType=VARCHAR},
+      public_date = #{record.publicDate,jdbcType=VARCHAR},
+      penalty_date = #{record.penaltyDate,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      person_name = #{record.personName,jdbcType=VARCHAR},
+      reg_no = #{record.regNo,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      ad_penalty_link = #{record.adPenaltyLink,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      ad_penalty_doc = #{record.adPenaltyDoc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update qichacha_penalty
+    set id = #{record.id,jdbcType=VARCHAR},
+      key_no = #{record.keyNo,jdbcType=VARCHAR},
+      no = #{record.no,jdbcType=VARCHAR},
+      doc_no = #{record.docNo,jdbcType=VARCHAR},
+      penalty_type = #{record.penaltyType,jdbcType=VARCHAR},
+      office_name = #{record.officeName,jdbcType=VARCHAR},
+      public_date = #{record.publicDate,jdbcType=VARCHAR},
+      penalty_date = #{record.penaltyDate,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      person_name = #{record.personName,jdbcType=VARCHAR},
+      reg_no = #{record.regNo,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      ad_penalty_link = #{record.adPenaltyLink,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.QichachaPenaltyWithBLOBs" >
+    update qichacha_penalty
+    <set >
+      <if test="keyNo != null" >
+        key_no = #{keyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null" >
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="docNo != null" >
+        doc_no = #{docNo,jdbcType=VARCHAR},
+      </if>
+      <if test="penaltyType != null" >
+        penalty_type = #{penaltyType,jdbcType=VARCHAR},
+      </if>
+      <if test="officeName != null" >
+        office_name = #{officeName,jdbcType=VARCHAR},
+      </if>
+      <if test="publicDate != null" >
+        public_date = #{publicDate,jdbcType=VARCHAR},
+      </if>
+      <if test="penaltyDate != null" >
+        penalty_date = #{penaltyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null" >
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="regNo != null" >
+        reg_no = #{regNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="adPenaltyLink != null" >
+        ad_penalty_link = #{adPenaltyLink,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="adPenaltyDoc != null" >
+        ad_penalty_doc = #{adPenaltyDoc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.igreen.common.model.QichachaPenaltyWithBLOBs" >
+    update qichacha_penalty
+    set key_no = #{keyNo,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      doc_no = #{docNo,jdbcType=VARCHAR},
+      penalty_type = #{penaltyType,jdbcType=VARCHAR},
+      office_name = #{officeName,jdbcType=VARCHAR},
+      public_date = #{publicDate,jdbcType=VARCHAR},
+      penalty_date = #{penaltyDate,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      person_name = #{personName,jdbcType=VARCHAR},
+      reg_no = #{regNo,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      ad_penalty_link = #{adPenaltyLink,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      ad_penalty_doc = #{adPenaltyDoc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.QichachaPenalty" >
+    update qichacha_penalty
+    set key_no = #{keyNo,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      doc_no = #{docNo,jdbcType=VARCHAR},
+      penalty_type = #{penaltyType,jdbcType=VARCHAR},
+      office_name = #{officeName,jdbcType=VARCHAR},
+      public_date = #{publicDate,jdbcType=VARCHAR},
+      penalty_date = #{penaltyDate,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      person_name = #{personName,jdbcType=VARCHAR},
+      reg_no = #{regNo,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      ad_penalty_link = #{adPenaltyLink,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
