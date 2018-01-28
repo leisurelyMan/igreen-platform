@@ -1,22 +1,32 @@
 package com.igreen.web.job;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.igreen.common.dao.RegistItemLocationMapper;
 import com.igreen.common.dao.RegistItemMapper;
+import com.igreen.common.dto.MapDto;
+import com.igreen.common.model.CleanProductionCompany;
+import com.igreen.common.model.IpeIndustryRecord;
+import com.igreen.common.model.PollutionDischargeLicense;
 import com.igreen.common.model.RegistItem;
 import com.igreen.common.model.RegistItemLocation;
 import com.igreen.web.util.HttpUtils;
+import com.igreen.web.util.Result;
 import com.igreen.web.util.SpringBeanManager;
 
 
@@ -69,6 +79,7 @@ public class SetRegtionTaskJob implements Job {
 	}
 
 	
+
 	private void updateRegist(String str,String ids){
 		
 		String url = "http://restapi.amap.com/v3/geocode/geo";
