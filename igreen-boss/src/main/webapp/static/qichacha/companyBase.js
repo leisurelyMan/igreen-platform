@@ -5,6 +5,7 @@ jQuery(document).ready(function(){
 		url : '../companybase/companybaseList.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
+		postData:{name:$('#searchName').val(), creditCode:$('#searchCreditCode').val(),orgNo:$('#searchOrgNo').val(),companyNames:$('#searchCompanyNames').val()},
 		colNames : ['<b>企业名称</b>','<b>注册时间</b>','<b>注册编码</b>','<b>行业</b>','<b>细分行业</b>','<b>注册资本</b>','<b>组织机构代码</b>','<b>状态</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'name',index:'name', width:80,sortable:false},
@@ -17,7 +18,8 @@ jQuery(document).ready(function(){
 					{name:'status',index:'status', width:80,sortable:false},
 					{name:'keyNo',index:'keyNo', width:230,formatter:getActions,sortable:false,resizable:false,align:'center'}
 		           ],
-		rowNum : 10,//一页显示多少条
+		rowNum : $('#pageRows').val(),//一页显示多少条
+		page : $('#currentPage').val(),
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
 		pager : '#pager2',//表格页脚的占位符(一般是div)的id
 		autowidth : true,
@@ -98,10 +100,40 @@ jQuery(document).ready(function(){
 
 function getActions(cellvalue, options, rowObject){
     return '<a href="javascript:edit(\''+rowObject.keyNo+'\')">查看详情</a>&nbsp;'
-    		+'<a href="../qichacha/judgement/toJudgementList.do?keyNo='+rowObject.keyNo+'">法院判决信息</a>&nbsp;'
+    		/*+'<a href="../qichacha/judgement/toJudgementList.do?keyNo='+rowObject.keyNo+'">法院判决信息</a>&nbsp;'*/
+    		+'<a href="javascript:JudgementList(\''+rowObject.keyNo+'\')">法院判决信息</a>&nbsp;'
     		+'<a href="../qichacha/patent/toPatentList.do?keyNo='+rowObject.keyNo+'">专利信息</a>&nbsp;'
     		+'<a href="../qichacha/penalty/toPenaltyList.do?keyNo='+rowObject.keyNo+'">处罚信息</a>';
 }
+
+
+function JudgementList(keyNo){
+	var keyNoinput = $('<input type="hidden" name="keyNo" value="'+keyNo+'"/>');
+	var searchNameinput = $('<input type="hidden" name="name" value="'+$('#searchName').val()+'"/>');
+	var searchCreditCodeinput = $('<input type="hidden" name="creditCode" value="'+$('#searchCreditCode').val()+'"/>');
+	var searchOrgNoinput = $('<input type="hidden" name="orgNo" value="'+$('#searchOrgNo').val()+'"/>');
+	var searchCompanyNamesinput = $('<input type="hidden" name="companyNames" value="'+$('#searchCompanyNames').val()+'"/>');
+    // 取得要提交页面的URL  
+    var action = "../qichacha/judgement/toJudgementList.do";  
+    // 创建Form  
+    var form = $('<form id="hiddenform"></form>');
+    // 设置属性  
+    form.attr('action', action);  
+    form.attr('method', 'post');  
+    // form的target属性决定form在哪个页面提交  
+    // _self -> 当前页面 _blank -> 新页面  
+    form.attr('target', '_self');  
+    // 附加到Form 
+    form.append(keyNoinput);
+    form.append(searchNameinput);
+    form.append(searchCreditCodeinput);
+    form.append(searchOrgNoinput);
+    form.append(searchCompanyNamesinput);
+    $("#hiddendiv").empty().append(form);
+    // 提交表单  
+    $("#hiddenform").submit();
+}
+
 
 /**
  * 编辑详情

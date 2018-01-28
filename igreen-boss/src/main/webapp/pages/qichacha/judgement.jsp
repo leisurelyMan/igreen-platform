@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="../../ztree/css/zTreeStyle/zTreeStyle.css">
@@ -27,20 +26,18 @@
 			<div id="usual1" class="usual">
 				<div class="itab">
 					<ul>
-						<li><a href="../../qichacha/judgement/toJudgementList.do?keyNo=${keyNo}" class="selected">法院判决信息</a></li>
-						<li><a href="../../qichacha/patent/toPatentList.do?keyNo=${keyNo}">专利信息</a></li>
-						<li><a href="../../qichacha/penalty/toPenaltyList.do?keyNo=${keyNo}">处罚信息</a></li>
+						<li><a href="../../qichacha/judgement/toJudgementList.do?keyNo=${company.keyNo}" class="selected">法院判决信息</a></li>
+						<li><a href="../../qichacha/patent/toPatentList.do?keyNo=${company.keyNo}">专利信息</a></li>
+						<li><a href="../../qichacha/penalty/toPenaltyList.do?keyNo=${company.keyNo}">处罚信息</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-<!-- 		<div class="tools">
+ 		<div class="tools">
 			<ul class="toolbar">
-			
-				<li>股东名称：<input id="searchShareholderName"	name="searchShareholderName" type="text" class="searchinput" /></li>
-				<li class="click" id="search"><span><img src="../../static/images/ico06.png" /></span></li>
+				<li><input id="returnbtn" type="button" class="btn" value="返回列表页面"/></li>
 			</ul>
-		</div> -->
+		</div>
 		<table id="list1"></table>
 		</br>
 		<table id="list2"></table>
@@ -48,7 +45,12 @@
 		
 		<div id="dialog" title="股东出资信息">
 			<form class="shareholderform" id="shareholderform">
-				<input type="hidden" name="keyNo" id="keyNo" value="${keyNo}"/>
+				<input id="keyNo" name="keyNo" type="hidden" value="${company.keyNo}"/>
+				<input id="searchName"	name="searchName" type="hidden" value="${company.name}"/>
+				<input id="searchCreditCode"	name="searchCreditCode" type="hidden" value="${company.creditCode}" />
+				<input id="searchOrgNo"	name="searchOrgNo" type="hidden" value="${company.orgNo}"/>
+				<input id="searchCompanyNames" name="searchCompanyNames" type="hidden" value="${company.companyNames}"/>
+				
 				<input type="hidden" id="id" name="id" value="" />
 				<ul class="forminfo">
 					<li><label>股东名称</label><input id="shareholderName" name="shareholderName" type="text" class="dfinput" /></li>
@@ -64,6 +66,8 @@
 					<li><label>国籍</label><input id="nationality" name="nationality" type="text" class="dfinput" /></li>
 				</ul>
 			</form>
+		</div>
+		<div id="hiddendiv">
 		</div>
 	</div>
 </body>

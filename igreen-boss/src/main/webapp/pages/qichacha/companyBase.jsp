@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="cn">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="../ztree/css/zTreeStyle/zTreeStyle.css">
@@ -17,21 +18,25 @@
 
     <!-- 日期插件 -->
     <script type="text/javascript" src="../static/laydate/laydate.dev.js"></script>
-<title>用户管理</title>
-<!-- 本页面初始化用到的js包，创建jqGrid的代码就在里面 -->
-<script type="text/javascript" src="../static/qichacha/companyBase.js"></script>
+    
+    <!-- 本页面初始化用到的js包，创建jqGrid的代码就在里面 -->
+	<script type="text/javascript" src="../static/qichacha/companyBase.js"></script>
+    
+<title>qichacha</title>
 </head>
-<body>
 	<div class="rightinfo">
 		<div class="tools">
+				<input type="hidden" id="currentPage" name="currentPage" value="${currentPage}"/>
+				<input type="hidden" id="pageRows" name="pageRows" value="${pageRows}"/>
 			<ul class="toolbar">
-				<li>企业名称：<input id="searchName"	name="searchName" type="text" class="searchinput" /></li>
-				<li>注册编码：<input id="searchCreditCode"	name="searchCreditCode" type="text" class="searchinput" /></li>
-				<li>组织机构代码：<input id="searchOrgNo"	name="searchOrgNo" type="text" class="searchinput" /></li>
+
+				<li>企业名称：<input id="searchName"	name="searchName" type="text" class="searchinput" value="${company.name}"/></li>
+				<li>注册编码：<input id="searchCreditCode"	name="searchCreditCode" type="text" class="searchinput" value="${company.creditCode}"/></li>
+				<li>组织机构代码：<input id="searchOrgNo"	name="searchOrgNo" type="text" class="searchinput" value="${company.orgNo}"/></li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
 			</ul>
 			<ul class="forminfo">
-				<li>企业名称(多个企业查询请用换行分隔)：<textarea id="searchCompanyNames" name="searchCompanyNames" cols="" rows="" class="textinput"></textarea></li>
+				<li>企业名称(多个企业查询请用换行分隔)：<textarea id="searchCompanyNames" name="searchCompanyNames" cols="" rows="" class="textinput">${company.companyNames}</textarea></li>
 			</ul>
 		</div>
 		<table id="list2"></table>

@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.igreen.boss.controller.BaseController;
 import com.igreen.boss.dto.QichachaCompanyBaseDto;
 import com.igreen.boss.service.qichacha.QichachaCompanyBaseService;
@@ -20,6 +22,8 @@ import com.igreen.common.util.ListRange;
 @Controller
 @RequestMapping(value="/companybase")
 public class QichachaCompanyBaseController extends BaseController{
+	
+	Logger log = Logger.getLogger(QichachaCompanyBaseController.class);
 	
 	@Resource
 	QichachaCompanyBaseService companyBaseService;
@@ -32,8 +36,13 @@ public class QichachaCompanyBaseController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value="toCompanyBaseList")
-	public ModelAndView toRegistItemList(HttpServletRequest request,HttpServletResponse response, ModelMap model){
-		return new ModelAndView("qichacha/companyBase.html",model);
+	public ModelAndView toRegistItemList(HttpServletRequest request,HttpServletResponse response, ModelMap model,
+			QichachaCompanyBaseDto record,Integer currentPage,Integer pageRows){
+		log.info("toJudgementList request="+JSON.toJSONString(record)+",currentPage="+currentPage+",pageRows="+pageRows);
+		model.put("company", record);
+		model.put("currentPage", currentPage==null?1:currentPage);
+		model.put("pageRows", pageRows==null?10:pageRows);
+		return new ModelAndView("qichacha/companyBase.jsp",model);
 	}
 	
 	
