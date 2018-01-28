@@ -1,5 +1,6 @@
 package com.igreen.web.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -63,6 +64,25 @@ public class IndexController {
 	public Result getmap(HttpServletRequest request,HttpServletResponse response,@RequestParam String type) {
 		List<String> regions = indexService.getRegation(type);
 		return new Result(200, "获取成功", regions);
+	}
+	
+	@RequestMapping(value="getmap2")
+	@ResponseBody
+	public Result getmap2(HttpServletRequest request,HttpServletResponse response, String provice, String city) {
+		try {
+			provice = new String(provice.getBytes("ISO-8859-1"),"UTF-8");
+			city = new String(city.getBytes("ISO-8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return indexService.getRegation2(provice, city);
+	}
+	
+	@RequestMapping(value="getAllProvincesData")
+	@ResponseBody
+	public Result getAllProvincesData(HttpServletRequest request,HttpServletResponse response) {
+		return indexService.getAllProvinceMapDate();
 	}
 	
 }

@@ -96,3 +96,5 @@ create table word_frequency
 );
 
 alter table word_frequency comment '词频';
+
+create index Index_province_city on regist_item_location(province,city);

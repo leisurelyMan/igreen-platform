@@ -2,11 +2,14 @@ package com.igreen.web.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.igreen.common.dao.AdministrativePenaltyMapper;
@@ -32,12 +35,14 @@ import com.igreen.common.dao.OrganizationItemMapper;
 import com.igreen.common.dao.PatentMapper;
 import com.igreen.common.dao.PledgeStockRightMapper;
 import com.igreen.common.dao.PollutionDischargeLicenseMapper;
+import com.igreen.common.dao.RegistItemLocationMapper;
 import com.igreen.common.dao.RegistItemMapper;
 import com.igreen.common.dao.RelationCompanyMapper;
 import com.igreen.common.dao.ShareholderMapper;
 import com.igreen.common.dao.SoftwareCopyrightMapper;
 import com.igreen.common.dao.ThingChattelMortgageMapper;
 import com.igreen.common.dao.WrittenJudgementMapper;
+import com.igreen.common.dto.MapDto;
 import com.igreen.common.model.Branch;
 import com.igreen.common.model.CleanProductionCompany;
 import com.igreen.common.model.EnvironmentalIssue;
@@ -47,9 +52,11 @@ import com.igreen.common.model.MonitorCompany;
 import com.igreen.common.model.OrganizationItem;
 import com.igreen.common.model.PollutionDischargeLicense;
 import com.igreen.common.model.RegistItem;
+import com.igreen.common.model.RegistItemLocation;
 import com.igreen.common.model.RelationCompany;
 import com.igreen.web.job.GetRegtionTaskJob;
 import com.igreen.web.service.IndexService;
+import com.igreen.web.util.Result;
 import com.igreen.web.view.Igreen;
 import com.igreen.web.view.RelationCompanyView;
 import com.igreen.web.view.SearchCompanyInfo;
@@ -145,6 +152,9 @@ public class IndexServiceImpl implements IndexService{
 	
 	@Resource
 	EnvironmentalIssueMapper environmentalIssueMapper;
+	
+	@Resource 
+	RegistItemLocationMapper registItemLocationMapper;
 	
 	
 	@Override
@@ -276,14 +286,71 @@ public class IndexServiceImpl implements IndexService{
 
 	@Override
 	public List<String> getRegation(String type){
-		List<String> regationList = new ArrayList<String>();
-		if("1".equals(type)){
-			regationList = GetRegtionTaskJob.getCpcRegationList();
-		}else if("2".equals(type)){
-			regationList = GetRegtionTaskJob.getPdlRegationList();
-		}else if("3".equals(type)){
-			regationList = GetRegtionTaskJob.getIpeRegationList();
-		}
-		return regationList;
+		return null;
+//		List<String> regationList = new ArrayList<String>();
+//		if("1".equals(type)){
+//			regationList = GetRegtionTaskJob.getCpcRegationList();
+//		}else if("2".equals(type)){
+//			regationList = GetRegtionTaskJob.getPdlRegationList();
+//		}else if("3".equals(type)){
+//			regationList = GetRegtionTaskJob.getIpeRegationList();
+//		}
+//		return regationList;
 	}
+
+	@Override
+	public Result getRegation2(String province, String city) {
+		int cpcNum = 0;
+		int ipeNum = 0;
+		int pdlNum = 0;
+		if(StringUtils.isBlank(province) && StringUtils.isBlank(city)){
+			cpcNum = GetRegtionTaskJob.getCpcRegationList().size();
+			ipeNum = GetRegtionTaskJob.getIpeRegationList().size();
+			pdlNum = GetRegtionTaskJob.getPdlRegationList().size();
+		}else if(StringUtils.isBlank(city)){
+			MapDto mapDto = GetRegtionTaskJob.getAllMapDate().get(province);
+			cpcNum = mapDto.getCpcNum();
+			ipeNum = mapDto.getIpeNum();
+			pdlNum = mapDto.getPdlNum();
+		}else{
+			List<RegistItemLocation> registItemLocations = registItemLocationMapper.selectiveList(province, city);
+			Set<Integer> set = new HashSet<Integer>();
+			for(RegistItemLocation registItemLocation : registItemLocations){
+				set.add(registItemLocation.getId());
+			}
+			
+			for(CleanProductionCompany cleanProductionCompany : GetRegtionTaskJob.getCpcRegationList()){
+				if(set.contains(cleanProductionCompany.getRegistItemId())){
+					cpcNum++;
+				}
+			}
+			
+			for(IpeIndustryRecord ipeIndustryRecord : GetRegtionTaskJob.getIpeRegationList()){
+				if(set.contains(ipeIndustryRecord.getRegistItemId())){
+					ipeNum++;
+				}
+			}
+			
+			for(PollutionDischargeLicense pollutionDischargeLicense : GetRegtionTaskJob.getPdlRegationList()){
+				if(set.contains(pollutionDischargeLicense.getRegistItemId())){
+					pdlNum++;
+				}
+			}
+		}
+		MapDto mapDto = new MapDto();
+		mapDto.setCpcNum(cpcNum);
+		mapDto.setIpeNum(ipeNum);
+		mapDto.setPdlNum(pdlNum);
+		return new Result(200,"sucess",mapDto);
+	}
+
+	@Override
+	public Result getAllProvinceMapDate() {
+		Map<String, MapDto> data = GetRegtionTaskJob.getAllMapDate();
+		if(!data.isEmpty()){
+			return new Result(200,"sucess",data);
+		}
+		return new Result(500,"error");
+	}
+	
 }
