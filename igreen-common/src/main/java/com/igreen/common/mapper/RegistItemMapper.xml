@@ -717,4 +717,16 @@
   <select id="selectMaxCompanyId" resultType="java.lang.Integer">
     select max(company_id) from regist_item
   </select>
+  
+  <select id="selectRegion" resultMap="BaseResultMap" >
+      select location from regist_item where location is not null
+  </select>
+  
+  <select id="getNeedUpdateRegion" resultMap="BaseResultMap">
+       SELECT id,address from regist_item where id &gt; #{startId} 
+  </select>
+  
+  <select id="getAllRegion" resultMap="BaseResultMap">
+      SELECT id,location  from regist_item where length(location) > 2 
+  </select>
 </mapper>

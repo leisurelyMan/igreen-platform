@@ -319,6 +319,6 @@
   </select>
   
   <select id="getRegion" resultMap="BaseResultMap">
-      select regist_item_id from ipe_industry_record where year=DATE_FORMAT(NOW(), '%Y')
+      select regist_item_id from ipe_industry_record where year=2017
   </select>
 </mapper>

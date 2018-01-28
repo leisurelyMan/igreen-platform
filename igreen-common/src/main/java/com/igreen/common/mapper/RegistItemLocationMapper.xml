@@ -74,4 +74,16 @@
       </if>
     </trim>
   </insert>
+  
+  <select id="selectiveList" resultMap="BaseResultMap">
+      select id from regist_item_location 
+      where 1=1 
+      <if test="province != null" >
+        and province =  #{province,jdbcType=VARCHAR}
+      </if>
+      <if test="city != null and city !=''" >
+        and city = #{city,jdbcType=VARCHAR}
+      </if>
+      
+  </select>
 </mapper>
