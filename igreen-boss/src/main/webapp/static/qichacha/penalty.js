@@ -95,6 +95,7 @@ jQuery(document).ready(function(){
 		$("#list2").jqGrid("setGridParam",{postData:{shareholderName:searchShareholderName},page:1} );//设置查询参数
 		$("#list2").trigger("reloadGrid");
 	});
+	
 });
 
 function getActions(cellvalue, options, rowObject){

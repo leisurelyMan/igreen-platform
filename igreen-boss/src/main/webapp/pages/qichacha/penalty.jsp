@@ -20,6 +20,7 @@
 <title>用户管理</title>
 <!-- 本页面初始化用到的js包，创建jqGrid的代码就在里面 -->
 <script type="text/javascript" src="../../static/qichacha/penalty.js"></script>
+<script type="text/javascript" src="../../static/qichacha/pagecommon.js"></script>
 </head>
 <body>
 	<div class="rightinfo">
@@ -27,20 +28,18 @@
 			<div id="usual1" class="usual">
 				<div class="itab">
 					<ul>
-						<li><a href="../../qichacha/judgement/toJudgementList.do?keyNo=${keyNo}">法院判决信息</a></li>
-						<li><a href="../../qichacha/patent/toPatentList.do?keyNo=${keyNo}">专利信息</a></li>
-						<li><a href="../../qichacha/penalty/toPenaltyList.do?keyNo=${keyNo}" class="selected">处罚信息</a></li>
+						<li><a href="#" id="JudgementList">法院判决信息</a></li>
+						<li><a href="#" id="PatentList">专利信息</a></li>
+						<li><a href="#" id="PenaltyList" class="selected">处罚信息</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-<!-- 		<div class="tools">
+ 		<div class="tools">
 			<ul class="toolbar">
-			
-				<li>股东名称：<input id="searchShareholderName"	name="searchShareholderName" type="text" class="searchinput" /></li>
-				<li class="click" id="search"><span><img src="../../static/images/ico06.png" /></span></li>
+				<li><input id="returnbtn" type="button" class="btn" value="返回列表页面"/></li>
 			</ul>
-		</div> -->
+		</div>
 		<table id="list1"></table>
 		</br>
 		<table id="list2"></table>
@@ -48,7 +47,13 @@
 		
 		<div id="dialog" title="股东出资信息">
 			<form class="shareholderform" id="shareholderform">
-				<input type="hidden" name="keyNo" id="keyNo" value="${keyNo}"/>
+				<input id="keyNo" name="keyNo" type="hidden" value="${company.keyNo}"/>
+				<input id="searchName"	name="searchName" type="hidden" value="${company.name}"/>
+				<input id="searchCreditCode"	name="searchCreditCode" type="hidden" value="${company.creditCode}" />
+				<input id="searchOrgNo"	name="searchOrgNo" type="hidden" value="${company.orgNo}"/>
+				<input id="searchCompanyNames" name="searchCompanyNames" type="hidden" value="${company.companyNames}"/>
+				<input type="hidden" id="currentPage" name="currentPage" value="${currentPage}"/>
+				<input type="hidden" id="pageRows" name="pageRows" value="${pageRows}"/>
 				<ul class="forminfo">
 					<li><label>处罚编号</label><input id="no" name="no" type="text" class="dfinput" /></li>
 					<li><label>文档编号</label><input id="docNo" name="docNo" type="text" class="dfinput" /></li>
@@ -65,6 +70,8 @@
 					<li><label>处罚内容</label><textarea id="adPenaltyDoc" name="adPenaltyDoc" cols="" rows="" class="textinput"></textarea></li>
 				</ul>
 			</form>
+		</div>
+		<div id="hiddendiv">
 		</div>
 	</div>
 </body>

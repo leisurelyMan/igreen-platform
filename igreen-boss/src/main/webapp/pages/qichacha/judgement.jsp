@@ -19,6 +19,7 @@
 <title>用户管理</title>
 <!-- 本页面初始化用到的js包，创建jqGrid的代码就在里面 -->
 <script type="text/javascript" src="../../static/qichacha/judgement.js"></script>
+<script type="text/javascript" src="../../static/qichacha/pagecommon.js"></script>
 </head>
 <body>
 	<div class="rightinfo">
@@ -26,9 +27,9 @@
 			<div id="usual1" class="usual">
 				<div class="itab">
 					<ul>
-						<li><a href="../../qichacha/judgement/toJudgementList.do?keyNo=${company.keyNo}" class="selected">法院判决信息</a></li>
-						<li><a href="../../qichacha/patent/toPatentList.do?keyNo=${company.keyNo}">专利信息</a></li>
-						<li><a href="../../qichacha/penalty/toPenaltyList.do?keyNo=${company.keyNo}">处罚信息</a></li>
+						<li><a href="#" id="JudgementList" class="selected">法院判决信息</a></li>
+						<li><a href="#" id="PatentList">专利信息</a></li>
+						<li><a href="#" id="PenaltyList">处罚信息</a></li>
 					</ul>
 				</div>
 			</div>
@@ -50,6 +51,8 @@
 				<input id="searchCreditCode"	name="searchCreditCode" type="hidden" value="${company.creditCode}" />
 				<input id="searchOrgNo"	name="searchOrgNo" type="hidden" value="${company.orgNo}"/>
 				<input id="searchCompanyNames" name="searchCompanyNames" type="hidden" value="${company.companyNames}"/>
+				<input type="hidden" id="currentPage" name="currentPage" value="${currentPage}"/>
+				<input type="hidden" id="pageRows" name="pageRows" value="${pageRows}"/>
 				
 				<input type="hidden" id="id" name="id" value="" />
 				<ul class="forminfo">
