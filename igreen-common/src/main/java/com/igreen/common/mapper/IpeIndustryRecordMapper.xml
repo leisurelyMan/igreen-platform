@@ -15,6 +15,9 @@
     <result column="updater" property="updater" jdbcType="INTEGER" />
     <result column="updated_time" property="updatedTime" jdbcType="DATE" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+  	<result column="city" property="city" jdbcType="VARCHAR" />
+  	<result column="district" property="district" jdbcType="VARCHAR" />
   </resultMap>
   
    <resultMap id="registItemMap" type="com.igreen.common.dto.IpeIndustryDto">
@@ -26,15 +29,18 @@
     <result column="ipe_id" property="ipeId" jdbcType="BIGINT" />
     <result column="file_name" property="fileName" jdbcType="VARCHAR" />
   	<result column="address" property="address" jdbcType="VARCHAR" />
+  	<result column="province" property="province" jdbcType="VARCHAR" />
+  	<result column="city" property="city" jdbcType="VARCHAR" />
+  	<result column="district" property="district" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
     id, company_name, regist_item_id, year, title, ipe_id, file_name, status, creater, created_time, 
-    updater, updated_time, remark
+    updater, updated_time, remark, province, city, district
   </sql>
   
    <sql id="registItem_List" >
-    ir.id, ir.company_name, ir.regist_item_id, ir.year, ir.title, ir.file_name, r.address
+    ir.id, ir.company_name, ir.regist_item_id, ir.year, ir.title, ir.file_name, r.address, ir.province, ir.city, ir.district
   </sql>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

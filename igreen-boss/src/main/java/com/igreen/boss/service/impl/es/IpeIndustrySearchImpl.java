@@ -87,8 +87,14 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		scriptParams.put("size", pageRows);
 		if(!StrUtil.isNull(dto.wordsEmpty()))
 			scriptParams.put("fields", dto.getArray());
-		if(!StrUtil.isNull(dto.getAddress()))
-			scriptParams.put("address", dto.getAddress());
+/*		if(!StrUtil.isNull(dto.getAddress()))
+			scriptParams.put("address", dto.getAddress());*/
+		if(!StrUtil.isNull(dto.getProvince()))
+			scriptParams.put("province", dto.getProvince());
+		if(!StrUtil.isNull(dto.getCity()))
+			scriptParams.put("city", dto.getCity());
+		if(!StrUtil.isNull(dto.getDistrict()))
+			scriptParams.put("district", dto.getDistrict());
 		if(!StrUtil.isNull(dto.getYear()))
 			scriptParams.put("year", dto.getYear());
 		if(!StrUtil.isNull(dto.getCompanyName()))
@@ -176,6 +182,9 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 									.field("fileName", record.getFileName())
 									.field("createdTime", record.getCreatedTime())
 									.field("address", item.getAddress())
+									.field("province", record.getProvince())
+									.field("city", record.getCity())
+									.field("district", record.getDistrict())
 									.field("tradeName", item.getTradeName())
 									.field("ipeField", filestr)
 								.endObject());

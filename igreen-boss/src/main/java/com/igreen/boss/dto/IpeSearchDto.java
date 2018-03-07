@@ -7,6 +7,7 @@ public class IpeSearchDto {
 	private String words;
 	private String province;
 	private String city;
+	private String district;
 	private String time;
 	private String address;
 	private String year;
@@ -47,6 +48,14 @@ public class IpeSearchDto {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+	
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
 	public String getTime() {

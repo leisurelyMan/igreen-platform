@@ -15,7 +15,6 @@ import com.igreen.boss.controller.BaseController;
 import com.igreen.boss.dto.IpeSearchDto;
 import com.igreen.boss.service.es.IpeIndustrySearch;
 import com.igreen.common.util.ListRange;
-import com.igreen.common.util.StrUtil;
 
 @Controller
 @RequestMapping(value="/ipesearch")

@@ -44,6 +44,12 @@ public class IpeIndustryDto {
      * 地址
      */
     private String address;
+    
+    private String province;
+    
+    private String city;
+    
+    private String district;
 
     /**
      * ipe记录ID
@@ -197,5 +203,28 @@ public class IpeIndustryDto {
 		this.address = address;
 	}
 
+	public String getProvince() {
+		return province;
+	}
 
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	
 }

@@ -98,3 +98,8 @@ create table word_frequency
 alter table word_frequency comment '词频';
 
 create index Index_province_city on regist_item_location(province,city);
+
+ALTER TABLE `ipe_industry_record`
+ADD COLUMN `province`  VARCHAR(50) NULL DEFAULT NULL COMMENT '省';
+ADD COLUMN `city`  VARCHAR(50) NULL DEFAULT NULL COMMENT '市';
+ADD COLUMN `district`  VARCHAR(50) NULL DEFAULT NULL COMMENT '县';
