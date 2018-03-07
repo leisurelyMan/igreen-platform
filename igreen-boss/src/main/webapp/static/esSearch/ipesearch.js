@@ -92,7 +92,7 @@ jQuery(document).ready(function(){
 		var district = $('#district').val();
 		var searchyear = $('#searchyear').val();
 		var searchcompanyname = $('#searchcompanyname').val();
-		$("#list2").jqGrid("setGridParam",{postData:{words:searchwords,province:province,city:city,district:district,address:searchaddress,year:searchyear,companyName:searchcompanyname},page:1} );//设置查询参数
+		$("#list2").jqGrid("setGridParam",{postData:{words:searchwords,province:province,city:city,district:district,year:searchyear,companyName:searchcompanyname},page:1} );//设置查询参数
 		$("#list2").trigger("reloadGrid");
 	});
 });
