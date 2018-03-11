@@ -14,12 +14,12 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeAction;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeRequestBuilder;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeResponse.AnalyzeToken;
-import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -85,7 +85,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		Map<String, Object> scriptParams = new HashMap<String, Object>();
 		scriptParams.put("from", (currentPage-1)*pageRows);
 		scriptParams.put("size", pageRows);
-		if(!StrUtil.isNull(dto.wordsEmpty()))
+		if(!dto.wordsEmpty())
 			scriptParams.put("fields", dto.getArray());
 /*		if(!StrUtil.isNull(dto.getAddress()))
 			scriptParams.put("address", dto.getAddress());*/
@@ -98,7 +98,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		if(!StrUtil.isNull(dto.getYear()))
 			scriptParams.put("year", dto.getYear());
 		if(!StrUtil.isNull(dto.getCompanyName()))
-			scriptParams.put("companyName", dto.getCompanyName());
+			scriptParams.put("company", dto.getCompanyName());
 		
 /*		SearchTemplateRequestBuilder builder = new SearchTemplateRequestBuilder(client);
 		builder.setScriptType(ScriptType.FILE).setScriptParams(scriptParams).setRequest(new SearchRequest(INDEX).types(TYPE));
@@ -119,8 +119,11 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		else
 			builder.setScript("mul_match");
 		SearchResponse searchResponse = builder.get().getResponse();*/
+		log.info("scriptParams="+JSON.toJSONString(scriptParams));
+		String script = getScript(dto);
+		log.info("script="+script);
 		SearchResponse searchResponse = new SearchTemplateRequestBuilder(client)
-				.setScript("mul_match")
+				.setScript(script)
 				.setScriptType(ScriptType.FILE)
 				.setScriptParams(scriptParams)
 				.setRequest(new SearchRequest(INDEX).types(TYPE))
@@ -139,6 +142,56 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		client.close();
 		return result;
 	}
+	
+	
+	private String getScript(IpeSearchDto dto){
+		if(!StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getDistrict())){//县+公司名称+时间
+			return "district_company_year";
+		}else if(!StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getDistrict())){//县+公司名称
+			return "district_company";
+		}else if(StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getDistrict())){//县+时间
+			return "district_year";
+		}else if(StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getDistrict())){//县
+			return "district";
+		}else if(!StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getCity())){//市+公司名称+时间
+			return "city_company_year";
+		}else if(!StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getCity())){//市+公司名称
+			return "city_company";
+		}else if(StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getCity())){//市+时间
+			return "city_year";
+		}else if(StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getCity())){//市
+			return "city";
+		}else if(!StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getProvince())){//省+公司名称+时间
+			return "province_company_year";
+		}else if(!StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getProvince())){//公司名称+省
+			return "province_company";
+		}else if(StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getProvince())){//省+时间
+			return "province_year";
+		}else if(StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) 
+				&& !StrUtil.isNull(dto.getProvince())){//省
+			return "province";
+		}else if(!StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) 
+				&& StrUtil.isNull(dto.getProvince())){//公司名称
+			return "company";
+		}else if(StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()) 
+				&& StrUtil.isNull(dto.getProvince())){//时间
+			return "year";
+		}else{
+			return "mul_match";
+		}
+		
+	}
 
 	@Override
 	public void bulkAdd() throws Exception{
@@ -155,7 +208,8 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("172.17.215.144"), 9300)); 
 		
 		while(records != null && records.size() >0){
-			addData(records, client);
+			//addData(records, client);
+			updateData(records, client);
 			records = ipeIndustryRecordMapper.selectRecordById(maxId);
 			if(records != null && records.size() >0)
 				maxId = records.get(records.size()-1).getId();
@@ -207,6 +261,32 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 			
 		}
 	}
+	
+	
+	private void updateData(List<IpeIndustryRecord> records, TransportClient client) throws IOException {
+		
+		BulkRequestBuilder bulkRequestBuilder = client.prepareBulk();
+		for(IpeIndustryRecord record : records){
+			RegistItem item = registItemMapper.selectByPrimaryKey(record.getRegistItemId());
+			
+			UpdateRequest update = new UpdateRequest(INDEX, TYPE, record.getId().toString());
+			update.doc(XContentFactory.jsonBuilder()
+					.startObject()
+					.field("company", record.getCompanyName())
+					.field("province", record.getProvince())
+					.field("city", record.getCity())
+					.field("district", record.getDistrict())
+					.endObject()
+					).retryOnConflict(5);
+			client.update(update).actionGet();
+			
+			IpeElasticsearch es = new IpeElasticsearch();
+			es.setEsId(record.getId().intValue());
+			es.setCreatedTime(new Date());
+			ipeElasticsearchMapper.insertSelective(es);
+		}
+	}
+	
 
 	private void ananyziWord(TransportClient client,String filestr) {
 		AnalyzeRequestBuilder analyzeRequestBuilder = new AnalyzeRequestBuilder(client, AnalyzeAction.INSTANCE, "igreen_ipe", filestr);
