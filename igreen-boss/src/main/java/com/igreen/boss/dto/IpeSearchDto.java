@@ -93,7 +93,7 @@ public class IpeSearchDto {
 	}
 
 	public boolean wordsEmpty(){
-		if(StrUtil.isNull(words)&&StrUtil.isNull(province)&&StrUtil.isNull(city)&&StrUtil.isNull(time))
+		if(StrUtil.isNull(words))
 			return true;
 		else
 			return false;
