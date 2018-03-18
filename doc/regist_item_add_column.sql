@@ -103,3 +103,52 @@ ALTER TABLE `ipe_industry_record`
 ADD COLUMN `province`  VARCHAR(50) NULL DEFAULT NULL COMMENT '省';
 ADD COLUMN `city`  VARCHAR(50) NULL DEFAULT NULL COMMENT '市';
 ADD COLUMN `district`  VARCHAR(50) NULL DEFAULT NULL COMMENT '县';
+
+
+
+
+
+
+DROP TABLE IF EXISTS `ly_web_crawler_config`;
+CREATE TABLE `ly_web_crawler_config` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `web_name` varchar(100) DEFAULT NULL COMMENT '网站名称',
+  `web_domain` varchar(50) DEFAULT NULL COMMENT '网站域名',
+  `web_search_url` varchar(500) DEFAULT NULL COMMENT '全文检索首页URL',
+  `page_url_regular` varchar(200) DEFAULT NULL COMMENT '分页URL匹配规则',
+  `page_type` int(1) DEFAULT NULL COMMENT '已知分页类型（1：总条数；2：总页数）',
+  `max_page` int(11) DEFAULT NULL COMMENT '最大分页',
+  `page_req_method` int(1) DEFAULT '1' COMMENT '分页请求返回方式（1、AJAX返回html和页面跳转；2、AJAX 返回json）',
+  `page_result` varchar(100) DEFAULT NULL COMMENT '分页参数获取正则表达式（多个规则##分割）',
+  `detail_url_regular` varchar(500) DEFAULT NULL COMMENT '详情页抓取url规则（多个url规则||分割）',
+  `detail_title_regular` varchar(100) DEFAULT NULL COMMENT '抓取标题正则表达式',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '配置时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '配置更新时间',
+  `start_page` int(11) DEFAULT '0' COMMENT '开始分页',
+  `attr_type` varchar(255) DEFAULT NULL COMMENT '获取分页数据正则',
+  `attr_name` varchar(255) DEFAULT NULL COMMENT '获取分页数据对应的名称',
+  `detail_content_regular` varchar(255) DEFAULT NULL COMMENT '详情页内容获取 xpath',
+  `creater` int(11) DEFAULT NULL COMMENT '创建者',
+  `updater` int(11) DEFAULT NULL COMMENT '更新者',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='网站抓取配置表';
+
+
+DROP TABLE IF EXISTS `web_crawler_result`;
+CREATE TABLE `web_crawler_result` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `web_name` varchar(100) DEFAULT NULL COMMENT '网站名称',
+  `web_domain` varchar(50) DEFAULT NULL COMMENT '网站域名',
+  `web_detail_name` varchar(500) DEFAULT NULL COMMENT '详情标题',
+  `web_detail_url` varchar(200) DEFAULT NULL COMMENT '详情页原url',
+  `web_detail_result_url` varchar(100) DEFAULT NULL COMMENT '抓取详情页url',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '配置时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '配置更新时间',
+  `creater` int(11) DEFAULT NULL COMMENT '创建者',
+  `updater` int(11) DEFAULT NULL COMMENT '更新者',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='网站抓取结果';
+
+
+INSERT INTO `sys_menu` VALUES (22,'爬虫配置','../crawler/listPage.do',4,12,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `sys_role_menu` VALUES(215,1,22,1,2,'2018-03-18',NULL,NULL,NULL);

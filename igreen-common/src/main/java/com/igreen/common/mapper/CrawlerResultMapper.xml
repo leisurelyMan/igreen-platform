@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.CrawlerResultMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.WebCrawlerResult" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="web_name" property="webName" jdbcType="VARCHAR" />
+	<result column="web_domain" property="webDomain" jdbcType="VARCHAR" />
+	<result column="web_detail_name" property="webDetailName" jdbcType="VARCHAR" />
+	<result column="web_detail_url" property="webDetailUrl" jdbcType="VARCHAR" />
+	<result column="web_detail_result_url" property="webDetailResultUrl" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updateTime" jdbcType="DATE" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater
+  </sql>
+  
+    <!-- 查询有效的总记录数 -->
+  <select id="countCrawlerResult" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from web_crawler_result
+  	where 1 = 1
+  	<if test="webName != null" >
+  		and web_name = #{webName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="webDetailUrl != null" >
+  		and web_domain = #{webDomain,jdbcType=VARCHAR}
+  	</if>
+  </select>
+  
+  <select id="pageCrawlerResult" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from web_crawler_result
+  	where 1 = 1
+  	<if test="webName != null" >
+  		and web_name = #{webName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="webDetailUrl != null" >
+  		and web_domain = #{webDomain,jdbcType=VARCHAR}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <select id="findByDetailUrl" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_crawler_result
+    where web_detail_url = #{webDetailUrl,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_crawler_result
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_crawler_result
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.WebCrawlerResult" >
+    insert into web_crawler_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater)
+    values (#{webName,jdbcType=VARCHAR},
+#{webDomain,jdbcType=VARCHAR},
+#{webDetailName,jdbcType=VARCHAR},
+#{webDetailUrl,jdbcType=VARCHAR},
+#{webDetailResultUrl,jdbcType=VARCHAR},
+#{createdTime,jdbcType=DATE},
+#{updatedTime,jdbcType=DATE},
+#{creater,jdbcType=INTEGER},
+#{updater,jdbcType=INTEGER})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCrawlerResult" >
+    update web_crawler_result
+    set web_name=#{webName,jdbcType=VARCHAR},
+web_domain=#{webDomain,jdbcType=VARCHAR},
+web_detail_name=#{webDetailName,jdbcType=VARCHAR},
+web_detail_url=#{webDetailUrl,jdbcType=VARCHAR},
+web_detail_result_url=#{webDetailResultUrl,jdbcType=VARCHAR},
+update_time=#{updatedTime,jdbcType=VARCHAR},
+updater=#{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
