@@ -30,39 +30,45 @@ jQuery(document).ready(function(){
 		caption : "注册信息列表"//表格的标题名字
 	});
 	
-	
-	$("#dialog").dialog({   //创建dialog弹窗
-		title:'注册信息',
+	//上传excel dialog
+	$("#exceldialog").dialog({   //创建dialog弹窗
+		title:'导入公司信息',
 		autoOpen: false,     //不自动打开窗口 
 		show:"slide",       //显示弹窗出现的效果，slide为滑动效果 
 		hide:"explode",     //显示窗口消失的效果，explode为爆炸效果
 		resizable: true,    //设置是否可拉动弹窗的大小，默认为true  
 		modal: true,         //是否有遮罩模型  
-		width: 600,
+		minWidth: 600,
 		zIndex: 2,
 		buttons:[//定义两个button按钮
 		    {
 		    	text:"确定",
 		    	id:'btn_ok',
 		    	click:function(){
+		            var formData = new FormData();
+		            formData.append("upexcel", document.getElementById("upexcel").files[0]);
 	    			$.ajax({
 						type:'post',//可选get
-						async:false,//同步
-						url:'../hotWorld/addHotWord.do',//这里是接收数据的URL
-						data:$('#registItemform').serialize(),//传给后台的数据，多个参数用&连接
+			            contentType: false,
+			            /**
+			            * 必须false才会避开jQuery对 formdata 的默认处理
+			            * XMLHttpRequest会对 formdata 进行正确的处理
+			            */
+			            processData: false,
+						url:'../ipesearch/uploadCompany.do',//这里是接收数据的URL
+						data:formData,//传给后台的数据，多个参数用&连接
 						dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 						success:function(msg){
-							if(msg.code == -1){
-								alert(msg.message);
-								//验证插入后，刷新grid
+							if(msg.code == 1){
+								alert("导入成功");
+								$("#searchcompanyname").val(msg.obj);
+								$("#exceldialog").dialog("close");
 							}else{
-								alert("保存成功");
-								$("#list2").trigger("reloadGrid");
-								$("#dialog").dialog("close");
+								alert("导入失败");
 							}
 						},
 						error:function(){//修理失败，未能连接
-							alert("保存失败，请联系管理员");
+							alert("导入失败");
 						}
 					});
 		    	}
@@ -75,6 +81,7 @@ jQuery(document).ready(function(){
 		    }
 		]
 	});
+	
 	jQuery("#list2").jqGrid('navGrid', '#pager2', {edit : false,add : false,del : false});
 	
 	$("#add").click(function(){
@@ -94,6 +101,22 @@ jQuery(document).ready(function(){
 		var searchcompanyname = $('#searchcompanyname').val();
 		$("#list2").jqGrid("setGridParam",{postData:{words:searchwords,province:province,city:city,district:district,year:searchyear,companyName:searchcompanyname},page:1} );//设置查询参数
 		$("#list2").trigger("reloadGrid");
+	});
+	
+	$("#distincebutton").click(function(){
+	   var $eleForm = $("<form method='get'></form>");
+
+       $eleForm.attr("action","../filetemplate/company_template.xlsx");
+
+       $(document.body).append($eleForm);
+
+       //提交表单，实现下载
+       $eleForm.submit();
+	});
+	
+	
+	$("#distinceupload").click(function(){
+		$("#exceldialog").dialog("open");
 	});
 });
 

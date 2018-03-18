@@ -119,6 +119,7 @@
 
 	<mvc:resources mapping="/static/**" location="/,/static/" />
 	<mvc:resources mapping="/ztree/**" location="/,/ztree/" />
+	<mvc:resources mapping="/filetemplate/**" location="/,/filetemplate/" />
 
     <mvc:interceptors>  
         <!-- 多个拦截器，顺序执行 -->

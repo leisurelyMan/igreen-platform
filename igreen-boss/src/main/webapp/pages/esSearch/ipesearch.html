@@ -24,10 +24,13 @@
 <body>
 	<div class="rightinfo">
 		<div class="tools">
-			关键词可以输入多个，以英文,分隔</br>
+		
+			关键词和公司名称可以输入多个，以英文,分隔</br>
 			<ul class="toolbar">
-				<li>关键词：<input id="searchwords"	name="searchwords" type="text" class="searchinput" /></li>
-				<li>公司名称：<input id="searchcompanyname"	name="searchcompanyname" type="text" class="searchinput" /></li>
+				<li>公司名称：<input id="searchcompanyname"	name="searchcompanyname" style="width: 800px;" type="text" class="searchinput" /></li>
+				<li><input id="distincebutton" type="button" class="scbtn" value="下载模板"/></li>
+				<li><input id="distinceupload" type="button" class="scbtn" value="上传公司信息"/></li>
+				<li>关键词：<input id="searchwords"	name="searchwords" type="text" style="width: 800px;"  class="searchinput" /></li>
 				<li>省：<input id="province"	name="province" type="text" class="searchinput" /></li>
 				<li>市：<input id="city"	name="city" type="text" class="searchinput" /></li>
 				<li>县：<input id="district"	name="district" type="text" class="searchinput" /></li>
@@ -40,13 +43,12 @@
 		<table id="list2"></table>
 		<div id="pager2" class="pagin"></div>
 		
-		<div id="dialog" title="编辑角色信息">
-			<form class="registItemform" id="registItemform">
-				<input type="hidden" id="id" name="id" value="" />
-				<ul class="forminfo">
-					<li><label>热词</label><input id="word" name="word" type="text" class="dfinput" /></li>
-				</ul>
-			</form>
+		<div id="exceldialog" title="导入公司信息">  
+			<form class="excelform"  id="excelform" action="../competitionsign/uploadExcel.do">
+			<ul class="forminfo">
+			<li><label>选择文件</label><input id="upexcel" name="upexcel" type="file" value="" class="dfinput"/></li>
+			</ul>
+		</form>
 		</div>
 	</div>
 </body>

@@ -98,7 +98,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		if(!StrUtil.isNull(dto.getYear()))
 			scriptParams.put("year", dto.getYear());
 		if(!StrUtil.isNull(dto.getCompanyName()))
-			scriptParams.put("company", dto.getCompanyName());
+			scriptParams.put("company", dto.getCompanyName().split(","));
 		
 /*		SearchTemplateRequestBuilder builder = new SearchTemplateRequestBuilder(client);
 		builder.setScriptType(ScriptType.FILE).setScriptParams(scriptParams).setRequest(new SearchRequest(INDEX).types(TYPE));
