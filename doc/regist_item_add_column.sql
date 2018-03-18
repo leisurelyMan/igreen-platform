@@ -151,4 +151,3 @@ CREATE TABLE `web_crawler_result` (
 
 
 INSERT INTO `sys_menu` VALUES (22,'爬虫配置','../crawler/listPage.do',4,12,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `sys_role_menu` VALUES(215,1,22,1,2,'2018-03-18',NULL,NULL,NULL);
