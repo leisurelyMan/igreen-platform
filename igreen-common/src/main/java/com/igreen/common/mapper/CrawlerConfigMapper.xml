@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.CrawlerConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.WebCrawlerConfig" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="web_name" property="webName" jdbcType="VARCHAR" />
+	<result column="web_domain" property="webDomain" jdbcType="VARCHAR" />
+	<result column="web_search_url" property="webSearchUrl" jdbcType="VARCHAR" />
+	<result column="page_url_regular" property="pageUrlRegular" jdbcType="VARCHAR" />
+	<result column="page_type" property="pageType" jdbcType="INTEGER" />
+	<result column="page_req_method" property="pageReqMethod" jdbcType="INTEGER" />
+	<result column="page_result" property="pageResult" jdbcType="VARCHAR" />
+	<result column="detail_url_regular" property="detailUrlRegular" jdbcType="VARCHAR" />
+	<result column="detail_title_regular" property="detailTitleRegular" jdbcType="VARCHAR" />
+	<result column="max_page" property="maxPage" jdbcType="INTEGER" />
+	<result column="start_page" property="startPage" jdbcType="INTEGER" />
+	<result column="attr_type" property="attrType" jdbcType="VARCHAR" />
+	<result column="attr_name" property="attrName" jdbcType="VARCHAR" />
+	<result column="detail_content_regular" property="detailContentRegular" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updateTime" jdbcType="DATE" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
+    page_req_method,page_result,detail_url_regular,detail_title_regular,create_time,update_time,
+    start_page,attr_type,attr_name,detail_content_regular,creater,updater
+  </sql>
+  
+    <!-- 查询有效的总记录数 -->
+  <select id="countCrawlerConfig" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from web_crawler_config
+  	where 1 = 1
+  	<if test="webName != null" >
+  		and web_name = #{webName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="webDomain != null" >
+  		and web_domain = #{webDomain,jdbcType=VARCHAR}
+  	</if>
+  </select>
+  
+  <select id="pageCrawlerConfig" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from web_crawler_config
+  	where 1 = 1
+  	<if test="webName != null" >
+  		and web_name = #{webName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="web_domain != null" >
+  		and web_domain = #{webDomain,jdbcType=VARCHAR}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <select id="findByWebDomain" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_crawler_config
+    where web_domain = #{webDomain,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_crawler_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_crawler_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.WebCrawlerConfig" >
+    insert into web_crawler_config (web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
+    page_req_method,page_result,detail_url_regular,detail_title_regular,create_time,update_time,
+    start_page,attr_type,attr_name,detail_content_regular,creater,updater
+      )
+    values (#{webName,jdbcType=VARCHAR},
+#{webDomain,jdbcType=VARCHAR},
+#{webSearchUrl,jdbcType=VARCHAR},
+#{pageUrlRegular,jdbcType=VARCHAR},
+#{pageType,jdbcType=INTEGER},
+#{maxPage,jdbcType=INTEGER},
+#{pageReqMethod,jdbcType=INTEGER},
+#{pageResult,jdbcType=VARCHAR},
+#{detailUrlRegular,jdbcType=VARCHAR},
+#{detailTitleRegular,jdbcType=VARCHAR},
+#{createdTime,jdbcType=DATE},
+#{updatedTime,jdbcType=DATE},
+#{startPage,jdbcType=INTEGER},
+#{attrType,jdbcType=VARCHAR},
+#{attrName,jdbcType=VARCHAR},
+#{detailContentRegular,jdbcType=VARCHAR},
+#{creater,jdbcType=INTEGER},
+#{updater,jdbcType=INTEGER})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCrawlerConfig" >
+    update web_crawler_config
+    set web_name=#{webName,jdbcType=VARCHAR},
+web_domain=#{webDomain,jdbcType=VARCHAR},
+web_search_url=#{webSearchUrl,jdbcType=VARCHAR},
+page_url_regular=#{webSearchUrl,jdbcType=VARCHAR},
+page_type=#{pageType,jdbcType=VARCHAR},
+max_page=#{maxPage,jdbcType=VARCHAR},
+page_req_method=#{pageReqMethod,jdbcType=VARCHAR},
+page_result=#{pageResult,jdbcType=VARCHAR},
+detail_url_regular=#{detailUrlRegular,jdbcType=VARCHAR},
+detail_title_regular=#{detailTitleRegular,jdbcType=VARCHAR},
+create_time=#{createdTime,jdbcType=VARCHAR},
+update_time=#{updatedTime,jdbcType=VARCHAR},
+start_page=#{startPage,jdbcType=VARCHAR},
+attr_type=#{attrType,jdbcType=VARCHAR},
+attr_name=#{attrName,jdbcType=VARCHAR},
+detail_content_regular=#{detailContentRegular,jdbcType=VARCHAR},
+updater=#{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
