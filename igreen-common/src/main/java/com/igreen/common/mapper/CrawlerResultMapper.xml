@@ -26,6 +26,9 @@
   	<if test="webName != null" >
   		and web_name = #{webName,jdbcType=VARCHAR}
   	</if>
+      <if test="webDetailName != null" >
+          and web_detail_name like CONCAT('%',#{webDetailName},'%')
+      </if>
   	<if test="webDetailUrl != null" >
   		and web_domain = #{webDomain,jdbcType=VARCHAR}
   	</if>
@@ -39,6 +42,9 @@
   	<if test="webName != null" >
   		and web_name = #{webName,jdbcType=VARCHAR}
   	</if>
+    <if test="webDetailName != null" >
+        and web_detail_name like CONCAT('%',#{webDetailName},'%')
+    </if>
   	<if test="webDetailUrl != null" >
   		and web_domain = #{webDomain,jdbcType=VARCHAR}
   	</if>

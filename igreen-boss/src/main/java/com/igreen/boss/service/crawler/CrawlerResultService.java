@@ -16,16 +16,16 @@ public interface CrawlerResultService {
 
 	/**
 	 * 分页查询结果信息
-	 * @param crawlerConfig
+	 * @param result
 	 * @param currentPage
 	 * @param pageRows
 	 * @return
 	 */
-	public ListRange configList(WebCrawlerResult result, Integer currentPage, Integer pageRows);
+	public ListRange resultList(WebCrawlerResult result, Integer currentPage, Integer pageRows);
 	
 	/**
 	 * 添加修改结果信息
-	 * @param crawlerConfig
+	 * @param result
 	 * @return
 	 */
 	public ResponseModel addOrEditResult(WebCrawlerResult result, Integer configId);

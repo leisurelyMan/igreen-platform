@@ -22,11 +22,15 @@ public class CrawlerResultServiceImpl implements CrawlerResultService{
     private CrawlerResultMapper resultMapper;
 	
 	@Override
-	public ListRange configList(WebCrawlerResult webResult, Integer currentPage, Integer pageRows) {
+	public ListRange resultList(WebCrawlerResult webResult, Integer currentPage, Integer pageRows) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		if(!StrUtil.isNull(webResult.getWebName()))
+		if(!StrUtil.isNull(webResult.getWebName())){
 			params.put("webName", webResult.getWebName());
-		
+		}
+		if(!StrUtil.isNull(webResult.getWebDetailName())){
+			params.put("webDetailName", webResult.getWebDetailName());
+		}
+
 		params.put("startRow", (currentPage-1)*pageRows);
 		params.put("pageRows", pageRows);
 		ListRange result = new ListRange(resultMapper.pageCrawlerResult(params), resultMapper.countCrawlerResult(params), currentPage, pageRows);
