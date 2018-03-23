@@ -128,7 +128,7 @@ public class CommonPageProcessor  implements PageProcessor {
             if("attr".equals(config.getAttrType())){
                 total = Integer.valueOf(eles.get(0).select(config.getPageResult()).attr(config.getAttrName()));
             } else if("text".equals(config.getAttrType())){
-            	total = Integer.valueOf(eles.get(0).select(config.getPageResult()).text());
+            	total = Integer.valueOf(eles.get(0).select(config.getPageResult()).text().trim());
             }
             if(pageNumber > 0) {
             	total = 1;
