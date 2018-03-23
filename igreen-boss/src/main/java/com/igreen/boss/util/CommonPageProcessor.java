@@ -6,6 +6,7 @@ import com.igreen.boss.service.crawler.CrawlerResultService;
 import com.igreen.common.model.WebCrawlerConfig;
 import com.igreen.common.model.WebCrawlerResult;
 
+import org.springframework.util.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -128,7 +129,7 @@ public class CommonPageProcessor  implements PageProcessor {
             if("attr".equals(config.getAttrType())){
                 total = Integer.valueOf(eles.get(0).select(config.getPageResult()).attr(config.getAttrName()));
             } else if("text".equals(config.getAttrType())){
-            	total = Integer.valueOf(eles.get(0).select(config.getPageResult()).text().trim());
+            	total = Integer.valueOf(StringUtils.trimAllWhitespace(eles.get(0).select(config.getPageResult()).text()));
             }
             if(pageNumber > 0) {
             	total = 1;
