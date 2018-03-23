@@ -181,6 +181,9 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		}else if(StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) 
 				&& !StrUtil.isNull(dto.getProvince())){//省
 			return "province";
+		}else if(!StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()) 
+				&& StrUtil.isNull(dto.getProvince())){//公司名称+时间
+			return "company_year";
 		}else if(!StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) 
 				&& StrUtil.isNull(dto.getProvince())){//公司名称
 			return "company";
