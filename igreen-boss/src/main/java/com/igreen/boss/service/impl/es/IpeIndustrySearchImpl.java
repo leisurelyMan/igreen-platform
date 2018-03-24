@@ -2,6 +2,7 @@ package com.igreen.boss.service.impl.es;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,6 +25,8 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.ScriptType;
 import org.elasticsearch.script.mustache.SearchTemplateRequestBuilder;
 import org.elasticsearch.search.SearchHit;
@@ -35,6 +38,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.igreen.boss.dto.IpeSearchDto;
 import com.igreen.boss.service.es.IpeIndustrySearch;
 import com.igreen.boss.service.es.WordFrequencyService;
+import com.igreen.boss.util.ElasticSearchUtil;
 import com.igreen.boss.util.FileUtil;
 import com.igreen.common.dao.IpeElasticsearchMapper;
 import com.igreen.common.dao.IpeIndustryRecordMapper;
@@ -82,13 +86,11 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		TransportClient client = new PreBuiltTransportClient(settings)
 				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("172.17.215.144"), 9300)); 
 	
-		Map<String, Object> scriptParams = new HashMap<String, Object>();
+/*		Map<String, Object> scriptParams = new HashMap<String, Object>();
 		scriptParams.put("from", (currentPage-1)*pageRows);
 		scriptParams.put("size", pageRows);
 		if(!dto.wordsEmpty())
 			scriptParams.put("fields", dto.getArray());
-/*		if(!StrUtil.isNull(dto.getAddress()))
-			scriptParams.put("address", dto.getAddress());*/
 		if(!StrUtil.isNull(dto.getProvince()))
 			scriptParams.put("province", dto.getProvince());
 		if(!StrUtil.isNull(dto.getCity()))
@@ -100,25 +102,6 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		if(!StrUtil.isNull(dto.getCompanyName()))
 			scriptParams.put("company", dto.getCompanyName().split(","));
 		
-/*		SearchTemplateRequestBuilder builder = new SearchTemplateRequestBuilder(client);
-		builder.setScriptType(ScriptType.FILE).setScriptParams(scriptParams).setRequest(new SearchRequest(INDEX).types(TYPE));
-		if(!StrUtil.isNull(dto.getAddress()) && StrUtil.isNull(dto.getYear()) && StrUtil.isNull(dto.getCompanyName()))
-			builder.setScript("address_must");
-		if(!StrUtil.isNull(dto.getYear()) && StrUtil.isNull(dto.getAddress()) && StrUtil.isNull(dto.getCompanyName()))
-			builder.setScript("year_must");
-		if(!StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()) && StrUtil.isNull(dto.getAddress()))
-			builder.setScript("company_must");
-		if(!StrUtil.isNull(dto.getYear()) && !StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getAddress()))
-			builder.setScript("year_company_must");
-		if(!StrUtil.isNull(dto.getYear()) && !StrUtil.isNull(dto.getAddress()) && StrUtil.isNull(dto.getCompanyName()))
-			builder.setScript("year_address_must");
-		if(!StrUtil.isNull(dto.getAddress()) && !StrUtil.isNull(dto.getCompanyName()) && StrUtil.isNull(dto.getYear()))
-			builder.setScript("company_address_must");
-		if(!StrUtil.isNull(dto.getAddress()) && !StrUtil.isNull(dto.getCompanyName()) && !StrUtil.isNull(dto.getYear()))
-			builder.setScript("year_company_address_must");
-		else
-			builder.setScript("mul_match");
-		SearchResponse searchResponse = builder.get().getResponse();*/
 		log.info("scriptParams="+JSON.toJSONString(scriptParams));
 		String script = getScript(dto);
 		log.info("script="+script);
@@ -128,17 +111,39 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 				.setScriptParams(scriptParams)
 				.setRequest(new SearchRequest(INDEX).types(TYPE))
 				.get()
-				.getResponse();
+				.getResponse();*/
+		
+		
+		BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+		
+		if(!dto.wordsEmpty())
+			queryBuilder.must(QueryBuilders.termQuery("fields", dto.getArray()));
+		if(!StrUtil.isNull(dto.getProvince()))
+			queryBuilder.must(QueryBuilders.termQuery("province", dto.getProvince()));
+		if(!StrUtil.isNull(dto.getCity()))
+			queryBuilder.must(QueryBuilders.termQuery("city", dto.getCity()));
+		if(!StrUtil.isNull(dto.getDistrict()))
+			queryBuilder.must(QueryBuilders.termQuery("district", dto.getDistrict()));
+		if(!StrUtil.isNull(dto.getYear()))
+			queryBuilder.must(QueryBuilders.termQuery("year", dto.getYear()));
+		if(!StrUtil.isNull(dto.getCompanyName()))
+			queryBuilder.must(QueryBuilders.termQuery("company", dto.getCompanyName().split(",")));
+		
+		SearchResponse response = client.prepareSearch()  
+                .setQuery(queryBuilder)  
+                .setFrom((currentPage-1)*pageRows)   
+                .setSize(pageRows)
+                .execute().actionGet();
 		
 		List<IpeIndustryDto> list = new ArrayList<IpeIndustryDto>();
-		for(SearchHit searchHit : searchResponse.getHits().getHits()) {
-			//System.out.println(searchHit.getSourceAsString());
+		//for(SearchHit searchHit : searchResponse.getHits().getHits()) {
+		for(SearchHit searchHit : response.getHits().getHits()) {
 			IpeIndustryDto ipe = JSONObject.parseObject(searchHit.getSourceAsString(), IpeIndustryDto.class);
 			list.add(ipe);
 		}
 		
 		ListRange result = new ListRange(list,
-				(int)searchResponse.getHits().getTotalHits(), currentPage, pageRows);
+				(int)response.getHits().getTotalHits(), currentPage, pageRows);
 		client.close();
 		return result;
 	}
@@ -317,6 +322,33 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 			ananyziWord(client,filestr);
 		}
 		client.close();
+	}
+
+
+	@Override
+	public void deleteRepeat() throws UnknownHostException {
+		// TODO Auto-generated method stub
+		Settings settings = Settings.builder()
+				.put("cluster.name", CLUSTER_NAME)
+				.build();
+		
+		TransportClient client = new PreBuiltTransportClient(settings)
+				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("172.17.215.144"), 9300)); 
+		List<String> fileNames = ipeIndustryRecordMapper.selectRepeatRecord();
+		for(String fileName : fileNames){
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("fileName", fileName);
+			params.put("startRow", 0);
+			params.put("pageRows", 100);
+			List<IpeIndustryRecord> industryRecords = ipeIndustryRecordMapper.pageIpeIndustry(params);
+			for(int i=1;i<industryRecords.size();i++){
+				IpeIndustryRecord industryRecord = industryRecords.get(i);
+				industryRecord.setStatus(-1);
+				ipeIndustryRecordMapper.updateByPrimaryKeySelective(industryRecord);
+				ElasticSearchUtil.deleteById(client, INDEX, TYPE, industryRecord.getId().toString());
+			}
+		}
+
 	}
 
 

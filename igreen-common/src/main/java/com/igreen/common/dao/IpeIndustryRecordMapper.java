@@ -42,4 +42,8 @@ public interface IpeIndustryRecordMapper {
 	Integer countIpeIndustryDto(Map<String, Object> params);
 
 	List<IpeIndustryDto> pageIpeIndustryDto(Map<String, Object> params);
+	
+	List<String> selectRepeatRecord();
+	
+	
 }

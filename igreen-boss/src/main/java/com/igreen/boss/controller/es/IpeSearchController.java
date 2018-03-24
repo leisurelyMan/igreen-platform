@@ -115,4 +115,10 @@ public class IpeSearchController extends BaseController{
          
 		return result;
 	}
+	
+	@RequestMapping(value="deleteRepeat", method = { RequestMethod.POST,RequestMethod.GET })
+	public void deleteRepeat() throws Exception{
+		ipeIndustrySearch.deleteRepeat();
+	}
+	
 }
