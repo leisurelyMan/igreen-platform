@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -117,7 +118,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
 		
 		if(!dto.wordsEmpty())
-			queryBuilder.must(QueryBuilders.termQuery("fields", dto.getArray()));
+			queryBuilder.must(QueryBuilders.termsQuery("ipeField", Arrays.asList(dto.getArray())));
 		if(!StrUtil.isNull(dto.getProvince()))
 			queryBuilder.must(QueryBuilders.termQuery("province", dto.getProvince()));
 		if(!StrUtil.isNull(dto.getCity()))
@@ -127,8 +128,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		if(!StrUtil.isNull(dto.getYear()))
 			queryBuilder.must(QueryBuilders.termQuery("year", dto.getYear()));
 		if(!StrUtil.isNull(dto.getCompanyName()))
-			queryBuilder.must(QueryBuilders.termQuery("company", dto.getCompanyName().split(",")));
-		
+			queryBuilder.must(QueryBuilders.termsQuery("company", Arrays.asList(dto.getCompanyName().split(","))));
 		SearchResponse response = client.prepareSearch()  
                 .setQuery(queryBuilder)  
                 .setFrom((currentPage-1)*pageRows)   

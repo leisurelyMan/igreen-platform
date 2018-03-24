@@ -149,7 +149,7 @@
   	limit #{startRow},#{pageRows}
   </select>
   
-  <select id="selectRepeatRecord">
+  <select id="selectRepeatRecord" resultType="java.lang.String">
     SELECT file_name
 	FROM ipe_industry_record
 	GROUP BY file_name
