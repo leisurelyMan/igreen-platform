@@ -156,3 +156,5 @@ INSERT INTO `sys_menu` VALUES (23,'爬虫结果','../crawler/resultListPage.do',
 
 ALTER TABLE `web_crawler_result`
 ADD COLUMN `save_path`  varchar(100) NULL AFTER `updater`;
+
+INSERT INTO `web_crawler_config` VALUES (4,'浙江省环境保护厅','www.zjepb.gov.cn','http://www.zjepb.gov.cn/jrobot/search.do?webid=2&pg=&p=${page}&tpl=&category=&q=浙江&x=47&y=12','http://www.zjepb.gov.cn/jrobot/search.do?webid=2&pg=&p=${page}&tpl=&category=&q=浙江&x=47&y=12',1,100,1,'div','http://www\\.zjepb\\.gov\\.cn/art/\\d+/\\d+/\\d+/art_\\d+_\\d+.html','//table[@id=\'article\']//td[@class=\'title\']/text()',NULL,'2018-03-25 12:19:55',1,'attr','data-pagecount','//table[@id=\'article\']//td[@class=\'bt_content\']/html()',2,2);
