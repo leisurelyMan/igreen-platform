@@ -12,10 +12,11 @@
     <result column="created_time" property="createdTime" jdbcType="DATE" />
     <result column="updater" property="updater" jdbcType="INTEGER" />
     <result column="updated_time" property="updateTime" jdbcType="DATE" />
+    <result column="save_path" property="savePath" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id,web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater
+    id,web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path
   </sql>
   
     <!-- 查询有效的总记录数 -->
@@ -71,7 +72,7 @@
   </delete>
   
   <insert id="insert" parameterType="com.igreen.common.model.WebCrawlerResult" >
-    insert into web_crawler_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater)
+    insert into web_crawler_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path)
     values (#{webName,jdbcType=VARCHAR},
 #{webDomain,jdbcType=VARCHAR},
 #{webDetailName,jdbcType=VARCHAR},
@@ -80,7 +81,8 @@
 #{createdTime,jdbcType=DATE},
 #{updatedTime,jdbcType=DATE},
 #{creater,jdbcType=INTEGER},
-#{updater,jdbcType=INTEGER})
+#{updater,jdbcType=INTEGER},
+#{savePath,jdbcType=VARCHAR})
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCrawlerResult" >
@@ -91,7 +93,8 @@ web_detail_name=#{webDetailName,jdbcType=VARCHAR},
 web_detail_url=#{webDetailUrl,jdbcType=VARCHAR},
 web_detail_result_url=#{webDetailResultUrl,jdbcType=VARCHAR},
 update_time=#{updatedTime,jdbcType=VARCHAR},
-updater=#{updater,jdbcType=VARCHAR}
+updater=#{updater,jdbcType=VARCHAR},
+save_path=#{savePath,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

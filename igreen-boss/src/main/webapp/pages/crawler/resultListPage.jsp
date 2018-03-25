@@ -39,6 +39,11 @@
 		</div>
 		<table id="list"></table>
 		<div id="pager" class="pagin"></div>
+		
+		<div id="dialog" title="详情">
+			<div id="content">
+			</div>
+		</div>
 	</div>
 </body>
 </html>

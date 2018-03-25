@@ -85,6 +85,7 @@ jQuery(document).ready(function(){
 	
 	$("#add").click(function(){
 		//清空原有值
+		$('#id').val("");
 		$('#webName').val("");
 	    $('#webDomain').val("");
 	    $('#webSearchUrl').val("");

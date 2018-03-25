@@ -29,6 +29,26 @@ jQuery(document).ready(function(){
 	
 	jQuery("#list").jqGrid('navGrid', '#pager', {edit : false,add : false,del : false});
 	
+	$("#dialog").dialog({   //创建dialog弹窗
+		title:'详情',
+		autoOpen: false,     //不自动打开窗口 
+		show:"slide",       //显示弹窗出现的效果，slide为滑动效果 
+		hide:"explode",     //显示窗口消失的效果，explode为爆炸效果
+		resizable: true,    //设置是否可拉动弹窗的大小，默认为true  
+		autoScroll: true,
+		modal: true,         //是否有遮罩模型  
+		width: 600,
+		zIndex: 2,
+		buttons:[//定义两个button按钮
+		    {
+		    	text:"取消",
+		    	click:function(){
+		    	$(this).dialog("close");
+		    }
+		    }
+		]
+	});
+	
 	$("#search").click(function(){
 		var webName = $('#searchWebName').val();
 		var webDetailName = $('#searchWebDetailName').val();
@@ -38,8 +58,29 @@ jQuery(document).ready(function(){
 	});
 });
 
+function view(id){
+	$.ajax({
+		type:'post',//可选get
+		async:false,//同步
+		url:'../crawler/getWebCrawlerResultById.do',//这里是接收数据的URL
+		data:'resultId='+id,//传给后台的数据，多个参数用&连接
+		dataType:'text',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+		success:function(msg){
+			var obj = eval("("+msg+")");
+			$('#content').html(obj.content);
+		    
+			//打开对话表
+			$("#dialog").dialog("open");
+		},
+		error:function(){//修理失败，未能连接
+			alert("查看失败，请联系管理员");
+		}
+	});
+}
+
+
 function getActions(cellvalue, options, rowObject){
-    return '<a href="javascript:edit(\''+rowObject.id+'\')">编辑</a>&nbsp;';
+    return '<a href="javascript:view(\''+rowObject.id+'\')">查看</a>&nbsp;';
 }
 
 

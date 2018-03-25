@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import com.igreen.boss.service.crawler.CrawlerResultService;
+import com.igreen.boss.util.FileUtil;
 import com.igreen.common.dao.CrawlerResultMapper;
 import com.igreen.common.model.WebCrawlerResult;
 import com.igreen.common.util.ListRange;
@@ -77,7 +78,9 @@ public class CrawlerResultServiceImpl implements CrawlerResultService{
 
 	@Override
 	public WebCrawlerResult getWebCrawlerResultById(Integer configId) {
-		return resultMapper.selectByPrimaryKey( configId);
+		WebCrawlerResult crawler = resultMapper.selectByPrimaryKey( configId);
+		crawler.setContent(FileUtil.readFile(crawler.getSavePath()));
+		return crawler;
 	}
 
 }

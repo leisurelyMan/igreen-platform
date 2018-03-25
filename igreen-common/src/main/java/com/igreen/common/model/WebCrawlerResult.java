@@ -14,6 +14,9 @@ public class WebCrawlerResult extends IdEntity {
     private String webDetailName;//详情标题
     private String webDetailUrl;//详情页原url
     private String webDetailResultUrl;//抓取详情页url
+    private String savePath; //保存路径
+    private String content; //详情页内容
+    
 	public String getWebName() {
 		return webName;
 	}
@@ -44,5 +47,18 @@ public class WebCrawlerResult extends IdEntity {
 	public void setWebDetailResultUrl(String webDetailResultUrl) {
 		this.webDetailResultUrl = webDetailResultUrl;
 	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getSavePath() {
+		return savePath;
+	}
+	public void setSavePath(String savePath) {
+		this.savePath = savePath;
+	}
 
+	
 }

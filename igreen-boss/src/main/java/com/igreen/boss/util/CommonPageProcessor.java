@@ -22,7 +22,7 @@ public class CommonPageProcessor  implements PageProcessor {
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
 
     private WebCrawlerConfig config;
-    
+
     private CrawlerResultService resultService;
     
     // 保存地址
@@ -62,7 +62,7 @@ public class CommonPageProcessor  implements PageProcessor {
             result.setWebDomain(config.getWebDomain());
             result.setWebDetailUrl(url);
             result.setWebDetailResultUrl(VISIT_PATH + config.getWebDomain() + fileName);
-            
+            result.setSavePath(disk + fileName);
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){
         	e.printStackTrace();
@@ -130,9 +130,6 @@ public class CommonPageProcessor  implements PageProcessor {
                 total = Integer.valueOf(eles.get(0).select(config.getPageResult()).attr(config.getAttrName()));
             } else if("text".equals(config.getAttrType())){
             	total = Integer.valueOf(StringUtils.trimAllWhitespace(eles.get(0).select(config.getPageResult()).text()));
-            }
-            if(pageNumber > 0) {
-            	total = 1;
             }
             for(int i = 0; i < (total > config.getMaxPage() ? config.getMaxPage() : total); i ++){
                 System.out.println("total is :" + i + "==URL===:" + config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
