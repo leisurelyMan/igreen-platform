@@ -26,7 +26,7 @@ public class CommonPageProcessor  implements PageProcessor {
     private CrawlerResultService resultService;
     
     // 保存地址
-    private static final String DISK_PATH = "/opt/crawler/";
+    private static final String DISK_PATH = "/data/files/crawler";
     // 访问地址http
     private  static final String VISIT_PATH = "/web/html/";
     
