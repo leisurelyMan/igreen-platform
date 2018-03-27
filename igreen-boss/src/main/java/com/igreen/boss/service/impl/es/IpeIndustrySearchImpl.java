@@ -327,7 +327,6 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 
 	@Override
 	public void deleteRepeat() throws UnknownHostException {
-		// TODO Auto-generated method stub
 		Settings settings = Settings.builder()
 				.put("cluster.name", CLUSTER_NAME)
 				.build();
@@ -335,18 +334,22 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		TransportClient client = new PreBuiltTransportClient(settings)
 				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("172.17.215.144"), 9300)); 
 		List<String> fileNames = ipeIndustryRecordMapper.selectRepeatRecord();
-		for(String fileName : fileNames){
-			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("fileName", fileName);
-			params.put("startRow", 0);
-			params.put("pageRows", 100);
-			List<IpeIndustryRecord> industryRecords = ipeIndustryRecordMapper.pageIpeIndustry(params);
-			for(int i=1;i<industryRecords.size();i++){
-				IpeIndustryRecord industryRecord = industryRecords.get(i);
-				industryRecord.setStatus(-1);
-				ipeIndustryRecordMapper.updateByPrimaryKeySelective(industryRecord);
-				ElasticSearchUtil.deleteById(client, INDEX, TYPE, industryRecord.getId().toString());
+		while(fileNames != null && fileNames.size() > 0){
+			log.info("fileNames="+JSON.toJSONString(fileNames));
+			for(String fileName : fileNames){
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("fileName", fileName);
+				params.put("startRow", 0);
+				params.put("pageRows", 100);
+				List<IpeIndustryRecord> industryRecords = ipeIndustryRecordMapper.pageIpeIndustry(params);
+				for(int i=1;i<industryRecords.size();i++){
+					IpeIndustryRecord industryRecord = industryRecords.get(i);
+					industryRecord.setStatus(-1);
+					ipeIndustryRecordMapper.updateByPrimaryKeySelective(industryRecord);
+					ElasticSearchUtil.deleteById(client, INDEX, TYPE, industryRecord.getId().toString());
+				}
 			}
+			fileNames = ipeIndustryRecordMapper.selectRepeatRecord();
 		}
 
 	}
