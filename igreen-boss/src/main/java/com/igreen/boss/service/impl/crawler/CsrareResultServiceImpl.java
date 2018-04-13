@@ -48,9 +48,10 @@ public class CsrareResultServiceImpl implements CsrareResultService {
 		try {
 
 			WebCsrcareResult config = resultMapper.findByDetailUrl(webResult.getWebDetailUrl());
-			if(config != null && webResult.getId() != config.getId())
+			if(config != null && webResult.getId() != config.getId()) {
 				return new ResponseModel(-1, "该网站已经配置，无需重复配置");
-			
+			}
+
 			if(StrUtil.isNull(webResult.getId())){
 				webResult.setCreater(userId);
 				webResult.setCreatedTime(new Date());

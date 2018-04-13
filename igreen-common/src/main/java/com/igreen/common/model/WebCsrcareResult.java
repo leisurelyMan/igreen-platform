@@ -3,6 +3,8 @@
  */
 package com.igreen.common.model;
 
+import java.util.Date;
+
 /**
  * @author chenxy
  *
@@ -28,9 +30,9 @@ public class WebCsrcareResult extends IdEntity {
 	//适用领域
 	private String applicationDomain;
 	// 生效日期 2018/07/01
-	private String effectDate;
+	private Date effectDate;
 	// 颁布日期 2018/03/30
-	private String publishDate;
+	private Date publishDate;
 
     
 	public String getWebName() {
@@ -116,19 +118,19 @@ public class WebCsrcareResult extends IdEntity {
 		this.applicationDomain = applicationDomain;
 	}
 
-	public String getEffectDate() {
+	public Date getEffectDate() {
 		return effectDate;
 	}
 
-	public void setEffectDate(String effectDate) {
+	public void setEffectDate(Date effectDate) {
 		this.effectDate = effectDate;
 	}
 
-	public String getPublishDate() {
+	public Date getPublishDate() {
 		return publishDate;
 	}
 
-	public void setPublishDate(String publishDate) {
+	public void setPublishDate(Date publishDate) {
 		this.publishDate = publishDate;
 	}
 
