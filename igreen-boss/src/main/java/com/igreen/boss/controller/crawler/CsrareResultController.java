@@ -1,9 +1,7 @@
 package com.igreen.boss.controller.crawler;
 
 import com.igreen.boss.controller.BaseController;
-import com.igreen.boss.service.crawler.CrawlerResultService;
 import com.igreen.boss.service.crawler.CsrareResultService;
-import com.igreen.common.model.WebCrawlerResult;
 import com.igreen.common.model.WebCsrcareResult;
 import com.igreen.common.util.ListRange;
 import org.springframework.stereotype.Controller;
