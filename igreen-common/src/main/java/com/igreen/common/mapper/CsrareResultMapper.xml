@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.CsrareResultMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.WebCsrcareResult" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="web_name" property="webName" jdbcType="VARCHAR" />
+	<result column="web_domain" property="webDomain" jdbcType="VARCHAR" />
+	<result column="web_detail_name" property="webDetailName" jdbcType="VARCHAR" />
+	<result column="web_detail_url" property="webDetailUrl" jdbcType="VARCHAR" />
+	<result column="web_detail_result_url" property="webDetailResultUrl" jdbcType="VARCHAR" />
+  <result column="attachment_path" property="attachmentPath" jdbcType="VARCHAR" />
+  <result column="publish_org" property="publishOrg" jdbcType="VARCHAR" />
+  <result column="effect_status" property="effectStatus" jdbcType="VARCHAR" />
+  <result column="attach_type" property="attachType" jdbcType="VARCHAR" />
+  <result column="application_area" property="applicationArea" jdbcType="VARCHAR" />
+  <result column="application_domain" property="applicationDomain" jdbcType="VARCHAR" />
+  <result column="effect_date" property="effectDate" jdbcType="VARCHAR" />
+  <result column="publish_date" property="publishDate" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updateTime" jdbcType="DATE" />
+    <result column="save_path" property="savePath" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,attachment_path,
+publish_org,
+effect_status,
+attach_type,
+application_area,
+application_domain,
+effect_date,
+publish_date,create_time,update_time,creater,updater,save_path
+  </sql>
+  
+    <!-- 查询有效的总记录数 -->
+  <select id="countCsrareResult" resultType="java.lang.Integer" parameterType="map">
+  	select count(1)
+  	from web_crawler_result
+  	where 1 = 1
+  	<if test="webName != null" >
+  		and web_name = #{webName,jdbcType=VARCHAR}
+  	</if>
+      <if test="webDetailName != null" >
+          and web_detail_name like CONCAT('%',#{webDetailName},'%')
+      </if>
+  	<if test="webDetailUrl != null" >
+  		and web_domain = #{webDomain,jdbcType=VARCHAR}
+  	</if>
+  </select>
+  
+  <select id="pageCsrareResult" resultMap="BaseResultMap" parameterType="map" >
+  	select 
+  	<include refid="Base_Column_List" />
+  	from web_crawler_result
+  	where 1 = 1
+  	<if test="webName != null" >
+  		and web_name = #{webName,jdbcType=VARCHAR}
+  	</if>
+    <if test="webDetailName != null" >
+        and web_detail_name like CONCAT('%',#{webDetailName},'%')
+    </if>
+  	<if test="webDetailUrl != null" >
+  		and web_domain = #{webDomain,jdbcType=VARCHAR}
+  	</if>
+  	limit #{startRow},#{pageRows}
+  </select>
+  
+  <select id="findByDetailUrl" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_crawler_result
+    where web_detail_url = #{webDetailUrl,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from web_crawler_result
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from web_crawler_result
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.igreen.common.model.WebCsrcareResult" >
+    insert into web_crawler_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,attachment_path,
+publish_org,
+effect_status,
+attach_type,
+application_area,
+application_domain,
+effect_date,
+publish_date,create_time,update_time,creater,updater,save_path)
+    values (#{webName,jdbcType=VARCHAR},
+#{webDomain,jdbcType=VARCHAR},
+#{webDetailName,jdbcType=VARCHAR},
+#{webDetailUrl,jdbcType=VARCHAR},
+#{webDetailResultUrl,jdbcType=VARCHAR},
+#{attachmentPath,jdbcType=VARCHAR},
+#{publishOrg,jdbcType=VARCHAR},
+#{effectStatus,jdbcType=VARCHAR},
+#{attachType,jdbcType=VARCHAR},
+#{applicationArea,jdbcType=VARCHAR},
+#{applicationDomain,jdbcType=VARCHAR},
+#{effectDate,jdbcType=DATE},
+#{publishDate,jdbcType=DATE},
+#{createdTime,jdbcType=DATE},
+#{updatedTime,jdbcType=DATE},
+#{creater,jdbcType=INTEGER},
+#{updater,jdbcType=INTEGER},
+#{savePath,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCsrcareResult" >
+    update web_crawler_result
+    set web_name=#{webName,jdbcType=VARCHAR},
+web_domain=#{webDomain,jdbcType=VARCHAR},
+web_detail_name=#{webDetailName,jdbcType=VARCHAR},
+web_detail_url=#{webDetailUrl,jdbcType=VARCHAR},
+web_detail_result_url=#{webDetailResultUrl,jdbcType=VARCHAR},
+attachment_path=#{attachmentPath,jdbcType=VARCHAR},
+publish_org=#{publishOrg,jdbcType=VARCHAR},
+effect_status=#{effectStatus,jdbcType=VARCHAR},
+attach_type=#{attachType,jdbcType=VARCHAR},
+application_area=#{applicationArea,jdbcType=VARCHAR},
+application_domain=#{applicationDomain,jdbcType=VARCHAR},
+effect_date=#{effectDate,jdbcType=DATE},
+update_time=#{updatedTime,jdbcType=VARCHAR},
+updater=#{updater,jdbcType=VARCHAR},
+save_path=#{savePath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

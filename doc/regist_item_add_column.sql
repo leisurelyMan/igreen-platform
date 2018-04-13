@@ -158,3 +158,29 @@ ALTER TABLE `web_crawler_result`
 ADD COLUMN `save_path`  varchar(100) NULL AFTER `updater`;
 
 INSERT INTO `web_crawler_config` VALUES (4,'浙江省环境保护厅','www.zjepb.gov.cn','http://www.zjepb.gov.cn/jrobot/search.do?webid=2&pg=&p=${page}&tpl=&category=&q=浙江&x=47&y=12','http://www.zjepb.gov.cn/jrobot/search.do?webid=2&pg=&p=${page}&tpl=&category=&q=浙江&x=47&y=12',1,100,1,'div','http://www\\.zjepb\\.gov\\.cn/art/\\d+/\\d+/\\d+/art_\\d+_\\d+.html','//table[@id=\'article\']//td[@class=\'title\']/text()',NULL,'2018-03-25 12:19:55',1,'attr','data-pagecount','//table[@id=\'article\']//td[@class=\'bt_content\']/html()',2,2);
+
+
+
+
+DROP TABLE IF EXISTS `web_csrare_result`;
+CREATE TABLE `web_csrare_result` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `web_name` varchar(100) DEFAULT NULL COMMENT '网站名称',
+  `web_domain` varchar(50) DEFAULT NULL COMMENT '网站域名',
+  `web_detail_name` varchar(500) DEFAULT NULL COMMENT '详情标题',
+  `web_detail_url` varchar(200) DEFAULT NULL COMMENT '详情页原url',
+  `web_detail_result_url` varchar(100) DEFAULT NULL COMMENT '抓取详情页url',
+  `attachment_path` varchar(100) DEFAULT NULL COMMENT '附件地址',
+  `publish_org` varchar(100) DEFAULT NULL COMMENT '颁布机构',
+  `effect_status` varchar(100) DEFAULT NULL COMMENT '生效状态',
+  `attach_type` varchar(100) DEFAULT NULL COMMENT '所属类型',
+  `application_area` varchar(100) DEFAULT NULL COMMENT '适用地区',
+  `application_domain` varchar(100) DEFAULT NULL COMMENT '适用领域',
+  `effect_date` DATE DEFAULT NULL COMMENT '生效日期',
+  `publish_date` DATE DEFAULT NULL COMMENT '颁布日期',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '配置时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '配置更新时间',
+  `creater` int(11) DEFAULT NULL COMMENT '创建者',
+  `updater` int(11) DEFAULT NULL COMMENT '更新者',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='law网站抓取结果';
