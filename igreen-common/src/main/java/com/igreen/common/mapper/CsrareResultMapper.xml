@@ -37,7 +37,7 @@ publish_date,create_time,update_time,creater,updater,save_path
     <!-- 查询有效的总记录数 -->
   <select id="countCsrareResult" resultType="java.lang.Integer" parameterType="map">
   	select count(1)
-  	from web_crawler_result
+  	from web_csrare_result
   	where 1 = 1
   	<if test="webName != null" >
   		and web_name = #{webName,jdbcType=VARCHAR}
@@ -48,12 +48,37 @@ publish_date,create_time,update_time,creater,updater,save_path
   	<if test="webDetailUrl != null" >
   		and web_domain = #{webDomain,jdbcType=VARCHAR}
   	</if>
+      <if test="effectStatus != null" >
+          and effect_status = #{effectStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="attachType != null" >
+          and attach_type = #{attachType,jdbcType=VARCHAR}
+      </if>
+      <if test="applicationArea != null" >
+          and application_area = #{applicationArea,jdbcType=VARCHAR}
+      </if>
+      <if test="applicationDomain != null" >
+          and application_domain = #{applicationDomain,jdbcType=VARCHAR}
+      </if>
+      <if test="publishStartDate != null" >
+          and publish_date <![CDATA[ >= ]]> #{publishStartDate}
+      </if>
+      <if test="publishEndDate != null" >
+          and publish_date <![CDATA[ <= ]]> #{publishEndDate}
+      </if>
+
+      <if test="effectStartDate != null" >
+          and effect_date <![CDATA[ >= ]]> #{effectStartDate}
+      </if>
+      <if test="effectEndDate != null" >
+          and effect_date <![CDATA[ <= ]]> #{effectEndDate,jdbcType=VARCHAR}
+      </if>
   </select>
   
   <select id="pageCsrareResult" resultMap="BaseResultMap" parameterType="map" >
   	select 
   	<include refid="Base_Column_List" />
-  	from web_crawler_result
+  	from web_csrare_result
   	where 1 = 1
   	<if test="webName != null" >
   		and web_name = #{webName,jdbcType=VARCHAR}
@@ -64,30 +89,56 @@ publish_date,create_time,update_time,creater,updater,save_path
   	<if test="webDetailUrl != null" >
   		and web_domain = #{webDomain,jdbcType=VARCHAR}
   	</if>
+
+      <if test="effectStatus != null" >
+          and effect_status = #{effectStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="attachType != null" >
+          and attach_type = #{attachType,jdbcType=VARCHAR}
+      </if>
+      <if test="applicationArea != null" >
+          and application_area = #{applicationArea,jdbcType=VARCHAR}
+      </if>
+      <if test="applicationDomain != null" >
+          and application_domain = #{applicationDomain,jdbcType=VARCHAR}
+      </if>
+      <if test="publishStartDate != null" >
+          and publish_date <![CDATA[ >= ]]> #{publishStartDate}
+      </if>
+      <if test="publishEndDate != null" >
+          and publish_date <![CDATA[ <= ]]> #{publishEndDate}
+      </if>
+
+      <if test="effectStartDate != null" >
+          and effect_date <![CDATA[ >= ]]> #{effectStartDate}
+      </if>
+      <if test="effectEndDate != null" >
+          and effect_date <![CDATA[ <= ]]> #{effectEndDate,jdbcType=VARCHAR}
+      </if>
   	limit #{startRow},#{pageRows}
   </select>
   
   <select id="findByDetailUrl" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from web_crawler_result
+    from web_csrare_result
     where web_detail_url = #{webDetailUrl,jdbcType=VARCHAR}
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from web_crawler_result
+    from web_csrare_result
     where id = #{id,jdbcType=INTEGER}
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from web_crawler_result
+    delete from web_csrare_result
     where id = #{id,jdbcType=INTEGER}
   </delete>
   
   <insert id="insert" parameterType="com.igreen.common.model.WebCsrcareResult" >
-    insert into web_crawler_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,attachment_path,
+    insert into web_csrare_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,attachment_path,
 publish_org,
 effect_status,
 attach_type,
@@ -116,7 +167,7 @@ publish_date,create_time,update_time,creater,updater,save_path)
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCsrcareResult" >
-    update web_crawler_result
+    update web_csrare_result
     set web_name=#{webName,jdbcType=VARCHAR},
 web_domain=#{webDomain,jdbcType=VARCHAR},
 web_detail_name=#{webDetailName,jdbcType=VARCHAR},

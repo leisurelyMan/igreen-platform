@@ -2,6 +2,8 @@ package com.igreen.boss.controller.crawler;
 
 import com.igreen.boss.controller.BaseController;
 import com.igreen.boss.service.crawler.CsrareResultService;
+import com.igreen.boss.service.task.CsrareWebRun;
+import com.igreen.common.model.WebCrawlerConfig;
 import com.igreen.common.model.WebCsrcareResult;
 import com.igreen.common.util.ListRange;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Controller
 @RequestMapping(value="/csrare")
@@ -57,6 +60,33 @@ public class CsrareResultController extends BaseController{
 	@RequestMapping(value="getWebCsrareResultById", method = { RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody WebCsrcareResult getWebCsrareResultById(Integer resultId){
 		return resultService.getWebCsrcareResultById(resultId);
+	}
+
+
+	@RequestMapping(value="test", method = { RequestMethod.POST,RequestMethod.GET})
+	public void ddd(){
+		WebCrawlerConfig commonPageBean = new WebCrawlerConfig();
+		commonPageBean.setId(1);
+		commonPageBean.setWebName("合规网");
+		commonPageBean.setWebDomain("csrcare");
+		commonPageBean.setWebSearchUrl("http://www.csrcare.com/Law");
+		commonPageBean.setPageUrlRegular("http://www.csrcare.com/Law?page=${page}");
+		commonPageBean.setPageType("1");
+		commonPageBean.setPageReqMethod("1");
+		commonPageBean.setPageResult("a:contains(尾页)");
+		commonPageBean.setDetailUrlRegular("http://www.csrcare.com/Law/Show\\?id=\\d+");
+		commonPageBean.setDetailTitleRegular("//h1[@class='fgtitle']/tidyText()");
+		commonPageBean.setCreatedTime(new Date());
+		commonPageBean.setUpdatedTime(new Date());
+		commonPageBean.setMaxPage(20);
+		commonPageBean.setStartPage(0);
+		commonPageBean.setAttrType("attr");
+		commonPageBean.setAttrName("href");
+		commonPageBean.setDetailContentRegular("//div[@class='show']/html()");
+
+		CsrareWebRun comm = new CsrareWebRun(commonPageBean, resultService);
+
+		comm.start();
 	}
 
 }

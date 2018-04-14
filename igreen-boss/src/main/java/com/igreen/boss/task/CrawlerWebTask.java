@@ -17,7 +17,7 @@ public class CrawlerWebTask {
 	/**
 	 *  每个月的16号和26号，凌晨2点爬取环保部数据
 	 */
-	@Scheduled(cron="0 0 2 16,26 * ?")
+	@Scheduled(cron="0 0 2 15,26 * ?")
 	public void AirQualitySpider( ){
 		WebCrawlerConfig commonPageBean = new WebCrawlerConfig();
 		commonPageBean.setId(1);
@@ -32,7 +32,7 @@ public class CrawlerWebTask {
 		commonPageBean.setDetailTitleRegular("//h1[@class='fgtitle']/tidyText()");
 		commonPageBean.setCreatedTime(new Date());
 		commonPageBean.setUpdatedTime(new Date());
-		commonPageBean.setMaxPage(1);
+		/*commonPageBean.setMaxPage(1);*/
 		commonPageBean.setStartPage(0);
 		commonPageBean.setAttrType("attr");
 		commonPageBean.setAttrName("href");

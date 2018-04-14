@@ -1,6 +1,7 @@
 package com.igreen.boss.service.task;
 
 import com.igreen.boss.service.crawler.CsrareResultService;
+import com.igreen.common.util.DateUtil;
 import com.igreen.boss.util.DownloadPdf;
 import com.igreen.common.model.WebCrawlerConfig;
 import com.igreen.common.model.WebCsrcareResult;
@@ -16,15 +17,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CsrareWebRun implements PageProcessor {
-
-    private static ThreadLocal<Map<String,SimpleDateFormat>> localFormat = new ThreadLocal<Map<String,SimpleDateFormat>>();
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
 
@@ -35,7 +29,7 @@ public class CsrareWebRun implements PageProcessor {
     // 保存地址
     private static final String DISK_PATH = "/data/files/law/";
     // 访问地址http
-    private  static final String VISIT_PATH = "/web/html/";
+    private  static final String VISIT_PATH = "http://localhost:8080/law/";
     private static final String SOURCE_DOMAIN = "http://www.csrcare.com/";
 
     public CsrareWebRun(WebCrawlerConfig config, CsrareResultService resultService){
@@ -47,7 +41,7 @@ public class CsrareWebRun implements PageProcessor {
     public void process(Page page) {
 
         page.addTargetRequests(page.getHtml().links().regex(config.getDetailUrlRegular()).all());
-        //page.putField("title", page.getHtml().xpath(config.getDetailTitleRegular()).toString());
+        page.putField("title", page.getHtml().xpath(config.getDetailTitleRegular()).toString());
         if(page.getResultItems().get("title") == null){
             page.setSkip(true);
             return;
@@ -55,10 +49,13 @@ public class CsrareWebRun implements PageProcessor {
 
         try {
             String url = page.getUrl().toString();
-            String name = url.substring(url.lastIndexOf("/")+1);
-            String fileName = name.substring(0, name.indexOf(".")) + ".html";
+            String name = url.substring(url.lastIndexOf("id")+1);
+            String fileName = name + ".html";
             String disk = DISK_PATH + config.getWebDomain() + "/";
-            fileOut(disk, fileName, deleteCRLFOnce(page.getHtml().xpath(config.getDetailContentRegular()).toString()));
+            String content = page.getHtml().xpath(config.getDetailContentRegular()).toString();
+
+
+            //fileOut(disk, fileName, deleteCRLFOnce(page.getHtml().xpath(config.getDetailContentRegular()).toString()));
 
             Html html = page.getHtml();
             Elements eles =  html.getDocument().getAllElements();
@@ -91,8 +88,8 @@ public class CsrareWebRun implements PageProcessor {
                 // 颁布日期 2018/03/30
                 String publishDate = trs.get(3).select("td:eq(3)").text();
 
-                result.setEffectDate(getFormatDate(effectDate.replaceAll("/", "")));
-                result.setPublishDate(getFormatDate(publishDate.replaceAll("/", "")));
+                result.setEffectDate(DateUtil.getFormatDate(effectDate.replaceAll("/", "")));
+                result.setPublishDate(DateUtil.getFormatDate(publishDate.replaceAll("/", "")));
 
             }
 
@@ -103,8 +100,11 @@ public class CsrareWebRun implements PageProcessor {
                 String diskPath = DISK_PATH + config.getWebDomain() + "/pdf/"+ pdf.substring(pdf.lastIndexOf("\\"));
                 DownloadPdf.downloadAndSave(source, diskPath);
                 result.setAttachmentPath(diskPath);
+
+                content = content.replace(pdf, VISIT_PATH +config.getWebDomain() + "/pdf/"+ pdf.substring(pdf.lastIndexOf("\\")));
             }
 
+            fileOut(disk, fileName, content);
 
             result.setWebName(config.getWebName());
             result.setWebDetailName(page.getResultItems().get("title").toString());
@@ -170,49 +170,20 @@ public class CsrareWebRun implements PageProcessor {
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         Html html = httpClientDownloader.download(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
         Elements eles =  html.getDocument().getAllElements();
-        Spider spider = Spider.create(new CsrareWebRun(config, resultService));
         if(!eles.isEmpty()){
             int total = 0;
             if("attr".equals(config.getAttrType())){
                 total = Integer.valueOf(eles.get(0).select(config.getPageResult()).attr(config.getAttrName()).replace("/Law?page=", ""));
             }
-            for(int i = 0; i < (total > config.getMaxPage() ? config.getMaxPage() : total); i ++){
+            //List<List<String>> list = new ArryList<List<String>>();
+            for(int i = 0; i < /*(*/total /*> config.getMaxPage() ? config.getMaxPage() : total)*/; i ++){
+                Spider spider = Spider.create(new CsrareWebRun(config, resultService));
                 System.out.println("total is :" + i + "==URL===:" + config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
                 spider.addUrl(config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
+                spider.run();
             }
-        }
-        spider.run();
-    }
 
-    /***
-     * 获取
-     * @param current  yyyy-MM-dd hh:MM:ss
-     * @return
-     */
-    public static Date getFormatDate(String current){
-        SimpleDateFormat sf = simpleDateFormat("yyyyMMdd");
-        try {
-            return sf.parse(current);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
-    public static SimpleDateFormat simpleDateFormat(String pattern){
-        Map<String,SimpleDateFormat> map = localFormat.get();
-        if (map == null) {
-            map = new HashMap<String, SimpleDateFormat>();
-            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-            map.put(pattern,sdf);
-            localFormat.set(map);
-            return sdf;
-        }else if(!map.containsKey(pattern)){
-            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-            map.put(pattern,sdf);
-            return sdf;
-        }else {
-            return map.get(pattern);
         }
     }
 }

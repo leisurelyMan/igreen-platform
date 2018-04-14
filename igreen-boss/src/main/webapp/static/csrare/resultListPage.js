@@ -37,7 +37,8 @@ jQuery(document).ready(function(){
 		resizable: true,    //设置是否可拉动弹窗的大小，默认为true  
 		autoScroll: true,
 		modal: true,         //是否有遮罩模型  
-		width: 600,
+		width: 800,
+		height: 820,
 		zIndex: 2,
 		buttons:[//定义两个button按钮
 		    {
@@ -52,11 +53,45 @@ jQuery(document).ready(function(){
 	$("#search").click(function(){
 		var webName = $('#searchWebName').val();
 		var webDetailName = $('#searchWebDetailName').val();
+
+		var attachType = $('#attachType').val();
+		var applicationDomain = $('#applicationDomain').val();
+		var effectiveYear = $('#effectiveYear').val();
+		var effectStatus = $('#effectStatus').val();
+		var latelyMonth = $('#latelyMonth').val();
+
 		
-		$("#list").jqGrid("setGridParam",{postData:{webName:webName,webDetailName:webDetailName},page:1} );//设置查询参数
+		$("#list").jqGrid("setGridParam",{postData:{webName:webName,webDetailName:webDetailName,attachType:attachType,applicationDomain:applicationDomain, effectiveYear:effectiveYear,effectStatus:effectStatus,latelyMonth:latelyMonth},page:1} );//设置查询参数
 		$("#list").trigger("reloadGrid");
 	});
+
 });
+
+function FormatDate(strTime) {
+	var date = new Date(strTime);
+	var month = date.getMonth()+1;
+	if(month<10){
+		month="0"+month;
+	}
+	var day = date.getDate();
+	if(day<10){
+		day="0"+day;
+	}
+	var hour = date.getHours();
+	if(hour<10){
+		hour = "0"+hour;
+	}
+	var minute = date.getMinutes();
+	if(minute<10){
+		minute = "0"+minute;
+	}
+	var second = date.getSeconds();
+	if(second<10){
+		second = "0"+second;
+	}
+
+	return date.getFullYear()+"-"+month+"-"+day;
+}
 
 function view(id){
 	$.ajax({
@@ -67,6 +102,16 @@ function view(id){
 		dataType:'text',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		success:function(msg){
 			var obj = eval("("+msg+")");
+
+			$('#fgtitle').text(obj.webDetailName);
+			$('#org').text(obj.publishOrg);
+			$('#effStatus').text(obj.effectStatus);
+			$('#attrType').text(obj.attachType);
+			$('#city').text(obj.applicationArea);
+			$('#lingyu').text(obj.applicationDomain);
+			$('#effDate').text(FormatDate(obj.effectDate));
+			$('#pubDate').text(FormatDate(obj.publishDate));
+
 			$('#content').html(obj.content);
 		    
 			//打开对话表

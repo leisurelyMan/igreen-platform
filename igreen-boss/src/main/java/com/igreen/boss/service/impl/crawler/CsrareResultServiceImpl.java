@@ -36,6 +36,28 @@ public class CsrareResultServiceImpl implements CsrareResultService {
 			params.put("webDetailName", webResult.getWebDetailName());
 		}
 
+		if(!StrUtil.isNull(webResult.getEffectStatus())){
+			params.put("effectStatus", webResult.getEffectStatus());
+		}
+		if(!StrUtil.isNull(webResult.getApplicationArea())){
+			params.put("applicationArea", webResult.getApplicationArea());
+		}
+		if(!StrUtil.isNull(webResult.getAttachType())){
+			params.put("attachType", webResult.getAttachType());
+		}
+		if(!StrUtil.isNull(webResult.getEffectStartDate())){
+			params.put("effectStartDate", webResult.getEffectStartDate());
+		}
+		if(!StrUtil.isNull(webResult.getEffectEndDate())){
+			params.put("effectEndDate", webResult.getEffectEndDate());
+		}
+		if(!StrUtil.isNull(webResult.getPublishStartDate())){
+			params.put("publishStartDate", webResult.getPublishStartDate());
+		}
+		if(!StrUtil.isNull(webResult.getPublishEndDate())){
+			params.put("publishEndDate", webResult.getPublishEndDate());
+		}
+
 		params.put("startRow", (currentPage-1)*pageRows);
 		params.put("pageRows", pageRows);
 		ListRange result = new ListRange(resultMapper.pageCsrareResult(params), resultMapper.countCsrareResult(params), currentPage, pageRows);

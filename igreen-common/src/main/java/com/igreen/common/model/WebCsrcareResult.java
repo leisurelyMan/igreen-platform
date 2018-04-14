@@ -3,6 +3,10 @@
  */
 package com.igreen.common.model;
 
+import com.igreen.common.util.DateUtil;
+import org.springframework.util.StringUtils;
+
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -33,6 +37,20 @@ public class WebCsrcareResult extends IdEntity {
 	private Date effectDate;
 	// 颁布日期 2018/03/30
 	private Date publishDate;
+	//生效年份
+	private String effectiveYear;
+	//最近时间
+	private String latelyMonth;
+
+	// 开始时间
+	private Date effectStartDate;
+	// 结束时间
+	private Date effectEndDate;
+
+	// 开始时间
+	private Date publishStartDate;
+	// 结束时间
+	private Date publishEndDate;
 
     
 	public String getWebName() {
@@ -140,5 +158,67 @@ public class WebCsrcareResult extends IdEntity {
 
 	public void setAttachmentPath(String attachmentPath) {
 		this.attachmentPath = attachmentPath;
+	}
+
+	public String getEffectiveYear() {
+		return effectiveYear;
+	}
+
+	public void setEffectiveYear(String effectiveYear) {
+		this.effectiveYear = effectiveYear;
+	}
+
+	public String getLatelyMonth() {
+		return latelyMonth;
+	}
+
+	public void setLatelyMonth(String latelyMonth) {
+		this.latelyMonth = latelyMonth;
+	}
+
+	public Date getEffectStartDate() {
+		if(!StringUtils.isEmpty(effectiveYear) && !"2017".equals(effectiveYear)){
+			effectStartDate = DateUtil.getFormatDate(effectiveYear + "0101");
+		}
+		return effectStartDate;
+	}
+
+	public void setEffectStartDate(Date effectStartDate) {
+		this.effectStartDate = effectStartDate;
+	}
+
+	public Date getEffectEndDate() {
+		if(!StringUtils.isEmpty(effectiveYear)){
+			effectEndDate = DateUtil.getFormatDate(effectiveYear + "1231");
+		}
+		return effectEndDate;
+	}
+
+	public void setEffectEndDate(Date effectEndDate) {
+		this.effectEndDate = effectEndDate;
+	}
+
+	public Date getPublishStartDate() {
+		if(!StringUtils.isEmpty(latelyMonth)){
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.MONTH, - Integer.parseInt(latelyMonth));
+			publishStartDate = calendar.getTime();
+		}
+		return publishStartDate;
+	}
+
+	public void setPublishStartDate(Date publishStartDate) {
+		this.publishStartDate = publishStartDate;
+	}
+
+	public Date getPublishEndDate() {
+		if(!StringUtils.isEmpty(latelyMonth)){
+			publishEndDate = new Date();
+		}
+		return publishEndDate;
+	}
+
+	public void setPublishEndDate(Date publishEndDate) {
+		this.publishEndDate = publishEndDate;
 	}
 }

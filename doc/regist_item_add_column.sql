@@ -161,6 +161,7 @@ INSERT INTO `web_crawler_config` VALUES (4,'浙江省环境保护厅','www.zjepb
 
 
 
+INSERT INTO `sys_menu` VALUES (24,'合规网爬虫','../csrare/resultListPage.do',4,14,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL);
 
 DROP TABLE IF EXISTS `web_csrare_result`;
 CREATE TABLE `web_csrare_result` (
@@ -182,5 +183,6 @@ CREATE TABLE `web_csrare_result` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '配置更新时间',
   `creater` int(11) DEFAULT NULL COMMENT '创建者',
   `updater` int(11) DEFAULT NULL COMMENT '更新者',
+  `save_path` varchar(100) DEFAULT NULL COMMENT '保存地址',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='law网站抓取结果';
