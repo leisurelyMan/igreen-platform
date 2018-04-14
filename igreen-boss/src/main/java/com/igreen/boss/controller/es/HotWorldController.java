@@ -1,11 +1,16 @@
 package com.igreen.boss.controller.es;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.igreen.boss.controller.BaseController;
 import com.igreen.boss.service.es.HotWorldService;
+import com.igreen.boss.util.HttpClientHelper;
 import com.igreen.common.model.HotWords;
 import com.igreen.common.model.HotWordsExample;
 import com.igreen.common.model.HotWordsExample.Criteria;
@@ -26,8 +33,27 @@ import com.igreen.common.util.StrUtil;
 @RequestMapping(value="/hotWorld")
 public class HotWorldController extends BaseController{
 	
+	Logger log = Logger.getLogger(HotWorldController.class);
+	
 	@Resource
 	HotWorldService hotWorldService;
+	
+	@RequestMapping(value="ipeai")
+	public void ipeai(){
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("companyName", "江苏长虹建设工程有限公司");
+		map.put("address", "蚌埠 / 安徽");
+		map.put("fileName", "10508.html");
+		map.put("title", "统计情况表");
+		list.add(map);
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("reqstr", JSON.toJSONString(list));
+		log.info("params="+JSON.toJSONString(param));
+		String result = HttpClientHelper.sendPost("http://localhost:1234", param, "UTF-8");
+		log.info("result="+result);
+	}
 	
 	/**
 	 * 跳转列表页面
