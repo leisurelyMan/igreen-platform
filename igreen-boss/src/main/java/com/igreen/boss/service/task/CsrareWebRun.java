@@ -27,9 +27,9 @@ public class CsrareWebRun implements PageProcessor {
     private CsrareResultService resultService;
 
     // 保存地址
-    private static final String DISK_PATH = "/data/files/law/";
+    private static final String DISK_PATH = "/data/files/compliance/";
     // 访问地址http
-    private  static final String VISIT_PATH = "http://localhost:8080/law/";
+    private  static final String VISIT_PATH = "http://img.igreenbank.cn/compliance/";
     private static final String SOURCE_DOMAIN = "http://www.csrcare.com/";
 
     public CsrareWebRun(WebCrawlerConfig config, CsrareResultService resultService){
