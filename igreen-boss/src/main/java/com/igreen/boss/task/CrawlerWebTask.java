@@ -36,7 +36,7 @@ public class CrawlerWebTask {
 		commonPageBean.setStartPage(0);
 		commonPageBean.setAttrType("attr");
 		commonPageBean.setAttrName("href");
-		commonPageBean.setDetailContentRegular("//div[@class='box']/html()");
+		commonPageBean.setDetailContentRegular("//div[@class='show']/html()");
 
 		CsrareWebRun comm = new CsrareWebRun(commonPageBean, resultService);
 
