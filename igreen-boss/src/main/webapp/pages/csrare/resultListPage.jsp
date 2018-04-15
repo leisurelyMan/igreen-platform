@@ -78,7 +78,7 @@
 				</select>
 				</li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
-				<li class="click" id="add"><a href="../csrare/startRun.do" target="_blank">添加</a></li>
+				<li class="click" id="add"><a href="../csrare/startRun.do" target="_blank">手动爬取</a></li>
 			</ul>
 		</div>
 		<table id="list"></table>
