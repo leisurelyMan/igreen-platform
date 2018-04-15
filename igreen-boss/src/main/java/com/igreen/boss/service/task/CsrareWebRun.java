@@ -97,7 +97,7 @@ public class CsrareWebRun implements PageProcessor {
             if(StringUtils.isNotBlank(pdf)){
 
                 String source =SOURCE_DOMAIN + URLEncoder.encode(pdf.substring(1), "utf-8").replaceAll("\\+", "%20");
-                String diskPath = DISK_PATH + config.getWebDomain() + "/pdf/"+ pdf.substring(pdf.lastIndexOf("\\"));
+                String diskPath = DISK_PATH + config.getWebDomain() + "/pdf/"+ pdf.substring(pdf.lastIndexOf("\\") + 1);
                 DownloadPdf.downloadAndSave(source, diskPath);
                 result.setAttachmentPath(diskPath);
 

@@ -49,13 +49,20 @@ public class CommonPageProcessor  implements PageProcessor {
             return;
         }
 
-        String url = page.getUrl().toString();
-        String name = url.substring(url.lastIndexOf("/")+1);
-        String fileName = name.substring(0, name.indexOf(".")) + ".html";
-        String disk = DISK_PATH + config.getWebDomain() + "/";
-        fileOut(disk, fileName, deleteCRLFOnce(page.getHtml().xpath(config.getDetailContentRegular()).toString()));
-        
         try {
+            String url = page.getUrl().toString();
+            String name = url.substring(url.lastIndexOf("/")+1);
+            String fileName = "";
+            if(name.contains(".")){
+                fileName = name.substring(0, name.indexOf(".")) + ".html";
+            } else if(fileName.contains("=")){
+                fileName = name.substring(name.indexOf("=")) + ".html";
+            } else {
+                fileName = name + ".html";
+            }
+            String disk = DISK_PATH + config.getWebDomain() + "/";
+            fileOut(disk, fileName, deleteCRLFOnce(page.getHtml().xpath(config.getDetailContentRegular()).toString()));
+
         	WebCrawlerResult result = new WebCrawlerResult();
         	result.setWebName(config.getWebName());
             result.setWebDetailName(page.getResultItems().get("title").toString());
@@ -123,7 +130,6 @@ public class CommonPageProcessor  implements PageProcessor {
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         Html html = httpClientDownloader.download(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
         Elements eles =  html.getDocument().getAllElements();
-        Spider spider = Spider.create(new CommonPageProcessor(config, resultService, pageNumber));
         if(!eles.isEmpty()){
             int total = 0;
             if("attr".equals(config.getAttrType())){
@@ -132,11 +138,12 @@ public class CommonPageProcessor  implements PageProcessor {
             	total = Integer.valueOf(StringUtils.trimAllWhitespace(eles.get(0).select(config.getPageResult()).text()));
             }
             for(int i = 0; i < (total > config.getMaxPage() ? config.getMaxPage() : total); i ++){
+                Spider spider = Spider.create(new CommonPageProcessor(config, resultService, pageNumber));
                 System.out.println("total is :" + i + "==URL===:" + config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
                 spider.addUrl(config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
+                spider.run();
             }
         }
-        spider.run();
     }
 
 	public int getPageNumber() {
