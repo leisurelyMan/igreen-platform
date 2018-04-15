@@ -49,7 +49,7 @@ public class CsrareWebRun implements PageProcessor {
 
         try {
             String url = page.getUrl().toString();
-            String name = url.substring(url.lastIndexOf("id")+1);
+            String name = url.substring(url.lastIndexOf("id=")+3);
             String fileName = name + ".html";
             String disk = DISK_PATH + config.getWebDomain() + "/";
             String content = page.getHtml().xpath(config.getDetailContentRegular()).toString();
