@@ -28,7 +28,7 @@ public class CommonPageProcessor  implements PageProcessor {
     // 保存地址
     private static final String DISK_PATH = "/data/files/crawler";
     // 访问地址http
-    private  static final String VISIT_PATH = "/web/html/";
+    private  static final String VISIT_PATH = "http://img.igreenbank.cn/html/";
     
     private int pageNumber;
 
@@ -68,7 +68,7 @@ public class CommonPageProcessor  implements PageProcessor {
             result.setWebDetailName(page.getResultItems().get("title").toString());
             result.setWebDomain(config.getWebDomain());
             result.setWebDetailUrl(url);
-            result.setWebDetailResultUrl(VISIT_PATH + config.getWebDomain() + fileName);
+            result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split(".")[1] : config.getWebDomain())  + "/" + fileName);
             result.setSavePath(disk + fileName);
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){

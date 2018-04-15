@@ -32,7 +32,7 @@
 		</div>
 		<div class="tools">
 			<ul class="toolbar">
-				<li>网站名称：<input id="searchWebName" name="searchWebName" type="text" class="searchinput" /></li>
+				<%--<li>网站名称：<input id="searchWebName" name="searchWebName" type="text" class="searchinput" /></li>--%>
 				<li>标题：<input id="searchWebDetailName" name="searchWebDetailName" type="text" class="searchinput" /></li>
 				<li>类别:<select id="attachType" name="attachType" class="searchinput">
 					<option value="">全部</option>

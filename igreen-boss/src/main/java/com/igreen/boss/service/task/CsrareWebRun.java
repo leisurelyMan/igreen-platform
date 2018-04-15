@@ -20,7 +20,7 @@ import java.net.URLEncoder;
 
 public class CsrareWebRun implements PageProcessor {
 
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(1000);
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
 
     private WebCrawlerConfig config;
 
@@ -101,7 +101,7 @@ public class CsrareWebRun implements PageProcessor {
                 DownloadPdf.downloadAndSave(source, diskPath);
                 result.setAttachmentPath(diskPath);
 
-                content = content.replace(pdf, VISIT_PATH +config.getWebDomain() + "/pdf/"+ pdf.substring(pdf.lastIndexOf("\\")));
+                content = content.replace(pdf, VISIT_PATH +(config.getWebDomain().contains(".") ? config.getWebDomain().split(".")[1] : config.getWebDomain()) + "/pdf/"+ pdf.substring(pdf.lastIndexOf("\\") + 1));
             }
 
             fileOut(disk, fileName, content);
@@ -110,7 +110,7 @@ public class CsrareWebRun implements PageProcessor {
             result.setWebDetailName(page.getResultItems().get("title").toString());
             result.setWebDomain(config.getWebDomain());
             result.setWebDetailUrl(url);
-            result.setWebDetailResultUrl(VISIT_PATH + config.getWebDomain() + fileName);
+            result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split(".")[1] : config.getWebDomain()) + "/" + fileName);
             result.setSavePath(disk + fileName);
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){

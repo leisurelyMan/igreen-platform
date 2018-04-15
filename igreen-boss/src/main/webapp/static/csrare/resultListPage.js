@@ -5,12 +5,19 @@ jQuery(document).ready(function(){
 		url : '../csrare/resultList.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>详情标题</b>','<b>详情页原url</b>','<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : [/*'<b>网站名称</b>',*/'<b>详情标题</b>','<b>详情页原url</b>','<b>本站详情url</b>','<b>颁布机构</b>','<b>生效状态</b>','<b>所属类型</b>','<b>适用地区</b>','<b>适用领域</b>','<b>生效日期</b>','<b>颁布日期</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
-		 		    {name:'webName',index:'webName', width:80,sortable:false},
-		 		    {name:'webDomain',index:'webDomain', width:80,sortable:false},
+		 		   /* {name:'webName',index:'webName', width:80,sortable:false},*/
 		 		    {name:'webDetailName',index:'webDetailName', width:80,sortable:false},
 		 		    {name:'webDetailUrl',index:'webDetailUrl', width:80,sortable:false},
+					{name:'webDetailResultUrl',index:'webDetailResultUrl', width:80,sortable:false},
+					{name:'publishOrg',index:'publishOrg', width:80,sortable:false},
+					{name:'effectStatus',index:'effectStatus', width:80,sortable:false},
+					{name:'attachType',index:'attachType', width:80,sortable:false},
+					{name:'applicationArea',index:'applicationArea', width:80,sortable:false},
+					{name:'applicationDomain',index:'applicationDomain', width:80,sortable:false},
+					{name:'effectDate',index:'effectDate', width:80,formatter:getDate,sortable:false},
+					{name:'publishDate',index:'publishDate', width:80,formatter:getDate,sortable:false},
 					{name:'id',index:'id', width:130,formatter:getActions,sortable:false,resizable:false,align:'center'}
 		           ],
 		rowNum : 10,//一页显示多少条
@@ -126,6 +133,10 @@ function view(id){
 
 function getActions(cellvalue, options, rowObject){
     return '<a href="javascript:view(\''+rowObject.id+'\')">查看</a>&nbsp;';
+}
+
+function getDate(cellvalue, options, rowObject){
+	return FormatDate(cellvalue);
 }
 
 
