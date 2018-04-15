@@ -63,7 +63,7 @@ public class CsrareResultController extends BaseController{
 	}
 
 
-	@RequestMapping(value="test", method = { RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="startRun", method = { RequestMethod.POST,RequestMethod.GET})
 	public void ddd(){
 		WebCrawlerConfig commonPageBean = new WebCrawlerConfig();
 		commonPageBean.setId(1);
