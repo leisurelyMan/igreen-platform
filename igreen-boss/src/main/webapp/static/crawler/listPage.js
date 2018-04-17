@@ -115,7 +115,7 @@ jQuery(document).ready(function(){
 });
 
 function getActions(cellvalue, options, rowObject){
-    return '<a href="javascript:edit(\''+rowObject.id+'\')">编辑</a>&nbsp;<a href="javascript:crawler(\''+rowObject.id+'\')">测试爬虫</a>&nbsp;';
+    return '<a href="javascript:edit(\''+rowObject.id+'\')">编辑</a>&nbsp;<a href="javascript:crawler(\''+rowObject.id+'\')">手动爬虫</a>&nbsp;';
 }
 
 /**
@@ -164,24 +164,25 @@ function edit(configId){
  * @param userId
  */
 function crawler(configId){
-	//取得角色信息
-	$.ajax({
+    window.open("../crawler/startCrawler.do?configId=" + configId);
+    //取得角色信息
+	/*$.ajax({
 		type:'post',//可选get
 		async:false,//同步
 		url:'../crawler/startCrawler.do',//这里是接收数据的URL
 		data:'configId='+configId,//传给后台的数据，多个参数用&连接
 		dataType:'text',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		success:function(msg){
-			if(msg.code == -1){
+			/!*if(msg.code == -1){
 				alert(msg.message);
 			}else{
 				alert("测试成功");
-			}
+			}*!/
 		},
 		error:function(){//修理失败，未能连接
 			alert("保存失败，请联系管理员");
 		}
-	});
+	});*/
 }
 
 

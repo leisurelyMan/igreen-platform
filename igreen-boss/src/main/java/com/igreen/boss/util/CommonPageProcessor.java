@@ -16,6 +16,7 @@ import us.codecraft.webmagic.selector.Html;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 public class CommonPageProcessor  implements PageProcessor {
 
@@ -53,7 +54,9 @@ public class CommonPageProcessor  implements PageProcessor {
             String url = page.getUrl().toString();
             String name = url.substring(url.lastIndexOf("/")+1);
             String fileName = "";
-            if(name.contains(".")){
+            if(StringUtils.isEmpty(name)){
+                fileName = UUID.randomUUID() + ".html";
+            }else if(name.contains(".")){
                 fileName = name.substring(0, name.indexOf(".")) + ".html";
             } else if(fileName.contains("=")){
                 fileName = name.substring(name.indexOf("=")) + ".html";
@@ -126,7 +129,7 @@ public class CommonPageProcessor  implements PageProcessor {
 
     public  void startCrawler() {
         // 陕西省 searchid=2
-        //String url = "http://www.snepb.gov.cn/e/search/result/index.php?page=${page}&searchid=2";
+
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         Html html = httpClientDownloader.download(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
         Elements eles =  html.getDocument().getAllElements();
@@ -135,9 +138,14 @@ public class CommonPageProcessor  implements PageProcessor {
             if("attr".equals(config.getAttrType())){
                 total = Integer.valueOf(eles.get(0).select(config.getPageResult()).attr(config.getAttrName()));
             } else if("text".equals(config.getAttrType())){
-            	total = Integer.valueOf(StringUtils.trimAllWhitespace(eles.get(0).select(config.getPageResult()).text()));
+                String num = eles.get(0).select(config.getPageResult()).text();
+            	total = Integer.valueOf(StringUtils.trimAllWhitespace(StringUtils.isEmpty(num) ? "0" : num.replaceAll(" ", "")));
             }
-            for(int i = 0; i < (total > config.getMaxPage() ? config.getMaxPage() : total); i ++){
+
+            if(config.getMaxPage() != null && config.getMaxPage() != 0){
+                total =  total > config.getMaxPage() ? config.getMaxPage() : total;
+            }
+            for(int i = 0; i < total; i ++){
                 Spider spider = Spider.create(new CommonPageProcessor(config, resultService, pageNumber));
                 System.out.println("total is :" + i + "==URL===:" + config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
                 spider.addUrl(config.getPageUrlRegular().replace("${page}", String.valueOf(i)));

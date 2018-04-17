@@ -82,16 +82,11 @@ public class CrawlerConfigController extends BaseController{
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="startCrawler", method = {RequestMethod.POST})
-	public @ResponseBody ResponseModel startCrawler(Integer configId){
+	@RequestMapping(value="startCrawler", method = {RequestMethod.GET})
+	public @ResponseBody void startCrawler(Integer configId){
 		WebCrawlerConfig config = configService.selectByPrimaryKey(configId);
-		if(config == null){
-			return new ResponseModel(-1, "爬虫失败");
-		}
-		
 	    CommonPageProcessor comm = new CommonPageProcessor(config, resultService, 1);
 	    comm.startCrawler();
-		return new ResponseModel(1, "SUCCESS");
 	}
 	
 }
