@@ -186,3 +186,7 @@ CREATE TABLE `web_csrare_result` (
   `save_path` varchar(100) DEFAULT NULL COMMENT '保存地址',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='law网站抓取结果';
+
+
+ALTER TABLE `web_crawler_config`
+	CHANGE COLUMN `detail_title_regular` `detail_title_regular` VARCHAR(500) NULL DEFAULT NULL COMMENT '抓取标题正则表达式' AFTER `detail_url_regular`;
