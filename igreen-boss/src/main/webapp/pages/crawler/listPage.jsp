@@ -60,7 +60,7 @@
 						<option value="2">AJAX 返回json</option>
 					</select>
 					</li>
-					<li><label>最大分页</label><input id="maxPage" name="maxPage" type="number" class="dfinput" placeholder="网站允许最大分页条数 空代表不限制"/></li>
+					<li><label>最大分页/每页pageSize</label><input id="maxPage" name="maxPage" type="number" class="dfinput" placeholder="网站允许最大分页条数 空代表不限制,已知分页类型为总条数时 代表每页pageSize"/></li>
 					<li><label>开始分页</label><input id="startPage" name="startPage" type="number" class="dfinput" placeholder="网站首页页码数"/></li>
 					<li><label>获取分页数据类型</label>
 					<select id="attrType" name="attrType">

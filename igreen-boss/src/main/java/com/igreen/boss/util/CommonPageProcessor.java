@@ -28,7 +28,7 @@ public class CommonPageProcessor  implements PageProcessor {
     // 保存地址
     private static final String DISK_PATH = "/data/files/crawler";
     // 访问地址http
-    private  static final String VISIT_PATH = "http://img.igreenbank.cn/html/";
+    private  static final String VISIT_PATH = "http://img.igreenbank.cn/html/crawler";
     
     private int pageNumber;
 
@@ -108,10 +108,11 @@ public class CommonPageProcessor  implements PageProcessor {
                         source = src;
                     }
 
-                    String diskPath = DISK_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split(".")[1] : config.getWebDomain()) + "/img/"+ src.substring(src.lastIndexOf("\\") + 1);
+                    String imageFile = (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain()) + "/img/"+ src.substring(src.lastIndexOf("\\") + 1);
+                    String diskPath = DISK_PATH + imageFile;
                     DownloadPdf.downloadAndSave(source, diskPath);
                     /*result.setAttachmentPath(diskPath);*/
-                    content = content.replace(src, VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split(".")[1] : config.getWebDomain()) + "/img/"+ UUID.randomUUID() + src.substring(src.lastIndexOf(".") + 1));
+                    content = content.replace(src, VISIT_PATH + imageFile);
                 }
 
             }
@@ -182,25 +183,33 @@ public class CommonPageProcessor  implements PageProcessor {
         Elements eles =  html.getDocument().getAllElements();
         if(!eles.isEmpty()){
             int total = 0;
+
             if("attr".equals(config.getAttrType())){
                 total = Integer.valueOf(eles.get(0).select(config.getPageResult()).attr(config.getAttrName()));
             } else if("text".equals(config.getAttrType())){
                 String num = eles.get(0).select(config.getPageResult()).text();
-            	total = Integer.valueOf(StringUtils.trimAllWhitespace(StringUtils.isEmpty(num) ? "0" : num.replaceAll(" ", "")));
+                total = Integer.valueOf(StringUtils.trimAllWhitespace(StringUtils.isEmpty(num) ? "0" : num.replaceAll(" ", "")));
             } else if("href".equals(config.getAttrType())){
                 String href = eles.get(0).select(config.getPageResult()).attr(config.getAttrType());
-                if(org.apache.commons.lang3.StringUtils.isNotBlank(href)){
+                if(!StringUtils.isEmpty(href)){
                     href = href.substring(href.indexOf("?") + 1);
-                    if(org.apache.commons.lang3.StringUtils.isNotBlank(href)){
-                        String[] hreArr = href.split("&");
+                    if(!StringUtils.isEmpty(href)){
+                        String[] hreArr = href.contains("&") ? href.split("&") : new String[]{href};
                         for(String hre : hreArr){
-                            String hres = org.apache.commons.lang3.StringUtils.trim(hre).replace(" ", "");
+                            String hres = StringUtils.trimAllWhitespace(hre).replace(" ", "");
                             if(hres.contains(config.getAttrName())){
                                 total =  Integer.valueOf(hres.replace(config.getAttrName(), ""));
                                 break;
                             }
                         }
                     }
+                }
+            }
+
+            if("1".equals(config.getPageType())){ //已知总条数
+                int pageSize = config.getMaxPage(); //已知总条数时，代表每页条数
+                if(pageSize > 0){
+                    total = total / pageSize + (total % pageSize > 0 ? 1 : 0);
                 }
             }
 
