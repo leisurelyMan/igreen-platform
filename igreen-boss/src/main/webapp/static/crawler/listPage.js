@@ -93,6 +93,7 @@ jQuery(document).ready(function(){
 	    $('#pageType').val("");
 	    $('#pageReqMethod').val("");
 	    $('#pageResult').val("");
+        $('#replaceRegular').val("");
 	    $('#detailUrlRegular').val("");
 	    $('#detailTitleRegular').val("");
 	    $('#maxPage').val("");
@@ -142,6 +143,7 @@ function edit(configId){
 			$('#pageType').val(obj.pageType);
 			$('#pageReqMethod').val(obj.pageReqMethod);
 			$('#pageResult').val(obj.pageResult);
+            $('#replaceRegular').val(obj.replaceRegular);
 			$('#detailUrlRegular').val(obj.detailUrlRegular);
 			$('#detailTitleRegular').val(obj.detailTitleRegular);
 			$('#maxPage').val(obj.maxPage);

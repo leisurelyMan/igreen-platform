@@ -10,6 +10,7 @@
 	<result column="page_type" property="pageType" jdbcType="INTEGER" />
 	<result column="page_req_method" property="pageReqMethod" jdbcType="INTEGER" />
 	<result column="page_result" property="pageResult" jdbcType="VARCHAR" />
+    <result column="replace_regular" property="replaceRegular" jdbcType="VARCHAR" />
 	<result column="detail_url_regular" property="detailUrlRegular" jdbcType="VARCHAR" />
 	<result column="detail_title_regular" property="detailTitleRegular" jdbcType="VARCHAR" />
 	<result column="max_page" property="maxPage" jdbcType="INTEGER" />
@@ -25,7 +26,7 @@
   
   <sql id="Base_Column_List" >
     id,web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
-    page_req_method,page_result,detail_url_regular,detail_title_regular,create_time,update_time,
+    page_req_method,page_result,replace_regular,detail_url_regular,detail_title_regular,create_time,update_time,
     start_page,attr_type,attr_name,detail_content_regular,creater,updater
   </sql>
   
@@ -77,7 +78,7 @@
   
   <insert id="insert" parameterType="com.igreen.common.model.WebCrawlerConfig" >
     insert into web_crawler_config (web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
-    page_req_method,page_result,detail_url_regular,detail_title_regular,create_time,update_time,
+    page_req_method,page_result,replace_regular,detail_url_regular,detail_title_regular,create_time,update_time,
     start_page,attr_type,attr_name,detail_content_regular,creater,updater
       )
     values (#{webName,jdbcType=VARCHAR},
@@ -88,6 +89,7 @@
 #{maxPage,jdbcType=INTEGER},
 #{pageReqMethod,jdbcType=INTEGER},
 #{pageResult,jdbcType=VARCHAR},
+#{replaceRegular,jdbcType=VARCHAR},
 #{detailUrlRegular,jdbcType=VARCHAR},
 #{detailTitleRegular,jdbcType=VARCHAR},
 #{createdTime,jdbcType=DATE},
@@ -110,6 +112,7 @@ page_type=#{pageType,jdbcType=VARCHAR},
 max_page=#{maxPage,jdbcType=VARCHAR},
 page_req_method=#{pageReqMethod,jdbcType=VARCHAR},
 page_result=#{pageResult,jdbcType=VARCHAR},
+replace_regular=#{replaceRegular,jdbcType=VARCHAR},
 detail_url_regular=#{detailUrlRegular,jdbcType=VARCHAR},
 detail_title_regular=#{detailTitleRegular,jdbcType=VARCHAR},
 create_time=#{createdTime,jdbcType=VARCHAR},

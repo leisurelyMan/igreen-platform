@@ -182,13 +182,12 @@ public class CommonPageProcessor  implements PageProcessor {
         Html html = httpClientDownloader.download(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
         Elements eles =  html.getDocument().getAllElements();
         if(!eles.isEmpty()){
-            int total = 0;
-
+            String pageParam = "0";
             if("attr".equals(config.getAttrType())){
-                total = Integer.valueOf(eles.get(0).select(config.getPageResult()).attr(config.getAttrName()));
+                pageParam = eles.get(0).select(config.getPageResult()).attr(config.getAttrName());
             } else if("text".equals(config.getAttrType())){
                 String num = eles.get(0).select(config.getPageResult()).text();
-                total = Integer.valueOf(StringUtils.trimAllWhitespace(StringUtils.isEmpty(num) ? "0" : num.replaceAll(" ", "")));
+                pageParam = StringUtils.trimAllWhitespace(StringUtils.isEmpty(num) ? "0" : num.replaceAll(" ", ""));
             } else if("href".equals(config.getAttrType())){
                 String href = eles.get(0).select(config.getPageResult()).attr(config.getAttrType());
                 if(!StringUtils.isEmpty(href)){
@@ -198,7 +197,7 @@ public class CommonPageProcessor  implements PageProcessor {
                         for(String hre : hreArr){
                             String hres = StringUtils.trimAllWhitespace(hre).replace(" ", "");
                             if(hres.contains(config.getAttrName())){
-                                total =  Integer.valueOf(hres.replace(config.getAttrName(), ""));
+                                pageParam = hres.replace(config.getAttrName(), "");
                                 break;
                             }
                         }
@@ -206,6 +205,10 @@ public class CommonPageProcessor  implements PageProcessor {
                 }
             }
 
+            int total = 0;
+            if(!StringUtils.isEmpty(config.getReplaceRegular())){
+                total = Integer.valueOf(pageParam.replaceAll(config.getReplaceRegular(), ""));
+            }
             if("1".equals(config.getPageType())){ //已知总条数
                 int pageSize = config.getMaxPage(); //已知总条数时，代表每页条数
                 if(pageSize > 0){

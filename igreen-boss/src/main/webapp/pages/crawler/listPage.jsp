@@ -71,6 +71,7 @@
 					</li>
 					<li><label>获取分页数据对应的名称</label><input id="attrName" name="attrName" type="text" class="dfinput" placeholder="获取分页数据的名称"/></li>
 					<li><label>分页所在位置结果</label><input id="pageResult" name="pageResult" type="text" class="dfinput" placeholder="分页所在位置结果"/></li>
+					<li><label>分页所在位置结果替换正则</label><input id="replaceRegular" name="replaceRegular" type="text" class="dfinput" placeholder="分页所在位置结果替换正则"/></li>
 					<li><label>详情页url匹配正则表达式</label><input id="detailUrlRegular" name="detailUrlRegular" type="text" class="dfinput" placeholder="详情页url正则，多个用@分割"/></li>
 					<li><label>详情页title xpath</label><input id="detailTitleRegular" name="detailTitleRegular" type="text" class="dfinput" placeholder="详情页标题对应xpath 多个用#分隔"/></li>
 					<li><label>详情页内容获取 xpath</label><input id="detailContentRegular" name="detailContentRegular" type="text" class="dfinput" placeholder="详情页内容所在标签的xpath 多个用#分隔"/></li>

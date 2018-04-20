@@ -16,6 +16,7 @@ public class WebCrawlerConfig extends IdEntity {
     private String pageType;//分页类型
     private String pageReqMethod;//分页请求返回方式
     private String pageResult;//分页结果
+    private String replaceRegular;// 分页数据替换无用字符正则表达式
     private String detailUrlRegular;//详情页url匹配正则表达式
     private String detailTitleRegular;//详情页title xpath
 
@@ -136,5 +137,13 @@ public class WebCrawlerConfig extends IdEntity {
 
     public void setDetailContentRegular(String detailContentRegular) {
         this.detailContentRegular = detailContentRegular;
+    }
+
+    public String getReplaceRegular() {
+        return replaceRegular;
+    }
+
+    public void setReplaceRegular(String replaceRegular) {
+        this.replaceRegular = replaceRegular;
     }
 }
