@@ -92,7 +92,7 @@
 #{replaceRegular,jdbcType=VARCHAR},
 #{detailUrlRegular,jdbcType=VARCHAR},
 #{detailTitleRegular,jdbcType=VARCHAR},
-now()},
+now(),
 now(),
 #{startPage,jdbcType=INTEGER},
 #{attrType,jdbcType=VARCHAR},
