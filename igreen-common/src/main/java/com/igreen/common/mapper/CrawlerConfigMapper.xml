@@ -54,7 +54,7 @@
   	<if test="web_domain != null" >
   		and web_domain = #{webDomain,jdbcType=VARCHAR}
   	</if>
-  	limit #{startRow},#{pageRows}
+      order by create_time desc limit #{startRow},#{pageRows}
   </select>
   
   <select id="findByWebDomain" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -92,8 +92,8 @@
 #{replaceRegular,jdbcType=VARCHAR},
 #{detailUrlRegular,jdbcType=VARCHAR},
 #{detailTitleRegular,jdbcType=VARCHAR},
-#{createdTime,jdbcType=DATE},
-#{updatedTime,jdbcType=DATE},
+now()},
+now(),
 #{startPage,jdbcType=INTEGER},
 #{attrType,jdbcType=VARCHAR},
 #{attrName,jdbcType=VARCHAR},
@@ -115,8 +115,7 @@ page_result=#{pageResult,jdbcType=VARCHAR},
 replace_regular=#{replaceRegular,jdbcType=VARCHAR},
 detail_url_regular=#{detailUrlRegular,jdbcType=VARCHAR},
 detail_title_regular=#{detailTitleRegular,jdbcType=VARCHAR},
-create_time=#{createdTime,jdbcType=VARCHAR},
-update_time=#{updatedTime,jdbcType=VARCHAR},
+update_time=now(),
 start_page=#{startPage,jdbcType=VARCHAR},
 attr_type=#{attrType,jdbcType=VARCHAR},
 attr_name=#{attrName,jdbcType=VARCHAR},

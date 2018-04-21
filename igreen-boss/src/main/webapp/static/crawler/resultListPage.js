@@ -37,8 +37,9 @@ jQuery(document).ready(function(){
 		resizable: true,    //设置是否可拉动弹窗的大小，默认为true  
 		autoScroll: true,
 		modal: true,         //是否有遮罩模型  
-		width: 600,
+		width: 800,
 		zIndex: 2,
+		heigth: 820,
 		buttons:[//定义两个button按钮
 		    {
 		    	text:"取消",

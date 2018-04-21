@@ -26,9 +26,9 @@ public class CommonPageProcessor  implements PageProcessor {
     private CrawlerResultService resultService;
     
     // 保存地址
-    private static final String DISK_PATH = "/data/files/crawler";
+    private static final String DISK_PATH = "/data/files/";
     // 访问地址http
-    private  static final String VISIT_PATH = "http://img.igreenbank.cn/html/crawler";
+    private  static final String VISIT_PATH = "http://img.igreenbank.cn/html/";
     
     private int pageNumber;
 
@@ -108,7 +108,7 @@ public class CommonPageProcessor  implements PageProcessor {
                         source = src;
                     }
 
-                    String imageFile = (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain()) + "/img/"+ src.substring(src.lastIndexOf("\\") + 1);
+                    String imageFile = (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain()) + "/img/"+ src.substring(src.lastIndexOf("//") + 1);
                     String diskPath = DISK_PATH + imageFile;
                     DownloadPdf.downloadAndSave(source, diskPath);
                     /*result.setAttachmentPath(diskPath);*/
@@ -181,15 +181,16 @@ public class CommonPageProcessor  implements PageProcessor {
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         Html html = httpClientDownloader.download(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
         Elements eles =  html.getDocument().getAllElements();
+        System.out.println(html);
         if(!eles.isEmpty()){
             String pageParam = "0";
             if("attr".equals(config.getAttrType())){
-                pageParam = eles.get(0).select(config.getPageResult()).attr(config.getAttrName());
+                pageParam = getElementByConfig(eles,config.getPageResult()).attr(config.getAttrName());
             } else if("text".equals(config.getAttrType())){
-                String num = eles.get(0).select(config.getPageResult()).text();
+                String num = getElementByConfig(eles,config.getPageResult()).text();
                 pageParam = StringUtils.trimAllWhitespace(StringUtils.isEmpty(num) ? "0" : num.replaceAll(" ", ""));
             } else if("href".equals(config.getAttrType())){
-                String href = eles.get(0).select(config.getPageResult()).attr(config.getAttrType());
+                String href = getElementByConfig(eles,config.getPageResult()).attr(config.getAttrType());
                 if(!StringUtils.isEmpty(href)){
                     href = href.substring(href.indexOf("?") + 1);
                     if(!StringUtils.isEmpty(href)){
@@ -207,8 +208,11 @@ public class CommonPageProcessor  implements PageProcessor {
 
             int total = 0;
             if(!StringUtils.isEmpty(config.getReplaceRegular())){
-                total = Integer.valueOf(pageParam.replaceAll(config.getReplaceRegular(), ""));
+                total = Integer.parseInt(pageParam.replaceAll(config.getReplaceRegular(), ""));
+            } else {
+                total = Integer.parseInt(pageParam);
             }
+
             if("1".equals(config.getPageType())){ //已知总条数
                 int pageSize = config.getMaxPage(); //已知总条数时，代表每页条数
                 if(pageSize > 0){
@@ -226,6 +230,16 @@ public class CommonPageProcessor  implements PageProcessor {
                 spider.run();
             }
         }
+    }
+
+    private Elements getElementByConfig(Elements eles, String pageResult){
+        Elements element = null;
+        if(pageResult.contains("@last")){
+            element = eles.get(0).select(config.getPageResult().replace("@last", "")).last().getAllElements();
+        } else {
+            element = eles.get(0).select(config.getPageResult());
+        }
+        return element;
     }
 
 	public int getPageNumber() {

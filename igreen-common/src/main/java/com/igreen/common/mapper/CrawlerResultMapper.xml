@@ -49,7 +49,7 @@
   	<if test="webDetailUrl != null" >
   		and web_domain = #{webDomain,jdbcType=VARCHAR}
   	</if>
-  	limit #{startRow},#{pageRows}
+      order by create_time desc limit #{startRow},#{pageRows}
   </select>
   
   <select id="findByDetailUrl" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -78,8 +78,8 @@
 #{webDetailName,jdbcType=VARCHAR},
 #{webDetailUrl,jdbcType=VARCHAR},
 #{webDetailResultUrl,jdbcType=VARCHAR},
-#{createdTime,jdbcType=DATE},
-#{updatedTime,jdbcType=DATE},
+now(),
+now(),
 #{creater,jdbcType=INTEGER},
 #{updater,jdbcType=INTEGER},
 #{savePath,jdbcType=VARCHAR})
@@ -92,7 +92,7 @@ web_domain=#{webDomain,jdbcType=VARCHAR},
 web_detail_name=#{webDetailName,jdbcType=VARCHAR},
 web_detail_url=#{webDetailUrl,jdbcType=VARCHAR},
 web_detail_result_url=#{webDetailResultUrl,jdbcType=VARCHAR},
-update_time=#{updatedTime,jdbcType=VARCHAR},
+update_time=now(),
 updater=#{updater,jdbcType=VARCHAR},
 save_path=#{savePath,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
