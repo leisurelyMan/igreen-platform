@@ -188,6 +188,8 @@ CREATE TABLE `web_csrare_result` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='law网站抓取结果';
 
 
+# 新增加sql改动
+truncate `web_crawler_result`;
 
 DROP TABLE IF EXISTS `web_crawler_config`;
 CREATE TABLE `web_crawler_config` (
