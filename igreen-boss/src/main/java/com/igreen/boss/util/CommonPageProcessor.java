@@ -29,6 +29,8 @@ public class CommonPageProcessor  implements PageProcessor {
     private static final String DISK_PATH = "/data/files/";
     // 访问地址http
     private  static final String VISIT_PATH = "http://img.igreenbank.cn/html/";
+
+    private  static final String IMAGE_VISIT_PATH = "http://img.igreenbank.cn/";
     
     private int pageNumber;
 
@@ -112,7 +114,7 @@ public class CommonPageProcessor  implements PageProcessor {
                     String diskPath = DISK_PATH + imageFile;
                     DownloadPdf.downloadAndSave(source, diskPath);
                     /*result.setAttachmentPath(diskPath);*/
-                    content = content.replace(src, VISIT_PATH + imageFile);
+                    content = content.replace(src, IMAGE_VISIT_PATH + imageFile);
                 }
 
             }
