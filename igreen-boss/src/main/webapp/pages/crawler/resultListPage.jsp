@@ -32,6 +32,7 @@
 		<div class="tools">
 			<ul class="toolbar">
 				<li>网站名称：<input id="searchWebName" name="searchWebName" type="text" class="searchinput" /></li>
+				<li>关键字：<input id="searchName" name="searchName" type="text" class="searchinput" /></li>
 				<li>标题：<input id="searchWebDetailName" name="searchWebDetailName" type="text" class="searchinput" /></li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
 				<%--<li class="click" id="add"><span><img src="../static/images/t01.png" /></span>添加</li>--%>

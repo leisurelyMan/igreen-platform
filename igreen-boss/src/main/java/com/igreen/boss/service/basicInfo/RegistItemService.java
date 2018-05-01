@@ -30,5 +30,12 @@ public interface RegistItemService {
 	 */
 	ListRange registItemList(RegistItem registItem, Integer currentPage, Integer pageRows);
 
+	/**
+	 * 获取数量
+	 * @param registItem
+	 * @return
+	 */
+	public int getCountRegistItem(RegistItem registItem);
+
 	
 }

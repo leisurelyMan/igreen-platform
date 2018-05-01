@@ -73,4 +73,28 @@ public class RegistItemServiceImpl implements RegistItemService {
 		return result;
 	}
 
+	/**
+	 * 获取总条数
+	 * @param registItem
+	 * @return
+     */
+	public int getCountRegistItem(RegistItem registItem){
+		Map<String, Object> params = new HashMap<String, Object>();
+		if(!StrUtil.isNull(registItem.getId()))
+			params.put("id", registItem.getId());
+		if(!StrUtil.isNull(registItem.getCompanyName()))
+			params.put("companyName", registItem.getCompanyName());
+		if(!StrUtil.isNull(registItem.getRegistNumber()))
+			params.put("registNumber", registItem.getRegistNumber());
+		if(!StrUtil.isNull(registItem.getStatus()))
+			params.put("status", registItem.getStatus());
+		if(!StrUtil.isNull(registItem.getAddress()))
+			params.put("address", registItem.getAddress());
+		if(!StrUtil.isNull(registItem.getGroupCompanyName()))
+			params.put("groupCompanyName", registItem.getGroupCompanyName());
+		if(!StrUtil.isNull(registItem.getGroupCompanyPublic()))
+			params.put("groupCompanyPublic", registItem.getGroupCompanyPublic());
+		return registItemMapper.countRegistItem(params);
+	}
+
 }

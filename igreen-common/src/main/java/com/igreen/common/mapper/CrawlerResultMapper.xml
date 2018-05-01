@@ -13,10 +13,12 @@
     <result column="updater" property="updater" jdbcType="INTEGER" />
     <result column="updated_time" property="updateTime" jdbcType="DATE" />
     <result column="save_path" property="savePath" jdbcType="VARCHAR" />
+      <result column="search_name" property="searchName" jdbcType="VARCHAR" />
+      <result column="search_id" property="searchId" jdbcType="INTEGER" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id,web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path
+    id,web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path,search_name,search_id
   </sql>
   
     <!-- 查询有效的总记录数 -->
@@ -33,6 +35,9 @@
   	<if test="webDetailUrl != null" >
   		and web_domain = #{webDomain,jdbcType=VARCHAR}
   	</if>
+      <if test="searchName != null">
+          and search_name = #{searchName,jdbcType=VARCHAR}
+      </if>
   </select>
   
   <select id="pageCrawlerResult" resultMap="BaseResultMap" parameterType="map" >
@@ -49,6 +54,9 @@
   	<if test="webDetailUrl != null" >
   		and web_domain = #{webDomain,jdbcType=VARCHAR}
   	</if>
+    <if test="searchName != null">
+        and search_name = #{searchName,jdbcType=VARCHAR}
+    </if>
       order by create_time desc limit #{startRow},#{pageRows}
   </select>
   
@@ -72,7 +80,7 @@
   </delete>
   
   <insert id="insert" parameterType="com.igreen.common.model.WebCrawlerResult" >
-    insert into web_crawler_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path)
+    insert into web_crawler_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path,search_name, search_id)
     values (#{webName,jdbcType=VARCHAR},
 #{webDomain,jdbcType=VARCHAR},
 #{webDetailName,jdbcType=VARCHAR},
@@ -82,7 +90,9 @@ now(),
 now(),
 #{creater,jdbcType=INTEGER},
 #{updater,jdbcType=INTEGER},
-#{savePath,jdbcType=VARCHAR})
+#{savePath,jdbcType=VARCHAR},
+#{searchName,jdbcType=VARCHAR},
+#{searchId,jdbcType=INTEGER})
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCrawlerResult" >
@@ -95,6 +105,8 @@ web_detail_result_url=#{webDetailResultUrl,jdbcType=VARCHAR},
 update_time=now(),
 updater=#{updater,jdbcType=VARCHAR},
 save_path=#{savePath,jdbcType=VARCHAR}
+search_name=#{searchName,jdbcType=VARCHAR},
+search_id=#{searchId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -26,6 +26,9 @@ public class WebCrawlerConfig extends IdEntity {
     private String attrName;// 获取分页数据对应的名称
     private String detailContentRegular;//详情页内容获取 xpath
 
+    private String searchName; //搜索url关键词
+    private Integer searchId; // 搜索关键词id
+
 
     public String getWebName() {
         return webName;
@@ -145,5 +148,21 @@ public class WebCrawlerConfig extends IdEntity {
 
     public void setReplaceRegular(String replaceRegular) {
         this.replaceRegular = replaceRegular;
+    }
+
+    public String getSearchName() {
+        return searchName;
+    }
+
+    public void setSearchName(String searchName) {
+        this.searchName = searchName;
+    }
+
+    public Integer getSearchId() {
+        return searchId;
+    }
+
+    public void setSearchId(Integer searchId) {
+        this.searchId = searchId;
     }
 }

@@ -3,8 +3,13 @@ package com.igreen.boss.controller.crawler;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.igreen.boss.service.basicInfo.RegistItemService;
+import com.igreen.common.model.RegistItem;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +22,12 @@ import com.igreen.common.model.WebCrawlerConfig;
 import com.igreen.common.util.ListRange;
 import com.igreen.common.util.ResponseModel;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.concurrent.*;
+
 @Controller
 @RequestMapping(value="/crawler")
 public class CrawlerConfigController extends BaseController{
@@ -26,6 +37,10 @@ public class CrawlerConfigController extends BaseController{
 	
 	@Resource
 	private CrawlerResultService resultService;
+
+	@Resource
+	private RegistItemService registItemService;
+
 	
 	/**
 	 * 配置列表页面
@@ -83,10 +98,58 @@ public class CrawlerConfigController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value="startCrawler", method = {RequestMethod.GET})
-	public @ResponseBody void startCrawler(Integer configId){
-		WebCrawlerConfig config = configService.selectByPrimaryKey(configId);
-	    CommonPageProcessor comm = new CommonPageProcessor(config, resultService, 1);
-	    comm.startCrawler();
+	public @ResponseBody void startCrawler(Integer configId) throws InvocationTargetException, IllegalAccessException {
+
+		final Integer currentPage = 1;
+		final Integer pageRows = 10;
+		final RegistItem registItem = new RegistItem();
+
+		int count = registItemService.getCountRegistItem(registItem);
+		int totalPage = count / pageRows + count % pageRows;
+
+
+		ExecutorService executorService = Executors.newFixedThreadPool(pageRows);
+		CompletionService<String> completionService = new ExecutorCompletionService<String>(executorService);
+		final WebCrawlerConfig config = configService.selectByPrimaryKey(configId);
+
+		for(int i = 0; i < totalPage; i++){
+
+			ListRange range = registItemService.registItemList(registItem,currentPage,pageRows);
+			if(range != null && !CollectionUtils.isEmpty(range.getRows())){
+				Iterator<RegistItem> iterator = (Iterator<RegistItem>) range.getRows().iterator();
+				while (iterator.hasNext()){
+					final WebCrawlerConfig temp = new WebCrawlerConfig();
+					BeanUtils.copyProperties(temp, config);
+					RegistItem item = iterator.next();
+					temp.setPageUrlRegular(temp.getPageUrlRegular().replace("${searchKey}", item.getCompanyName()));
+					temp.setWebSearchUrl(temp.getWebSearchUrl().replace("${searchKey}", item.getCompanyName()));
+					temp.setSearchId(item.getId());
+					temp.setSearchName(item.getCompanyName());
+					Callable<String> call = new Callable<String>() {
+						@Override
+						public String call() throws Exception {
+							CommonPageProcessor comm = new CommonPageProcessor(temp, resultService, 1);
+							comm.startCrawler();
+							return "success";
+						}
+					};
+					completionService.submit(call);
+
+				}
+			}
+
+			try {
+				for (int k = 0 ; k < range.getRows().size(); k ++){
+					Future<String> future = completionService.take();
+				}
+
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+
 	}
 	
 }

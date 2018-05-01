@@ -5,9 +5,10 @@ jQuery(document).ready(function(){
 		url : '../crawler/resultList.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>详情标题</b>','<b>详情页原url</b>','<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : ['<b>网站名称</b>','<b>关键词</b>','<b>网站域名</b>','<b>详情标题</b>','<b>详情页原url</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'webName',index:'webName', width:80,sortable:false},
+					{name:'searchName',index:'searchName', width:80,sortable:false},
 		 		    {name:'webDomain',index:'webDomain', width:80,sortable:false},
 		 		    {name:'webDetailName',index:'webDetailName', width:80,sortable:false},
 		 		    {name:'webDetailUrl',index:'webDetailUrl', width:80,sortable:false},
@@ -53,8 +54,9 @@ jQuery(document).ready(function(){
 	$("#search").click(function(){
 		var webName = $('#searchWebName').val();
 		var webDetailName = $('#searchWebDetailName').val();
+		var searchName = $('#searchName').val();
 		
-		$("#list").jqGrid("setGridParam",{postData:{webName:webName,webDetailName:webDetailName},page:1} );//设置查询参数
+		$("#list").jqGrid("setGridParam",{postData:{webName:webName,webDetailName:webDetailName,searchName:searchName},page:1} );//设置查询参数
 		$("#list").trigger("reloadGrid");
 	});
 });

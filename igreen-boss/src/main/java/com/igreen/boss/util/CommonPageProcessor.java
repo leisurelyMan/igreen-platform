@@ -126,6 +126,8 @@ public class CommonPageProcessor  implements PageProcessor {
             result.setWebDetailUrl(url);
             result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
             result.setSavePath(disk + fileName);
+            result.setSearchId(config.getSearchId());
+            result.setSearchName(config.getSearchName());
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){
         	e.printStackTrace();
