@@ -114,7 +114,7 @@ public class CrawlerConfigController extends BaseController{
 
 		for(int i = 0; i < totalPage; i++){
 
-			ListRange range = registItemService.registItemList(registItem,currentPage,pageRows);
+			ListRange range = registItemService.registItemList(registItem,i,pageRows);
 			if(range != null && !CollectionUtils.isEmpty(range.getRows())){
 				Iterator<RegistItem> iterator = (Iterator<RegistItem>) range.getRows().iterator();
 				while (iterator.hasNext()){
