@@ -1,3 +1,4 @@
+/*
 package com.igreen.boss.test;
 
 
@@ -23,12 +24,14 @@ public class CaptchaRecognizer {
 	private static Map<BufferedImage, String> trainMap = null;
 	private static int index = 0;
 
-	/**
+	*/
+/**
 	 * 请求验证码图片
 	 * @param num 下载数
 	 * @param storagePath 下载存储路径
 	 * @param fileName 当num=1时有效，且num=1时fileName也可为null
-	 */
+	 *//*
+
 	public static void downloadImage(int num, String storagePath, String fileName) {
 		if(num != 1 && fileName != null) {
 			throw new RuntimeException("输入有误！");
@@ -36,7 +39,9 @@ public class CaptchaRecognizer {
 		HttpClient httpClient = new HttpClient();
 		GetMethod getMethod = null;
 		for (int i = 0; i < num; i++) {
-			/*getMethod = new GetMethod("https://csdc.info/rand.action");*/
+			*/
+/*getMethod = new GetMethod("https://csdc.info/rand.action");*//*
+
 			getMethod = new GetMethod("http://www.ipe.org.cn//Plugin/CheckCode/MakeCode.aspx");
 			try {
 				// 执行getMethod
@@ -62,10 +67,12 @@ public class CaptchaRecognizer {
 		}
 	}
 	
-	/**
+	*/
+/**
 	 * 训练数据样本
 	 * @throws Exception
-	 */
+	 *//*
+
 	public static void trainData() throws Exception {
 		String picPath = System.getProperty("user.dir") + "\\image";
 		String trainPath = System.getProperty("user.dir") + "\\train";
@@ -83,11 +90,13 @@ public class CaptchaRecognizer {
 		System.out.println("train over!");
 	}
 	
-	/**
+	*/
+/**
 	 * 加载训练样本
 	 * @return
 	 * @throws Exception
-	 */
+	 *//*
+
 	public static Map<BufferedImage, String> loadTrainData() throws Exception {
 		if (trainMap == null) {
 			Map<BufferedImage, String> map = new HashMap<BufferedImage, String>();
@@ -101,12 +110,14 @@ public class CaptchaRecognizer {
 		return trainMap;
 	}
 	
-	/**
+	*/
+/**
 	 * 获取单个字符
 	 * @param img
 	 * @param map
 	 * @return
-	 */
+	 *//*
+
 	public static String getSingleCharOcr(BufferedImage img, Map<BufferedImage, String> map) {
 		String result = "";
 		int width = img.getWidth();
@@ -132,12 +143,14 @@ public class CaptchaRecognizer {
 		}
 		return result;
 	}
-	/**
+	*/
+/**
 	 * 识别验证码文件中的字符
 	 * @param file
 	 * @return
 	 * @throws Exception 
-	 */
+	 *//*
+
 	public static String recognize(String input)  {
 		String result = null;
 		try {
@@ -158,10 +171,13 @@ public class CaptchaRecognizer {
 		downloadImage(1, System.getProperty("user.dir") + "\\temp\\", "validatecode.jpg");
 		System.out.println(recognize(System.getProperty("user.dir") + "\\temp\\validatecode.jpg"));
 
-		/*File dir = new File(System.getProperty("user.dir") + "\\image");
+		*/
+/*File dir = new File(System.getProperty("user.dir") + "\\image");
 		File[] files = dir.listFiles();
 		for (File file : files) {
 			System.out.println(file.getName() + recognize(file.getPath()));
-		}*/
+		}*//*
+
 	}
 }
+*/

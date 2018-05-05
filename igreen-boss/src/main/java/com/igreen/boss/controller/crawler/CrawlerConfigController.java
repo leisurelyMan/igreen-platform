@@ -92,9 +92,6 @@ public class CrawlerConfigController extends BaseController{
 	
 	/**
 	 * 抓取
-	 * @param crawler
-	 * @param request
-	 * @param response
 	 * @return
 	 */
 	@RequestMapping(value="startCrawler", method = {RequestMethod.GET})
@@ -108,12 +105,18 @@ public class CrawlerConfigController extends BaseController{
 		int totalPage = count / pageRows + count % pageRows;
 
 
-		ExecutorService executorService = Executors.newFixedThreadPool(pageRows);
-		CompletionService<String> completionService = new ExecutorCompletionService<String>(executorService);
 		final WebCrawlerConfig config = configService.selectByPrimaryKey(configId);
 
-		for(int i = 0; i < totalPage; i++){
+		if(!config.getPageUrlRegular().contains("${searchKey}")){
+			CommonPageProcessor comm = new CommonPageProcessor(config, resultService, 1);
+			comm.startCrawler();
+			return ;
+		}
 
+		for(int i = 1; i < totalPage + 1; i++){
+
+			ExecutorService executorService = Executors.newFixedThreadPool(pageRows);
+			CompletionService<String> completionService = new ExecutorCompletionService<String>(executorService);
 			ListRange range = registItemService.registItemList(registItem,i,pageRows);
 			if(range != null && !CollectionUtils.isEmpty(range.getRows())){
 				Iterator<RegistItem> iterator = (Iterator<RegistItem>) range.getRows().iterator();
@@ -136,17 +139,17 @@ public class CrawlerConfigController extends BaseController{
 					completionService.submit(call);
 
 				}
-			}
+				try {
+					for (int k = 0 ; k < range.getRows().size(); k ++){
+						completionService.take();
+					}
 
-			try {
-				for (int k = 0 ; k < range.getRows().size(); k ++){
-					Future<String> future = completionService.take();
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
-
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
+
 		}
 
 

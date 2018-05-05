@@ -1,3 +1,4 @@
+/*
 package com.igreen.boss.tools;
 
 import java.awt.Color;
@@ -58,23 +59,29 @@ public class ImageTools {
 		return img.getSubimage(0, start, width, end - start + 1);
 	}
 
-	/**
+	*/
+/**
 	 * 去图片背景
 	 * @param picFile
 	 * @return
 	 * @throws Exception
-	 */
+	 *//*
+
 	public static BufferedImage removeBackgroud(String picFile)
 			throws Exception {
 		BufferedImage img = ImageIO.read(new File(picFile));
 		int width = img.getWidth();  
 	    int height = img.getHeight();
-		/*BufferedImage grayImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);*/
+		*/
+/*BufferedImage grayImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);*//*
+
 		BufferedImage grayImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
 		for(int i= 0 ; i < width ; i++){
 	        for(int j = 0 ; j < height; j++){  
 				int rgb = img.getRGB(i, j);
-				/*grayImage.setRGB(i, j, rgb);*/
+				*/
+/*grayImage.setRGB(i, j, rgb);*//*
+
 
 				if (isBlack(img.getRGB(i, j)) == 1) {
 					grayImage.setRGB(i, j, Color.WHITE.getRGB());
@@ -86,12 +93,14 @@ public class ImageTools {
 		return reverse(grayImage);
 	}
 	
-	/**
+	*/
+/**
 	 * 图像反色
 	 * @param picFile
 	 * @return
 	 * @throws Exception
-	 */
+	 *//*
+
 	public static BufferedImage reverse(BufferedImage img)
 			throws Exception {
 		int width = img.getWidth();  
@@ -114,12 +123,14 @@ public class ImageTools {
 		return reverseImage;
 	}
 	
-	/**
+	*/
+/**
 	 * 切割图片
 	 * @param img
 	 * @return
 	 * @throws Exception
-	 */
+	 *//*
+
 	public static List<BufferedImage> splitImage(BufferedImage img)
 			throws Exception {
 		List<BufferedImage> subImgs = new ArrayList<BufferedImage>();
@@ -148,3 +159,4 @@ public class ImageTools {
 		return subImgs;
 	}
 }
+*/

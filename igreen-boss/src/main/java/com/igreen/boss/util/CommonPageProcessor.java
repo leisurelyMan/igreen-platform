@@ -185,7 +185,7 @@ public class CommonPageProcessor  implements PageProcessor {
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         Html html = httpClientDownloader.download(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
         Elements eles =  html.getDocument().getAllElements();
-        System.out.println(html);
+        //System.out.println(html);
         if(!eles.isEmpty()){
             String pageParam = "0";
             if("attr".equals(config.getAttrType())){
@@ -229,7 +229,7 @@ public class CommonPageProcessor  implements PageProcessor {
             }
             for(int i = 0; i < total; i ++){
                 Spider spider = Spider.create(new CommonPageProcessor(config, resultService, pageNumber));
-                System.out.println("total is :" + i + "==URL===:" + config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
+                //System.out.println("total is :" + i + "==URL===:" + config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
                 spider.addUrl(config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
                 spider.run();
             }
