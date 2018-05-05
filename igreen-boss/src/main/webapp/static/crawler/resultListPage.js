@@ -39,8 +39,7 @@ jQuery(document).ready(function(){
 		autoScroll: true,
 		modal: true,         //是否有遮罩模型  
 		width: 800,
-		zIndex: 2,
-		heigth: 820,
+		height: 820,
 		buttons:[//定义两个button按钮
 		    {
 		    	text:"取消",

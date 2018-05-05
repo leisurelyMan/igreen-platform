@@ -43,9 +43,10 @@ jQuery(document).ready(function(){
 		show:"slide",       //显示弹窗出现的效果，slide为滑动效果 
 		hide:"explode",     //显示窗口消失的效果，explode为爆炸效果
 		resizable: true,    //设置是否可拉动弹窗的大小，默认为true  
-		modal: true,         //是否有遮罩模型  
-		width: 600,
-		zIndex: 2,
+		autoScroll: true,
+		modal: true,         //是否有遮罩模型
+		width: 800,
+		height: 820,
 		buttons:[//定义两个button按钮
 		    {
 		    	text:"确定",

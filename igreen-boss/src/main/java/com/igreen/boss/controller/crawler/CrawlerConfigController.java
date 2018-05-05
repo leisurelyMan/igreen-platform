@@ -70,7 +70,6 @@ public class CrawlerConfigController extends BaseController{
 	
 	/**
 	 * 根据ID查询配置信息
-	 * @param investmentId
 	 * @return
 	 */
 	@RequestMapping(value="getWebCrawlerConfigById", method = { RequestMethod.POST,RequestMethod.GET})
@@ -144,6 +143,7 @@ public class CrawlerConfigController extends BaseController{
 						completionService.take();
 					}
 
+					executorService.shutdown();
 					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
