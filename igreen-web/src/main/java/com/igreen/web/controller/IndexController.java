@@ -84,5 +84,17 @@ public class IndexController {
 	public Result getAllProvincesData(HttpServletRequest request,HttpServletResponse response) {
 		return indexService.getAllProvinceMapDate();
 	}
+
+	/**
+	 * 跳转到
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="searchNew")
+	public ModelAndView searchNew(ModelMap model,String companyName){
+		Igreen igreen = indexService.search(companyName);
+		model.addAttribute("igreen", igreen);
+		return new ModelAndView("search-result_new.jsp",model);
+	}
 	
 }
