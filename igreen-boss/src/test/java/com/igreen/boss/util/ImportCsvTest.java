@@ -135,21 +135,20 @@ public class ImportCsvTest {
 	
 	
 	public static void main(String[] args) throws IOException {
-		
-		List<String> list = new ArrayList<String>();
-		list.add("123");
-		list.add("234");
-		list.add("345");
-        File errorfile = new File("F:\\igreen\\85W\\85W_base_error.txt");
-        BufferedWriter out = new BufferedWriter(new FileWriter(errorfile));
-        for(String str : list){
-        	System.out.println(str);
-        	out.write(str);
-        	out.write("\r\n"); // \r\n即为换行  
+        String csv = "D:\\个人\\igreen\\all_extract_2_14.txt";
+        File file = new File(csv);
+        InputStream inputStream = new FileInputStream(file);
+        String charset = "UTF-8";
+        String line = "";
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),charset));
+        while((line = reader.readLine()) != null){
+        	System.out.println(line);
+        	String[] objs = line.split("	");
+        	for(String obj:objs){
+        		System.out.println(obj);
+        	}
         }
         
-        out.flush(); // 把缓存区内容压入文件  
-        out.close(); // 最后记得关闭文件 
 	}
 	
 }

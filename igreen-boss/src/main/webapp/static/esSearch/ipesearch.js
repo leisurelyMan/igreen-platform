@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
 		url : '../ipesearch/ipeSearchList.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : ['<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>县</b>','<b>行业</b>','<b>年度</b>','<b>标题</b>','<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : ['<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>县</b>','<b>行业</b>','<b>年度</b>','<b>标题</b>','<b>监管时间</b>','<b>关键词</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'companyName',index:'companyName', width:80,sortable:false},
 		 		    {name:'province',index:'province', width:80,sortable:false},
@@ -14,7 +14,9 @@ jQuery(document).ready(function(){
 		 		    {name:'tradeName',index:'tradeName', width:80,sortable:false},
 					{name:'year',index:'year', width:80,sortable:false},
 					{name:'title',index:'title', width:80,sortable:false},
-					{name:'id',index:'id', width:230,formatter:getActions,sortable:false,resizable:false,align:'center'}
+					{name:'industryTime',index:'industryTime', width:60,sortable:false},
+					{name:'keyWords',index:'keyWords', width:100,sortable:false},
+					{name:'id',index:'id', width:30,formatter:getActions,sortable:false,resizable:false,align:'center'}
 		           ],
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条

@@ -65,6 +65,16 @@ public class IpeIndustryDto {
      * 创建时间
      */
     private Date createdTime;
+    
+    /**
+     * 监管时间
+     */
+    private String industryTime;
+    
+    /**
+     * 关键词
+     */
+    private String keyWords;
 
     /**
      * id
@@ -226,5 +236,23 @@ public class IpeIndustryDto {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
+
+	public String getIndustryTime() {
+		return industryTime;
+	}
+
+	public void setIndustryTime(String industryTime) {
+		this.industryTime = industryTime;
+	}
+
+	public String getKeyWords() {
+		return keyWords;
+	}
+
+	public void setKeyWords(String keyWords) {
+		this.keyWords = keyWords;
+	}
+	
+	
 	
 }

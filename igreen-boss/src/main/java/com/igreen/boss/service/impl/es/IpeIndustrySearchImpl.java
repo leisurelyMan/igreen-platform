@@ -19,7 +19,6 @@ import org.elasticsearch.action.admin.indices.analyze.AnalyzeResponse.AnalyzeTok
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
-import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.transport.TransportClient;
@@ -28,8 +27,6 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.script.ScriptType;
-import org.elasticsearch.script.mustache.SearchTemplateRequestBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.stereotype.Service;
@@ -41,10 +38,13 @@ import com.igreen.boss.service.es.IpeIndustrySearch;
 import com.igreen.boss.service.es.WordFrequencyService;
 import com.igreen.boss.util.ElasticSearchUtil;
 import com.igreen.boss.util.FileUtil;
+import com.igreen.common.dao.IpeAiResultMapper;
 import com.igreen.common.dao.IpeElasticsearchMapper;
 import com.igreen.common.dao.IpeIndustryRecordMapper;
 import com.igreen.common.dao.RegistItemMapper;
 import com.igreen.common.dto.IpeIndustryDto;
+import com.igreen.common.model.IpeAiResult;
+import com.igreen.common.model.IpeAiResultExample;
 import com.igreen.common.model.IpeElasticsearch;
 import com.igreen.common.model.IpeIndustryRecord;
 import com.igreen.common.model.RegistItem;
@@ -67,6 +67,9 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 	
 	@Resource
 	RegistItemMapper registItemMapper;
+	
+	@Resource
+	IpeAiResultMapper ipeAiResultMapper;
 
 	private static String CLUSTER_NAME = "elasticsearch";
 	
@@ -217,7 +220,7 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 		
 		while(records != null && records.size() >0){
 			//addData(records, client);
-			updateData(records, client);
+			updateIpeAi(records, client);
 			records = ipeIndustryRecordMapper.selectRecordById(maxId);
 			if(records != null && records.size() >0)
 				maxId = records.get(records.size()-1).getId();
@@ -269,6 +272,40 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 			
 		}
 	}
+	
+	private void updateIpeAi(List<IpeIndustryRecord> records, TransportClient client) throws IOException {
+		//BulkRequestBuilder bulkRequestBuilder = client.prepareBulk();
+		for(IpeIndustryRecord record : records){
+			IpeAiResultExample example = new IpeAiResultExample();
+			example.createCriteria().andFileUrlEqualTo(record.getFileName());
+			List<IpeAiResult> aiResults = ipeAiResultMapper.selectByExample(example);
+
+			if(aiResults != null && aiResults.size() > 0){
+				for(IpeAiResult aiResult:aiResults){
+					IpeAiResult updateAiResult = new IpeAiResult();
+					updateAiResult.setId(aiResult.getId());
+					updateAiResult.setRegistItemId(record.getRegistItemId());
+					updateAiResult.setIpeRecordId(record.getId());
+					ipeAiResultMapper.updateByPrimaryKeySelective(updateAiResult);
+				}
+				UpdateRequest update = new UpdateRequest(INDEX, TYPE, record.getId().toString());
+				update.doc(XContentFactory.jsonBuilder()
+						.startObject()
+						.field("industryTime", aiResults.get(0).getIndustryTime())
+						.field("keyWords", aiResults.get(0).getKeyWords())
+						.endObject()
+						).retryOnConflict(5);
+				client.update(update).actionGet();
+				
+				IpeElasticsearch es = new IpeElasticsearch();
+				es.setEsId(record.getId().intValue());
+				es.setCreatedTime(new Date());
+				ipeElasticsearchMapper.insertSelective(es);
+			}
+
+		}
+	}
+	
 	
 	
 	private void updateData(List<IpeIndustryRecord> records, TransportClient client) throws IOException {
