@@ -276,31 +276,35 @@ public class IpeIndustrySearchImpl implements IpeIndustrySearch {
 	private void updateIpeAi(List<IpeIndustryRecord> records, TransportClient client) throws IOException {
 		//BulkRequestBuilder bulkRequestBuilder = client.prepareBulk();
 		for(IpeIndustryRecord record : records){
-			IpeAiResultExample example = new IpeAiResultExample();
-			example.createCriteria().andFileUrlEqualTo(record.getFileName());
-			List<IpeAiResult> aiResults = ipeAiResultMapper.selectByExample(example);
+			try {
+				IpeAiResultExample example = new IpeAiResultExample();
+				example.createCriteria().andFileUrlEqualTo(record.getFileName());
+				List<IpeAiResult> aiResults = ipeAiResultMapper.selectByExample(example);
 
-			if(aiResults != null && aiResults.size() > 0){
-				for(IpeAiResult aiResult:aiResults){
-					IpeAiResult updateAiResult = new IpeAiResult();
-					updateAiResult.setId(aiResult.getId());
-					updateAiResult.setRegistItemId(record.getRegistItemId());
-					updateAiResult.setIpeRecordId(record.getId());
-					ipeAiResultMapper.updateByPrimaryKeySelective(updateAiResult);
+				if(aiResults != null && aiResults.size() > 0){
+					for(IpeAiResult aiResult:aiResults){
+						IpeAiResult updateAiResult = new IpeAiResult();
+						updateAiResult.setId(aiResult.getId());
+						updateAiResult.setRegistItemId(record.getRegistItemId());
+						updateAiResult.setIpeRecordId(record.getId());
+						ipeAiResultMapper.updateByPrimaryKeySelective(updateAiResult);
+					}
+					UpdateRequest update = new UpdateRequest(INDEX, TYPE, record.getId().toString());
+					update.doc(XContentFactory.jsonBuilder()
+							.startObject()
+							.field("industryTime", aiResults.get(0).getIndustryTime())
+							.field("keyWords", aiResults.get(0).getKeyWords())
+							.endObject()
+							).retryOnConflict(5);
+					client.update(update).actionGet();
+					
+					IpeElasticsearch es = new IpeElasticsearch();
+					es.setEsId(record.getId().intValue());
+					es.setCreatedTime(new Date());
+					ipeElasticsearchMapper.insertSelective(es);
 				}
-				UpdateRequest update = new UpdateRequest(INDEX, TYPE, record.getId().toString());
-				update.doc(XContentFactory.jsonBuilder()
-						.startObject()
-						.field("industryTime", aiResults.get(0).getIndustryTime())
-						.field("keyWords", aiResults.get(0).getKeyWords())
-						.endObject()
-						).retryOnConflict(5);
-				client.update(update).actionGet();
-				
-				IpeElasticsearch es = new IpeElasticsearch();
-				es.setEsId(record.getId().intValue());
-				es.setCreatedTime(new Date());
-				ipeElasticsearchMapper.insertSelective(es);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		}

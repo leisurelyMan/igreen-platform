@@ -10,3 +10,16 @@ CREATE TABLE `web_csrare_dictionary_application_domain` (
   `application_domain` varchar(100) DEFAULT NULL COMMENT '使用领域',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='使用领域字典';
+
+INSERT INTO sys_menu VALUES (25, 'EXCEL数据', null, '0', '1', 'images/leftico01.png', 'images/leftico01.png', '1', null, null, null, null, null);
+INSERT INTO `sys_menu` VALUES (26, '能效标识备案', '../excelEnergyEfficiencyLabel/toExcelEnergyEfficiencyLabelList.do', 25, '1', '', null, '1', null, null, null, SYSDATE(), '');
+INSERT INTO `sys_menu` VALUES (27, '环境污染责任保险', '../environmentalPollutionLiabilityInsurance/toHtml.do', 25, '1', '', null, '1', null, null, null, SYSDATE(), '');
+
+
+CREATE TABLE excel_environmental_pollution_liability_insurance (
+  id int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  province_name varchar(100) DEFAULT NULL COMMENT '省份',
+  company_name varchar(255) DEFAULT NULL COMMENT '备案单位',
+  year varchar(10) DEFAULT NULL COMMENT '年份',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='环境污染责任保险';
