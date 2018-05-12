@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.ExcelEnergyPacemakerMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.ExcelEnergyPacemaker" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="energy" property="energy" jdbcType="VARCHAR" />
+    <result column="material" property="material" jdbcType="VARCHAR" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="publish_begin" property="publishBegin" jdbcType="VARCHAR" />
+    <result column="statas" property="statas" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, company, energy, material, domain, publish_begin, statas, creater, created_time, 
+    updater, updated_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.ExcelEnergyPacemakerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from excel_energy_pacemaker
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from excel_energy_pacemaker
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from excel_energy_pacemaker
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.igreen.common.model.ExcelEnergyPacemakerExample" >
+    delete from excel_energy_pacemaker
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.igreen.common.model.ExcelEnergyPacemaker" useGeneratedKeys="true" keyProperty="id" >
+    insert into excel_energy_pacemaker (company, energy, material, 
+      domain, publish_begin, statas, 
+      creater, created_time, updater, 
+      updated_time, remark)
+    values (#{company,jdbcType=VARCHAR}, #{energy,jdbcType=VARCHAR}, #{material,jdbcType=VARCHAR}, 
+      #{domain,jdbcType=VARCHAR}, #{publishBegin,jdbcType=VARCHAR}, #{statas,jdbcType=INTEGER}, 
+      #{creater,jdbcType=VARCHAR}, #{createdTime,jdbcType=DATE}, #{updater,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.ExcelEnergyPacemaker" useGeneratedKeys="true" keyProperty="id" >
+    insert into excel_energy_pacemaker
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="energy != null" >
+        energy,
+      </if>
+      <if test="material != null" >
+        material,
+      </if>
+      <if test="domain != null" >
+        domain,
+      </if>
+      <if test="publishBegin != null" >
+        publish_begin,
+      </if>
+      <if test="statas != null" >
+        statas,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="energy != null" >
+        #{energy,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null" >
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null" >
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="publishBegin != null" >
+        #{publishBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="statas != null" >
+        #{statas,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.igreen.common.model.ExcelEnergyPacemakerExample" resultType="java.lang.Integer" >
+    select count(*) from excel_energy_pacemaker
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update excel_energy_pacemaker
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.energy != null" >
+        energy = #{record.energy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.material != null" >
+        material = #{record.material,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domain != null" >
+        domain = #{record.domain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishBegin != null" >
+        publish_begin = #{record.publishBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.statas != null" >
+        statas = #{record.statas,jdbcType=INTEGER},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=DATE},
+      </if>
+      <if test="record.updater != null" >
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=DATE},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update excel_energy_pacemaker
+    set ID = #{record.id,jdbcType=BIGINT},
+      company = #{record.company,jdbcType=VARCHAR},
+      energy = #{record.energy,jdbcType=VARCHAR},
+      material = #{record.material,jdbcType=VARCHAR},
+      domain = #{record.domain,jdbcType=VARCHAR},
+      publish_begin = #{record.publishBegin,jdbcType=VARCHAR},
+      statas = #{record.statas,jdbcType=INTEGER},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=DATE},
+      updater = #{record.updater,jdbcType=VARCHAR},
+      updated_time = #{record.updatedTime,jdbcType=DATE},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.ExcelEnergyPacemaker" >
+    update excel_energy_pacemaker
+    <set >
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="energy != null" >
+        energy = #{energy,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null" >
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null" >
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="publishBegin != null" >
+        publish_begin = #{publishBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="statas != null" >
+        statas = #{statas,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.ExcelEnergyPacemaker" >
+    update excel_energy_pacemaker
+    set company = #{company,jdbcType=VARCHAR},
+      energy = #{energy,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
+      publish_begin = #{publishBegin,jdbcType=VARCHAR},
+      statas = #{statas,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=DATE},
+      updater = #{updater,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
