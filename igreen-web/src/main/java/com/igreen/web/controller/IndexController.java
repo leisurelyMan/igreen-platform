@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.igreen.web.view.IgreenSearch;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,7 +93,7 @@ public class IndexController {
 	 */
 	@RequestMapping(value="searchNew")
 	public ModelAndView searchNew(ModelMap model,String companyName){
-		Igreen igreen = indexService.search(companyName);
+		IgreenSearch igreen = indexService.searchNew(companyName);
 		model.addAttribute("igreen", igreen);
 		return new ModelAndView("search-result_new.jsp",model);
 	}

@@ -114,6 +114,12 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByCompanyNameAndStatus" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from qichacha_company_base
+    where name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

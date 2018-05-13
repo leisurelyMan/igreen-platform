@@ -13,4 +13,6 @@ public interface ExecutionRecordMapper {
 	List<ExecutionRecord> pageRecord(Map<String,Object> params);
 	
 	Integer countRecord(Map<String,Object> params);
+
+	ExecutionRecord selectById(Integer id);
 }

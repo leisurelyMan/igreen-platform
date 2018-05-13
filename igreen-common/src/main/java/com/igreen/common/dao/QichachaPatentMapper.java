@@ -28,4 +28,6 @@ public interface QichachaPatentMapper {
     int updateByPrimaryKeySelective(QichachaPatent record);
 
     int updateByPrimaryKey(QichachaPatent record);
+
+    List<QichachaPatent> selectByKeyNo(String keyNo);
 }

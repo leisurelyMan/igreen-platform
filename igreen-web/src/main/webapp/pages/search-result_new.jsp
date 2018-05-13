@@ -36,11 +36,11 @@
 <div class="mainBox nav-main">
   <ul>
     <li><a id="one1" onclick="setTab('one',1,6)" href="javascript:void(0);" class="on">基本信息</a></li>
-    <li><a id="one2" onclick="setTab('one',2,6)" href="javascript:void(0);">法律风险</a></li>
-    <li><a id="one3" onclick="setTab('one',3,6)" href="javascript:void(0);">经营风险</a></li>
-    <li><a id="one4" onclick="setTab('one',4,6)" href="javascript:void(0);">关联关系</a></li>
+    <li><a id="one2" onclick="setTab('one',2,6)" href="javascript:void(0);">环境风险</a></li>
+    <li><a id="one3" onclick="setTab('one',3,6)" href="javascript:void(0);">环境许可</a></li>
+    <%--<li><a id="one4" onclick="setTab('one',4,6)" href="javascript:void(0);">关联关系</a></li>
     <li><a id="one5" onclick="setTab('one',5,6)" href="javascript:void(0);">经营信息</a></li>
-    <li><a id="one6" onclick="setTab('one',6,6)" href="javascript:void(0);">知识产权</a></li>
+    <li><a id="one6" onclick="setTab('one',6,6)" href="javascript:void(0);">知识产权</a></li>--%>
   </ul>
 </div>
 <!--二级导航end-->
@@ -133,7 +133,7 @@
     </div>
   </div>
   <div class="data-box">
-    <div class="data-tit"><i></i><h3>股东及出资信息</h3></div>
+    <div class="data-tit"><i></i><h3>法院判决</h3></div>
     <div class="data-tab tab-2">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -145,7 +145,7 @@
           <th>出资日期</th>
           <th>国籍</th>
         </tr>
-        <c:forEach var="shareholder" items="${igreen.shareholders}" varStatus="status">
+        <%--<c:forEach var="shareholder" items="${igreen.shareholders}" varStatus="status">
 		<tr>
 			<td>${ status.index + 1}</td>
 			<td><c:out value="${shareholder.shareholderName}"/></td>
@@ -155,75 +155,31 @@
 	        <td><c:out value="${shareholder.contributiveTime}"/></td>
 	        <td><c:out value="${shareholder.nationality}"/></td>
 		</tr>
-		</c:forEach>
+		</c:forEach>--%>
       </table>
     </div>
   </div>
   <div class="data-box">
-    <div class="data-tit"><i></i><h3>主要人员信息</h3></div>
+    <div class="data-tit"><i></i><h3>专利信息</h3></div>
     <div class="data-tab tab-2">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <th width="40%">人员姓名</th>
           <th>职务</th>
         </tr>
-    	<c:forEach var="employee" items="${igreen.employees}" varStatus="status">
+    	<%--<c:forEach var="employee" items="${igreen.employees}" varStatus="status">
         <tr>
           <td><c:out value="${employee.name}"/></td>
           <td><c:out value="${employee.job}"/></td>
         </tr>
-    	</c:forEach>
-      </table>
-    </div>
-  </div>
-  <div class="data-box">
-    <div class="data-tit"><i></i><h3>变更信息</h3></div>
-    <div class="data-tab">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="183">变更事项</th>
-          <td width="274">${igreen.exchange.exchangeItem}</td>
-          <th width="183">变更前内容</th>
-          <td>${igreen.exchange.beforeItem}</td>
-        </tr>
-        <tr>
-          <th>变更后内容</th>
-          <td>${igreen.exchange.afterItem}</td>
-          <th>变更日期</th>
-          <td>${igreen.exchange.exchangeTime}</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <div class="data-box">
-    <div class="data-tit"><i></i><h3>组织机构代码证信息</h3></div>
-    <div class="data-tab">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="183">机构代码</th>
-          <td width="274">${igreen.organizationItem.organizationCode}</td>
-          <th width="183">机构名称</th>
-          <td>${igreen.organizationItem.organizationName}</td>
-        </tr>
-        <tr>
-          <th>机构类型</th>
-          <td>${igreen.organizationItem.organizationType}</td>
-          <th>机构地址</th>
-          <td>${igreen.organizationItem.organizationAddress}</td>
-        </tr>
-        <tr>
-          <th>管辖机构</th>
-          <td>${igreen.organizationItem.jurisdictionalAgency}</td>
-          <th></th>
-          <td></td>
-        </tr>
+    	</c:forEach>--%>
       </table>
     </div>
   </div>
 </div>
 <div class="home-inner" id="con_one_2" style="height: 890px; display:none;">
     <div class="data-box">
-      <div class="data-tit no-top"><i></i><h3>开庭公告</h3></div>
+      <div class="data-tit no-top"><i></i><h3>重点监管企业</h3></div>
       <div class="data-tab tab-2">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
@@ -240,7 +196,7 @@
       </div>
     </div>
     <div class="data-box">
-      <div class="data-tit"><i></i><h3>裁判文书信息</h3></div>
+      <div class="data-tit"><i></i><h3>监管记录</h3></div>
       <div class="data-tab tab-2">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
@@ -261,7 +217,7 @@
       </div>
     </div>
     <div class="data-box">
-      <div class="data-tit"><i></i><h3>被执行人信息</h3></div>
+      <div class="data-tit"><i></i><h3>群众举报案件</h3></div>
       <div class="data-tab tab-2">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
@@ -285,70 +241,10 @@
         </table>
       </div>
     </div>
-    <div class="data-box">
-      <div class="data-tit"><i></i><h3>失信被执行人信息</h3></div>
-      <div class="data-tab tab-2">
-        <table width="2050" cellpadding="0" cellspacing="0">
-          <tr>
-            <th width="66">序号</th>
-            <th width="112">立案时间</th>
-            <th width="100">法定代表人</th>
-            <th width="100">组织机构号</th>
-            <th width="240">生效法律文书确定的义务</th>
-            <th width="240">失信被执行人为具体情形</th>
-            <th width="200">被执行人的履行情况</th>
-            <th width="100">全部未履行</th>
-            <th width="100">公布时间</th>
-            <th width="100">省份</th>
-            <th width="100">执行依据文号</th>
-            <th>执行法院</th>
-          </tr>
-          <c:forEach var="breakPromiseExecuted" items="${igreen.breakPromiseExecuteds}" varStatus="status">
-          <tr>
-            <td>${ status.index + 1}</td>
-            <td><c:out value="${breakPromiseExecuted.caseFilingTime}"/></td>
-            <td><c:out value="${breakPromiseExecuted.legalPerson}"/></td>
-            <td><c:out value="${breakPromiseExecuted.organizationNo}"/></td>
-            <td><c:out value="${breakPromiseExecuted.obligation}"/></td>
-            <td><c:out value="${breakPromiseExecuted.executedCondition}"/></td>
-            <td><c:out value="${breakPromiseExecuted.performCondition}"/></td>
-            <td><c:out value="${breakPromiseExecuted.nonperforming}"/></td>
-            <td><c:out value="${breakPromiseExecuted.publishTime}"/></td>
-            <td><c:out value="${breakPromiseExecuted.province}"/></td>
-            <td><c:out value="${breakPromiseExecuted.accordingNo}"/></td>
-            <td><c:out value="${breakPromiseExecuted.executeCourt}"/></td>
-          </tr>
-          </c:forEach>
-        </table>
-      </div>
-    </div>
-    <div class="data-box">
-      <div class="data-tit"><i></i><h3>法院公告</h3></div>
-      <div class="data-tab tab-2">
-        <table width="100%" cellpadding="0" cellspacing="0">
-          <tr>
-            <th width="8%">序号</th>
-            <th width="12%">时间</th>
-            <th width="15%">公告类型</th>
-            <th width="25%">法院</th>
-            <th>公告内容</th>
-          </tr>
-          <c:forEach var="courtNotice" items="${igreen.courtNotices}" varStatus="status">
-          <tr>
-            <td>${ status.index + 1}</td>
-            <td><c:out value="${courtNotice.noticeTime}"/></td>
-            <td><c:out value="${courtNotice.noticeType}"/></td>
-            <td><c:out value="${courtNotice.court}"/></td>
-            <td><c:out value="${courtNotice.notice}"/></td>
-          </tr>
-          </c:forEach>
-        </table>
-      </div>
-    </div>
 </div>
 <div class="home-inner" id="con_one_3" style="height:910px; display:none;">
   <div class="data-box">
-    <div class="data-tit no-top"><i></i><h3>行政处罚信息</h3></div>
+    <div class="data-tit no-top"><i></i><h3>排污许可</h3></div>
     <div class="data-tab tab-2">
       <table width="2400" cellpadding="0" cellspacing="0">
         <tr>
@@ -389,7 +285,7 @@
     </div>
   </div>
   <div class="data-box">
-    <div class="data-tit"><i></i><h3>股权冻结信息</h3></div>
+    <div class="data-tit"><i></i><h3>清洁生产企业</h3></div>
     <div class="data-tab tab-2">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -422,7 +318,7 @@
     </div>
   </div>
   <div class="data-box">
-    <div class="data-tit"><i></i><h3>股权质押信息</h3></div>
+    <div class="data-tit"><i></i><h3>能效备案</h3></div>
     <div class="data-tab tab-2">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -450,335 +346,9 @@
       </table>
     </div>
   </div>
-  <div class="data-box">
-      <div class="data-tit"><i></i><h3>动产抵押信息</h3></div>
-      <div class="data-tab tab-2">
-        <table width="2500" cellpadding="0" cellspacing="0">
-          <tr>
-            <th width="66">序号</th>
-            <th width="6%">抵押ID</th>
-            <th width="6%">抵押人</th>
-            <th width="8%">抵押权人</th>
-            <th width="10%">登记机关</th>
-            <th width="8%">登记日期</th>
-            <th width="4%">状态标识</th>
-            <th width="8%">登记证号</th>
-            <th width="8%">申请抵押原因</th>
-            <th width="8%">被担保主债权种类</th>
-            <th width="8%">被担保主债权数额(万元)</th>
-            <th width="8%">履约起始日期</th>
-            <th width="8%">履约截止日期</th>
-            <th>注销日期</th>
-          </tr>
-          <c:forEach var="chattelMortgage" items="${igreen.chattelMortgages}" varStatus="status">
-          <tr>
-            <td>${ status.index + 1}</td>
-            <td><c:out value="${chattelMortgage.mortgageId}"/></td>
-            <td><c:out value="${chattelMortgage.mortgagee}"/></td>
-            <td><c:out value="${chattelMortgage.pledgee}"/></td>
-            <td><c:out value="${chattelMortgage.registOffice}"/></td>
-            <td><c:out value="${chattelMortgage.registTime}"/></td>
-            <td><c:out value="${chattelMortgage.mortgageStatus}"/></td>
-            <td><c:out value="${chattelMortgage.registNo}"/></td>
-            <td><c:out value="${chattelMortgage.mortgageReason}"/></td>
-            <td><c:out value="${chattelMortgage.creditorType}"/></td>
-            <td><c:out value="${chattelMortgage.creditorAmount}"/></td>
-            <td><c:out value="${chattelMortgage.beginTime}"/></td>
-            <td><c:out value="${chattelMortgage.endTime}"/></td>
-            <td><c:out value="${chattelMortgage.cancelTime}"/></td>
-          </tr>
-          </c:forEach>
-        </table>
-      </div>
-  </div>
-  <div class="data-box">
-      <div class="data-tit"><i></i><h3>动产抵押物信息</h3></div>
-      <div class="data-tab tab-2">
-        <table width="100%" cellpadding="0" cellspacing="0">
-          <tr>
-            <th width="8%">序号</th>
-            <th width="20% ">抵押ID</th>
-            <th>抵押物名称</th>
-            <th width="15%">数量</th>
-            <th width="20%">价值(万元)</th>
-          </tr>
-          <c:forEach var="thingChattelMortgage" items="${igreen.thingChattelMortgages}" varStatus="status">
-          <tr>
-            <td>${ status.index + 1}</td>
-            <td><c:out value="${thingChattelMortgage.mortgageId}"/></td>
-            <td><c:out value="${thingChattelMortgage.thingName}"/></td>
-            <td><c:out value="${thingChattelMortgage.thingNum}"/></td>
-            <td><c:out value="${thingChattelMortgage.thingAmount}"/></td>
-          </tr>
-          </c:forEach>
-        </table>
-      </div>
-  </div>
+
 </div>
-<div class="home-inner" id="con_one_4" style="display:none;">
-  <div class="data-box">
-    <div class="data-tit no-top"><i></i><h3>分支机构信息</h3></div>
-    <div class="data-tab">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="140">分支机构名称</th>
-          <td width="300">${igreen.branch.branchName}</td>
-          <th width="160">分支机构企业注册号</th>
-          <td>${igreen.branch.branchRegistNo}</td>
-        </tr>
-        <tr>
-          <th>分支机构负责人</th>
-          <td>${igreen.branch.principal}</td>
-          <th>一般经营项目</th>
-          <td>${igreen.branch.general}</td>
-        </tr>
-        <tr>
-          <th>分支机构地址</th>
-          <td>${igreen.branch.address}</td>
-          <th></th>
-          <td></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <div class="data-box">
-    <div class="data-tit"><i></i><h3>企业投资</h3></div>
-    <div class="data-tab tab-2">
-      <table width="2300" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="66">序号</th>
-          <th width="300 ">企业(机构)名称</th>
-          <th width="150">注册号</th>
-          <th width="150">企业(机构)类型</th>
-          <th width="150">注册资本(万元)</th>
-          <th width="120">注册资本币种</th>
-          <th width="100">企业状态</th>
-          <th width="100">注销日期</th>
-          <th width="100">吊销日期</th>
-          <th width="100">登记机关</th>
-          <th width="120">认缴出资额(万元)</th>
-          <th width="120">认缴出资币种</th>
-          <th width="100">出资比例</th>
-          <th width="100">开业日期</th>
-          <th>法定代表人姓名</th>
-        </tr>
-        <c:forEach var="investment" items="${igreen.investments}" varStatus="status">
-        <tr>
-          <td>${ status.index + 1}</td>
-          <td><c:out value="${investment.companyName}"/></td>
-          <td><c:out value="${investment.registNo}"/></td>
-          <td><c:out value="${investment.companyType}"/></td>
-          <td><c:out value="${investment.registAmount}"/></td>
-          <td><c:out value="${investment.registCurrency}"/></td>
-          <td><c:out value="${investment.companyStatus}"/></td>
-          <td><c:out value="${investment.cancelTime}"/></td>
-          <td><c:out value="${investment.revokeTime}"/></td>
-          <td><c:out value="${investment.registOffice}"/></td>
-          <td><c:out value="${investment.subscribeCapital}"/></td>
-          <td><c:out value="${investment.subscribeCurrency}"/></td>
-          <td><c:out value="${investment.ratio}"/></td>
-          <td><c:out value="${investment.openTime}"/></td>
-          <td><c:out value="${investment.legalRepresentative}"/></td>
-        </tr>
-        </c:forEach>
-      </table>
-    </div>
-  </div>
-  <div class="data-box">
-    <div class="data-tit"><i></i><h3>关联企业</h3></div>
-    <c:forEach var="companyView" items="${igreen.companyViews}">
-    <div class="data-min-tit"><c:out value="${companyView.name}"/> <c:out value="${companyView.job}"/></div>
-    <div class="data-tab tab-2">
-      <table width="1800" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="66">序号</th>
-          <th width="300">企业名称</th>
-          <th width="100">任职</th>
-          <th width="120">投资（万元）</th>
-          <th width="100">持股比例</th>
-          <th width="120">注册资本（万元）</th>
-          <th width="120">注册资本币种</th>
-          <th width="150">企业（机构）类型</th>
-          <th width="150">注册号</th>
-          <th>登记机关</th>
-          <th width="100">企业状态</th>
-        </tr>
-        <c:forEach var="relationCompanie" items="${companyView.relationCompanies}" varStatus="status">
-        <tr>
-          <td>${ status.index + 1}</td>
-          <td><c:out value="${relationCompanie.companyName}"/></td>
-          <td><c:out value="${relationCompanie.job}"/></td>
-          <td><c:out value="${relationCompanie.investment}"/></td>
-          <td><c:out value="${relationCompanie.ratio}"/></td>
-          <td><c:out value="${relationCompanie.registAmount}"/></td>
-          <td><c:out value="${relationCompanie.registCurrency}"/></td>
-          <td><c:out value="${relationCompanie.companyType}"/></td>
-          <td><c:out value="${relationCompanie.registNo}"/></td>
-          <td><c:out value="${relationCompanie.registOffice}"/></td>
-          <td><c:out value="${relationCompanie.companyStatus}"/></td>
-        </tr>
-        </c:forEach>
-      </table>
-    </div>
-    </c:forEach>
-  </div>
-</div>
-<div class="home-inner" id="con_one_5" style="display:none;"><!--需要纵向滚动条，给home-inner设个行内高度即可-->
-  <div class="data-box">
-    <div class="data-tit no-top"><i></i><h3>招聘信息</h3></div>
-    <div class="data-tab tab-2">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="66">序号</th>
-          <th width="150 ">职位</th>
-          <th width="120">薪资</th>
-          <th width="150">经验要求</th>
-          <th width="150">地点</th>
-          <th width="120">学历</th>
-          <th>来源</th>
-        </tr>
-        <c:forEach var="invite" items="${igreen.invites}" varStatus="status">
-        <tr>
-          <td>${ status.index + 1}</td>
-          <td><c:out value="${invite.job}"/></td>
-          <td><c:out value="${invite.salary}"/></td>
-          <td><c:out value="${invite.experience}"/></td>
-          <td><c:out value="${invite.address}"/></td>
-          <td><c:out value="${invite.education}"/></td>
-          <td><c:out value="${invite.source}"/></td>
-        </tr>
-        </c:forEach>
-      </table>
-    </div>
-  </div>
-</div>
-<div class="home-inner" id="con_one_6" style="display:none; height:880px;">
-  <div class="data-box">
-    <div class="data-tit no-top"><i></i><h3>专利信息</h3></div>
-    <div class="data-tab tab-2">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="66">序号</th>
-          <th width="150 ">申请日期</th>
-          <th width="200">类型</th>
-          <th>名称</th>
-        </tr>
-        <c:forEach var="patent" items="${igreen.patents}" varStatus="status">
-        <tr>
-          <td>${ status.index + 1}</td>
-          <td><c:out value="${patent.applyTime}"/></td>
-          <td><c:out value="${patent.patentType}"/></td>
-          <td><c:out value="${patent.patentName}"/></td>
-        </tr>
-        </c:forEach>
-      </table>
-    </div>
-  </div>
-  <div class="data-box">
-    <div class="data-tit"><i></i><h3>商标信息</h3></div>
-    <div class="data-tab tab-2">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="66">序号</th>
-          <th width="300">商标名称</th>
-          <th width="150">申请日期</th>
-          <th width="150">状态</th>
-          <th width="150">注册号</th>
-          <th>类别</th>
-        </tr>
-        <c:forEach var="brand" items="${igreen.brands}" varStatus="status">
-        <tr>
-          <td>${ status.index + 1}</td>
-          <td><c:out value="${brand.brandName}"/></td>
-          <td><c:out value="${brand.applyTime}"/></td>
-          <td><c:out value="${brand.brandStatus}"/></td>
-          <td><c:out value="${brand.registNo}"/></td>
-          <td><c:out value="${brand.brandType}"/></td>
-        </tr>
-        </c:forEach>
-      </table>
-    </div>
-  </div>
-  <div class="data-box">
-    <div class="data-tit"><i></i><h3>著作权信息</h3></div>
-    <div class="data-tab tab-2">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="66">序号</th>
-          <th>作品名称</th>
-          <th width="100">登记号</th>
-          <th width="100">类别</th>
-          <th width="100">创作完成日期</th>
-          <th width="100">登记日期</th>
-          <th width="100">首次发布日期</th>
-          <th width="100">最后更新时间</th>
-        </tr>
-        <c:forEach var="copyright" items="${igreen.copyrights}" varStatus="status">
-        <tr>
-          <td>${ status.index + 1}</td>
-          <td><c:out value="${copyright.productionName}"/></td>
-          <td><c:out value="${copyright.registNo}"/></td>
-          <td><c:out value="${copyright.productionType}"/></td>
-          <td><c:out value="${copyright.completeTime}"/></td>
-          <td><c:out value="${copyright.registTime}"/></td>
-          <td><c:out value="${copyright.firstPublishTime}"/></td>
-          <td><c:out value="${copyright.lastUpdateTime}"/></td>
-        </tr>
-        </c:forEach>
-      </table>
-    </div>
-  </div>
-  <div class="data-box">
-    <div class="data-tit"><i></i><h3>软件著作权信息</h3></div>
-    <div class="data-tab tab-2">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="66">序号</th>
-          <th>软件名称</th>
-          <th width="120">软件简称</th>
-          <th width="120">登记号</th>
-          <th width="100">版本号</th>
-          <th width="150">分类号</th>
-          <th width="120">登记批准日期</th>
-        </tr>
-        <c:forEach var="softwareCopyright" items="${igreen.softwareCopyrights}" varStatus="status">
-        <tr>
-          <td>${ status.index + 1}</td>
-          <td><c:out value="${softwareCopyright.softwareName}"/></td>
-          <td><c:out value="${softwareCopyright.softwareShopName}"/></td>
-          <td><c:out value="${softwareCopyright.registNo}"/></td>
-          <td><c:out value="${softwareCopyright.softwareVersion}"/></td>
-          <td><c:out value="${softwareCopyright.classifyNo}"/></td>
-          <td><c:out value="${softwareCopyright.approveRegistTime}"/></td>
-        </tr>
-        </c:forEach>
-      </table>
-    </div>
-  </div>
-  <div class="data-box">
-    <div class="data-tit"><i></i><h3>域名</h3></div>
-    <div class="data-tab tab-2">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="66">序号</th>
-          <th>网址</th>
-          <th width="300">网址名称</th>
-          <th width="200">网站备案/许可证号</th>
-          <th width="120">登记批准日期</th>
-        </tr>
-        <c:forEach var="domainName" items="${igreen.domainNames}" varStatus="status">
-        <tr>
-          <td>${ status.index + 1}</td>
-          <td><c:out value="${domainName.location}"/></td>
-          <td><c:out value="${domainName.locationName}"/></td>
-          <td><c:out value="${domainName.licenseKey}"/></td>
-          <td><c:out value="${domainName.approveRegistTime}"/></td>
-        </tr>
-        </c:forEach>
-      </table>
-    </div>
-  </div>
-</div>
+
 </div>
 <!--页中end-->
 <!--页脚begin-->
