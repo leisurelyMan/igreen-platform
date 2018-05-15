@@ -34,4 +34,6 @@ public interface QichachaJudgementMapper {
     int updateByPrimaryKeyWithBLOBs(QichachaJudgement record);
 
     int updateByPrimaryKey(QichachaJudgement record);
+
+    List<QichachaJudgement> selectByKeyNo(String keyNo);
 }

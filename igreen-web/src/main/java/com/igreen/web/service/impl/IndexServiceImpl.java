@@ -9,51 +9,13 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import com.igreen.common.dao.*;
+import com.igreen.common.model.*;
+import com.igreen.web.view.IgreenSearch;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import com.igreen.common.dao.AdministrativePenaltyMapper;
-import com.igreen.common.dao.BranchMapper;
-import com.igreen.common.dao.BrandMapper;
-import com.igreen.common.dao.BreakPromiseExecutedMapper;
-import com.igreen.common.dao.ChattelMortgageMapper;
-import com.igreen.common.dao.CleanProductionCompanyMapper;
-import com.igreen.common.dao.CompanyEmployeeMapper;
-import com.igreen.common.dao.CopyrightMapper;
-import com.igreen.common.dao.CourtNoticeMapper;
-import com.igreen.common.dao.DomainNameMapper;
-import com.igreen.common.dao.EnvironmentalIssueMapper;
-import com.igreen.common.dao.ExchangeMapper;
-import com.igreen.common.dao.ExecutedItemMapper;
-import com.igreen.common.dao.FreezeStockRightMapper;
-import com.igreen.common.dao.InvestmentMapper;
-import com.igreen.common.dao.InviteMapper;
-import com.igreen.common.dao.IpeIndustryRecordMapper;
-import com.igreen.common.dao.MonitorCompanyMapper;
-import com.igreen.common.dao.OpenCourtNoticeMapper;
-import com.igreen.common.dao.OrganizationItemMapper;
-import com.igreen.common.dao.PatentMapper;
-import com.igreen.common.dao.PledgeStockRightMapper;
-import com.igreen.common.dao.PollutionDischargeLicenseMapper;
-import com.igreen.common.dao.RegistItemLocationMapper;
-import com.igreen.common.dao.RegistItemMapper;
-import com.igreen.common.dao.RelationCompanyMapper;
-import com.igreen.common.dao.ShareholderMapper;
-import com.igreen.common.dao.SoftwareCopyrightMapper;
-import com.igreen.common.dao.ThingChattelMortgageMapper;
-import com.igreen.common.dao.WrittenJudgementMapper;
 import com.igreen.common.dto.MapDto;
-import com.igreen.common.model.Branch;
-import com.igreen.common.model.CleanProductionCompany;
-import com.igreen.common.model.EnvironmentalIssue;
-import com.igreen.common.model.Exchange;
-import com.igreen.common.model.IpeIndustryRecord;
-import com.igreen.common.model.MonitorCompany;
-import com.igreen.common.model.OrganizationItem;
-import com.igreen.common.model.PollutionDischargeLicense;
-import com.igreen.common.model.RegistItem;
-import com.igreen.common.model.RegistItemLocation;
-import com.igreen.common.model.RelationCompany;
 import com.igreen.web.job.GetRegtionTaskJob;
 import com.igreen.web.service.IndexService;
 import com.igreen.web.util.Result;
@@ -155,6 +117,18 @@ public class IndexServiceImpl implements IndexService{
 	
 	@Resource 
 	RegistItemLocationMapper registItemLocationMapper;
+
+	@Resource
+	QichachaCompanyBaseMapper qichachaCompanyBaseMapper;
+
+	@Resource
+	QichachaJudgementMapper qichachaJudgementMapper;
+
+	@Resource
+	QichachaPatentMapper qichachaPatentMapper;
+
+	@Resource
+	ExecutionRecordMapper executionRecordMapper;
 	
 	
 	@Override
@@ -352,5 +326,66 @@ public class IndexServiceImpl implements IndexService{
 		}
 		return new Result(500,"error");
 	}
-	
+
+	@Override
+	public IgreenSearch searchNew(String companyName) {
+
+		//基本信息
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("companyName", companyName);
+		params.put("status", 1);
+
+		List<QichachaCompanyBase> items = qichachaCompanyBaseMapper.selectByCompanyNameAndStatus(params);
+		if(items.isEmpty())
+			return null;
+		IgreenSearch igreen = new IgreenSearch();
+		QichachaCompanyBase item = items.get(0);
+		igreen.setQichachaCompanyBase(item);
+
+		// 法院判决
+		igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(item.getKeyNo()));
+
+
+		// 专利信息
+		igreen.setQichachaPatents(qichachaPatentMapper.selectByKeyNo(item.getKeyNo()));
+
+
+		List<RegistItem> regItems = registItemMapper.selectByCompanyNameAndStatus(params);
+		if(regItems.isEmpty()){
+ 			return igreen;
+		}
+		RegistItem rgItem = regItems.get(0);
+		igreen.setRegistItem(rgItem);
+
+		// 重点监管企业
+		MonitorCompany monitorCompany = new MonitorCompany();
+		monitorCompany.setRegistItemId(rgItem.getId());
+		List<MonitorCompany> monitorCompanys = monitorCompanyMapper.selectByParameter(monitorCompany);
+		igreen.setMonitorCompanies(monitorCompanys);
+
+		// 监管记录
+		List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByRegistItemId(rgItem.getId());
+		igreen.setIpeIndustryRecords(ipeIndustry);
+
+		// 群众举报案件
+		EnvironmentalIssue environmentalIssue = new EnvironmentalIssue();
+		environmentalIssue.setRegistItemId(rgItem.getId());
+		List<EnvironmentalIssue> environmentalIssues =  environmentalIssueMapper.selectByParameter(environmentalIssue);
+		igreen.setEnvironmentalIssues(environmentalIssues);
+
+        // 排污许可
+
+		PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByRegistItemId(rgItem.getId());
+		igreen.setPollutionDischargeLicense(pollutionDischarge);
+		if(pollutionDischarge != null){
+			executionRecordMapper.selectById(rgItem.getId());
+		}
+
+		// 清洁生产企业
+		CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByRegistItemId(rgItem.getId());
+		igreen.setCleanProductionCompany(cleanProduction);
+
+		return igreen;
+	}
+
 }
