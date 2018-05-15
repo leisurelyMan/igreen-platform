@@ -138,24 +138,32 @@
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <th>序号</th>
-          <th>股东名称</th>
-          <th>认缴出资额(万元)</th>
-          <th>币种</th>
-          <th>出资比例</th>
-          <th>出资日期</th>
-          <th>国籍</th>
+          <th>执行法院</th>
+          <th>处罚名称</th>
+          <th>处罚编号</th>
+          <th>处罚类型</th>
+          <th>提交时间</th>
+          <th>是否为起诉人</th>
+          <th>是否为被告</th>
+          <th>更新时间</th>
+          <th>年度</th>
+          <th>角色</th>
         </tr>
-        <%--<c:forEach var="shareholder" items="${igreen.shareholders}" varStatus="status">
+        <c:forEach var="qichachaJudgement" items="${igreen.qichachaJudgements}" varStatus="status">
 		<tr>
 			<td>${ status.index + 1}</td>
-			<td><c:out value="${shareholder.shareholderName}"/></td>
-	        <td><c:out value="${shareholder.capital}"/></td>
-	        <td><c:out value="${shareholder.currency}"/></td>
-	        <td><c:out value="${shareholder.ratio}"/></td>
-	        <td><c:out value="${shareholder.contributiveTime}"/></td>
-	        <td><c:out value="${shareholder.nationality}"/></td>
+			<td><c:out value="${qichachaJudgement.court}"/></td>
+	        <td><c:out value="${qichachaJudgement.caseName}"/></td>
+	        <td><c:out value="${qichachaJudgement.caseNo}"/></td>
+	        <td><c:out value="${qichachaJudgement.caseType}"/></td>
+	        <td><c:out value="${qichachaJudgement.submitDate}"/></td>
+	        <td><c:out value="${qichachaJudgement.isProsecutor}"/></td>
+          <td><c:out value="${qichachaJudgement.isDefendant}"/></td>
+          <td><c:out value="${qichachaJudgement.updateDate}"/></td>
+          <td><c:out value="${qichachaJudgement.courtYear}"/></td>
+          <td><c:out value="${qichachaJudgement.caseRole}"/></td>
 		</tr>
-		</c:forEach>--%>
+		</c:forEach>
       </table>
     </div>
   </div>
@@ -164,15 +172,43 @@
     <div class="data-tab tab-2">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-          <th width="40%">人员姓名</th>
-          <th>职务</th>
+          <th>序号</th>
+          <th>key_nop</th>
+          <th>专利类别</th>
+          <th>种类code</th>
+          <th>申请编号</th>
+          <th>申请时间</th>
+          <th>发布编号</th>
+          <th>发布时间</th>
+          <th>法定状态</th>
+          <th>法定状态描述</th>
+          <th>标题</th>
+          <th>代理机构</th>
+          <th>种类描述</th>
+          <th>专利类别描述</th>
+          <th>发明人</th>
+          <th>代理人</th>
         </tr>
-    	<%--<c:forEach var="employee" items="${igreen.employees}" varStatus="status">
+    	<c:forEach var="qichachaPatent" items="${igreen.qichachaPatents}" varStatus="status">
         <tr>
-          <td><c:out value="${employee.name}"/></td>
-          <td><c:out value="${employee.job}"/></td>
+          <td>${ status.index + 1}</td>
+          <td><c:out value="${qichachaPatent.keyNop}"/></td>
+          <td><c:out value="${qichachaPatent.ipcList}"/></td>
+          <td><c:out value="${qichachaPatent.kindCode}"/></td>
+          <td><c:out value="${qichachaPatent.applicationNumber}"/></td>
+          <td><c:out value="${qichachaPatent.applicationDate}"/></td>
+          <td><c:out value="${qichachaPatent.publicationNumber}"/></td>
+          <td><c:out value="${qichachaPatent.publicationDate}"/></td>
+          <td><c:out value="${qichachaPatent.legalStatus}"/></td>
+          <td><c:out value="${qichachaPatent.legalStatusDesc}"/></td>
+          <td><c:out value="${qichachaPatent.title}"/></td>
+          <td><c:out value="${qichachaPatent.agency}"/></td>
+          <td><c:out value="${qichachaPatent.kindCodeDesc}"/></td>
+          <td><c:out value="${qichachaPatent.ipcDesc}"/></td>
+          <td><c:out value="${qichachaPatent.inventorStringList}"/></td>
+          <td><c:out value="${qichachaPatent.assigneestringList}"/></td>
         </tr>
-    	</c:forEach>--%>
+    	</c:forEach>
       </table>
     </div>
   </div>
@@ -183,13 +219,29 @@
       <div class="data-tab tab-2">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <th width="8%">序号</th>
-            <th>标题</th>
+            <th>序号</th>
+            <th>登记信息表主键</th>
+            <th>序列</th>
+            <th>行政区划代码</th>
+            <th>法人代码</th>
+            <th>涉及企业</th>
+            <th>监控类别</th>
+            <th>所属省份</th>
+            <th>所属年份</th>
+            <th>创建时间</th>
           </tr>
-          <c:forEach var="openCourtNotice" items="${igreen.openCourtNotices}" varStatus="status">
+          <c:forEach var="monitorCompanie" items="${igreen.monitorCompanies}" varStatus="status">
           <tr>
 			<td>${ status.index + 1}</td>
-			<td><c:out value="${openCourtNotice.title}"/></td>
+			<td><c:out value="${monitorCompanie.registItemId}"/></td>
+            <td><c:out value="${monitorCompanie.monitorSequence}"/></td>
+            <td><c:out value="${monitorCompanie.regionCode}"/></td>
+            <td><c:out value="${monitorCompanie.legalPersonCode}"/></td>
+            <td><c:out value="${monitorCompanie.companyName}"/></td>
+            <td><c:out value="${monitorCompanie.monitorType}"/></td>
+            <td><c:out value="${monitorCompanie.province}"/></td>
+            <td><c:out value="${monitorCompanie.monitorYear}"/></td>
+            <td><c:out value="${monitorCompanie.createTm}"/></td>
           </tr>
           </c:forEach>
         </table>
@@ -200,17 +252,25 @@
       <div class="data-tab tab-2">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <th width="8%">序号</th>
-            <th width="12%">时间</th>
-            <th width="25%">案件类型</th>
+            <th>序号</th>
+            <th>公司名称</th>
+            <th>登记信息ID</th>
+            <th>年度</th>
             <th>标题</th>
+            <th>ipe记录ID</th>
+            <th>文件名称</th>
+            <th>状态</th>
           </tr>
-          <c:forEach var="writtenJudgement" items="${igreen.writtenJudgements}" varStatus="status">
+          <c:forEach var="ipeIndustryRecord" items="${igreen.ipeIndustryRecords}" varStatus="status">
           <tr>
             <td>${ status.index + 1}</td>
-            <td><c:out value="${writtenJudgement.caseTime}"/></td>
-            <td><c:out value="${writtenJudgement.caseType}"/></td>
-            <td><c:out value="${writtenJudgement.caseTitle}"/></td>
+            <td><c:out value="${ipeIndustryRecord.companyName}"/></td>
+            <td><c:out value="${ipeIndustryRecord.registItemId}"/></td>
+            <td><c:out value="${ipeIndustryRecord.year}"/></td>
+            <td><c:out value="${ipeIndustryRecord.title}"/></td>
+            <td><c:out value="${ipeIndustryRecord.ipeId}"/></td>
+            <td><c:out value="${ipeIndustryRecord.fileName}"/></td>
+            <td><c:out value="${ipeIndustryRecord.status}"/></td>
           </tr>
           </c:forEach>
         </table>
@@ -221,21 +281,29 @@
       <div class="data-tab tab-2">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <th width="8%">序号</th>
-            <th width="12%">立案时间</th>
-            <th width="10%">案件状态</th>
-            <th width="15%">案号</th>
-            <th width="25%">执行标的</th>
-            <th>执行法院</th>
+            <th>序号</th>
+            <th>登记信息表主键</th>
+            <th>序列</th>
+            <th>年份</th>
+            <th>月份</th>
+            <th>省份</th>
+            <th>涉及企业</th>
+            <th>存在问题</th>
+            <th>处理情况</th>
+            <th>备注</th>
           </tr>
-          <c:forEach var="executedItem" items="${igreen.executedItems}" varStatus="status">
+          <c:forEach var="environmentalIssue" items="${igreen.environmentalIssues}" varStatus="status">
           <tr>
             <td>${ status.index + 1}</td>
-            <td><c:out value="${executedItem.caseFilingTime}"/></td>
-            <td><c:out value="${executedItem.caseStatus}"/></td>
-            <td><c:out value="${executedItem.caseNo}"/></td>
-            <td><c:out value="${executedItem.executeTarget}"/></td>
-            <td><c:out value="${executedItem.executeCourt}"/></td>
+            <td><c:out value="${environmentalIssue.registItemId}"/></td>
+            <td><c:out value="${environmentalIssue.reportSequence}"/></td>
+            <td><c:out value="${environmentalIssue.reportYear}"/></td>
+            <td><c:out value="${environmentalIssue.reportMonth}"/></td>
+            <td><c:out value="${environmentalIssue.province}"/></td>
+            <td><c:out value="${environmentalIssue.companyName}"/></td>
+            <td><c:out value="${environmentalIssue.reportIssue}"/></td>
+            <td><c:out value="${environmentalIssue.dealResult}"/></td>
+            <td><c:out value="${environmentalIssue.reportComment}"/></td>
           </tr>
           </c:forEach>
         </table>
@@ -249,36 +317,16 @@
       <table width="2400" cellpadding="0" cellspacing="0">
         <tr>
           <th width="66">序号</th>
-          <th width="100 ">案发时间</th>
-          <th width="200">案由</th>
-          <th width="100">案件类型</th>
-          <th width="100">执行类别</th>
-          <th width="100">案件结果</th>
-          <th width="150">处罚决定书签发日期</th>
-          <th width="200">处罚机关</th>
-          <th width="200">主要违法事实</th>
-          <th width="150">处罚依据</th>
-          <th width="150">处罚种类</th>
-          <th width="150">处罚结果</th>
-          <th width="150">处罚金额</th>
-          <th>处罚执行情况</th>
+          <th width="200">主要内容</th>
+          <th width="100">上报频次</th>
+          <th>其他信息</th>
         </tr>
-        <c:forEach var="administrativePenaltie" items="${igreen.administrativePenalties}" varStatus="status">
+        <c:forEach var="executionRecord" items="${igreen.executionRecords}" varStatus="status">
         <tr>
           <td>${ status.index + 1}</td>
-          <td><c:out value="${administrativePenaltie.crimeTime}"/></td>
-          <td><c:out value="${administrativePenaltie.crimeReason}"/></td>
-          <td><c:out value="${administrativePenaltie.caseType}"/></td>
-          <td><c:out value="${administrativePenaltie.executeType}"/></td>
-          <td><c:out value="${administrativePenaltie.caseResult}"/></td>
-          <td><c:out value="${administrativePenaltie.punishTime}"/></td>
-          <td><c:out value="${administrativePenaltie.punishOffice}"/></td>
-          <td><c:out value="${administrativePenaltie.factMalfeasance}"/></td>
-          <td><c:out value="${administrativePenaltie.punishBase}"/></td>
-          <td><c:out value="${administrativePenaltie.punishType}"/></td>
-          <td><c:out value="${administrativePenaltie.punishResult}"/></td>
-          <td><c:out value="${administrativePenaltie.punishAmount}"/></td>
-          <td><c:out value="${administrativePenaltie.punishment}"/></td>
+          <td><c:out value="${executionRecord.content}"/></td>
+          <td><c:out value="${executionRecord.frequency}"/></td>
+          <td><c:out value="${executionRecord.otherInfo}"/></td>
         </tr>
         </c:forEach>
       </table>
@@ -289,31 +337,47 @@
     <div class="data-tab tab-2">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-          <th width="8%">序号</th>
-          <th width="10% ">冻结文号</th>
-          <th width="10%">冻结机关</th>
-          <th width="12%">冻结起始日期</th>
-          <th width="12%">冻结截至日期</th>
-          <th width="8%">冻结金额</th>
-          <th width="8%">解冻机关</th>
-          <th width="8%">解冻文号</th>
-          <th width="8%">解冻日期</th>
-          <th>解冻说明</th>
+          <th width="183">企业名称</th>
+          <td width="274">${igreen.cleanProductionCompany.companyName}</td>
+          <th width="183">行业</th>
+          <td>${igreen.cleanProductionCompany.trade}</td>
         </tr>
-        <c:forEach var="freezeStockRight" items="${igreen.freezeStockRights}" varStatus="status">
         <tr>
-          <td>${ status.index + 1}</td>
-          <td><c:out value="${freezeStockRight.freezeNo}"/></td>
-          <td><c:out value="${freezeStockRight.freezeOffice}"/></td>
-          <td><c:out value="${freezeStockRight.freezeBeginTime}"/></td>
-          <td><c:out value="${freezeStockRight.freezeEndTime}"/></td>
-          <td><c:out value="${freezeStockRight.freezeAmount}"/></td>
-          <td><c:out value="${freezeStockRight.unfreezeOffice}"/></td>
-          <td><c:out value="${freezeStockRight.unfreezeNo}"/></td>
-          <td><c:out value="${freezeStockRight.unfreezeTime}"/></td>
-          <td><c:out value="${freezeStockRight.unfreezeExplain}"/></td>
+          <th>年份</th>
+          <td >${igreen.cleanProductionCompany.year}</td>
+          <th>批次</th>
+          <td>${igreen.cleanProductionCompany.batchNo}</td>
         </tr>
-        </c:forEach>
+        <tr>
+          <th>城市</th>
+          <td>${igreen.cleanProductionCompany.city}</td>
+          <th>编号</th>
+          <td>${igreen.cleanProductionCompany.serialNumber}</td>
+        </tr>
+        <tr>
+          <th>主要产品及年产量</th>
+          <td>${igreen.cleanProductionCompany.productSalesAmount}</td>
+          <th>所属地区</th>
+          <td>${igreen.cleanProductionCompany.region}</td>
+        </tr>
+        <tr>
+          <th>地址</th>
+          <td>${igreen.cleanProductionCompany.address}</td>
+          <th>公布时间</th>
+          <td>${igreen.cleanProductionCompany.reportTime}</td>
+        </tr>
+        <tr>
+          <th>提交审核时间</th>
+          <td>${igreen.cleanProductionCompany.submitCheckTime}</td>
+          <th>完成评估时间</th>
+          <td>${igreen.cleanProductionCompany.completeEstimateTime}</td>
+        </tr>
+        <tr>
+          <th>完成验收时间</th>
+          <td>${igreen.cleanProductionCompany.completeCheckTime}</td>
+          <th>审核咨询机构名称</th>
+          <td>${igreen.cleanProductionCompany.checkOrganization}</td>
+        </tr>
       </table>
     </div>
   </div>
@@ -321,7 +385,7 @@
     <div class="data-tit"><i></i><h3>能效备案</h3></div>
     <div class="data-tab tab-2">
       <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
+       <%-- <tr>
           <th width="8%">序号</th>
           <th width="12% ">质权人姓名</th>
           <th width="12%">出质人类别</th>
@@ -342,7 +406,7 @@
           <td><c:out value="${pledgeStockRight.examinedTime}"/></td>
           <td><c:out value="${pledgeStockRight.examinedEndTime}"/></td>
         </tr>
-        </c:forEach>
+        </c:forEach>--%>
       </table>
     </div>
   </div>
