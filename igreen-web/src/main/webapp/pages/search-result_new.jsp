@@ -52,6 +52,48 @@
     <div class="data-tab">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
+          <th width="183">公司名称</th>
+          <td width="274">${igreen.qichachaCompanyBase.name}</td>
+          <th width="183">注册时间</th>
+          <td>${igreen.qichachaCompanyBase.startDate}</td>
+        </tr>
+        <tr>
+          <th>省编码</th>
+          <td>${igreen.qichachaCompanyBase.province}</td>
+          <th>行业编码</th>
+          <td>${igreen.qichachaCompanyBase.industryCode}</td>
+        </tr>
+        <tr>
+          <th>细分行业编码</th>
+          <td>${igreen.qichachaCompanyBase.subindustryCode}</td>
+          <th>行业</th>
+          <td>${igreen.qichachaCompanyBase.industry}</td>
+        </tr>
+        <tr>
+          <th>细分行业</th>
+          <td>${igreen.qichachaCompanyBase.subindustry}</td>
+          <th>注册编码</th>
+          <td>${igreen.qichachaCompanyBase.creditCode}</td>
+        </tr>
+        <tr>
+          <th>注册资本</th>
+          <td>${igreen.qichachaCompanyBase.registCapi}</td>
+          <th>经营形式</th>
+          <td>${igreen.qichachaCompanyBase.econKind}</td>
+        </tr>
+        <tr>
+          <th>组织机构代码</th>
+          <td>${igreen.qichachaCompanyBase.orgNo}</td>
+          <th>状态</th>
+          <td>${igreen.qichachaCompanyBase.status}</td>
+        </tr>
+        <tr>
+          <th>经营范围</th>
+          <td>${igreen.qichachaCompanyBase.scope}</td>
+          <th></th>
+          <td></td>
+        </tr>
+        <%--<tr>
           <th width="183">企业名称</th>
           <td width="274">${igreen.registItem.companyName}</td>
           <th width="183">法人代表姓名</th>
@@ -128,7 +170,7 @@
           <td>${igreen.registItem.businessScope}</td>
           <th>经营(业务)范围及方式</th>
           <td>${igreen.registItem.businessWay}</td>
-        </tr>
+        </tr>--%>
       </table>
     </div>
   </div>
@@ -314,7 +356,7 @@
   <div class="data-box">
     <div class="data-tit no-top"><i></i><h3>排污许可</h3></div>
     <div class="data-tab tab-2">
-      <table width="2400" cellpadding="0" cellspacing="0">
+      <table width="1500" cellpadding="0" cellspacing="0">
         <tr>
           <th width="66">序号</th>
           <th width="200">主要内容</th>
