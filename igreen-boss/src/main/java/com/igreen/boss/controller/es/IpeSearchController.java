@@ -71,7 +71,7 @@ public class IpeSearchController extends BaseController{
 	@RequestMapping(value="addData", method = { RequestMethod.POST,RequestMethod.GET })
 	public void addData() throws Exception{
 		ipeIndustrySearch.bulkAdd();
-	} 
+	}
 	
 	@RequestMapping(value="addAnalyze", method = { RequestMethod.POST,RequestMethod.GET })
 	public void addAnalyze(Integer startId,Integer endId) throws Exception{
