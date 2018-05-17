@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="../ztree/css/zTreeStyle/zTreeStyle.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="../static/jqgrid/css/ui.jqgrid.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="../static/css/jqueryui/jquery-ui-1.10.4.custom.min.smoothness.css" />
+	<script type="text/javascript" src="../static/js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="../static/js/ui/jquery-ui-1.10.4.custom.min.smoothness.js"></script>
+	<script type="text/javascript" src="../ztree/js/jquery.ztree.core.js"></script>
+	<script type="text/javascript" src="../ztree/js/jquery.ztree.excheck.js"></script>
+	<script type="text/javascript" src="../ztree/js/jquery.ztree.exedit.js"></script>
+	
+	<script type="text/javascript" src="../static/jqgrid/js/i18n/grid.locale-cn.js"></script>
+	<script type="text/javascript" src="../static/jqgrid/js/jquery.jqGrid.src.js"></script>
+	<link rel="stylesheet" href="../static/css/style_new.css">
+
+    <!-- 日期插件 -->
+    <script type="text/javascript" src="../static/laydate/laydate.dev.js"></script>
+<title>国家发改委节能服务备案企业名单</title>
+<!-- 本页面初始化用到的js包，创建jqGrid的代码就在里面 -->
+<script type="text/javascript" src="../static/excel/ndrcEnergyFiling.js"></script>
+</head>
+<body>
+	<div class="rightinfo">
+		<div class="formbody">
+			<div id="usual1" class="usual">
+				<div class="itab">
+					<ul>
+						<li><a href="../energyExcellenceCase/toHtml.do">优秀能源管理案例</a></li>
+						<li><a href="../steelClean/toHtml.do">中国钢铁工业清洁生产环境友好企业名单</a></li>
+						<li><a href="../ePACreditGrade/toHtml.do">中国环保产业协会信用等级评价名单</a></li>
+						<li><a href="../greatIndustrialEnergySupervision/toHtml.do">国家重大工业节能专项监察企业名单</a></li>
+						<li><a href="#" class="selected">国家发改委节能服务备案企业名单</a></li>
+						<li><a href="../greenBal/toHtml.do">绿色矿山名单</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	
+		<div class="tools">
+			<ul class="toolbar">
+				<li>公司名称：<input id="searchName"	name="searchName" type="text" class="searchinput" /></li>
+				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
+				<li class="click" id="add"><span><img src="../static/images/t01.png" /></span>添加</li>
+			</ul>
+		</div>
+		<table id="list2"></table>
+		<div id="pager2" class="pagin"></div>
+	</div>
+</body>
+</html>

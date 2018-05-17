@@ -15,6 +15,7 @@ INSERT INTO sys_menu VALUES (25, 'EXCEL数据', null, '0', '1', 'images/leftico0
 INSERT INTO `sys_menu` VALUES (26, '能效标识备案', '../excelEnergyEfficiencyLabel/toExcelEnergyEfficiencyLabelList.do', 25, '1', '', null, '1', null, null, null, SYSDATE(), '');
 INSERT INTO `sys_menu` VALUES (27, '环境污染责任保险', '../environmentalPollutionLiabilityInsurance/toHtml.do', 25, '1', '', null, '1', null, null, null, SYSDATE(), '');
 INSERT INTO `sys_menu` VALUES (28, '节能服务公司信用评级', '../energyLevel/toHtml.do', 25, '1', '', null, '1', null, null, null, SYSDATE(), '');
+INSERT INTO `sys_menu` VALUES (29, '备案信息', '../energyExcellenceCase/toHtml.do', 25, '1', '', null, '1', null, null, null, SYSDATE(), '');
 
 
 
