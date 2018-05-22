@@ -374,11 +374,12 @@ public class IndexServiceImpl implements IndexService{
 		igreen.setEnvironmentalIssues(environmentalIssues);
 
         // 排污许可
-
 		PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByRegistItemId(rgItem.getId());
 		igreen.setPollutionDischargeLicense(pollutionDischarge);
 		if(pollutionDischarge != null){
-			executionRecordMapper.selectById(rgItem.getId());
+			List<ExecutionRecord> executionRecords = new ArrayList<ExecutionRecord>();
+			executionRecords.add(executionRecordMapper.selectById(rgItem.getId()))
+			igreen.setExecutionRecords(executionRecords);
 		}
 
 		// 清洁生产企业
