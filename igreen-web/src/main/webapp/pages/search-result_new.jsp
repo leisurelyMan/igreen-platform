@@ -427,28 +427,24 @@
     <div class="data-tit"><i></i><h3>能效备案</h3></div>
     <div class="data-tab tab-2">
       <table width="100%" cellpadding="0" cellspacing="0">
-       <%-- <tr>
+        <tr>
           <th width="8%">序号</th>
-          <th width="12% ">质权人姓名</th>
-          <th width="12%">出质人类别</th>
-          <th width="12%">出质金额</th>
-          <th width="12%">出质备案日期</th>
-          <th>出质审批部门</th>
-          <th width="12%">出质批准日期</th>
-          <th width="12%">出质截至日期</th>
+          <th width="12% ">公告号</th>
+          <th width="12%">备案单位</th>
+          <th width="12%">公司类型</th>
+          <th width="12%">状态</th>
+          <th>备注</th>
         </tr>
-        <c:forEach var="pledgeStockRight" items="${igreen.pledgeStockRights}" varStatus="status">
+        <c:forEach var="excelEnergyEfficiencyLabel" items="${igreen.excelEnergyEfficiencyLabels}" varStatus="status">
         <tr>
           <td>${ status.index + 1}</td>
-          <td><c:out value="${pledgeStockRight.pledgee}"/></td>
-          <td><c:out value="${pledgeStockRight.pledgeeType}"/></td>
-          <td><c:out value="${pledgeStockRight.pledgeAmount}"/></td>
-          <td><c:out value="${pledgeStockRight.recordTime}"/></td>
-          <td><c:out value="${pledgeStockRight.examinedOffice}"/></td>
-          <td><c:out value="${pledgeStockRight.examinedTime}"/></td>
-          <td><c:out value="${pledgeStockRight.examinedEndTime}"/></td>
+          <td><c:out value="${excelEnergyEfficiencyLabel.noticeNo}"/></td>
+          <td><c:out value="${excelEnergyEfficiencyLabel.filingCompany}"/></td>
+          <td><c:out value="${excelEnergyEfficiencyLabel.companyType}"/></td>
+          <td><c:out value="${excelEnergyEfficiencyLabel.statas}"/></td>
+          <td><c:out value="${excelEnergyEfficiencyLabel.remark}"/></td>
         </tr>
-        </c:forEach>--%>
+        </c:forEach>
       </table>
     </div>
   </div>

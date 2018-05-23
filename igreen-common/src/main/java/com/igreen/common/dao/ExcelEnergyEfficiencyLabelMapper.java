@@ -3,6 +3,8 @@ package com.igreen.common.dao;
 import com.igreen.common.model.ExcelEnergyEfficiencyLabel;
 import com.igreen.common.model.ExcelEnergyEfficiencyLabelExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ExcelEnergyEfficiencyLabelMapper {
@@ -27,4 +29,6 @@ public interface ExcelEnergyEfficiencyLabelMapper {
     int updateByPrimaryKeySelective(ExcelEnergyEfficiencyLabel record);
 
     int updateByPrimaryKey(ExcelEnergyEfficiencyLabel record);
+
+    List<ExcelEnergyEfficiencyLabel> selectByFilingCompany(Map<String, Object> map);
 }

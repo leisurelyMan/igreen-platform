@@ -34,6 +34,8 @@ public class IgreenSearch {
 	// 清洁生产企业
 	private CleanProductionCompany cleanProductionCompany;
 
+	private List<ExcelEnergyEfficiencyLabel> excelEnergyEfficiencyLabels;
+
 	public RegistItem getRegistItem() {
 		return registItem;
 	}
@@ -112,5 +114,13 @@ public class IgreenSearch {
 
 	public void setPollutionDischargeLicense(PollutionDischargeLicense pollutionDischargeLicense) {
 		this.pollutionDischargeLicense = pollutionDischargeLicense;
+	}
+
+	public List<ExcelEnergyEfficiencyLabel> getExcelEnergyEfficiencyLabels() {
+		return excelEnergyEfficiencyLabels;
+	}
+
+	public void setExcelEnergyEfficiencyLabels(List<ExcelEnergyEfficiencyLabel> excelEnergyEfficiencyLabels) {
+		this.excelEnergyEfficiencyLabels = excelEnergyEfficiencyLabels;
 	}
 }

@@ -129,7 +129,9 @@ public class IndexServiceImpl implements IndexService{
 
 	@Resource
 	ExecutionRecordMapper executionRecordMapper;
-	
+
+	@Resource
+	ExcelEnergyEfficiencyLabelMapper excelEnergyEfficiencyLabelMapper;
 	
 	@Override
 	public Igreen search(String companyName) {
@@ -378,13 +380,16 @@ public class IndexServiceImpl implements IndexService{
 		igreen.setPollutionDischargeLicense(pollutionDischarge);
 		if(pollutionDischarge != null){
 			List<ExecutionRecord> executionRecords = new ArrayList<ExecutionRecord>();
-			executionRecords.add(executionRecordMapper.selectById(rgItem.getId()))
+			executionRecords.add(executionRecordMapper.selectById(rgItem.getId()));
 			igreen.setExecutionRecords(executionRecords);
 		}
 
 		// 清洁生产企业
 		CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByRegistItemId(rgItem.getId());
 		igreen.setCleanProductionCompany(cleanProduction);
+
+		// 能效备案
+		igreen.setExcelEnergyEfficiencyLabels(excelEnergyEfficiencyLabelMapper.selectByFilingCompany(params));
 
 		return igreen;
 	}
