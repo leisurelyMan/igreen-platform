@@ -125,7 +125,7 @@
     select
     <include refid="Base_Column_List" />
     from qichacha_judgement
-    where key_no = #{keyNo,jdbcType=VARCHAR}
+    where caseName like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from qichacha_judgement

@@ -345,7 +345,7 @@ public class IndexServiceImpl implements IndexService{
 		igreen.setQichachaCompanyBase(item);
 
 		// 法院判决
-		igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(item.getKeyNo()));
+		igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(item.getName()));
 
 
 		// 专利信息
@@ -361,7 +361,8 @@ public class IndexServiceImpl implements IndexService{
 
 		// 重点监管企业
 		MonitorCompany monitorCompany = new MonitorCompany();
-		monitorCompany.setRegistItemId(rgItem.getId());
+		//monitorCompany.setRegistItemId(rgItem.getId());
+		monitorCompany.setCompanyName(item.getName());
 		List<MonitorCompany> monitorCompanys = monitorCompanyMapper.selectByParameter(monitorCompany);
 		igreen.setMonitorCompanies(monitorCompanys);
 
