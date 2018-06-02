@@ -336,58 +336,53 @@ public class IndexServiceImpl implements IndexService{
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("companyName", companyName);
 		params.put("status", 1);
-
-		List<QichachaCompanyBase> items = qichachaCompanyBaseMapper.selectByCompanyNameAndStatus(params);
-		if(items.isEmpty())
-			return null;
 		IgreenSearch igreen = new IgreenSearch();
-		QichachaCompanyBase item = items.get(0);
-		igreen.setQichachaCompanyBase(item);
+		List<QichachaCompanyBase> items = qichachaCompanyBaseMapper.selectByCompanyNameAndStatus(params);
+		if(!items.isEmpty()){
+			QichachaCompanyBase item = items.get(0);
+			igreen.setQichachaCompanyBase(item);
+			// 法院判决
+			igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(item.getName()));
 
-		// 法院判决
-		igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(item.getName()));
+			// 专利信息
+			igreen.setQichachaPatents(qichachaPatentMapper.selectByKeyNo(item.getKeyNo()));
 
-
-		// 专利信息
-		igreen.setQichachaPatents(qichachaPatentMapper.selectByKeyNo(item.getKeyNo()));
-
-
-		List<RegistItem> regItems = registItemMapper.selectByCompanyNameAndStatus(params);
-		if(regItems.isEmpty()){
- 			return igreen;
 		}
-		RegistItem rgItem = regItems.get(0);
-		igreen.setRegistItem(rgItem);
-
 		// 重点监管企业
 		MonitorCompany monitorCompany = new MonitorCompany();
 		//monitorCompany.setRegistItemId(rgItem.getId());
-		monitorCompany.setCompanyName(item.getName());
+		monitorCompany.setCompanyName(companyName);
 		List<MonitorCompany> monitorCompanys = monitorCompanyMapper.selectByParameter(monitorCompany);
 		igreen.setMonitorCompanies(monitorCompanys);
 
-		// 监管记录
-		List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByRegistItemId(rgItem.getId());
-		igreen.setIpeIndustryRecords(ipeIndustry);
+		List<RegistItem> regItems = registItemMapper.selectByCompanyNameAndStatus(params);
+		if(!regItems.isEmpty()){
+			RegistItem rgItem = regItems.get(0);
+			igreen.setRegistItem(rgItem);
+			// 监管记录
+			List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByRegistItemId(rgItem.getId());
+			igreen.setIpeIndustryRecords(ipeIndustry);
 
-		// 群众举报案件
-		EnvironmentalIssue environmentalIssue = new EnvironmentalIssue();
-		environmentalIssue.setRegistItemId(rgItem.getId());
-		List<EnvironmentalIssue> environmentalIssues =  environmentalIssueMapper.selectByParameter(environmentalIssue);
-		igreen.setEnvironmentalIssues(environmentalIssues);
+			// 群众举报案件
+			EnvironmentalIssue environmentalIssue = new EnvironmentalIssue();
+			environmentalIssue.setRegistItemId(rgItem.getId());
+			List<EnvironmentalIssue> environmentalIssues =  environmentalIssueMapper.selectByParameter(environmentalIssue);
+			igreen.setEnvironmentalIssues(environmentalIssues);
 
-        // 排污许可
-		PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByRegistItemId(rgItem.getId());
-		igreen.setPollutionDischargeLicense(pollutionDischarge);
-		if(pollutionDischarge != null){
-			List<ExecutionRecord> executionRecords = new ArrayList<ExecutionRecord>();
-			executionRecords.add(executionRecordMapper.selectById(rgItem.getId()));
-			igreen.setExecutionRecords(executionRecords);
+			// 排污许可
+			PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByRegistItemId(rgItem.getId());
+			igreen.setPollutionDischargeLicense(pollutionDischarge);
+			if(pollutionDischarge != null){
+				List<ExecutionRecord> executionRecords = new ArrayList<ExecutionRecord>();
+				executionRecords.add(executionRecordMapper.selectById(rgItem.getId()));
+				igreen.setExecutionRecords(executionRecords);
+			}
+
+			// 清洁生产企业
+			CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByRegistItemId(rgItem.getId());
+			igreen.setCleanProductionCompany(cleanProduction);
 		}
 
-		// 清洁生产企业
-		CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByRegistItemId(rgItem.getId());
-		igreen.setCleanProductionCompany(cleanProduction);
 
 		// 能效备案
 		igreen.setExcelEnergyEfficiencyLabels(excelEnergyEfficiencyLabelMapper.selectByFilingCompany(params));
