@@ -46,17 +46,18 @@ textarea {
 	<div class="rightinfo">
 		<div class="tools">
 			<ul class="toolbar">
-				<li>企业名称:<input id="company"	name="company" type="text" class="searchinput" /></li>
-				<li>省份:<input id="province" name="province" type="text" class="searchinput" /></li>
-				<li>市:<input id="city"	name="city" type="text" class="searchinput" /></li>
+				<li>公司名称：<input id="company"	name="company" style="width: 800px;" type="text" class="searchinput" /></li>
+				<li><input id="distincebutton" type="button" class="scbtn" value="下载模板"/></li>
+				<li><input id="distinceupload" type="button" class="scbtn" value="上传公司信息"/></li>
 				<li>年度:<input id="year" name="year" type="text" class="searchinput" /></li>
 				<li>季度:<select id="season" name="season" class="searchinput">
-						<option value="">全部</option>
-						<option value="1">一季度</option>
-						<option value="2">二季度</option>
-						<option value="	3">三季度</option>
-						<option value="4">四季度</option>
-					</select></li>
+					<option value="1">一季度</option>
+					<option value="2">二季度</option>
+					<option value="	3">三季度</option>
+					<option value="4">四季度</option>
+				</select></li>
+				<li>省份:<input id="province" name="province" type="text" class="searchinput" /></li>
+				<li>市:<input id="city"	name="city" type="text" class="searchinput" /></li>
 				<li>行业:<input id="industry" name="industry" type="text" class="searchinput" /></li>
 				<li>子行业:<input id="subIndustry"	name="subIndustry" type="text" class="searchinput" /></li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
@@ -64,6 +65,13 @@ textarea {
 		</div>
 		<table id="list"></table>
 		<div id="pager" class="pagin"></div>
+		<div id="exceldialog" title="导入公司信息">
+			<form class="excelform"  id="excelform" action="../competitionsign/uploadExcel.do">
+				<ul class="forminfo">
+					<li><label>选择文件</label><input id="upexcel" name="upexcel" type="file" value="" class="dfinput"/></li>
+				</ul>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

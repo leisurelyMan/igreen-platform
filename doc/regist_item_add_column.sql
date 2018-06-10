@@ -233,4 +233,4 @@ truncate `web_crawler_result`;
 
 
 
-INSERT INTO `sys_menu` VALUES (25,'Ai数据','../aiIpe/toAiPage.do',4,15,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `sys_menu` VALUES (30,'Ai数据','../aiIpe/toAiPage.do',4,15,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL);

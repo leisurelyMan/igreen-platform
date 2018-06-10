@@ -3,23 +3,27 @@ package com.igreen.boss.controller.ipepython;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.igreen.boss.controller.BaseController;
+import com.igreen.boss.util.ExcelUtil;
 import com.igreen.boss.util.HttpClientHelper;
 import com.igreen.common.dto.AiIpeSearch;
 import com.igreen.common.model.AiIpe;
 import com.igreen.common.util.ListRange;
+import com.igreen.common.util.ResponseModel;
 import org.apache.log4j.Logger;
-import org.apache.poi.util.StringUtil;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * Created by Administrator on 2018/6/10.
@@ -45,33 +49,34 @@ public class AiIpeController extends BaseController {
         List<Map<String, String>> list = new ArrayList<Map<String, String>>();
         Map<String, String> map = new HashMap<String, String>();
 
+        List<String> companyList = new ArrayList<String>();
         if(!StringUtils.isEmpty(aiIpeSearch.getCompany())){
-            map.put("company", aiIpeSearch.getCompany());
+            companyList = Arrays.asList(aiIpeSearch.getCompany().split(","));
         }
-        if(!StringUtils.isEmpty(aiIpeSearch.getYear())){
-            map.put("year", aiIpeSearch.getYear());
-        }
-        if(!StringUtils.isEmpty(aiIpeSearch.getSeason())){
-            map.put("season", aiIpeSearch.getSeason());
-        }
-        JSONArray regionArr = new JSONArray();
-        if(!StringUtils.isEmpty(aiIpeSearch.getProvince())){
-            regionArr.add(aiIpeSearch.getProvince());
-        }
-        if(!StringUtils.isEmpty(aiIpeSearch.getCity())){
-            regionArr.add(aiIpeSearch.getCity());
-        }
-        if(!regionArr.isEmpty()){
-            map.put("region", JSON.toJSONString(regionArr));
-        }
-        if(!StringUtils.isEmpty(aiIpeSearch.getIndustry())){
-            map.put("industry", aiIpeSearch.getIndustry());
-        }
-        if(!StringUtils.isEmpty(aiIpeSearch.getSubIndustry())){
-            map.put("subIndustry", aiIpeSearch.getSubIndustry());
-        }
-
-        if(!map.isEmpty()){
+        for (String companyStr : companyList) {
+            map = new HashMap<>();
+            if(!StringUtils.isEmpty(aiIpeSearch.getYear())){
+                map.put("year", aiIpeSearch.getYear());
+            }
+            if(!StringUtils.isEmpty(aiIpeSearch.getSeason())){
+                map.put("season", aiIpeSearch.getSeason());
+            }
+            JSONArray regionArr = new JSONArray();
+            if(!StringUtils.isEmpty(aiIpeSearch.getProvince())){
+                regionArr.add(aiIpeSearch.getProvince());
+            }
+            if(!StringUtils.isEmpty(aiIpeSearch.getCity())){
+                regionArr.add(aiIpeSearch.getCity());
+            }
+            if(!regionArr.isEmpty()){
+                map.put("region", JSON.toJSONString(regionArr));
+            }
+            if(!StringUtils.isEmpty(aiIpeSearch.getIndustry())){
+                map.put("industry", aiIpeSearch.getIndustry());
+            }
+            if(!StringUtils.isEmpty(aiIpeSearch.getSubIndustry())){
+                map.put("subIndustry", aiIpeSearch.getSubIndustry());
+            }
             list.add(map);
         }
 
@@ -82,7 +87,7 @@ public class AiIpeController extends BaseController {
         Map<String, String> param = new HashMap<String, String>();
         param.put("reqstr", JSON.toJSONString(list));
         log.info("params="+JSON.toJSONString(param));
-        String result = HttpClientHelper.sendPost("http://172.17.215.145:4411", param, "UTF-8");
+        String result = HttpClientHelper.sendPost("http://localhost:4411", param, "UTF-8");
         log.info("result="+result);
 
         List<AiIpe> aiIpeList = convertModels(result);
@@ -90,10 +95,48 @@ public class AiIpeController extends BaseController {
         return new ListRange(aiIpeList, aiIpeList.size(), 1, aiIpeList.size());
     }
 
+    /**
+     * 导入数据
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="uploadCompany",method={RequestMethod.GET,RequestMethod.POST})
+    public @ResponseBody
+    ResponseModel uploadMail(@RequestParam(value = "upexcel", required = false) MultipartFile upexcel,
+                             Integer programId, HttpServletResponse response, HttpServletRequest request) throws Exception{
+        if(upexcel.isEmpty()){
+            throw new Exception("文件不存在！");
+        }
+        InputStream in = upexcel.getInputStream();
+        ExcelUtil eu = new ExcelUtil();
+        eu.setOnlyReadOneSheet(false);
+        eu.setPrintMsg(false);
+        List<Row> rows = eu.analysisExcel(in);
+        List<String> list = new ArrayList<String>();
+        for(Row row:rows){
+            log.info(row.getRowNum());
+            if(row.getRowNum() == 0)
+                continue;
+            String value = ExcelUtil.getCellValue(row.getCell(0));
+            if(StringUtils.isEmpty(value)){
+                break;
+            }
+            list.add(value);
+        }
+        ResponseModel result = new ResponseModel(1, "success");
+        if(list.size()>0){
+            String companys = StringUtils.collectionToDelimitedString(list, ",");
+            result.setObj(companys);
+        }
+
+        return result;
+    }
 
     private List<AiIpe> convertModels(String arrStr){
         List<AiIpe> aiIpeList = new ArrayList<>();
-        if(StringUtils.isEmpty(arrStr)){
+        if(StringUtils.isEmpty(arrStr) || arrStr.contains("The request key should contain")){
             return aiIpeList;
         }
 
