@@ -55,6 +55,7 @@ public class AiIpeController extends BaseController {
         }
         for (String companyStr : companyList) {
             map = new HashMap<>();
+            map.put("company", companyStr);
             if(!StringUtils.isEmpty(aiIpeSearch.getYear())){
                 map.put("year", aiIpeSearch.getYear());
             }
@@ -91,6 +92,9 @@ public class AiIpeController extends BaseController {
         log.info("result="+result);
 
         List<AiIpe> aiIpeList = convertModels(result);
+        if(aiIpeList.size() == 0){
+            return new ListRange();
+        }
 
         return new ListRange(aiIpeList, aiIpeList.size(), 1, aiIpeList.size());
     }
