@@ -71,13 +71,18 @@ public class AiIpeController extends BaseController {
             map.put("subIndustry", aiIpeSearch.getSubIndustry());
         }
 
-        list.add(map);
+        if(!map.isEmpty()){
+            list.add(map);
+        }
 
+        if(list.size() == 0){
+            return new ListRange();
+        }
 
         Map<String, String> param = new HashMap<String, String>();
         param.put("reqstr", JSON.toJSONString(list));
         log.info("params="+JSON.toJSONString(param));
-        String result = HttpClientHelper.sendPost("http://47.93.41.141:4411", param, "UTF-8");
+        String result = HttpClientHelper.sendPost("http://172.17.215.145:4411", param, "UTF-8");
         log.info("result="+result);
 
         List<AiIpe> aiIpeList = convertModels(result);
