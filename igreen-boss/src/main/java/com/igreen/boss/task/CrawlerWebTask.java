@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Date;
 
-@Component
+/*@Component*/
 public class CrawlerWebTask {
 
 	@Resource
