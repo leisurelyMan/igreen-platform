@@ -95,8 +95,64 @@ public class HttpClientHelper {
         }  
   
         return resultBuffer.toString();  
-    }  
-  
+    }
+
+    public static String sendPost3(String urlParam, Map<String, Object> params, String charset) {
+        StringBuffer resultBuffer = null;
+        // 构建请求参数
+        HttpURLConnection con = null;
+        BufferedReader br = null;
+        // 发送请求
+        try {
+            URL url = new URL(urlParam);
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setUseCaches(false);
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            if (params != null) {
+                OutputStream osw = con.getOutputStream();
+                osw.write(JSON.toJSONString(params).getBytes(charset));
+                osw.flush();
+                osw.close();
+            }
+            // 读取返回内容
+            resultBuffer = new StringBuffer();
+            //int contentLength = Integer.parseInt(con.getHeaderField("Content-Length"));
+            //if (contentLength > 0) {
+            br = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));
+            String temp;
+            while ((temp = br.readLine()) != null) {
+                resultBuffer.append(temp);
+            }
+            //}
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            if (con != null) {
+                con.disconnect();
+                con = null;
+            }
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    br = null;
+                    throw new RuntimeException(e);
+                } finally {
+                    if (con != null) {
+                        con.disconnect();
+                        con = null;
+                    }
+                }
+            }
+        }
+
+        return resultBuffer.toString();
+    }
+
     /** 
      * @Description:使用URLConnection发送post 
      * @author:liuyc 

@@ -16,9 +16,6 @@ jQuery(document).ready(function(){
 					{name:'instruct',index:'instruct', width:100,sortable:false},
 					{name:'other',index:'other', width:100,sortable:false}
 		           ],
-		rowNum : 10,//一页显示多少条
-		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
-		pager : '#pager',//表格页脚的占位符(一般是div)的id
 		autowidth : true,
 		height: 'auto',
 		mtype : "post",//向后台请求数据的ajax的类型。可选post,get

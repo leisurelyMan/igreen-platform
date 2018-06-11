@@ -85,10 +85,11 @@ public class AiIpeController extends BaseController {
             return new ListRange();
         }
 
-        Map<String, String> param = new HashMap<String, String>();
-        param.put("reqstr", JSON.toJSONString(list));
+        Map<String, Object> param = new HashMap<String, Object>();
+        //param.put("reqstr", JSON.toJSONString(list));
+        param.put("reqstr", list);
         log.info("params="+JSON.toJSONString(param));
-        String result = HttpClientHelper.sendPost("http://localhost:4411", param, "UTF-8");
+        String result = HttpClientHelper.sendPost3("http://localhost:4411", param, "UTF-8");
         log.info("result="+result);
 
         List<AiIpe> aiIpeList = convertModels(result);
