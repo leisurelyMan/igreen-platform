@@ -336,6 +336,13 @@
        where regist_item_id = #{registItemId,jdbcType=INTEGER} 
        GROUP BY year order by year DESC
   </select>
+
+    <select id="selectByCompanyName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select year,file_name
+        from ipe_industry_record
+        where company_name like concat('%',#{companyName,jdbcType=VARCHAR},'%')
+        GROUP BY year order by year DESC
+    </select>
   
   <select id="getRegion" resultMap="BaseResultMap">
       select regist_item_id from ipe_industry_record where year=2017

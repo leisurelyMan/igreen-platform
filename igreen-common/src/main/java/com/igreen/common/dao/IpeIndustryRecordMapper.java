@@ -44,6 +44,7 @@ public interface IpeIndustryRecordMapper {
 	List<IpeIndustryDto> pageIpeIndustryDto(Map<String, Object> params);
 	
 	List<String> selectRepeatRecord();
-	
-	
+
+
+    List<IpeIndustryRecord> selectByCompanyName(String companyName);
 }

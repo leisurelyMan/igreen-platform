@@ -22,4 +22,6 @@ public interface EnvironmentalIssueMapper {
 	List<EnvironmentalIssue> pageReport(Map<String, Object> params);
 
 	Integer countReport(Map<String, Object> params);
+
+    List<EnvironmentalIssue> selectByCompanyName(String companyName);
 }

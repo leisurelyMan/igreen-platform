@@ -191,4 +191,11 @@
       and deal_result like concat(concat('%',#{dealResult,jdbcType=VARCHAR}),'%')
     </if>
   </select>
+
+  <select id="selectByCompanyName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from environmental_protection_report_issue
+    where  company_name  like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  </select>
 </mapper>

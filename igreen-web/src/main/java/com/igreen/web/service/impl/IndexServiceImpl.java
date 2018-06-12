@@ -359,14 +359,14 @@ public class IndexServiceImpl implements IndexService{
 			RegistItem rgItem = regItems.get(0);
 			igreen.setRegistItem(rgItem);
 			// 监管记录
-			List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByRegistItemId(rgItem.getId());
-			igreen.setIpeIndustryRecords(ipeIndustry);
+			/*List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByRegistItemId(rgItem.getId());
+			igreen.setIpeIndustryRecords(ipeIndustry);*/
 
 			// 群众举报案件
-			EnvironmentalIssue environmentalIssue = new EnvironmentalIssue();
+			/*EnvironmentalIssue environmentalIssue = new EnvironmentalIssue();
 			environmentalIssue.setRegistItemId(rgItem.getId());
 			List<EnvironmentalIssue> environmentalIssues =  environmentalIssueMapper.selectByParameter(environmentalIssue);
-			igreen.setEnvironmentalIssues(environmentalIssues);
+			igreen.setEnvironmentalIssues(environmentalIssues);*/
 
 			// 排污许可
 			PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByRegistItemId(rgItem.getId());
@@ -382,6 +382,12 @@ public class IndexServiceImpl implements IndexService{
 			igreen.setCleanProductionCompany(cleanProduction);
 		}
 
+		// 监管记录
+		List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByCompanyName(companyName);
+		igreen.setIpeIndustryRecords(ipeIndustry);
+		// 群众举报案件
+		List<EnvironmentalIssue> environmentalIssues =  environmentalIssueMapper.selectByCompanyName(companyName);
+		igreen.setEnvironmentalIssues(environmentalIssues);
 
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		Map<String, String> map = new HashMap<String, String>();
