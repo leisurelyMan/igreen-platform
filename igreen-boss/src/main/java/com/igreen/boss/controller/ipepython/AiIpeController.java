@@ -149,13 +149,14 @@ public class AiIpeController extends BaseController {
         for (int i = 0; i < array.size(); i++) {
             AiIpe aiIpe = new AiIpe();
             JSONArray arrValue = array.getJSONArray(i);
-            aiIpe.setFine(arrValue.getString(0));
-            aiIpe.setRevoke(arrValue.getString(1));
-            aiIpe.setConfiscate(arrValue.getString(2));
-            aiIpe.setDetention(arrValue.getString(3));
-            aiIpe.setProduction(arrValue.getString(4));
-            aiIpe.setInstruct(arrValue.getString(5));
-            aiIpe.setOther(arrValue.getString(6));
+            aiIpe.setCompany(arrValue.getString(0));
+            aiIpe.setFine(arrValue.getString(1));
+            aiIpe.setRevoke(arrValue.getString(2));
+            aiIpe.setConfiscate(arrValue.getString(3));
+            aiIpe.setDetention(arrValue.getString(4));
+            aiIpe.setProduction(arrValue.getString(5));
+            aiIpe.setInstruct(arrValue.getString(6));
+            aiIpe.setOther(arrValue.getString(7));
             aiIpeList.add(aiIpe);
         }
 

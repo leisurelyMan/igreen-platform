@@ -1,16 +1,15 @@
 package com.igreen.web.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Resource;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.igreen.common.dao.*;
 import com.igreen.common.model.*;
+import com.igreen.common.util.ListRange;
+import com.igreen.web.util.HttpClientHelper;
 import com.igreen.web.view.IgreenSearch;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -384,10 +383,52 @@ public class IndexServiceImpl implements IndexService{
 		}
 
 
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		Map<String, String> map = new HashMap<String, String>();
+
+		for (int i = 0; i < 4; i++) {
+			map = new HashMap<>();
+			map.put("company", companyName);
+			map.put("year", "2019");
+			map.put("season", (i+1)+"");
+			list.add(map);
+		}
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("reqstr", list);
+		String result = HttpClientHelper.sendPost3("http://localhost:4411", param, "UTF-8");
+
+		List<AiIpe> aiIpeList = convertModels(result);
+		igreen.setAiIpeList(aiIpeList);
 		// 能效备案
 		igreen.setExcelEnergyEfficiencyLabels(excelEnergyEfficiencyLabelMapper.selectByFilingCompany(params));
 
 		return igreen;
+	}
+
+	private List<AiIpe> convertModels(String arrStr){
+		List<AiIpe> aiIpeList = new ArrayList<>();
+		if(org.springframework.util.StringUtils.isEmpty(arrStr) || arrStr.contains("The request key should contain")){
+			return aiIpeList;
+		}
+
+		JSONArray array = JSON.parseArray(arrStr);
+		for (int i = 0; i < array.size(); i++) {
+			AiIpe aiIpe = new AiIpe();
+			JSONArray arrValue = array.getJSONArray(i);
+			aiIpe.setCompany(arrValue.getString(0));
+			aiIpe.setFine(arrValue.getString(1));
+			aiIpe.setRevoke(arrValue.getString(2));
+			aiIpe.setConfiscate(arrValue.getString(3));
+			aiIpe.setDetention(arrValue.getString(4));
+			aiIpe.setProduction(arrValue.getString(5));
+			aiIpe.setInstruct(arrValue.getString(6));
+			aiIpe.setOther(arrValue.getString(7));
+			aiIpe.setSeason(arrValue.getString(8));
+			aiIpeList.add(aiIpe);
+		}
+
+		return aiIpeList;
 	}
 
 }

@@ -6,15 +6,16 @@ jQuery(document).ready(function(){
 		url : '../aiIpe/ipeListData.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : [ '<b>罚款</b>','<b>暂扣、吊销许可证</b>', '<b>没收违法所得</b>', '<b>行政拘留</b>', '<b>责令停产整顿</b>', '<b>责令停产、停业、关闭</b>', '<b>other</b>'],//jqGrid的列显示名字
+		colNames : [ '<b>公司名称</b>','<b>罚款</b>','<b>暂扣、吊销许可证</b>', '<b>没收违法所得</b>', '<b>行政拘留</b>', '<b>责令停产整顿</b>', '<b>责令停产、停业、关闭</b>', '<b>其它处罚</b>'],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
-		 		    {name:'fine',index:'fine', width:80,sortable:false},
-		 		    {name:'revoke',index:'revoke', width:80,sortable:false},
-					{name:'confiscate',index:'confiscate', width:80,sortable:false},
-		 		    {name:'detention',index:'detention', width:100,sortable:false},
-					{name:'production',index:'production', width:100,sortable:false},
-					{name:'instruct',index:'instruct', width:100,sortable:false},
-					{name:'other',index:'other', width:100,sortable:false}
+           			 {name:'company',index:'company', width:80,sortable:false},
+		 		    {name:'fine',index:'fine', width:80,sortable:false,formatter:formatterData},
+		 		    {name:'revoke',index:'revoke', width:80,sortable:false,formatter:formatterData},
+					{name:'confiscate',index:'confiscate', width:80,sortable:false,formatter:formatterData},
+		 		    {name:'detention',index:'detention', width:100,sortable:false,formatter:formatterData},
+					{name:'production',index:'production', width:100,sortable:false,formatter:formatterData},
+					{name:'instruct',index:'instruct', width:100,sortable:false,formatter:formatterData},
+					{name:'other',index:'other', width:100,sortable:false,formatter:formatterData}
 		           ],
 		autowidth : true,
 		height: 'auto',
@@ -117,7 +118,7 @@ jQuery(document).ready(function(){
 	
 });
 
-function getActions(cellvalue, options, rowObject){
-    //return '<a href="javascript:industry(\''+rowObject.id+'\')">查看详情</a>&nbsp;';
-    return '<a href="http://47.94.240.82/ipe/'+rowObject.fileName+'" target="view_window">查看详情</a>'
+function formatterData(cellvalue, options, rowObject){
+    var tempV = Math.round(cellvalue * 10000)/ 100;
+    return tempV.toFixed(2) + "%";
 }

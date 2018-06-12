@@ -6,6 +6,10 @@ package com.igreen.common.model;
  */
 public class AiIpe {
 
+    //公司名称
+    private String company;
+    // 季度
+    private String season;
     //'罚款',
     private String fine;
     // '暂扣、吊销许可证',
@@ -20,6 +24,22 @@ public class AiIpe {
     private String instruct;
     // 'other'
     private String other;
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
 
     public String getFine() {
         return fine;

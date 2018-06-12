@@ -424,18 +424,18 @@
     </div>
   </div>
   <div class="data-box">
-    <div class="data-tit"><i></i><h3>能效备案</h3></div>
-    <div class="data-tab tab-2">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="8%">序号</th>
-          <th width="12% ">公告号</th>
-          <th width="12%">备案单位</th>
-          <th width="12%">公司类型</th>
-          <th width="12%">状态</th>
-          <th>备注</th>
-        </tr>
-        <c:forEach var="excelEnergyEfficiencyLabel" items="${igreen.excelEnergyEfficiencyLabels}" varStatus="status">
+  <div class="data-tit"><i></i><h3>能效备案</h3></div>
+  <div class="data-tab tab-2">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <th width="8%">序号</th>
+        <th width="12% ">公告号</th>
+        <th width="12%">备案单位</th>
+        <th width="12%">公司类型</th>
+        <th width="12%">状态</th>
+        <th>备注</th>
+      </tr>
+      <c:forEach var="excelEnergyEfficiencyLabel" items="${igreen.excelEnergyEfficiencyLabels}" varStatus="status">
         <tr>
           <td>${ status.index + 1}</td>
           <td><c:out value="${excelEnergyEfficiencyLabel.noticeNo}"/></td>
@@ -444,6 +444,36 @@
           <td><c:out value="${excelEnergyEfficiencyLabel.statas}"/></td>
           <td><c:out value="${excelEnergyEfficiencyLabel.remark}"/></td>
         </tr>
+      </c:forEach>
+    </table>
+  </div>
+</div>
+
+  <div class="data-box">
+    <div class="data-tit"><i></i><h3>风险预测</h3></div>
+    <div class="data-tab tab-2">
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <th width="8%">季度</th>
+          <th width="12% ">罚款</th>
+          <th width="12%">暂扣、吊销许可证</th>
+          <th width="12%">没收违法所得</th>
+          <th width="12%">行政拘留</th>
+          <th width="12%">责令停产整顿</th>
+          <th width="12%">责令停产、停业、关闭</th>
+          <th width="12%">其它处罚</th>
+        </tr>
+        <c:forEach var="aiIpe" items="${igreen.aiIpeList}" varStatus="status">
+          <tr>
+            <td><c:out value="${aiIpe.season}"/></td>
+            <td><fmt:formatNumber value="${aiIpe.fine * 100}" pattern="#0.00"/>%</td>
+            <td><fmt:formatNumber value="${aiIpe.revoke * 100}" pattern="#0.00"/>%</td>
+            <td><fmt:formatNumber value="${aiIpe.confiscate * 100}" pattern="#0.00"/>%</td>
+            <td><fmt:formatNumber value="${aiIpe.detention * 100}" pattern="#0.00"/>%</td>
+            <td><fmt:formatNumber value="${aiIpe.production * 100}" pattern="#0.00"/>%</td>
+            <td><fmt:formatNumber value="${aiIpe.instruct * 100}" pattern="#0.00"/>%</td>
+            <td><fmt:formatNumber value="${aiIpe.other * 100}" pattern="#0.00"/>%</td>
+          </tr>
         </c:forEach>
       </table>
     </div>

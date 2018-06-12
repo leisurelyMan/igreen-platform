@@ -36,6 +36,17 @@ public class IgreenSearch {
 
 	private List<ExcelEnergyEfficiencyLabel> excelEnergyEfficiencyLabels;
 
+	// 预测
+	public List<AiIpe> aiIpeList;
+
+	public List<AiIpe> getAiIpeList() {
+		return aiIpeList;
+	}
+
+	public void setAiIpeList(List<AiIpe> aiIpeList) {
+		this.aiIpeList = aiIpeList;
+	}
+
 	public RegistItem getRegistItem() {
 		return registItem;
 	}
