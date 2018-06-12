@@ -108,7 +108,7 @@
     <include refid="Base_Column_List" />
     from regist_item
     where status = #{status,jdbcType=INTEGER}
-    and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+    and company_name like concat('%',#{companyName,jdbcType=VARCHAR},'%')
   </select>
   
   <select id="countByRegistNumber" resultType="java.lang.Integer" parameterType="java.lang.String" >

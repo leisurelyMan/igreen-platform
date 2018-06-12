@@ -98,7 +98,7 @@
     </if>
     <include refid="Base_Column_List" />
     from excel_energy_efficiency_label
-    where filing_company like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+    where filing_company like concat('%',#{companyName,jdbcType=VARCHAR},'%')
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >

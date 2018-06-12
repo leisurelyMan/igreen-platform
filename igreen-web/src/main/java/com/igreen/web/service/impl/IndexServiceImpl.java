@@ -340,13 +340,13 @@ public class IndexServiceImpl implements IndexService{
 		if(!items.isEmpty()){
 			QichachaCompanyBase item = items.get(0);
 			igreen.setQichachaCompanyBase(item);
-			// 法院判决
-			igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(item.getName()));
 
 			// 专利信息
 			igreen.setQichachaPatents(qichachaPatentMapper.selectByKeyNo(item.getKeyNo()));
 
 		}
+		// 法院判决
+		igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(companyName));
 		// 重点监管企业
 		MonitorCompany monitorCompany = new MonitorCompany();
 		//monitorCompany.setRegistItemId(rgItem.getId());

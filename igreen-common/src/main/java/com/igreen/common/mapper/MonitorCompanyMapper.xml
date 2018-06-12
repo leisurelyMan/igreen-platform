@@ -112,7 +112,7 @@
       and province = #{province,jdbcType=VARCHAR}
     </if>
     <if test="companyName != null" >
-      and company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+      and company_name like concat('%',#{companyName,jdbcType=VARCHAR},'%')
     </if>
     <if test="monitorType != null" >
       and monitor_type = #{monitorType,jdbcType=VARCHAR}
