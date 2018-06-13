@@ -213,68 +213,7 @@
         </table>
       </div>
     </div>
-    <%--<div class="data-box">
-      <div class="data-tit"><i></i><h3>监管记录</h3></div>
-      <div class="data-tab tab-2">
-        <table width="100%" cellpadding="0" cellspacing="0">
-          <tr>
-            <th>序号</th>
-            <th>公司名称</th>
-            <th>登记信息ID</th>
-            <th>年度</th>
-            <th>标题</th>
-            <th>ipe记录ID</th>
-            <th>文件名称</th>
-            <th>状态</th>
-          </tr>
-          <c:forEach var="ipeIndustryRecord" items="${igreen.ipeIndustryRecords}" varStatus="status">
-          <tr>
-            <td>${ status.index + 1}</td>
-            <td><c:out value="${ipeIndustryRecord.companyName}"/></td>
-            <td><c:out value="${ipeIndustryRecord.registItemId}"/></td>
-            <td><c:out value="${ipeIndustryRecord.year}"/></td>
-            <td><c:out value="${ipeIndustryRecord.title}"/></td>
-            <td><c:out value="${ipeIndustryRecord.ipeId}"/></td>
-            <td><c:out value="${ipeIndustryRecord.fileName}"/></td>
-            <td><c:out value="${ipeIndustryRecord.status}"/></td>
-          </tr>
-          </c:forEach>
-        </table>
-      </div>
-    </div>--%>
-    <%--<div class="data-box">
-      <div class="data-tit"><i></i><h3>群众举报案件</h3></div>
-      <div class="data-tab tab-2">
-        <table width="100%" cellpadding="0" cellspacing="0">
-          <tr>
-            <th>序号</th>
-            <th>登记信息表主键</th>
-            <th>序列</th>
-            <th>年份</th>
-            <th>月份</th>
-            <th>省份</th>
-            <th>涉及企业</th>
-            <th>存在问题</th>
-            <th>处理情况</th>
-            <th>备注</th>
-          </tr>
-          <c:forEach var="environmentalIssue" items="${igreen.environmentalIssues}" varStatus="status">
-          <tr>
-            <td>${ status.index + 1}</td>
-            <td><c:out value="${environmentalIssue.registItemId}"/></td>
-            <td><c:out value="${environmentalIssue.reportSequence}"/></td>
-            <td><c:out value="${environmentalIssue.reportYear}"/></td>
-            <td><c:out value="${environmentalIssue.reportMonth}"/></td>
-            <td><c:out value="${environmentalIssue.province}"/></td>
-            <td><c:out value="${environmentalIssue.companyName}"/></td>
-            <td><c:out value="${environmentalIssue.reportIssue}"/></td>
-            <td><c:out value="${environmentalIssue.dealResult}"/></td>
-            <td><c:out value="${environmentalIssue.reportComment}"/></td>
-          </tr>
-          </c:forEach>
-        </table>
-      </div>
-    </div>--%>
+
 </div>
 <div class="home-inner" id="con_one_3" style="height:910px; display:none;">
   <div class="data-box">
@@ -287,12 +226,12 @@
           <th width="100">上报频次</th>
           <th>其他信息</th>
         </tr>
-        <c:forEach var="executionRecord" items="${igreen.executionRecords}" varStatus="status">
+        <c:forEach var="execution" items="${igreen.executionRecords}" varStatus="status">
         <tr>
           <td>${ status.index + 1}</td>
-          <td><c:out value="${executionRecord.content}"/></td>
-          <td><c:out value="${executionRecord.frequency}"/></td>
-          <td><c:out value="${executionRecord.otherInfo}"/></td>
+          <td><c:out value="${execution.content}"/></td>
+          <td><c:out value="${execution.frequency}"/></td>
+          <td><c:out value="${execution.otherInfo}"/></td>
         </tr>
         </c:forEach>
       </table>

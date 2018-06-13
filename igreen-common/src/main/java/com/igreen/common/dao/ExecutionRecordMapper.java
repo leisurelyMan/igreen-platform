@@ -15,4 +15,6 @@ public interface ExecutionRecordMapper {
 	Integer countRecord(Map<String,Object> params);
 
 	ExecutionRecord selectByPollutionId(Integer id);
+
+	List<ExecutionRecord> selectByCompanyName(String companyName);
 }

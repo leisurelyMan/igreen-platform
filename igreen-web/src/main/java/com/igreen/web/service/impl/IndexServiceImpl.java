@@ -344,9 +344,11 @@ public class IndexServiceImpl implements IndexService{
 			// 专利信息
 			igreen.setQichachaPatents(qichachaPatentMapper.selectByKeyNo(item.getKeyNo()));
 
+			// 法院判决
+			igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(item.getKeyNo()));
+
 		}
-		// 法院判决
-		igreen.setQichachaJudgements(qichachaJudgementMapper.selectByCompanyName(companyName));
+
 		// 重点监管企业
 		MonitorCompany monitorCompany = new MonitorCompany();
 		//monitorCompany.setRegistItemId(rgItem.getId());
@@ -383,13 +385,17 @@ public class IndexServiceImpl implements IndexService{
 		/*}*/
 
 		// 排污许可
-		PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByCompayName(companyName);
+		/*PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByCompayName(companyName);
 		igreen.setPollutionDischargeLicense(pollutionDischarge);
 		if(pollutionDischarge != null){
 			List<ExecutionRecord> executionRecords = new ArrayList<ExecutionRecord>();
 			executionRecords.add(executionRecordMapper.selectByPollutionId(pollutionDischarge.getId()));
+			System.out.println("executionRecords====" + JSON.toJSONString(executionRecords));
 			igreen.setExecutionRecords(executionRecords);
-		}
+		}*/
+		List<ExecutionRecord> executionRecords = executionRecordMapper.selectByCompanyName(companyName);
+		igreen.setExecutionRecords(executionRecords);
+		System.out.println("executionRecords====" + JSON.toJSONString(igreen.getExecutionRecords()));
 		// 清洁生产企业
 		CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByCompanyName(companyName);
 		igreen.setCleanProductionCompany(cleanProduction);

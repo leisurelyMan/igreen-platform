@@ -83,6 +83,14 @@
     from execution_record
     where pollution_id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByCompanyName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    a.id, a.pollution_id, a.content, a.frequency, a.other_info
+    from execution_record a INNER JOIN pollution_discharge_license b ON a.pollution_id= b.id
+    where b.company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+  </select>
+
   
   <!-- 查询有效的总记录数 -->
   <select id="countRecord" resultType="java.lang.Integer" parameterType="map">

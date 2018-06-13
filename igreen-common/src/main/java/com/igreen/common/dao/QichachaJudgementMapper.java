@@ -35,5 +35,5 @@ public interface QichachaJudgementMapper {
 
     int updateByPrimaryKey(QichachaJudgement record);
 
-    List<QichachaJudgement> selectByCompanyName(String companyName);
+    List<QichachaJudgement> selectByKeyNo(String keyNo);
 }
