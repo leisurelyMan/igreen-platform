@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,6 +39,7 @@
     <li><a id="one1" onclick="setTab('one',1,6)" href="javascript:void(0);" class="on">基本信息</a></li>
     <li><a id="one2" onclick="setTab('one',2,6)" href="javascript:void(0);">环境风险</a></li>
     <li><a id="one3" onclick="setTab('one',3,6)" href="javascript:void(0);">环境许可</a></li>
+    <li><a id="one4" onclick="setTab('one',4,6)" href="javascript:void(0);">风险预测</a></li>
     <%--<li><a id="one4" onclick="setTab('one',4,6)" href="javascript:void(0);">关联关系</a></li>
     <li><a id="one5" onclick="setTab('one',5,6)" href="javascript:void(0);">经营信息</a></li>
     <li><a id="one6" onclick="setTab('one',6,6)" href="javascript:void(0);">知识产权</a></li>--%>
@@ -448,40 +450,46 @@
     </table>
   </div>
 </div>
-
-  <div class="data-box">
-    <div class="data-tit"><i></i><h3>风险预测</h3></div>
-    <div class="data-tab tab-2">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <th width="8%">季度</th>
-          <th width="12% ">罚款</th>
-          <th width="12%">暂扣、吊销许可证</th>
-          <th width="12%">没收违法所得</th>
-          <th width="12%">行政拘留</th>
-          <th width="12%">责令停产整顿</th>
-          <th width="12%">责令停产、停业、关闭</th>
-          <th width="12%">其它处罚</th>
-        </tr>
-        <c:forEach var="aiIpe" items="${igreen.aiIpeList}" varStatus="status">
+</div>
+  <div class="home-inner" id="con_one_4" style="height:910px; display:none;">
+    <div class="data-box">
+      <div class="data-tit"><i></i><h3>风险预测</h3></div>
+      <div class="data-tab tab-2">
+        <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <td><c:out value="${aiIpe.season}"/></td>
-            <td><fmt:formatNumber value="${aiIpe.fine * 100}" pattern="#0.00"/>%</td>
-            <td><fmt:formatNumber value="${aiIpe.revoke * 100}" pattern="#0.00"/>%</td>
-            <td><fmt:formatNumber value="${aiIpe.confiscate * 100}" pattern="#0.00"/>%</td>
-            <td><fmt:formatNumber value="${aiIpe.detention * 100}" pattern="#0.00"/>%</td>
-            <td><fmt:formatNumber value="${aiIpe.production * 100}" pattern="#0.00"/>%</td>
-            <td><fmt:formatNumber value="${aiIpe.instruct * 100}" pattern="#0.00"/>%</td>
-            <td><fmt:formatNumber value="${aiIpe.other * 100}" pattern="#0.00"/>%</td>
+            <th width="8%">季度</th>
+            <th width="12% ">罚款</th>
+            <th width="12%">暂扣、吊销许可证</th>
+            <th width="12%">没收违法所得</th>
+            <th width="12%">行政拘留</th>
+            <th width="12%">责令停产整顿</th>
+            <th width="12%">责令停产、停业、关闭</th>
+            <th width="12%">其它处罚</th>
           </tr>
-        </c:forEach>
-      </table>
+          <c:forEach var="aiIpe" items="${igreen.aiIpeList}" varStatus="status">
+            <tr>
+              <td><c:out value="${aiIpe.season}"/></td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.fine *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.revoke *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.confiscate *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.detention *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.production *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.instruct *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.other *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
+
+            </tr>
+          </c:forEach>
+        </table>
+      </div>
     </div>
+
   </div>
-
 </div>
 
 </div>
+
+
+
 <!--页中end-->
 <!--页脚begin-->
 <div class="footer">

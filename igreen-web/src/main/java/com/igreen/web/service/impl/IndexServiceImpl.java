@@ -403,6 +403,8 @@ public class IndexServiceImpl implements IndexService{
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("reqstr", list);
 		String result = HttpClientHelper.sendPost3("http://localhost:4411", param, "UTF-8");
+		System.out.println("params="+JSON.toJSONString(param));
+		System.out.println("result="+result);
 
 		List<AiIpe> aiIpeList = convertModels(result);
 		igreen.setAiIpeList(aiIpeList);
