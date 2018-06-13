@@ -3,17 +3,14 @@ package com.igreen.web.service.impl;
 import java.util.*;
 
 import javax.annotation.Resource;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.igreen.common.dao.*;
 import com.igreen.common.model.*;
-import com.igreen.common.util.ListRange;
 import com.igreen.web.util.HttpClientHelper;
 import com.igreen.web.view.IgreenSearch;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-
 import com.igreen.common.dto.MapDto;
 import com.igreen.web.job.GetRegtionTaskJob;
 import com.igreen.web.service.IndexService;
