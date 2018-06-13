@@ -95,84 +95,6 @@
           <th></th>
           <td></td>
         </tr>
-        <%--<tr>
-          <th width="183">企业名称</th>
-          <td width="274">${igreen.registItem.companyName}</td>
-          <th width="183">法人代表姓名</th>
-          <td>${igreen.registItem.legalRepresentative}</td>
-        </tr>
-        <tr>
-          <th>注册号</th>
-          <td>${igreen.registItem.registNumber}</td>
-          <th>原注册号</th>
-          <td>${igreen.registItem.oldRegistNumber}</td>
-        </tr>
-        <tr>
-          <th>注册资本(万元)</th>
-          <td>${igreen.registItem.registeredCapital}</td>
-          <th>实收资本 (万元)</th>
-          <td>${igreen.registItem.paidInCapital}</td>
-        </tr>
-        <tr>
-          <th>币种</th>
-          <td>${igreen.registItem.currency}</td>
-          <th>企业(机构)类型</th>
-          <td>${igreen.registItem.companyType}</td>
-        </tr>
-        <tr>
-          <th>经营状态</th>
-          <td>${igreen.registItem.operateState}</td>
-          <th>经营期限 自</th>
-          <td>${igreen.registItem.startTime}</td>
-        </tr>
-        <tr>
-          <th>经营期限 至</th>
-          <td>${igreen.registItem.endTime}</td>
-          <th>开业日期</th>
-          <td>${igreen.registItem.openTime}</td>
-        </tr>
-        <tr>
-          <th>注销日期</th>
-          <td>${igreen.registItem.cancelTime}</td>
-          <th>吊销日期</th>
-          <td>${igreen.registItem.revokeTime}</td>
-        </tr>
-        <tr>
-          <th>登记机关</th>
-          <td>${igreen.registItem.registOffice}</td>
-          <th>地址</th>
-          <td>${igreen.registItem.address}</td>
-        </tr>
-        <tr>
-          <th>最后年检年度</th>
-          <td>${igreen.registItem.annualYear}</td>
-          <th>最后年检日期</th>
-          <td>${igreen.registItem.annualDay}</td>
-        </tr>
-        <tr>
-          <th>行业门类代码</th>
-          <td>${igreen.registItem.tradeCode}</td>
-          <th>行业门类名称</th>
-          <td>${igreen.registItem.tradeName}</td>
-        </tr>
-        <tr>
-          <th>国民经济行业代码</th>
-          <td>${igreen.registItem.countryTradeCode}</td>
-          <th>国民经济行业名称</th>
-          <td>${igreen.registItem.countryTradeName}</td>
-        </tr>
-        <tr>
-          <th>许可经营项目</th>
-          <td>${igreen.registItem.permission}</td>
-          <th>一般经营项目</th>
-          <td>${igreen.registItem.general}</td>
-        </tr>
-        <tr>
-          <th>经营(业务)范围</th>
-          <td>${igreen.registItem.businessScope}</td>
-          <th>经营(业务)范围及方式</th>
-          <td>${igreen.registItem.businessWay}</td>
-        </tr>--%>
       </table>
     </div>
   </div>
@@ -291,7 +213,7 @@
         </table>
       </div>
     </div>
-    <div class="data-box">
+    <%--<div class="data-box">
       <div class="data-tit"><i></i><h3>监管记录</h3></div>
       <div class="data-tab tab-2">
         <table width="100%" cellpadding="0" cellspacing="0">
@@ -319,8 +241,8 @@
           </c:forEach>
         </table>
       </div>
-    </div>
-    <div class="data-box">
+    </div>--%>
+    <%--<div class="data-box">
       <div class="data-tit"><i></i><h3>群众举报案件</h3></div>
       <div class="data-tab tab-2">
         <table width="100%" cellpadding="0" cellspacing="0">
@@ -352,7 +274,7 @@
           </c:forEach>
         </table>
       </div>
-    </div>
+    </div>--%>
 </div>
 <div class="home-inner" id="con_one_3" style="height:910px; display:none;">
   <div class="data-box">

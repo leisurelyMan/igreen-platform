@@ -383,11 +383,11 @@ public class IndexServiceImpl implements IndexService{
 		}
 
 		// 监管记录
-		List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByCompanyName(companyName);
-		igreen.setIpeIndustryRecords(ipeIndustry);
+		/*List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByCompanyName(companyName);
+		igreen.setIpeIndustryRecords(ipeIndustry);*/
 		// 群众举报案件
-		List<EnvironmentalIssue> environmentalIssues =  environmentalIssueMapper.selectByCompanyName(companyName);
-		igreen.setEnvironmentalIssues(environmentalIssues);
+		/*List<EnvironmentalIssue> environmentalIssues =  environmentalIssueMapper.selectByCompanyName(companyName);
+		igreen.setEnvironmentalIssues(environmentalIssues);*/
 
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		Map<String, String> map = new HashMap<String, String>();
