@@ -121,7 +121,7 @@
     from qichacha_judgement
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="selectByKeyNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByCompanyName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from qichacha_judgement

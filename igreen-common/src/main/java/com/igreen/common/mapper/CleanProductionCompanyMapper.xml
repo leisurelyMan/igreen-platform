@@ -301,6 +301,14 @@
        where regist_item_id=#{registItemId,jdbcType=INTEGER}
        ORDER BY id DESC limit 1
   </select>
+
+    <select id="selectByCompanyName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from clean_production_company
+        where company_name like concat(concat('%',#{companyName,jdbcType=VARCHAR}),'%')
+        ORDER BY id DESC limit 1
+    </select>
   
    <select id="getRegion" resultMap="BaseResultMap">
        select regist_item_id,city,address from clean_production_company

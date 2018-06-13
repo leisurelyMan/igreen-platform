@@ -346,7 +346,7 @@ public class IndexServiceImpl implements IndexService{
 
 		}
 		// 法院判决
-		igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(companyName));
+		igreen.setQichachaJudgements(qichachaJudgementMapper.selectByCompanyName(companyName));
 		// 重点监管企业
 		MonitorCompany monitorCompany = new MonitorCompany();
 		//monitorCompany.setRegistItemId(rgItem.getId());
@@ -354,10 +354,10 @@ public class IndexServiceImpl implements IndexService{
 		List<MonitorCompany> monitorCompanys = monitorCompanyMapper.selectByParameter(monitorCompany);
 		igreen.setMonitorCompanies(monitorCompanys);
 
-		List<RegistItem> regItems = registItemMapper.selectByCompanyNameAndStatus(params);
+		/*List<RegistItem> regItems = registItemMapper.selectByCompanyNameAndStatus(params);
 		if(!regItems.isEmpty()){
 			RegistItem rgItem = regItems.get(0);
-			igreen.setRegistItem(rgItem);
+			igreen.setRegistItem(rgItem);*/
 			// 监管记录
 			/*List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByRegistItemId(rgItem.getId());
 			igreen.setIpeIndustryRecords(ipeIndustry);*/
@@ -369,18 +369,30 @@ public class IndexServiceImpl implements IndexService{
 			igreen.setEnvironmentalIssues(environmentalIssues);*/
 
 			// 排污许可
-			PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByRegistItemId(rgItem.getId());
+			/*PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByRegistItemId(rgItem.getId());
 			igreen.setPollutionDischargeLicense(pollutionDischarge);
 			if(pollutionDischarge != null){
 				List<ExecutionRecord> executionRecords = new ArrayList<ExecutionRecord>();
 				executionRecords.add(executionRecordMapper.selectById(rgItem.getId()));
 				igreen.setExecutionRecords(executionRecords);
-			}
+			}*/
 
 			// 清洁生产企业
-			CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByRegistItemId(rgItem.getId());
-			igreen.setCleanProductionCompany(cleanProduction);
+			/*CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByRegistItemId(rgItem.getId());
+			igreen.setCleanProductionCompany(cleanProduction);*/
+		/*}*/
+
+		// 排污许可
+		PollutionDischargeLicense pollutionDischarge = pollutionDischargeLicenseMapper.selectByCompayName(companyName);
+		igreen.setPollutionDischargeLicense(pollutionDischarge);
+		if(pollutionDischarge != null){
+			List<ExecutionRecord> executionRecords = new ArrayList<ExecutionRecord>();
+			executionRecords.add(executionRecordMapper.selectByPollutionId(pollutionDischarge.getId()));
+			igreen.setExecutionRecords(executionRecords);
 		}
+		// 清洁生产企业
+		CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByCompanyName(companyName);
+		igreen.setCleanProductionCompany(cleanProduction);
 
 		// 监管记录
 		/*List<IpeIndustryRecord> ipeIndustry = ipeIndustryRecordMapper.selectByCompanyName(companyName);

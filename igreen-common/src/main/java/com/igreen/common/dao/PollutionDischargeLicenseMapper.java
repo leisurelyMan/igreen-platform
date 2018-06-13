@@ -18,7 +18,7 @@ public interface PollutionDischargeLicenseMapper {
 	
 	Integer countLicense(Map<String,Object> params);
 	
-	PollutionDischargeLicense selectByRegistItemId(Integer registItemId);
+	PollutionDischargeLicense selectByCompayName(String companyName);
 	
 	List<PollutionDischargeLicense> getRegion();
 }
