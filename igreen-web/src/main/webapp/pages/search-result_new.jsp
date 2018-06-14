@@ -139,7 +139,6 @@
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <th>序号</th>
-          <th>key_nop</th>
           <th>专利类别</th>
           <th>种类code</th>
           <th>申请编号</th>
@@ -158,7 +157,6 @@
     	<c:forEach var="qichachaPatent" items="${igreen.qichachaPatents}" varStatus="status">
         <tr>
           <td>${ status.index + 1}</td>
-          <td><c:out value="${qichachaPatent.keyNop}"/></td>
           <td><c:out value="${qichachaPatent.ipcList}"/></td>
           <td><c:out value="${qichachaPatent.kindCode}"/></td>
           <td><c:out value="${qichachaPatent.applicationNumber}"/></td>
@@ -186,7 +184,6 @@
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
             <th>序号</th>
-            <th>登记信息表主键</th>
             <th>序列</th>
             <th>行政区划代码</th>
             <th>法人代码</th>
@@ -199,7 +196,6 @@
           <c:forEach var="monitorCompanie" items="${igreen.monitorCompanies}" varStatus="status">
           <tr>
 			<td>${ status.index + 1}</td>
-			<td><c:out value="${monitorCompanie.registItemId}"/></td>
             <td><c:out value="${monitorCompanie.monitorSequence}"/></td>
             <td><c:out value="${monitorCompanie.regionCode}"/></td>
             <td><c:out value="${monitorCompanie.legalPersonCode}"/></td>
