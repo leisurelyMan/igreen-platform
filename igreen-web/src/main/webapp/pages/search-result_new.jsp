@@ -329,7 +329,19 @@
           </tr>
           <c:forEach var="aiIpe" items="${igreen.aiIpeList}" varStatus="status">
             <tr>
-              <td><c:out value="${aiIpe.season}"/></td>
+              <td>
+                <c:if test="${aiIpe.season == 1}">
+                  2019年第一季度
+                </c:if>
+                <c:if test="${aiIpe.season == 2}">
+                  2019年第二季度
+                </c:if>
+                <c:if test="${aiIpe.season == 3}">
+                  2019年第三季度
+                </c:if>
+                <c:if test="${aiIpe.season == 4}">
+                  2019年第四季度
+                </c:if></td>
               <td><fmt:formatNumber type="number" value="${aiIpe.fine }" pattern="0.00" maxFractionDigits="2"/>%</td>
               <td><fmt:formatNumber type="number" value="${aiIpe.revoke }" pattern="0.00" maxFractionDigits="2"/>%</td>
               <td><fmt:formatNumber type="number" value="${aiIpe.confiscate }" pattern="0.00" maxFractionDigits="2"/>%</td>

@@ -120,14 +120,8 @@ jQuery(document).ready(function(){
 		var indv = $(this).val();
         $.ajax({
             type:'post',//可选get
-            contentType: false,
-            /**
-             * 必须false才会避开jQuery对 formdata 的默认处理
-             * XMLHttpRequest会对 formdata 进行正确的处理
-             */
-            processData: false,
             url:'../aiIpe/getSubIndustry.do',//这里是接收数据的URL
-            data:{industry:indv},//传给后台的数据，多个参数用&连接
+			data:'industry='+indv,
             dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
             success:function(msg){
                 if(msg.code == 1){
@@ -152,5 +146,5 @@ jQuery(document).ready(function(){
 function formatterData(cellvalue, options, rowObject){
     //var tempV = Math.round(cellvalue * 10000)/ 100;
     //return tempV.toFixed(2) + "%";
-    return tempV.toFixed(2) + "%";
+    return cellvalue + "%";
 }

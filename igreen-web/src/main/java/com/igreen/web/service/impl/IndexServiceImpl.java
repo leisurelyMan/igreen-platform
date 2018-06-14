@@ -451,9 +451,9 @@ public class IndexServiceImpl implements IndexService{
 
 			double sum = 0D;
 			for(int j = 0; j < 6; j++){
-				sum += Double.valueOf(formatDouble(arrValue.getString(j)));
+				sum += Double.valueOf(formatDouble(arrValue.getString(j+1)));
 			}
-			aiIpe.setTotalSum(sum);
+			aiIpe.setTotalSum(formatDouble(String.valueOf(sum/100)));
 			aiIpe.setOther(formatDouble(arrValue.getString(7)));
 			aiIpe.setSeason(arrValue.getString(8));
 			aiIpeList.add(aiIpe);

@@ -56,9 +56,10 @@ public class AiIpeController extends BaseController {
     }
 
     @RequestMapping(value = "getSubIndustry")
-    public  @ResponseBody ResponseModel getSubIndustry(String industry){
+    public  @ResponseBody ResponseModel getSubIndustry(@RequestParam(value = "industry") String industry){
 
         Map<String , Object> param = new HashMap<String, Object>();
+        param.put("industry",industry);
         ResponseModel model = new ResponseModel();
         try {
             model.setObj(companyBaseService.selectSubIndustryByParam(param));
@@ -188,9 +189,9 @@ public class AiIpeController extends BaseController {
 
             double sum = 0D;
             for(int j = 0; j < 6; j++){
-                sum += Double.valueOf(formatDouble(arrValue.getString(j)));
+                sum += Double.valueOf(formatDouble(arrValue.getString(j+1)));
             }
-            aiIpe.setTotalSum(sum);
+            aiIpe.setTotalSum(formatDouble(String.valueOf(sum/100)));
             aiIpe.setOther(formatDouble(arrValue.getString(7)));
             aiIpe.setSeason(arrValue.getString(8));
             aiIpeList.add(aiIpe);

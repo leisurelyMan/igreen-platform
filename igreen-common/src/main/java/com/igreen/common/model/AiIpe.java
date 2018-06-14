@@ -26,7 +26,7 @@ public class AiIpe {
     private String other;
 
     // 总计
-    private Double totalSum;
+    private String totalSum;
 
     public String getCompany() {
         return company;
@@ -100,11 +100,11 @@ public class AiIpe {
         this.other = other;
     }
 
-    public Double getTotalSum() {
+    public String getTotalSum() {
         return totalSum;
     }
 
-    public void setTotalSum(Double totalSum) {
+    public void setTotalSum(String totalSum) {
         this.totalSum = totalSum;
     }
 }
