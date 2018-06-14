@@ -1,5 +1,7 @@
 package com.igreen.web.service.impl;
 
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.*;
 
 import javax.annotation.Resource;
@@ -440,18 +442,36 @@ public class IndexServiceImpl implements IndexService{
 			AiIpe aiIpe = new AiIpe();
 			JSONArray arrValue = array.getJSONArray(i);
 			aiIpe.setCompany(arrValue.getString(0));
-			aiIpe.setFine(arrValue.getString(1));
-			aiIpe.setRevoke(arrValue.getString(2));
-			aiIpe.setConfiscate(arrValue.getString(3));
-			aiIpe.setDetention(arrValue.getString(4));
-			aiIpe.setProduction(arrValue.getString(5));
-			aiIpe.setInstruct(arrValue.getString(6));
-			aiIpe.setOther(arrValue.getString(7));
+			aiIpe.setFine(formatDouble(arrValue.getString(1)));
+			aiIpe.setRevoke(formatDouble(arrValue.getString(2)));
+			aiIpe.setConfiscate(formatDouble(arrValue.getString(3)));
+			aiIpe.setDetention(formatDouble(arrValue.getString(4)));
+			aiIpe.setProduction(formatDouble(arrValue.getString(5)));
+			aiIpe.setInstruct(formatDouble(arrValue.getString(6)));
+
+			double sum = 0D;
+			for(int j = 0; j < 6; j++){
+				sum += Double.valueOf(formatDouble(arrValue.getString(j)));
+			}
+			aiIpe.setTotalSum(sum);
+			aiIpe.setOther(formatDouble(arrValue.getString(7)));
 			aiIpe.setSeason(arrValue.getString(8));
 			aiIpeList.add(aiIpe);
 		}
-
 		return aiIpeList;
+	}
+
+	public static String formatDouble(String d) {
+		if(StringUtils.isEmpty(d)){
+			return "0";
+		}
+		Double dv = Double.valueOf(d);
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		// 保留两位小数
+		nf.setMaximumFractionDigits(2);
+		// 如果不需要四舍五入，可以使用RoundingMode.DOWN
+		nf.setRoundingMode(RoundingMode.UP);
+		return nf.format(dv * 100);
 	}
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="../ztree/css/zTreeStyle/zTreeStyle.css">
@@ -53,13 +54,20 @@ textarea {
 				<li>季度:<select id="season" name="season" class="searchinput">
 					<option value="1">一季度</option>
 					<option value="2">二季度</option>
-					<option value="	3">三季度</option>
+					<option value="3">三季度</option>
 					<option value="4">四季度</option>
 				</select></li>
 				<li>省份:<input id="province" name="province" type="text" class="searchinput" /></li>
 				<li>市:<input id="city"	name="city" type="text" class="searchinput" /></li>
-				<li>行业:<input id="industry" name="industry" type="text" class="searchinput" /></li>
-				<li>子行业:<input id="subIndustry"	name="subIndustry" type="text" class="searchinput" /></li>
+				<li>行业:<select id="industry" name="industry" class="searchinput">
+						<option value="">全部</option>
+						<c:forEach var="company" items="${companyBases}" varStatus="status">
+							<option value="${company.industry}">${company.industry}</option>
+						</c:forEach>
+					</select></li>
+				<li>子行业:<select id="subIndustry" name="subIndustry" class="searchinput">
+						<option value="">全部</option>
+					</select></li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
 			</ul>
 		</div>

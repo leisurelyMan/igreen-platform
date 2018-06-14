@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
 		url : '../aiIpe/ipeListData.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : [ '<b>公司名称</b>','<b>罚款</b>','<b>暂扣、吊销许可证</b>', '<b>没收违法所得</b>', '<b>行政拘留</b>', '<b>责令停产整顿</b>', '<b>责令停产、停业、关闭</b>', '<b>其它处罚</b>'],//jqGrid的列显示名字
+		colNames : [ '<b>公司名称</b>','<b>罚款</b>','<b>暂扣、吊销许可证</b>', '<b>没收违法所得</b>', '<b>行政拘留</b>', '<b>责令停产整顿</b>', '<b>责令停产、停业、关闭</b>', '<b>总计</b>'],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
            			 {name:'company',index:'company', width:80,sortable:false},
 		 		    {name:'fine',index:'fine', width:80,sortable:false,formatter:formatterData},
@@ -15,7 +15,7 @@ jQuery(document).ready(function(){
 		 		    {name:'detention',index:'detention', width:100,sortable:false,formatter:formatterData},
 					{name:'production',index:'production', width:100,sortable:false,formatter:formatterData},
 					{name:'instruct',index:'instruct', width:100,sortable:false,formatter:formatterData},
-					{name:'other',index:'other', width:100,sortable:false,formatter:formatterData}
+					{name:'totalSum',index:'totalSum', width:100,sortable:false,formatter:formatterData}
 		           ],
 		autowidth : true,
 		height: 'auto',
@@ -115,10 +115,42 @@ jQuery(document).ready(function(){
 	$("#distinceupload").click(function(){
 		$("#exceldialog").dialog("open");
 	});
-	
+
+	$("#industry").change(function () {
+		var indv = $(this).val();
+        $.ajax({
+            type:'post',//可选get
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            url:'../aiIpe/getSubIndustry.do',//这里是接收数据的URL
+            data:{industry:indv},//传给后台的数据，多个参数用&连接
+            dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+            success:function(msg){
+                if(msg.code == 1){
+                	var html = "<option value=\"\">全部</option>";
+                    $.each(msg.obj, function (i, item) {
+                        html += '<option value="' + item.subindustry + '">' + item.subindustry + '</option>';
+                    });
+                    $("#subIndustry").html(html);
+                }else{
+                    alert(msg,message);
+                }
+            },
+            error:function(){//修理失败，未能连接
+                alert("系统异常");
+            }
+        });
+    });
+
+
 });
 
 function formatterData(cellvalue, options, rowObject){
-    var tempV = Math.round(cellvalue * 10000)/ 100;
+    //var tempV = Math.round(cellvalue * 10000)/ 100;
+    //return tempV.toFixed(2) + "%";
     return tempV.toFixed(2) + "%";
 }

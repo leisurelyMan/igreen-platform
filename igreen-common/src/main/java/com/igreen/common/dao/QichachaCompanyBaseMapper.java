@@ -38,4 +38,9 @@ public interface QichachaCompanyBaseMapper {
     int updateByPrimaryKey(QichachaCompanyBase record);
 
     List<QichachaCompanyBase> selectByCompanyNameAndStatus(Map<String, Object> map);
+
+    List<QichachaCompanyBase> selectIndustryByParam(Map<String, Object> param);
+
+    List<QichachaCompanyBase> selectSubIndustryByParam(Map<String, Object> param);
+
 }

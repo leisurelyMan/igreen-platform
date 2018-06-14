@@ -3,10 +3,12 @@ package com.igreen.boss.controller.ipepython;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.igreen.boss.controller.BaseController;
+import com.igreen.boss.service.qichacha.QichachaCompanyBaseService;
 import com.igreen.boss.util.ExcelUtil;
 import com.igreen.boss.util.HttpClientHelper;
 import com.igreen.common.dto.AiIpeSearch;
 import com.igreen.common.model.AiIpe;
+import com.igreen.common.model.QichachaCompanyBase;
 import com.igreen.common.util.ListRange;
 import com.igreen.common.util.ResponseModel;
 import org.apache.log4j.Logger;
@@ -20,9 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -34,6 +40,9 @@ public class AiIpeController extends BaseController {
 
     private Logger log = Logger.getLogger(AiIpeController.class);
 
+    @Resource
+    QichachaCompanyBaseService companyBaseService;
+
     /**
      * 跳转爬虫数据列表页面
      * @param model
@@ -41,7 +50,27 @@ public class AiIpeController extends BaseController {
      */
     @RequestMapping(value="toAiPage")
     public ModelAndView toMepData(ModelMap model){
+        List<QichachaCompanyBase> companyBases = companyBaseService.selectIndustryByParam(null);
+        model.addAttribute("companyBases", companyBases);
         return new ModelAndView("ai/ipe.jsp",model);
+    }
+
+    @RequestMapping(value = "getSubIndustry")
+    public  @ResponseBody ResponseModel getSubIndustry(String industry){
+
+        Map<String , Object> param = new HashMap<String, Object>();
+        ResponseModel model = new ResponseModel();
+        try {
+            model.setObj(companyBaseService.selectSubIndustryByParam(param));
+            model.setCode(1);
+            model.setMessage("成功！");
+        } catch (Exception e) {
+            log.error("系统异常", e);
+            model.setCode(0);
+            model.setMessage("系统异常，请稍后再试！");
+        }
+
+        return model;
     }
 
     @RequestMapping(value = "ipeListData")
@@ -150,16 +179,36 @@ public class AiIpeController extends BaseController {
             AiIpe aiIpe = new AiIpe();
             JSONArray arrValue = array.getJSONArray(i);
             aiIpe.setCompany(arrValue.getString(0));
-            aiIpe.setFine(arrValue.getString(1));
-            aiIpe.setRevoke(arrValue.getString(2));
-            aiIpe.setConfiscate(arrValue.getString(3));
-            aiIpe.setDetention(arrValue.getString(4));
-            aiIpe.setProduction(arrValue.getString(5));
-            aiIpe.setInstruct(arrValue.getString(6));
-            aiIpe.setOther(arrValue.getString(7));
+            aiIpe.setFine(formatDouble(arrValue.getString(1)));
+            aiIpe.setRevoke(formatDouble(arrValue.getString(2)));
+            aiIpe.setConfiscate(formatDouble(arrValue.getString(3)));
+            aiIpe.setDetention(formatDouble(arrValue.getString(4)));
+            aiIpe.setProduction(formatDouble(arrValue.getString(5)));
+            aiIpe.setInstruct(formatDouble(arrValue.getString(6)));
+
+            double sum = 0D;
+            for(int j = 0; j < 6; j++){
+                sum += Double.valueOf(formatDouble(arrValue.getString(j)));
+            }
+            aiIpe.setTotalSum(sum);
+            aiIpe.setOther(formatDouble(arrValue.getString(7)));
+            aiIpe.setSeason(arrValue.getString(8));
             aiIpeList.add(aiIpe);
         }
 
         return aiIpeList;
+    }
+
+    public static String formatDouble(String d) {
+        if(org.apache.commons.lang3.StringUtils.isEmpty(d)){
+            return "0";
+        }
+        Double dv = Double.valueOf(d);
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        // 保留两位小数
+        nf.setMaximumFractionDigits(2);
+        // 如果不需要四舍五入，可以使用RoundingMode.DOWN
+        nf.setRoundingMode(RoundingMode.UP);
+        return nf.format(dv * 100);
     }
 }

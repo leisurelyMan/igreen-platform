@@ -414,4 +414,12 @@
       status = #{status,jdbcType=VARCHAR}
     where key_no = #{keyNo,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectIndustryByParam" resultType="BaseResultMap" parameterType="map">
+    SELECT distinct industry_code,industry FROM qichacha_company_base WHERE status=1
+  </select>
+
+  <select id="selectSubIndustryByParam" resultType="BaseResultMap" parameterType="map">
+    SELECT distinct subIndustry_code,subIndustry FROM qichacha_company_base WHERE status=1 AND industry=#{industry,jdbcType=VARCHAR}
+  </select>
 </mapper>

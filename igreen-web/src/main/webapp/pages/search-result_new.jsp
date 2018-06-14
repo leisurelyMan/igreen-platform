@@ -325,18 +325,18 @@
             <th width="12%">行政拘留</th>
             <th width="12%">责令停产整顿</th>
             <th width="12%">责令停产、停业、关闭</th>
-            <th width="12%">其它处罚</th>
+            <th width="12%">总计</th>
           </tr>
           <c:forEach var="aiIpe" items="${igreen.aiIpeList}" varStatus="status">
             <tr>
               <td><c:out value="${aiIpe.season}"/></td>
-              <td><fmt:formatNumber type="number" value="${aiIpe.fine *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
-              <td><fmt:formatNumber type="number" value="${aiIpe.revoke *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
-              <td><fmt:formatNumber type="number" value="${aiIpe.confiscate *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
-              <td><fmt:formatNumber type="number" value="${aiIpe.detention *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
-              <td><fmt:formatNumber type="number" value="${aiIpe.production *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
-              <td><fmt:formatNumber type="number" value="${aiIpe.instruct *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
-              <td><fmt:formatNumber type="number" value="${aiIpe.other *100}" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.fine }" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.revoke }" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.confiscate }" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.detention }" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.production }" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.instruct }" pattern="0.00" maxFractionDigits="2"/>%</td>
+              <td><fmt:formatNumber type="number" value="${aiIpe.totalSum}" pattern="0.00" maxFractionDigits="2"/>%</td>
 
             </tr>
           </c:forEach>

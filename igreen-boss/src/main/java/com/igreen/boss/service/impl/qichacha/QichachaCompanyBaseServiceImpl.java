@@ -2,6 +2,7 @@ package com.igreen.boss.service.impl.qichacha;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -111,6 +112,16 @@ public class QichachaCompanyBaseServiceImpl implements QichachaCompanyBaseServic
 		List<QichachaCompanyBase> list = companyBaseMapper.selectByExample(example);
 		PageInfo<QichachaCompanyBase> p = new PageInfo<QichachaCompanyBase>(list);
 		return new ListRange(p.getList(), Integer.parseInt(p.getTotal() + ""), p.getPageNum(), p.getPageSize());
+	}
+
+	@Override
+	public List<QichachaCompanyBase> selectIndustryByParam(Map<String, Object> param) {
+		return companyBaseMapper.selectIndustryByParam(param);
+	}
+
+	@Override
+	public List<QichachaCompanyBase> selectSubIndustryByParam(Map<String, Object> param) {
+		return companyBaseMapper.selectSubIndustryByParam(param);
 	}
 
 }

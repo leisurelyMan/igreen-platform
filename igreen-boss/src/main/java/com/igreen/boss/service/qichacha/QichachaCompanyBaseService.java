@@ -1,6 +1,7 @@
 package com.igreen.boss.service.qichacha;
 
 import java.util.List;
+import java.util.Map;
 
 import com.igreen.boss.dto.QichachaCompanyBaseDto;
 import com.igreen.common.model.QichachaCompanyBase;
@@ -38,4 +39,8 @@ public interface QichachaCompanyBaseService {
     int updateByPrimaryKey(QichachaCompanyBase record);
     
     public ListRange companybaseList(QichachaCompanyBaseDto record, Integer currentPage, Integer pageRows);
+
+    List<QichachaCompanyBase> selectIndustryByParam(Map<String, Object> param);
+
+    List<QichachaCompanyBase> selectSubIndustryByParam(Map<String, Object> param);
 }

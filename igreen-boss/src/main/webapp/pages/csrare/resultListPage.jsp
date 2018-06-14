@@ -38,7 +38,7 @@
 					<option value="">全部</option>
 					<option value="法规性文件">国家法律法规</option>
 					<option value="地方政府规章">地方性法律法规</option>
-					<option value="	国际条约公约">国际条约公约</option>
+					<option value="国际条约公约">国际条约公约</option>
 					<option value="企业规范性文件">企业规范性文件</option>
 				</select>
 				</li>
