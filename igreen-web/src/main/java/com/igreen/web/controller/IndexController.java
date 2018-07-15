@@ -95,7 +95,8 @@ public class IndexController {
 	public ModelAndView searchNew(ModelMap model,String companyName){
 		IgreenSearch igreen = indexService.searchNew(companyName);
 		model.addAttribute("igreen", igreen);
-		return new ModelAndView("search-result_new.jsp",model);
+		model.addAttribute("companyName", companyName);
+		return new ModelAndView("search-result_new2.jsp",model);
 	}
 	
 }
