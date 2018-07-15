@@ -414,13 +414,14 @@ public class IndexServiceImpl implements IndexService{
 			map.put("company", companyName);
 			map.put("year", "2019");
 			map.put("season", (i+1)+"");
+			map.put("mode", "company");
 			list.add(map);
 		}
 
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("reqstr", list);
 		try {
-			String result = HttpClientHelper.sendPost3("http://localhost:4411", param, "UTF-8");
+			String result = HttpClientHelper.sendPost3("http://localhost:4400", param, "UTF-8");
 			System.out.println("params="+JSON.toJSONString(param));
 			System.out.println("result="+result);
 
