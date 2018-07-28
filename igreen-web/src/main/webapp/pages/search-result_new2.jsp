@@ -98,15 +98,15 @@
             <div><a href="#registInfoYuce">风险预测</a></div>
           </div>
         </li>
-        <li>
+        <!--<li>
           <span>风险监控</span>
-          <span class="tips">new</span>
+          <span class="tips">new</span>-->
           <!--<div class="erjiMenu">-->
           <!--<div><a href="">排污许可</a></div>-->
           <!--<div><a href="">清洁生产企业</a></div>-->
           <!--<div><a href="">能效备案</a></div>-->
           <!--</div>-->
-        </li>
+        <!--</li>-->
       </ul>
     </div>
     <div class="tabcontent">
@@ -122,7 +122,7 @@
               <div class="clear"></div>
             </div>
             <div class="table">
-              <table width="1100" height="386" border="1" cellpadding="10" cellspacing="0" bordercolor="#bfbfbf">
+              <table width="1100"  border="1" cellpadding="10" cellspacing="0" bordercolor="#bfbfbf">
                 <tr height="50">
                   <td width="130" bordercolor="1" bgcolor="#eeeeee" class="dengjiTitle"> 公司名称</td>
                   <td width="420" class="qingjieContent">${igreen.qichachaCompanyBase.name}</td>
@@ -196,7 +196,7 @@
               <div class="clear"></div>
             </div>
             <div class="table">
-              <table width="1188" height="362" border="1" cellpadding="5" cellspacing="0" bordercolor="#b9b9b9">
+              <table width="1188"  border="1" cellpadding="5" cellspacing="0" bordercolor="#b9b9b9">
                 <tr bgcolor="#eeeeee" height="50">
                   <td width="50" height="38"><div align="center" class="dengjiTitle">序号</div></td>
                   <td width="120"><div align="center">执行法院</div></td>
@@ -237,7 +237,7 @@
               <div class="clear"></div>
             </div>
             <div class="table">
-              <table width="1400" height="362" border="1" cellpadding="5" cellspacing="0" bordercolor="#b9b9b9">
+              <table width="1400" border="1" cellpadding="5" cellspacing="0" bordercolor="#b9b9b9">
                 <tr bgcolor="#eeeeee" height="50" class="dengjiTitle">
                   <td width="50" height="38"><div align="center">序号</div></td>
                   <td width="50"><div align="center">专利类别</div></td>
@@ -318,7 +318,7 @@
               <div class="clear"></div>
             </div>
             <div class="table">
-              <table width="1147" height="" border="1" cellpadding="0" cellspacing="0" bordercolor="#b5b5b5">
+              <table width="1147" border="1" cellpadding="0" cellspacing="0" bordercolor="#b5b5b5">
                 <tr bordercolor="#b9b9b9" bgcolor="#eeeeee" height="50" class="dengjiTitle">
                   <td width="45" bordercolor="#b9b9b9"><div align="center">序号</div></td>
                   <td width="75"><div align="center">序列</div></td>
@@ -390,7 +390,7 @@
               <div class="clear"></div>
             </div>
             <div class="table">
-              <table width="942" height="364" border="1" bordercolor="#b6b6b6" cellpadding="5" cellspacing="0">
+              <table width="942"  border="1" bordercolor="#b6b6b6" cellpadding="5" cellspacing="0">
                 <tr height="50" class="qingjieTitle"  bgcolor="#eeeeee">
                   <td width="45" height="29"><div align="center">序号</div></td>
                   <td width="415"><div align="center">主要内容</div></td>
@@ -417,7 +417,7 @@
               <div class="clear"></div>
             </div>
             <div class="table">
-              <table width="1100" height="346" border="1" cellpadding="10" cellspacing="0" bordercolor="#aeaeae">
+              <table width="1100"  border="1" cellpadding="10" cellspacing="0" bordercolor="#aeaeae">
                 <tr>
                   <td width="135" bgcolor="#eeeeee" class="dengjiTitle"><div align="center">企业名称</div></td>
                   <td width="410" class="qingjieContent" style="padding-left: 15px;">${igreen.cleanProductionCompany.companyName}</td>
@@ -472,7 +472,7 @@
               <div class="clear"></div>
             </div>
             <div class="table">
-              <table width="1100" height="337" border="1" cellpadding="0" cellspacing="0" bordercolor="#b6b6b6">
+              <table width="1100"  border="1" cellpadding="0" cellspacing="0" bordercolor="#b6b6b6">
                 <tr bgcolor="#eeeeee" height="50" class="dengjiTitle">
                   <td width="45" height="35"><div align="center">序号</div></td>
                   <td width="195"><div align="center">公告号</div></td>
@@ -537,7 +537,7 @@
               <div class="clear"></div>
             </div>
             <div class="table">
-              <table width="1058" height="193" border="1" cellpadding="0" cellspacing="0" bordercolor="#b5b5b5">
+              <table width="1058"  border="1" cellpadding="0" cellspacing="0" bordercolor="#b5b5b5">
                 <tr bgcolor="#eeeeee" class="dengjiTitle">
                   <td width="135"><div align="center">季度</div></td>
                   <td width="56"><div align="center">罚款</div></td>

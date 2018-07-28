@@ -8,7 +8,7 @@ body{background-color: #1bb580;font-family: '微软雅黑';}
 #content{position: relative;width: 1200px;margin: auto;}
 .searchWrap{background: url(../images/search/searchAreaBack.png);width: 735px;height: 75px;position: absolute;top: -75px;}
 .searchBtn{margin-top: 25px;margin-left: 30px;float: left;}
-.searchVal{height: 30px;display: inline-block;width: 75%;margin-top: 24px;margin-left: 15px;border: none;}
+.searchVal{height: 30px;display: inline-block;width: 75%;margin-top: 24px;margin-left: 15px;border: none;font-size: 25px;}
 .searchHead{width: 100%;height: 67px;background: url(../images/search/tabBack.png);margin-bottom: 77px;}
 .searchHead >ul{}
 .searchHead >ul >li{position: relative;float: left;width: 170px;height: 67px;line-height: 67px;text-align: center;cursor: pointer;font-size: 18px;color: #5b5b5b;}
