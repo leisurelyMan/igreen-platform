@@ -3,36 +3,16 @@ package com.igreen.common.model;
 import java.util.Date;
 
 /**
- * 描述:ipe_ai_result表的实体类
+ * 描述:company_query_detail表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-07-06
+ * @创建时间: 2018-08-10
  */
-public class IpeAiResult {
+public class CompanyQueryDetail {
     /**
      * id
      */
     private Integer id;
-
-    /**
-     * 基础记录ID
-     */
-    private Integer registItemId;
-
-    /**
-     * 
-     */
-    private Integer ipeRecordId;
-
-    /**
-     * 文件路径
-     */
-    private String fileUrl;
-
-    /**
-     * 监管时间
-     */
-    private String industryTime;
 
     /**
      * 公司名称
@@ -40,14 +20,14 @@ public class IpeAiResult {
     private String companyName;
 
     /**
-     * 关键词
+     * 公司ID
      */
-    private String keyWords;
+    private Integer registItemId;
 
     /**
-     * 地址
+     * 配置ID
      */
-    private String region;
+    private Integer configId;
 
     /**
      * 状态
@@ -91,70 +71,6 @@ public class IpeAiResult {
     }
 
     /**
-     * 基础记录ID
-     * @return regist_item_id 基础记录ID
-     */
-    public Integer getRegistItemId() {
-        return registItemId;
-    }
-
-    /**
-     * 基础记录ID
-     * @param registItemId 基础记录ID
-     */
-    public void setRegistItemId(Integer registItemId) {
-        this.registItemId = registItemId;
-    }
-
-    /**
-     * 
-     * @return ipe_record_id 
-     */
-    public Integer getIpeRecordId() {
-        return ipeRecordId;
-    }
-
-    /**
-     * 
-     * @param ipeRecordId 
-     */
-    public void setIpeRecordId(Integer ipeRecordId) {
-        this.ipeRecordId = ipeRecordId;
-    }
-
-    /**
-     * 文件路径
-     * @return file_url 文件路径
-     */
-    public String getFileUrl() {
-        return fileUrl;
-    }
-
-    /**
-     * 文件路径
-     * @param fileUrl 文件路径
-     */
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl == null ? null : fileUrl.trim();
-    }
-
-    /**
-     * 监管时间
-     * @return industry_time 监管时间
-     */
-    public String getIndustryTime() {
-        return industryTime;
-    }
-
-    /**
-     * 监管时间
-     * @param industryTime 监管时间
-     */
-    public void setIndustryTime(String industryTime) {
-        this.industryTime = industryTime == null ? null : industryTime.trim();
-    }
-
-    /**
      * 公司名称
      * @return company_name 公司名称
      */
@@ -171,35 +87,35 @@ public class IpeAiResult {
     }
 
     /**
-     * 关键词
-     * @return key_words 关键词
+     * 公司ID
+     * @return regist_item_id 公司ID
      */
-    public String getKeyWords() {
-        return keyWords;
+    public Integer getRegistItemId() {
+        return registItemId;
     }
 
     /**
-     * 关键词
-     * @param keyWords 关键词
+     * 公司ID
+     * @param registItemId 公司ID
      */
-    public void setKeyWords(String keyWords) {
-        this.keyWords = keyWords == null ? null : keyWords.trim();
+    public void setRegistItemId(Integer registItemId) {
+        this.registItemId = registItemId;
     }
 
     /**
-     * 地址
-     * @return region 地址
+     * 配置ID
+     * @return config_id 配置ID
      */
-    public String getRegion() {
-        return region;
+    public Integer getConfigId() {
+        return configId;
     }
 
     /**
-     * 地址
-     * @param region 地址
+     * 配置ID
+     * @param configId 配置ID
      */
-    public void setRegion(String region) {
-        this.region = region == null ? null : region.trim();
+    public void setConfigId(Integer configId) {
+        this.configId = configId;
     }
 
     /**
