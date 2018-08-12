@@ -234,3 +234,21 @@ truncate `web_crawler_result`;
 
 
 INSERT INTO `sys_menu` VALUES (30,'Ai数据','../aiIpe/toAiPage.do',4,15,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL);
+
+
+
+ALTER TABLE `web_crawler_config`
+	ADD COLUMN `city` VARCHAR(50) NULL DEFAULT NULL COMMENT '网站地区' AFTER `updater`,
+	ADD COLUMN `area` VARCHAR(50) NULL DEFAULT NULL COMMENT '网站区域' AFTER `city`,
+	ADD COLUMN `source_type` VARCHAR(50) NULL DEFAULT NULL COMMENT '来源类型' AFTER `area`;
+
+
+ALTER TABLE `web_crawler_result`
+	ADD COLUMN `city` VARCHAR(50) NULL DEFAULT NULL COMMENT '网站地区' AFTER `search_id`,
+	ADD COLUMN `area` VARCHAR(50) NULL DEFAULT NULL COMMENT '网站区域' AFTER `city`,
+	ADD COLUMN `source_type` VARCHAR(50) NULL DEFAULT NULL COMMENT '来源类型' AFTER `area`;
+
+ALTER TABLE `web_crawler_result`
+	CHANGE COLUMN `web_detail_url` `web_detail_url` VARCHAR(500) NULL DEFAULT NULL COMMENT '详情页原url' AFTER `web_detail_name`,
+	CHANGE COLUMN `web_detail_result_url` `web_detail_result_url` VARCHAR(500) NULL DEFAULT NULL COMMENT '抓取详情页url' AFTER `web_detail_url`,
+	CHANGE COLUMN `save_path` `save_path` VARCHAR(500) NULL DEFAULT NULL AFTER `updater`;;

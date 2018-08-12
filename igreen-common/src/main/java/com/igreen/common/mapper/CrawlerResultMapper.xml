@@ -15,10 +15,13 @@
     <result column="save_path" property="savePath" jdbcType="VARCHAR" />
       <result column="search_name" property="searchName" jdbcType="VARCHAR" />
       <result column="search_id" property="searchId" jdbcType="INTEGER" />
+      <result column="city" property="city" jdbcType="VARCHAR" />
+      <result column="area" property="area" jdbcType="VARCHAR" />
+      <result column="source_type" property="sourceType" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id,web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path,search_name,search_id
+    id,web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path,search_name,search_id,city,area,source_type
   </sql>
   
     <!-- 查询有效的总记录数 -->
@@ -80,7 +83,7 @@
   </delete>
   
   <insert id="insert" parameterType="com.igreen.common.model.WebCrawlerResult" >
-    insert into web_crawler_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path,search_name, search_id)
+    insert into web_crawler_result (web_name,web_domain,web_detail_name,web_detail_url,web_detail_result_url,create_time,update_time,creater,updater,save_path,search_name, search_id,city,area,source_type)
     values (#{webName,jdbcType=VARCHAR},
 #{webDomain,jdbcType=VARCHAR},
 #{webDetailName,jdbcType=VARCHAR},
@@ -92,7 +95,10 @@ now(),
 #{updater,jdbcType=INTEGER},
 #{savePath,jdbcType=VARCHAR},
 #{searchName,jdbcType=VARCHAR},
-#{searchId,jdbcType=INTEGER})
+#{searchId,jdbcType=INTEGER},
+#{city,jdbcType=VARCHAR},
+#{area,jdbcType=VARCHAR},
+#{sourceType,jdbcType=VARCHAR})
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCrawlerResult" >
@@ -106,7 +112,10 @@ update_time=now(),
 updater=#{updater,jdbcType=VARCHAR},
 save_path=#{savePath,jdbcType=VARCHAR}
 search_name=#{searchName,jdbcType=VARCHAR},
-search_id=#{searchId,jdbcType=INTEGER}
+search_id=#{searchId,jdbcType=INTEGER},
+city=#{city,jdbcType=VARCHAR},
+area=#{area,jdbcType=VARCHAR},
+source_type=#{sourceType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

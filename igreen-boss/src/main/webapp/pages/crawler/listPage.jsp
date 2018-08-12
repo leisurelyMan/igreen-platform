@@ -46,6 +46,12 @@
 				<ul class="forminfo">
 					<li><label>网站名称</label><input id="webName" name="webName" type="text" class="dfinput" placeholder="填写网站名称" /></li>
 					<li><label>网站域名</label><input id="webDomain" name="webDomain" type="text" class="dfinput" placeholder="填写网站域名，不带http://"/></li>
+
+					<li><label>网站所在地区</label><input id="city" name="city" type="text" class="dfinput" placeholder="填写网站所在城市"/></li>
+					<li><label>网站区域</label><input id="area" name="area" type="text" class="dfinput" placeholder="填写网站所在地域"/></li>
+					<li><label>网站来源</label><input id="sourceType" name="sourceType" type="text" class="dfinput" placeholder="填写网站来源"/></li>
+
+
 					<li><label>全文检索URL</label><input id="webSearchUrl" name="webSearchUrl" type="text" class="dfinput" placeholder="抓取全文检索URL"/></li>
 					<li><label>分页url正则表达式</label><input id="pageUrlRegular" name="pageUrlRegular" type="text" class="dfinput" placeholder="分页url匹配正则${page} 替换页码数据"/></li>
 					<li><label>已知分页类型</label>

@@ -22,12 +22,16 @@
     <result column="created_time" property="createdTime" jdbcType="DATE" />
     <result column="updater" property="updater" jdbcType="INTEGER" />
     <result column="updated_time" property="updateTime" jdbcType="DATE" />
+  <result column="city" property="city" jdbcType="VARCHAR" />
+      <result column="area" property="area" jdbcType="VARCHAR" />
+      <result column="source_type" property="sourceType" jdbcType="VARCHAR" />
+
   </resultMap>
   
   <sql id="Base_Column_List" >
     id,web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
     page_req_method,page_result,replace_regular,detail_url_regular,detail_title_regular,create_time,update_time,
-    start_page,attr_type,attr_name,detail_content_regular,creater,updater
+    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type
   </sql>
   
     <!-- 查询有效的总记录数 -->
@@ -79,7 +83,7 @@
   <insert id="insert" parameterType="com.igreen.common.model.WebCrawlerConfig" >
     insert into web_crawler_config (web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
     page_req_method,page_result,replace_regular,detail_url_regular,detail_title_regular,create_time,update_time,
-    start_page,attr_type,attr_name,detail_content_regular,creater,updater
+    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type
       )
     values (#{webName,jdbcType=VARCHAR},
 #{webDomain,jdbcType=VARCHAR},
@@ -99,7 +103,10 @@ now(),
 #{attrName,jdbcType=VARCHAR},
 #{detailContentRegular,jdbcType=VARCHAR},
 #{creater,jdbcType=INTEGER},
-#{updater,jdbcType=INTEGER})
+#{updater,jdbcType=INTEGER},
+#{city,jdbcType=VARCHAR},
+#{area,jdbcType=VARCHAR},
+#{sourceType,jdbcType=VARCHAR})
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCrawlerConfig" >
@@ -120,7 +127,10 @@ start_page=#{startPage,jdbcType=VARCHAR},
 attr_type=#{attrType,jdbcType=VARCHAR},
 attr_name=#{attrName,jdbcType=VARCHAR},
 detail_content_regular=#{detailContentRegular,jdbcType=VARCHAR},
-updater=#{updater,jdbcType=VARCHAR}
+updater=#{updater,jdbcType=VARCHAR},
+city=#{city,jdbcType=VARCHAR},
+area=#{area,jdbcType=VARCHAR},
+source_type=#{sourceType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

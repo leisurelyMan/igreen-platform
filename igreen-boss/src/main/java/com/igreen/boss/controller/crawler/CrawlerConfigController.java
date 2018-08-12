@@ -151,8 +151,22 @@ public class CrawlerConfigController extends BaseController{
 			}
 
 		}
+	}
 
-
+	/**
+	 * 抓取 Test
+	 * @return
+	 */
+	@RequestMapping(value="startCrawlerTest", method = {RequestMethod.GET})
+	public @ResponseBody void startCrawlerTest(Integer configId){
+		WebCrawlerConfig temp = configService.selectByPrimaryKey(configId);
+		temp.setPageUrlRegular(temp.getPageUrlRegular().replace("${searchKey}", "上海"));
+		temp.setWebSearchUrl(temp.getWebSearchUrl().replace("${searchKey}", "上海"));
+		temp.setSearchId(-1);
+		temp.setSearchName("上海");
+		temp.setMaxPage(2);
+		CommonPageProcessor comm = new CommonPageProcessor(temp, resultService, 1);
+		comm.startCrawler();
 	}
 	
 }

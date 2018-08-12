@@ -19,6 +19,9 @@ public class WebCrawlerResult extends IdEntity {
 
 	private String searchName; //搜索url关键词
 	private Integer searchId; // 搜索关键词id
+	private String city; // 城市
+	private String area; // 区域
+	private String sourceType; // 来源类型
     
 	public String getWebName() {
 		return webName;
@@ -77,5 +80,29 @@ public class WebCrawlerResult extends IdEntity {
 
 	public void setSearchId(Integer searchId) {
 		this.searchId = searchId;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getSourceType() {
+		return sourceType;
+	}
+
+	public void setSourceType(String sourceType) {
+		this.sourceType = sourceType;
 	}
 }

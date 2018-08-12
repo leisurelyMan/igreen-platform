@@ -74,7 +74,7 @@ public class CommonPageProcessor  implements PageProcessor {
             } else if(fileName.contains("=")){
                 fileName = name.substring(name.indexOf("=")) + ".html";
             } else {
-                fileName = name + ".html";
+                fileName = name.length() > 30 ? UUID.randomUUID().toString() : name + ".html";
             }
             String disk = DISK_PATH + config.getWebDomain() + "/";
 
@@ -128,6 +128,9 @@ public class CommonPageProcessor  implements PageProcessor {
             result.setSavePath(disk + fileName);
             result.setSearchId(config.getSearchId());
             result.setSearchName(config.getSearchName());
+            result.setArea(config.getArea());
+            result.setCity(config.getCity());
+            result.setSourceType(config.getSourceType());
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){
         	e.printStackTrace();

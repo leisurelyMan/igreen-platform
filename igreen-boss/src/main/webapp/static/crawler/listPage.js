@@ -5,10 +5,13 @@ jQuery(document).ready(function(){
 		url : '../crawler/list.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>全文检索URL</b>','<b>分页url正则表达式</b>','<b>分页类型</b>','<b>分页请求返回方式</b>','<b>分页结果</b>','<b>详情页url匹配正则表达式</b>','<b>详情页title xpath</b>','<b>最大分页</b>','<b>开始分页</b>','<b>获取分页数据类型</b>','<b>获取分页数据对应的名称</b>','<b>详情页内容获取 xpath</b>','<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>地区</b>','<b>区域</b>','<b>来源</b>','<b>全文检索URL</b>','<b>分页url正则表达式</b>','<b>分页类型</b>','<b>分页请求返回方式</b>','<b>分页结果</b>','<b>详情页url匹配正则表达式</b>','<b>详情页title xpath</b>','<b>最大分页</b>','<b>开始分页</b>','<b>获取分页数据类型</b>','<b>获取分页数据对应的名称</b>','<b>详情页内容获取 xpath</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'webName',index:'webName', width:80,sortable:false},
 		 		    {name:'webDomain',index:'webDomain', width:80,sortable:false},
+			{name:'city',index:'city', width:80,sortable:false},
+			{name:'area',index:'area', width:80,sortable:false},
+			{name:'sourceType',index:'sourceType', width:80,sortable:false},
 		 		    {name:'webSearchUrl',index:'webSearchUrl', width:80,sortable:false},
 		 		    {name:'pageUrlRegular',index:'pageUrlRegular', width:80,sortable:false},
 		 		    {name:'pageType',index:'pageType', width:80,sortable:false},
@@ -88,6 +91,9 @@ jQuery(document).ready(function(){
 		//清空原有值
 		$('#id').val("");
 		$('#webName').val("");
+		$('#city').val("");
+		$('#area').val("");
+		$('#sourceType').val("");
 	    $('#webDomain').val("");
 	    $('#webSearchUrl').val("");
 	    $('#pageUrlRegular').val("");
@@ -117,7 +123,7 @@ jQuery(document).ready(function(){
 });
 
 function getActions(cellvalue, options, rowObject){
-    return '<a href="javascript:edit(\''+rowObject.id+'\')">编辑</a>&nbsp;<a href="javascript:crawler(\''+rowObject.id+'\')">手动爬虫</a>&nbsp;';
+    return '<a href="javascript:edit(\''+rowObject.id+'\')">编辑</a>&nbsp;<a href="javascript:crawler(\''+rowObject.id+'\')">手动爬虫</a>&nbsp;<a href="javascript:crawlerTest(\''+rowObject.id+'\')">测试</a>';
 }
 
 /**
@@ -134,12 +140,17 @@ function edit(configId){
 		dataType:'text',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		success:function(msg){
 			var obj = eval("("+msg+")");
-			
+
 			//更新信息至roleform并dialog显示
 			$('#id').val(obj.id);
 			$('#webName').val(obj.webName);
 			$('#webDomain').val(obj.webDomain);
 			$('#webSearchUrl').val(obj.webSearchUrl);
+
+			$('#city').val(obj.city);
+			$('#area').val(obj.area);
+			$('#sourceType').val(obj.sourceType);
+
 			$('#pageUrlRegular').val(obj.pageUrlRegular);
 			$('#pageType').val(obj.pageType);
 			$('#pageReqMethod').val(obj.pageReqMethod);
@@ -188,6 +199,13 @@ function crawler(configId){
 	});*/
 }
 
+/**
+ * 爬虫测试
+ * @param userId
+ */
+function crawlerTest(configId){
+	window.open("../crawler/startCrawlerTest.do?configId=" + configId);
+}
 
 function getStatus(cellvalue, options, rowObject){
 	if(cellvalue == 1)
