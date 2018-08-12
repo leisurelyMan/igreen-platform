@@ -18,6 +18,8 @@ public interface CompanyQueryDetailMapper {
 
     List<CompanyQueryDetail> selectByExample(CompanyQueryDetailExample example);
 
+    List<CompanyQueryDetail> selectByParam(CompanyQueryDetail example);
+
     CompanyQueryDetail selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") CompanyQueryDetail record, @Param("example") CompanyQueryDetailExample example);

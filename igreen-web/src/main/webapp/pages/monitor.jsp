@@ -63,7 +63,7 @@
           <span>${ status.index + 1}、</span>
           <a data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
              href="#collapse_${ status.index + 1}">
-            <c:out value="${item}"/>
+            <c:out value="${item.companyName}"/>
           </a>
         </h4>
       </div>
