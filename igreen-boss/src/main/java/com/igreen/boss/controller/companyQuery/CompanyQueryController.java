@@ -1,6 +1,7 @@
 package com.igreen.boss.controller.companyQuery;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -110,8 +112,54 @@ public class CompanyQueryController extends BaseController{
 	public @ResponseBody ResponseModel addQueryConfig(@RequestBody CompanyQueryConfigDto queryConfigDto,
 			HttpServletRequest request,HttpServletResponse response){
 		log.info("addQueryConfig request="+JSON.toJSONString(queryConfigDto));
-		System.out.println(JSON.toJSONString(queryConfigDto));
-		return null;
+		ResponseModel result = new ResponseModel(1, "SUCCESS");
+		CompanyQueryConfig config = new CompanyQueryConfig();
+		BeanUtils.copyProperties(queryConfigDto,config);
+		int opnum = 0;
+		if(StringUtils.isEmpty(config.getId())){
+			//artical.setArticleType(1);
+			config.setCreater(this.getUser(request, response).getId());
+			config.setCreatedTime(new Date());
+			config.setUpdatedTime(new Date());
+			opnum = queryConfigService.insertSelective(config);
+			if(queryConfigDto.getCompanys() != null && queryConfigDto.getCompanys().size() > 0){
+				for(CompanyQueryDetailDto relationdto:queryConfigDto.getCompanys()){
+					CompanyQueryDetail relation = new CompanyQueryDetail();
+					BeanUtils.copyProperties(relationdto,relation);
+					relation.setConfigId(config.getId());
+					relation.setCreater(this.getUser(request, response).getId());
+					relation.setCreatedTime(new Date());
+					relation.setUpdatedTime(new Date());
+					queryDetailService.insertSelective(relation);
+				}
+			}
+			
+		}else{
+			config.setUpdater(this.getUser(request, response).getId());
+			config.setUpdatedTime(new Date());
+			opnum = queryConfigService.updateByPrimaryKeySelective(config);
+			
+			CompanyQueryDetailExample example = new CompanyQueryDetailExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andConfigIdEqualTo(config.getId());
+			queryDetailService.deleteByExample(example);
+			if(queryConfigDto.getCompanys() != null && queryConfigDto.getCompanys().size() > 0){
+				for(CompanyQueryDetailDto relationdto:queryConfigDto.getCompanys()){
+					CompanyQueryDetail relation = new CompanyQueryDetail();
+					BeanUtils.copyProperties(relationdto,relation);
+					relation.setConfigId(config.getId());
+					relation.setCreater(this.getUser(request, response).getId());
+					relation.setCreatedTime(new Date());
+					relation.setUpdatedTime(new Date());
+					queryDetailService.insertSelective(relation);
+				}
+			}
+
+		}
+		if(opnum <= 0)
+			result.setCode(-1);
+		log.info("addArticle response="+JSON.toJSONString(result));
+		return result;
 	}
 	
 	

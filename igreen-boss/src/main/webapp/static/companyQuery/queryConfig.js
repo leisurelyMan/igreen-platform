@@ -2,14 +2,15 @@
 jQuery(document).ready(function(){
 	//创建jqGrid组件
 	jQuery("#list2").jqGrid({
-		url : '../companyQuery/toQueryConfigList.do',//组件创建完成之后请求数据的url
+		url : '../companyQuery/queryConfigList.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : ['<b>id</b>','<b>名称</b>','<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : ['<b>id</b>','<b>名称</b>','<b>访问路径</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'id',index:'id', width:80,sortable:false},
 					{name:'name',index:'name', width:80,sortable:false},
-					{name:'id',index:'id', width:230,formatter:getActions,sortable:false,resizable:false,align:'center'}
+					{name:'url',index:'url', width:200,sortable:false,formatter:getURL},
+					{name:'id',index:'id', width:80,formatter:getActions,sortable:false,resizable:false,align:'center'}
 		           ],
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
@@ -40,6 +41,10 @@ jQuery(document).ready(function(){
 
 function getActions(cellvalue, options, rowObject){
     return '<a href="javascript:toEdit(\''+rowObject.id+'\')">编辑</a>&nbsp;';
+}
+
+function getURL(cellvalue, options, rowObject){
+	return "http://www.igreenbank.cn/company/monitor/index.html?configid="+rowObject.id;
 }
 
 function toEdit(id){

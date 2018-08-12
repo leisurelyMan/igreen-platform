@@ -124,10 +124,10 @@ function edit(id){
 			
         	if(obj.companys != null){
         		var detailsArry = new Array();
-        		$.each(obj.relations, function(j, detail){
+        		$.each(obj.companys, function(j, detail){
 		    		var domobj = "<tr>";
-		    		domobj += "<td>"+companyId+"</td>";
-		    		domobj += "<td>"+companyName+"</td>";
+		    		domobj += "<td>"+detail.registItemId+"</td>";
+		    		domobj += "<td>"+detail.companyName+"</td>";
 		    		domobj += "<td><a href=\"#\" class=\"tablelink\">删除</a></td>";
 		    		domobj += "</tr>";
 		    		detailsArry.push(domobj);
