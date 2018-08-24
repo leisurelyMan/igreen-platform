@@ -40,6 +40,19 @@ public class CompanyMonitorController {
         return new ModelAndView("monitor.jsp");
     }
 
+    @RequestMapping(value = "indexNew")
+    public ModelAndView indexNew(ModelMap model, @RequestParam("configid") Integer configid){
+        CompanyQueryDetail detail = new CompanyQueryDetail();
+        if(configid != null){
+            detail.setConfigId(configid);
+        }
+
+        List<CompanyQueryDetail> list = detailService.selectByParam(detail);
+        model.addAttribute("companyList", list);
+        model.addAttribute("configid", configid);
+        return new ModelAndView("monitor2.jsp");
+    }
+
     /**
      * 跳转到
      * @param model
@@ -54,4 +67,17 @@ public class CompanyMonitorController {
         return new ModelAndView("monitor_item.jsp");
     }
 
+    /**
+     * 跳转到
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="monitorData2")
+    public ModelAndView monitorDat2a(ModelMap model,@RequestParam("companyName") String companyName,@RequestParam("deleId") String deleId){
+        IgreenSearch igreen = indexService.searchNewTab(companyName,deleId);
+        model.addAttribute("igreen", igreen);
+        model.addAttribute("companyName", companyName);
+        model.addAttribute("deleId", deleId);
+        return new ModelAndView("monitor_item2.jsp");
+    }
 }

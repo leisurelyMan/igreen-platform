@@ -20,4 +20,6 @@ public interface IndexService {
 	public Result getAllProvinceMapDate();
 
 	public IgreenSearch searchNew(String companyName);
+
+	public IgreenSearch searchNewTab(String companyName, String tabName);
 }

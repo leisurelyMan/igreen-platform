@@ -437,6 +437,73 @@ public class IndexServiceImpl implements IndexService{
 		return igreen;
 	}
 
+	@Override
+	public IgreenSearch searchNewTab(String companyName, String tabName) {
+
+		//基本信息
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("companyName", companyName);
+		params.put("status", 1);
+		IgreenSearch igreen = new IgreenSearch();
+
+		if(tabName == null || "register".equals(tabName)) {
+			List<QichachaCompanyBase> items = qichachaCompanyBaseMapper.selectByCompanyNameAndStatus(params);
+			if(!items.isEmpty()){
+				QichachaCompanyBase item = items.get(0);
+				igreen.setQichachaCompanyBase(item);
+				// 专利信息
+				igreen.setQichachaPatents(qichachaPatentMapper.selectByKeyNo(item.getKeyNo()));
+				// 法院判决
+				igreen.setQichachaJudgements(qichachaJudgementMapper.selectByKeyNo(item.getKeyNo()));
+
+			}
+		} else if(tabName == null || "business".equals(tabName)) {
+			// 重点监管企业
+			MonitorCompany monitorCompany = new MonitorCompany();
+			//monitorCompany.setRegistItemId(rgItem.getId());
+			monitorCompany.setCompanyName(companyName);
+			List<MonitorCompany> monitorCompanys = monitorCompanyMapper.selectByParameter(monitorCompany);
+			igreen.setMonitorCompanies(monitorCompanys);
+		} else if(tabName == null || "environment".equals(tabName)) {
+			// 排污许可
+			List<ExecutionRecord> executionRecords = executionRecordMapper.selectByCompanyName(companyName);
+			igreen.setExecutionRecords(executionRecords);
+			System.out.println("executionRecords====" + JSON.toJSONString(igreen.getExecutionRecords()));
+			// 清洁生产企业
+			CleanProductionCompany cleanProduction = cleanProductionCompanyMapper.selectByCompanyName(companyName);
+			igreen.setCleanProductionCompany(cleanProduction);
+			// 能效备案
+			igreen.setExcelEnergyEfficiencyLabels(excelEnergyEfficiencyLabelMapper.selectByFilingCompany(params));
+		} else if(tabName == null || "ipe".equals(tabName)) {
+			List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+			Map<String, String> map = new HashMap<String, String>();
+
+			for (int i = 0; i < 4; i++) {
+				map = new HashMap<>();
+				map.put("company", companyName);
+				map.put("year", "2019");
+				map.put("season", (i+1)+"");
+				map.put("mode", "company");
+				list.add(map);
+			}
+
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("reqstr", list);
+			try {
+				String result = HttpClientHelper.sendPost3("http://localhost:4400", param, "UTF-8");
+				System.out.println("params="+JSON.toJSONString(param));
+				System.out.println("result="+result);
+
+				List<AiIpe> aiIpeList = convertModels(result);
+				igreen.setAiIpeList(aiIpeList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return igreen;
+	}
+
 	private List<AiIpe> convertModels(String arrStr){
 		List<AiIpe> aiIpeList = new ArrayList<>();
 		if(org.springframework.util.StringUtils.isEmpty(arrStr) || arrStr.contains("The request key should contain")){
