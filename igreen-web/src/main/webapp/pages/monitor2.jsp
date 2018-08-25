@@ -24,16 +24,18 @@
      var name = $(this).html();
      var flg = $(this).attr("aria-expanded");
      var content_id = $(this).attr("href");
-     var tabName = content_id.substr(content_id.lastIndex("_"));
+     var tabName = content_id.substr(content_id.lastIndexOf("_")+1);
+     if(flg == "false") {
        $.ajax({
-         url:"/company/monitor/monitorData2",
-         data :{companyName : name, deleId : tabName},
-         type:"GET",
-         dataType:"html",
-         success:function(result){
+         url: "/company/monitor/monitorData2",
+         data: {companyName: name, deleId: tabName},
+         type: "GET",
+         dataType: "html",
+         success: function (result) {
            $(content_id).find(".panel-body").html(result);
          }
        });
+     }
    });
  });
 </script>
@@ -62,9 +64,8 @@
   </ul>
 </div>
 <div class="mainBox home-main">
-  <div class="home-inner" id="con_tab_1" style="display:block;">
-
-    <div class="panel-group mainBox home-main" id="accordion1">
+  <div class="home-inner" id="con_tab_1" style="display:block;margin: 0px 5px;">
+    <div class="panel-group mainBox home-main" id="accordion1" style="margin-top: 0px;padding-top: 10px;">
       <c:forEach var="item" items="${companyList}" varStatus="status">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -84,8 +85,8 @@
     </div>
 
   </div>
-  <div class="home-inner" id="con_tab_2" style="height: 890px; display:none;">
-    <div class="panel-group mainBox home-main" id="accordion2">
+  <div class="home-inner" id="con_tab_2" style="display:none;margin: 0px 5px;">
+    <div class="panel-group mainBox home-main" id="accordion2"  style="margin-top: 0px;padding-top: 10px;">
       <c:forEach var="item" items="${companyList}" varStatus="status">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -104,8 +105,8 @@
       </c:forEach>
     </div>
   </div>
-  <div class="home-inner" id="con_tab_3" style="height: 890px; display:none;">
-    <div class="panel-group mainBox home-main" id="accordion3">
+  <div class="home-inner" id="con_tab_3" style="display:none;margin: 0px 5px;">
+    <div class="panel-group mainBox home-main" id="accordion3" style="margin-top: 0px;padding-top: 10px;">
       <c:forEach var="item" items="${companyList}" varStatus="status">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -124,8 +125,8 @@
       </c:forEach>
     </div>
   </div>
-  <div class="home-inner" id="con_tab_4" style="height: 890px; display:none;">
-    <div class="panel-group mainBox home-main" id="accordion4">
+  <div class="home-inner" id="con_tab_4" style="display:none;margin: 0px 5px;">
+    <div class="panel-group mainBox home-main" id="accordion4" style="margin-top: 0px;padding-top: 10px;">
       <c:forEach var="item" items="${companyList}" varStatus="status">
         <div class="panel panel-default">
           <div class="panel-heading">

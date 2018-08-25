@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,6 +49,16 @@ public class CompanyMonitorController {
         }
 
         List<CompanyQueryDetail> list = detailService.selectByParam(detail);
+
+        String[] companyArr = {"广州市越秀区潮辉牛肉美食店","广州市越秀区潮辉牛肉美食店","广州市越秀区盘福肉菜市场","广州市越秀区盘福肉菜市场","广州市越秀区盘福肉菜市场","广州市越秀区潮人码头海鲜酒家","广州市越秀区潮人码头海鲜酒家","广州市越秀区来记面食店","广州市越秀区来记面食店","广州市越秀区农林永盈茶餐厅","广州市越秀区农林永盈茶餐厅","广州市越秀区农林永盈茶餐厅","广州市越秀区农林永盈茶餐厅","广州市越秀区农林永盈茶餐厅","广州市越秀区鸿星海鲜酒家","广州市越秀区鸿星海鲜酒家","广州市越秀区鸿星海鲜酒家","广州市金喜饮食有限公司","广州市金喜饮食有限公司","广州市金喜饮食有限公司","广州市金喜饮食有限公司","广州市金喜饮食有限公司","广州市越秀区大可以饭店","广州市越秀区大可以饭店","广州市越秀区大可以饭店","广州市越秀区大可以饭店","广州市越秀区大可以饭店","广州市越秀区大可以饭店"};
+        if(list != null || list.size() == 0){
+            list = new ArrayList<>();
+            for(String comp : companyArr){
+                CompanyQueryDetail detail1 = new CompanyQueryDetail();
+                detail1.setCompanyName(comp);
+                list.add(detail1);
+            }
+        }
         model.addAttribute("companyList", list);
         model.addAttribute("configid", configid);
         return new ModelAndView("monitor2.jsp");

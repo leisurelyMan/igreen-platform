@@ -4,9 +4,9 @@
 <html>
 <body style="background:#f9f9f9;">
 <!--页中begin-->
-<div class="mainBox home-main">
-  <c:if test="deleId=='register' || deleId==''">
-  <div class="home-inner" id="con_${deleId}_1" style="display:block;">
+<div class="mainBox home-main" style="margin-top: 30px;">
+  <c:if test="${deleId=='register' || deleId==''}">
+  <div class="home-inner" id="con_${deleId}_1" style="display:block;padding: 10px 0 50px;">
     <div class="data-box">
       <div class="data-tit no-top"><i></i><h3 style="margin-top: 0px;">登记信息</h3></div>
       <div class="data-tab">
@@ -136,8 +136,8 @@
     </div>
   </div>
   </c:if>
-    <c:if test="deleId=='business' || deleId==''">
-  <div class="home-inner" id="con_${deleId}_2" style="height: 890px; display:block;">
+  <c:if test="${deleId=='business' || deleId==''}">
+  <div class="home-inner" id="con_${deleId}_2" style="height: 890px; display:block;padding: 10px 0 50px;">
     <div class="data-box">
       <div class="data-tit no-top"><i></i><h3 style="margin-top: 0px;">重点监管企业</h3></div>
       <div class="data-tab tab-2">
@@ -171,9 +171,9 @@
     </div>
 
   </div>
-    </c:if>
-    <c:if test="deleId=='environment' || deleId==''">
-  <div class="home-inner" id="con_${deleId}_3" style="height:910px; display:block;">
+  </c:if>
+  <c:if test="${deleId=='environment' || deleId==''}">
+  <div class="home-inner" id="con_${deleId}_3" style="height:910px; display:block;padding: 10px 0 50px;">
     <div class="data-box">
       <div class="data-tit no-top"><i></i><h3 style="margin-top: 0px;">排污许可</h3></div>
       <div class="data-tab tab-2">
@@ -270,9 +270,9 @@
       </div>
     </div>
   </div>
-    </c:if>
-    <c:if test="deleId=='ipe' || deleId==''">
-  <div class="home-inner" id="con_${deleId}_4" style="height:910px; display:block;">
+  </c:if>
+  <c:if test="${deleId=='ipe' || deleId==''}">
+  <div class="home-inner" id="con_${deleId}_4" style="height:910px; display:block;padding: 10px 0 50px;">
     <div class="data-box">
       <div class="data-tit"><i></i><h3 style="margin-top: 0px;">风险预测</h3></div>
       <div class="data-tab tab-2">
@@ -316,7 +316,7 @@
       </div>
     </div>
   </div>
-    </c:if>
+  </c:if>
 </div>
 <!--页中end-->
 </body>
