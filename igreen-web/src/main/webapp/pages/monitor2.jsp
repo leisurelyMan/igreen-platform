@@ -29,7 +29,7 @@
        $.ajax({
          url: "/company/monitor/monitorData2",
          data: {companyName: name, deleId: tabName},
-         type: "GET",
+         type: "POST",
          dataType: "html",
          success: function (result) {
            $(content_id).find(".panel-body").html(result);
