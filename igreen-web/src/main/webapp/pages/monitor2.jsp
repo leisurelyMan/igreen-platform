@@ -72,9 +72,7 @@
             <h4 class="panel-title">
               <span>${ status.index + 1}、</span>
               <a data-toggle="collapse" data-parent="#accordion1" aria-expanded="false"
-                 href="#collapse_${ status.index + 1}_register">
-                <c:out value="${item.companyName}"/>
-              </a>
+                 href="#collapse_${ status.index + 1}_register"><c:out value="${item.companyName}"/></a>
             </h4>
           </div>
           <div id="collapse_${ status.index + 1}_register" class="panel-collapse collapse">
@@ -93,9 +91,7 @@
             <h4 class="panel-title">
               <span>${ status.index + 1}、</span>
               <a data-toggle="collapse" data-parent="#accordion2" aria-expanded="false"
-                 href="#collapse_${ status.index + 1}_business">
-                <c:out value="${item.companyName}"/>
-              </a>
+                 href="#collapse_${ status.index + 1}_business"><c:out value="${item.companyName}"/></a>
             </h4>
           </div>
           <div id="collapse_${ status.index + 1}_business" class="panel-collapse collapse">
@@ -113,9 +109,7 @@
             <h4 class="panel-title">
               <span>${ status.index + 1}、</span>
               <a data-toggle="collapse" data-parent="#accordion3" aria-expanded="false"
-                 href="#collapse_${ status.index + 1}_environment">
-                <c:out value="${item.companyName}"/>
-              </a>
+                 href="#collapse_${ status.index + 1}_environment"><c:out value="${item.companyName}"/></a>
             </h4>
           </div>
           <div id="collapse_${ status.index + 1}_environment" class="panel-collapse collapse">
@@ -133,9 +127,7 @@
             <h4 class="panel-title">
               <span>${ status.index + 1}、</span>
               <a data-toggle="collapse" data-parent="#accordion4" aria-expanded="false"
-                 href="#collapse_${ status.index + 1}_ipe">
-                <c:out value="${item.companyName}"/>
-              </a>
+                 href="#collapse_${ status.index + 1}_ipe"><c:out value="${item.companyName}"/></a>
             </h4>
           </div>
           <div id="collapse_${ status.index + 1}_ipe" class="panel-collapse collapse">
