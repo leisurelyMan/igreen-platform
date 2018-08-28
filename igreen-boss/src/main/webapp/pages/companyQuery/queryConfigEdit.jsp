@@ -28,7 +28,6 @@
 			<span>编辑配置信息</span>
 		</div>
 		<input type="hidden" id="id" value="${searchRecord.id}"/>
-		<input type="hidden" id="searchName" name="searchName" value="${searchRecord.name}"/>
 		<input type="hidden" id="currentPage" name="currentPage" value="${currentPage}"/>
 		<input type="hidden" id="pageRows" name="pageRows" value="${pageRows}"/>
 		<label>配置名称</label><input id="name" name="name" type="text" value="${record.name}" class="dfinput" />
@@ -52,16 +51,9 @@
 		</div>
 		<div class="tools">
 			<ul class="toolbar">
-				<li>企业名称：<input id="searchName"	name="searchName" type="text" class="searchinput" /></li>
-				<li>地址：<input id="searchAddress"	name="searchAddress" type="text" class="searchinput" /></li>
-				<li>集团公司：<input id="searchGroupName"	name="searchGroupName" type="text" class="searchinput" /></li>
-				<li>是否上市：
-					<select id="searchGroupPublic" name="searchGroupPublic">
-						<option value="">全部</option>
-						<option value="是">是</option>
-						<option value="否">否</option>
-					</select>
-				</li>
+				<li>企业名称：<input id="searchName"	name="searchName" type="text" class="searchinput" value=""/></li>
+				<li>注册编码：<input id="searchCreditCode"	name="searchCreditCode" type="text" class="searchinput" value=""/></li>
+				<li>组织机构代码：<input id="searchOrgNo"	name="searchOrgNo" type="text" class="searchinput" value=""/></li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
 			</ul>
 		</div>

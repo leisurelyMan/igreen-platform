@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.CompanyQueryQichachaCompanyBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryQichachaCompanyBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="key_no" property="keyNo" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="industry_code" property="industryCode" jdbcType="VARCHAR" />
+    <result column="subIndustry_code" property="subindustryCode" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="subIndustry" property="subindustry" jdbcType="VARCHAR" />
+    <result column="credit_code" property="creditCode" jdbcType="VARCHAR" />
+    <result column="regist_capi" property="registCapi" jdbcType="VARCHAR" />
+    <result column="econ_kind" property="econKind" jdbcType="VARCHAR" />
+    <result column="org_no" property="orgNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.igreen.common.model.CompanyQueryQichachaCompanyBase" extends="BaseResultMap" >
+    <result column="scope" property="scope" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, key_no, name, start_date, province, industry_code, subIndustry_code, industry, 
+    subIndustry, credit_code, regist_capi, econ_kind, org_no, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    scope
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from company_query_qichacha_company_base
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from company_query_qichacha_company_base
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from company_query_qichacha_company_base
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company_query_qichacha_company_base
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBaseExample" >
+    delete from company_query_qichacha_company_base
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" useGeneratedKeys="true" keyProperty="id" >
+    insert into company_query_qichacha_company_base (key_no, name, start_date, 
+      province, industry_code, subIndustry_code, 
+      industry, subIndustry, credit_code, 
+      regist_capi, econ_kind, org_no, 
+      status, scope)
+    values (#{keyNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{startDate,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{industryCode,jdbcType=VARCHAR}, #{subindustryCode,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=VARCHAR}, #{subindustry,jdbcType=VARCHAR}, #{creditCode,jdbcType=VARCHAR}, 
+      #{registCapi,jdbcType=VARCHAR}, #{econKind,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{scope,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" useGeneratedKeys="true" keyProperty="id" >
+    insert into company_query_qichacha_company_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="keyNo != null" >
+        key_no,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="industryCode != null" >
+        industry_code,
+      </if>
+      <if test="subindustryCode != null" >
+        subIndustry_code,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="subindustry != null" >
+        subIndustry,
+      </if>
+      <if test="creditCode != null" >
+        credit_code,
+      </if>
+      <if test="registCapi != null" >
+        regist_capi,
+      </if>
+      <if test="econKind != null" >
+        econ_kind,
+      </if>
+      <if test="orgNo != null" >
+        org_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="scope != null" >
+        scope,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="keyNo != null" >
+        #{keyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCode != null" >
+        #{industryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subindustryCode != null" >
+        #{subindustryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="subindustry != null" >
+        #{subindustry,jdbcType=VARCHAR},
+      </if>
+      <if test="creditCode != null" >
+        #{creditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="registCapi != null" >
+        #{registCapi,jdbcType=VARCHAR},
+      </if>
+      <if test="econKind != null" >
+        #{econKind,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null" >
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null" >
+        #{scope,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBaseExample" resultType="java.lang.Integer" >
+    select count(*) from company_query_qichacha_company_base
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update company_query_qichacha_company_base
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.keyNo != null" >
+        key_no = #{record.keyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDate != null" >
+        start_date = #{record.startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryCode != null" >
+        industry_code = #{record.industryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subindustryCode != null" >
+        subIndustry_code = #{record.subindustryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null" >
+        industry = #{record.industry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subindustry != null" >
+        subIndustry = #{record.subindustry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditCode != null" >
+        credit_code = #{record.creditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registCapi != null" >
+        regist_capi = #{record.registCapi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.econKind != null" >
+        econ_kind = #{record.econKind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgNo != null" >
+        org_no = #{record.orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scope != null" >
+        scope = #{record.scope,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update company_query_qichacha_company_base
+    set id = #{record.id,jdbcType=INTEGER},
+      key_no = #{record.keyNo,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      industry_code = #{record.industryCode,jdbcType=VARCHAR},
+      subIndustry_code = #{record.subindustryCode,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=VARCHAR},
+      subIndustry = #{record.subindustry,jdbcType=VARCHAR},
+      credit_code = #{record.creditCode,jdbcType=VARCHAR},
+      regist_capi = #{record.registCapi,jdbcType=VARCHAR},
+      econ_kind = #{record.econKind,jdbcType=VARCHAR},
+      org_no = #{record.orgNo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      scope = #{record.scope,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update company_query_qichacha_company_base
+    set id = #{record.id,jdbcType=INTEGER},
+      key_no = #{record.keyNo,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      industry_code = #{record.industryCode,jdbcType=VARCHAR},
+      subIndustry_code = #{record.subindustryCode,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=VARCHAR},
+      subIndustry = #{record.subindustry,jdbcType=VARCHAR},
+      credit_code = #{record.creditCode,jdbcType=VARCHAR},
+      regist_capi = #{record.registCapi,jdbcType=VARCHAR},
+      econ_kind = #{record.econKind,jdbcType=VARCHAR},
+      org_no = #{record.orgNo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" >
+    update company_query_qichacha_company_base
+    <set >
+      <if test="keyNo != null" >
+        key_no = #{keyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCode != null" >
+        industry_code = #{industryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subindustryCode != null" >
+        subIndustry_code = #{subindustryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="subindustry != null" >
+        subIndustry = #{subindustry,jdbcType=VARCHAR},
+      </if>
+      <if test="creditCode != null" >
+        credit_code = #{creditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="registCapi != null" >
+        regist_capi = #{registCapi,jdbcType=VARCHAR},
+      </if>
+      <if test="econKind != null" >
+        econ_kind = #{econKind,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null" >
+        org_no = #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null" >
+        scope = #{scope,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" >
+    update company_query_qichacha_company_base
+    set key_no = #{keyNo,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      industry_code = #{industryCode,jdbcType=VARCHAR},
+      subIndustry_code = #{subindustryCode,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      subIndustry = #{subindustry,jdbcType=VARCHAR},
+      credit_code = #{creditCode,jdbcType=VARCHAR},
+      regist_capi = #{registCapi,jdbcType=VARCHAR},
+      econ_kind = #{econKind,jdbcType=VARCHAR},
+      org_no = #{orgNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      scope = #{scope,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" >
+    update company_query_qichacha_company_base
+    set key_no = #{keyNo,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      industry_code = #{industryCode,jdbcType=VARCHAR},
+      subIndustry_code = #{subindustryCode,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      subIndustry = #{subindustry,jdbcType=VARCHAR},
+      credit_code = #{creditCode,jdbcType=VARCHAR},
+      regist_capi = #{registCapi,jdbcType=VARCHAR},
+      econ_kind = #{econKind,jdbcType=VARCHAR},
+      org_no = #{orgNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

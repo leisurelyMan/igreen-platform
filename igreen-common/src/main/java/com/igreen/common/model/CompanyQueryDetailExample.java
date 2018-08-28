@@ -74,7 +74,7 @@ public class CompanyQueryDetailExample {
     }
 
     /**
-     * company_query_detail 2018-08-10
+     * company_query_detail 2018-08-28
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -304,6 +304,76 @@ public class CompanyQueryDetailExample {
 
         public Criteria andRegistItemIdNotBetween(Integer value1, Integer value2) {
             addCriterion("regist_item_id not between", value1, value2, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoIsNull() {
+            addCriterion("qichacha_key_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoIsNotNull() {
+            addCriterion("qichacha_key_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoEqualTo(String value) {
+            addCriterion("qichacha_key_no =", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoNotEqualTo(String value) {
+            addCriterion("qichacha_key_no <>", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoGreaterThan(String value) {
+            addCriterion("qichacha_key_no >", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoGreaterThanOrEqualTo(String value) {
+            addCriterion("qichacha_key_no >=", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoLessThan(String value) {
+            addCriterion("qichacha_key_no <", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoLessThanOrEqualTo(String value) {
+            addCriterion("qichacha_key_no <=", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoLike(String value) {
+            addCriterion("qichacha_key_no like", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoNotLike(String value) {
+            addCriterion("qichacha_key_no not like", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoIn(List<String> values) {
+            addCriterion("qichacha_key_no in", values, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoNotIn(List<String> values) {
+            addCriterion("qichacha_key_no not in", values, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoBetween(String value1, String value2) {
+            addCriterion("qichacha_key_no between", value1, value2, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoNotBetween(String value1, String value2) {
+            addCriterion("qichacha_key_no not between", value1, value2, "qichachaKeyNo");
             return (Criteria) this;
         }
 
@@ -672,7 +742,7 @@ public class CompanyQueryDetailExample {
      * 描述:company_query_detail表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2018-08-10
+     * @创建时间: 2018-08-28
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -682,7 +752,7 @@ public class CompanyQueryDetailExample {
     }
 
     /**
-     * company_query_detail 2018-08-10
+     * company_query_detail 2018-08-28
      */
     public static class Criterion {
         private String condition;

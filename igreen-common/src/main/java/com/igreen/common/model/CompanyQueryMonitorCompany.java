@@ -3,12 +3,12 @@ package com.igreen.common.model;
 import java.util.Date;
 
 /**
- * 描述:monitor_company表的实体类
+ * 描述:company_query_monitor_company表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-08-28
+ * @创建时间: 2018-08-27
  */
-public class MonitorCompany {
+public class CompanyQueryMonitorCompany {
     /**
      * id
      */

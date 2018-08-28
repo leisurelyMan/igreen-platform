@@ -18,6 +18,11 @@ public class CompanyQueryDetailDto implements Serializable{
      * 公司ID
      */
     private Integer registItemId;
+    
+    /**
+     * 企查查基础信息
+     */
+    private String qichachaKeyNo;
 
     /**
      * 配置ID
@@ -38,6 +43,14 @@ public class CompanyQueryDetailDto implements Serializable{
 
 	public void setRegistItemId(Integer registItemId) {
 		this.registItemId = registItemId;
+	}
+
+	public String getQichachaKeyNo() {
+		return qichachaKeyNo;
+	}
+
+	public void setQichachaKeyNo(String qichachaKeyNo) {
+		this.qichachaKeyNo = qichachaKeyNo;
 	}
 
 	public Integer getConfigId() {

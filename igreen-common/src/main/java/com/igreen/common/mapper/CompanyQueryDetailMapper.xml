@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="company_name" property="companyName" jdbcType="VARCHAR" />
     <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="qichacha_key_no" property="qichachaKeyNo" jdbcType="VARCHAR" />
     <result column="config_id" property="configId" jdbcType="INTEGER" />
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="creater" property="creater" jdbcType="INTEGER" />
@@ -71,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, company_name, regist_item_id, config_id, state, creater, created_time, updater, 
-    updated_time
+    id, company_name, regist_item_id, qichacha_key_no, config_id, state, creater, created_time, 
+    updater, updated_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryDetailExample" >
     select
@@ -105,12 +106,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryDetail" useGeneratedKeys="true" keyProperty="id" >
-    insert into company_query_detail (company_name, regist_item_id, config_id, 
-      state, creater, created_time, 
-      updater, updated_time)
-    values (#{companyName,jdbcType=VARCHAR}, #{registItemId,jdbcType=INTEGER}, #{configId,jdbcType=INTEGER}, 
-      #{state,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=TIMESTAMP})
+    insert into company_query_detail (company_name, regist_item_id, qichacha_key_no, 
+      config_id, state, creater, 
+      created_time, updater, updated_time
+      )
+    values (#{companyName,jdbcType=VARCHAR}, #{registItemId,jdbcType=INTEGER}, #{qichachaKeyNo,jdbcType=VARCHAR}, 
+      #{configId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryDetail" useGeneratedKeys="true" keyProperty="id" >
     insert into company_query_detail
@@ -120,6 +123,9 @@
       </if>
       <if test="registItemId != null" >
         regist_item_id,
+      </if>
+      <if test="qichachaKeyNo != null" >
+        qichacha_key_no,
       </if>
       <if test="configId != null" >
         config_id,
@@ -146,6 +152,9 @@
       </if>
       <if test="registItemId != null" >
         #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="qichachaKeyNo != null" >
+        #{qichachaKeyNo,jdbcType=VARCHAR},
       </if>
       <if test="configId != null" >
         #{configId,jdbcType=INTEGER},
@@ -185,6 +194,9 @@
       <if test="record.registItemId != null" >
         regist_item_id = #{record.registItemId,jdbcType=INTEGER},
       </if>
+      <if test="record.qichachaKeyNo != null" >
+        qichacha_key_no = #{record.qichachaKeyNo,jdbcType=VARCHAR},
+      </if>
       <if test="record.configId != null" >
         config_id = #{record.configId,jdbcType=INTEGER},
       </if>
@@ -213,6 +225,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       company_name = #{record.companyName,jdbcType=VARCHAR},
       regist_item_id = #{record.registItemId,jdbcType=INTEGER},
+      qichacha_key_no = #{record.qichachaKeyNo,jdbcType=VARCHAR},
       config_id = #{record.configId,jdbcType=INTEGER},
       state = #{record.state,jdbcType=INTEGER},
       creater = #{record.creater,jdbcType=INTEGER},
@@ -231,6 +244,9 @@
       </if>
       <if test="registItemId != null" >
         regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="qichachaKeyNo != null" >
+        qichacha_key_no = #{qichachaKeyNo,jdbcType=VARCHAR},
       </if>
       <if test="configId != null" >
         config_id = #{configId,jdbcType=INTEGER},
@@ -257,6 +273,7 @@
     update company_query_detail
     set company_name = #{companyName,jdbcType=VARCHAR},
       regist_item_id = #{registItemId,jdbcType=INTEGER},
+      qichacha_key_no = #{qichachaKeyNo,jdbcType=VARCHAR},
       config_id = #{configId,jdbcType=INTEGER},
       state = #{state,jdbcType=INTEGER},
       creater = #{creater,jdbcType=INTEGER},
@@ -265,15 +282,4 @@
       updated_time = #{updatedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-  <select id="selectByParam" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryDetail" >
-    select
-    <include refid="Base_Column_List" />
-    from company_query_detail
-    <where>
-      <if test="configId != null">
-        config_id = #{configId}
-      </if>
-    </where>
-  </select>
 </mapper>

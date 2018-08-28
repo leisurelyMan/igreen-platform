@@ -2,6 +2,7 @@ package com.igreen.boss.service.companyQuery;
 
 import java.util.List;
 
+import com.igreen.boss.dto.CompanyQueryConfigDto;
 import com.igreen.common.model.CompanyQueryDetail;
 import com.igreen.common.model.CompanyQueryDetailExample;
 
@@ -28,4 +29,6 @@ public interface CompanyQueryDetailService {
     int updateByPrimaryKeySelective(CompanyQueryDetail record);
 
     int updateByPrimaryKey(CompanyQueryDetail record);
+    
+    void addDetails(List<CompanyQueryDetail> details);
 }

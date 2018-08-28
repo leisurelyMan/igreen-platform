@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -34,6 +35,7 @@ import com.igreen.common.util.ResponseModel;
 
 @Controller
 @RequestMapping(value="/companyQuery")
+@EnableAsync
 public class CompanyQueryController extends BaseController{
 
 	Logger log = Logger.getLogger(CompanyQueryController.class);
@@ -116,8 +118,8 @@ public class CompanyQueryController extends BaseController{
 		CompanyQueryConfig config = new CompanyQueryConfig();
 		BeanUtils.copyProperties(queryConfigDto,config);
 		int opnum = 0;
+		List<CompanyQueryDetail> details = new ArrayList<CompanyQueryDetail>();
 		if(StringUtils.isEmpty(config.getId())){
-			//artical.setArticleType(1);
 			config.setCreater(this.getUser(request, response).getId());
 			config.setCreatedTime(new Date());
 			config.setUpdatedTime(new Date());
@@ -127,10 +129,12 @@ public class CompanyQueryController extends BaseController{
 					CompanyQueryDetail relation = new CompanyQueryDetail();
 					BeanUtils.copyProperties(relationdto,relation);
 					relation.setConfigId(config.getId());
+					relation.setState(0);
 					relation.setCreater(this.getUser(request, response).getId());
 					relation.setCreatedTime(new Date());
 					relation.setUpdatedTime(new Date());
 					queryDetailService.insertSelective(relation);
+					details.add(relation);
 				}
 			}
 			
@@ -148,16 +152,19 @@ public class CompanyQueryController extends BaseController{
 					CompanyQueryDetail relation = new CompanyQueryDetail();
 					BeanUtils.copyProperties(relationdto,relation);
 					relation.setConfigId(config.getId());
+					relation.setState(0);
 					relation.setCreater(this.getUser(request, response).getId());
 					relation.setCreatedTime(new Date());
 					relation.setUpdatedTime(new Date());
 					queryDetailService.insertSelective(relation);
+					details.add(relation);
 				}
 			}
 
 		}
 		if(opnum <= 0)
 			result.setCode(-1);
+		queryDetailService.addDetails(details);
 		log.info("addArticle response="+JSON.toJSONString(result));
 		return result;
 	}
@@ -169,7 +176,7 @@ public class CompanyQueryController extends BaseController{
 		CompanyQueryConfigDto result = new CompanyQueryConfigDto();
 		CompanyQueryConfig config = queryConfigService.selectByPrimaryKey(configId);
 		BeanUtils.copyProperties(config,result);
-		//关联文章
+		//配置详情
 		CompanyQueryDetailExample example = new CompanyQueryDetailExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andConfigIdEqualTo(configId);

@@ -6,7 +6,7 @@ import java.util.Date;
  * 描述:company_query_detail表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-08-10
+ * @创建时间: 2018-08-28
  */
 public class CompanyQueryDetail {
     /**
@@ -23,6 +23,11 @@ public class CompanyQueryDetail {
      * 公司ID
      */
     private Integer registItemId;
+
+    /**
+     * 企查查基础信息
+     */
+    private String qichachaKeyNo;
 
     /**
      * 配置ID
@@ -100,6 +105,22 @@ public class CompanyQueryDetail {
      */
     public void setRegistItemId(Integer registItemId) {
         this.registItemId = registItemId;
+    }
+
+    /**
+     * 企查查基础信息
+     * @return qichacha_key_no 企查查基础信息
+     */
+    public String getQichachaKeyNo() {
+        return qichachaKeyNo;
+    }
+
+    /**
+     * 企查查基础信息
+     * @param qichachaKeyNo 企查查基础信息
+     */
+    public void setQichachaKeyNo(String qichachaKeyNo) {
+        this.qichachaKeyNo = qichachaKeyNo == null ? null : qichachaKeyNo.trim();
     }
 
     /**

@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.CompanyQueryPollutionDischargeLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryPollutionDischargeLicense" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="license_number" property="licenseNumber" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="valid_date" property="validDate" jdbcType="VARCHAR" />
+    <result column="start_valid_date" property="startValidDate" jdbcType="DATE" />
+    <result column="end_valid_date" property="endValidDate" jdbcType="DATE" />
+    <result column="certification_date" property="certificationDate" jdbcType="DATE" />
+    <result column="data_id" property="dataId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="certificate_organization" property="certificateOrganization" jdbcType="VARCHAR" />
+    <result column="pollution_type" property="pollutionType" jdbcType="VARCHAR" />
+    <result column="air_pollution_type" property="airPollutionType" jdbcType="VARCHAR" />
+    <result column="air_pollution_discharge_rule" property="airPollutionDischargeRule" jdbcType="VARCHAR" />
+    <result column="air_pollution_discharge_standard" property="airPollutionDischargeStandard" jdbcType="VARCHAR" />
+    <result column="water_pollution_type" property="waterPollutionType" jdbcType="VARCHAR" />
+    <result column="water_pollution_discharge_rule" property="waterPollutionDischargeRule" jdbcType="VARCHAR" />
+    <result column="water_pollution_discharge_standard" property="waterPollutionDischargeStandard" jdbcType="VARCHAR" />
+    <result column="pollution_trade" property="pollutionTrade" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, regist_item_id, province, city, license_number, company_name, industry, valid_date, 
+    start_valid_date, end_valid_date, certification_date, data_id, address, certificate_organization, 
+    pollution_type, air_pollution_type, air_pollution_discharge_rule, air_pollution_discharge_standard, 
+    water_pollution_type, water_pollution_discharge_rule, water_pollution_discharge_standard, 
+    pollution_trade
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryPollutionDischargeLicenseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from company_query_pollution_discharge_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from company_query_pollution_discharge_license
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company_query_pollution_discharge_license
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.igreen.common.model.CompanyQueryPollutionDischargeLicenseExample" >
+    delete from company_query_pollution_discharge_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryPollutionDischargeLicense" useGeneratedKeys="true" keyProperty="id" >
+    insert into company_query_pollution_discharge_license (regist_item_id, province, city, 
+      license_number, company_name, industry, 
+      valid_date, start_valid_date, end_valid_date, 
+      certification_date, data_id, address, 
+      certificate_organization, pollution_type, 
+      air_pollution_type, air_pollution_discharge_rule, 
+      air_pollution_discharge_standard, water_pollution_type, 
+      water_pollution_discharge_rule, water_pollution_discharge_standard, 
+      pollution_trade)
+    values (#{registItemId,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{licenseNumber,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, 
+      #{validDate,jdbcType=VARCHAR}, #{startValidDate,jdbcType=DATE}, #{endValidDate,jdbcType=DATE}, 
+      #{certificationDate,jdbcType=DATE}, #{dataId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{certificateOrganization,jdbcType=VARCHAR}, #{pollutionType,jdbcType=VARCHAR}, 
+      #{airPollutionType,jdbcType=VARCHAR}, #{airPollutionDischargeRule,jdbcType=VARCHAR}, 
+      #{airPollutionDischargeStandard,jdbcType=VARCHAR}, #{waterPollutionType,jdbcType=VARCHAR}, 
+      #{waterPollutionDischargeRule,jdbcType=VARCHAR}, #{waterPollutionDischargeStandard,jdbcType=VARCHAR}, 
+      #{pollutionTrade,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryPollutionDischargeLicense" useGeneratedKeys="true" keyProperty="id" >
+    insert into company_query_pollution_discharge_license
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="licenseNumber != null" >
+        license_number,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="validDate != null" >
+        valid_date,
+      </if>
+      <if test="startValidDate != null" >
+        start_valid_date,
+      </if>
+      <if test="endValidDate != null" >
+        end_valid_date,
+      </if>
+      <if test="certificationDate != null" >
+        certification_date,
+      </if>
+      <if test="dataId != null" >
+        data_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="certificateOrganization != null" >
+        certificate_organization,
+      </if>
+      <if test="pollutionType != null" >
+        pollution_type,
+      </if>
+      <if test="airPollutionType != null" >
+        air_pollution_type,
+      </if>
+      <if test="airPollutionDischargeRule != null" >
+        air_pollution_discharge_rule,
+      </if>
+      <if test="airPollutionDischargeStandard != null" >
+        air_pollution_discharge_standard,
+      </if>
+      <if test="waterPollutionType != null" >
+        water_pollution_type,
+      </if>
+      <if test="waterPollutionDischargeRule != null" >
+        water_pollution_discharge_rule,
+      </if>
+      <if test="waterPollutionDischargeStandard != null" >
+        water_pollution_discharge_standard,
+      </if>
+      <if test="pollutionTrade != null" >
+        pollution_trade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNumber != null" >
+        #{licenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        #{validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="startValidDate != null" >
+        #{startValidDate,jdbcType=DATE},
+      </if>
+      <if test="endValidDate != null" >
+        #{endValidDate,jdbcType=DATE},
+      </if>
+      <if test="certificationDate != null" >
+        #{certificationDate,jdbcType=DATE},
+      </if>
+      <if test="dataId != null" >
+        #{dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateOrganization != null" >
+        #{certificateOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutionType != null" >
+        #{pollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="airPollutionType != null" >
+        #{airPollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="airPollutionDischargeRule != null" >
+        #{airPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+      <if test="airPollutionDischargeStandard != null" >
+        #{airPollutionDischargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="waterPollutionType != null" >
+        #{waterPollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="waterPollutionDischargeRule != null" >
+        #{waterPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+      <if test="waterPollutionDischargeStandard != null" >
+        #{waterPollutionDischargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutionTrade != null" >
+        #{pollutionTrade,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.igreen.common.model.CompanyQueryPollutionDischargeLicenseExample" resultType="java.lang.Integer" >
+    select count(*) from company_query_pollution_discharge_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update company_query_pollution_discharge_license
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.registItemId != null" >
+        regist_item_id = #{record.registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseNumber != null" >
+        license_number = #{record.licenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null" >
+        industry = #{record.industry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validDate != null" >
+        valid_date = #{record.validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startValidDate != null" >
+        start_valid_date = #{record.startValidDate,jdbcType=DATE},
+      </if>
+      <if test="record.endValidDate != null" >
+        end_valid_date = #{record.endValidDate,jdbcType=DATE},
+      </if>
+      <if test="record.certificationDate != null" >
+        certification_date = #{record.certificationDate,jdbcType=DATE},
+      </if>
+      <if test="record.dataId != null" >
+        data_id = #{record.dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateOrganization != null" >
+        certificate_organization = #{record.certificateOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pollutionType != null" >
+        pollution_type = #{record.pollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airPollutionType != null" >
+        air_pollution_type = #{record.airPollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airPollutionDischargeRule != null" >
+        air_pollution_discharge_rule = #{record.airPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airPollutionDischargeStandard != null" >
+        air_pollution_discharge_standard = #{record.airPollutionDischargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.waterPollutionType != null" >
+        water_pollution_type = #{record.waterPollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.waterPollutionDischargeRule != null" >
+        water_pollution_discharge_rule = #{record.waterPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.waterPollutionDischargeStandard != null" >
+        water_pollution_discharge_standard = #{record.waterPollutionDischargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pollutionTrade != null" >
+        pollution_trade = #{record.pollutionTrade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update company_query_pollution_discharge_license
+    set id = #{record.id,jdbcType=INTEGER},
+      regist_item_id = #{record.registItemId,jdbcType=INTEGER},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      license_number = #{record.licenseNumber,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=VARCHAR},
+      valid_date = #{record.validDate,jdbcType=VARCHAR},
+      start_valid_date = #{record.startValidDate,jdbcType=DATE},
+      end_valid_date = #{record.endValidDate,jdbcType=DATE},
+      certification_date = #{record.certificationDate,jdbcType=DATE},
+      data_id = #{record.dataId,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      certificate_organization = #{record.certificateOrganization,jdbcType=VARCHAR},
+      pollution_type = #{record.pollutionType,jdbcType=VARCHAR},
+      air_pollution_type = #{record.airPollutionType,jdbcType=VARCHAR},
+      air_pollution_discharge_rule = #{record.airPollutionDischargeRule,jdbcType=VARCHAR},
+      air_pollution_discharge_standard = #{record.airPollutionDischargeStandard,jdbcType=VARCHAR},
+      water_pollution_type = #{record.waterPollutionType,jdbcType=VARCHAR},
+      water_pollution_discharge_rule = #{record.waterPollutionDischargeRule,jdbcType=VARCHAR},
+      water_pollution_discharge_standard = #{record.waterPollutionDischargeStandard,jdbcType=VARCHAR},
+      pollution_trade = #{record.pollutionTrade,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryPollutionDischargeLicense" >
+    update company_query_pollution_discharge_license
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNumber != null" >
+        license_number = #{licenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        valid_date = #{validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="startValidDate != null" >
+        start_valid_date = #{startValidDate,jdbcType=DATE},
+      </if>
+      <if test="endValidDate != null" >
+        end_valid_date = #{endValidDate,jdbcType=DATE},
+      </if>
+      <if test="certificationDate != null" >
+        certification_date = #{certificationDate,jdbcType=DATE},
+      </if>
+      <if test="dataId != null" >
+        data_id = #{dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateOrganization != null" >
+        certificate_organization = #{certificateOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutionType != null" >
+        pollution_type = #{pollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="airPollutionType != null" >
+        air_pollution_type = #{airPollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="airPollutionDischargeRule != null" >
+        air_pollution_discharge_rule = #{airPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+      <if test="airPollutionDischargeStandard != null" >
+        air_pollution_discharge_standard = #{airPollutionDischargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="waterPollutionType != null" >
+        water_pollution_type = #{waterPollutionType,jdbcType=VARCHAR},
+      </if>
+      <if test="waterPollutionDischargeRule != null" >
+        water_pollution_discharge_rule = #{waterPollutionDischargeRule,jdbcType=VARCHAR},
+      </if>
+      <if test="waterPollutionDischargeStandard != null" >
+        water_pollution_discharge_standard = #{waterPollutionDischargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="pollutionTrade != null" >
+        pollution_trade = #{pollutionTrade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryPollutionDischargeLicense" >
+    update company_query_pollution_discharge_license
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      license_number = #{licenseNumber,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      valid_date = #{validDate,jdbcType=VARCHAR},
+      start_valid_date = #{startValidDate,jdbcType=DATE},
+      end_valid_date = #{endValidDate,jdbcType=DATE},
+      certification_date = #{certificationDate,jdbcType=DATE},
+      data_id = #{dataId,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      certificate_organization = #{certificateOrganization,jdbcType=VARCHAR},
+      pollution_type = #{pollutionType,jdbcType=VARCHAR},
+      air_pollution_type = #{airPollutionType,jdbcType=VARCHAR},
+      air_pollution_discharge_rule = #{airPollutionDischargeRule,jdbcType=VARCHAR},
+      air_pollution_discharge_standard = #{airPollutionDischargeStandard,jdbcType=VARCHAR},
+      water_pollution_type = #{waterPollutionType,jdbcType=VARCHAR},
+      water_pollution_discharge_rule = #{waterPollutionDischargeRule,jdbcType=VARCHAR},
+      water_pollution_discharge_standard = #{waterPollutionDischargeStandard,jdbcType=VARCHAR},
+      pollution_trade = #{pollutionTrade,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

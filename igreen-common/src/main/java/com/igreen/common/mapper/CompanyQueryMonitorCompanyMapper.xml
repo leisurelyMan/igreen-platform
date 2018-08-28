@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.CompanyQueryMonitorCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryMonitorCompany" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="monitor_sequence" property="monitorSequence" jdbcType="INTEGER" />
+    <result column="region_code" property="regionCode" jdbcType="VARCHAR" />
+    <result column="legal_person_code" property="legalPersonCode" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="monitor_type" property="monitorType" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="monitor_year" property="monitorYear" jdbcType="VARCHAR" />
+    <result column="create_tm" property="createTm" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, regist_item_id, monitor_sequence, region_code, legal_person_code, company_name, 
+    monitor_type, province, monitor_year, create_tm
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryMonitorCompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from company_query_monitor_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from company_query_monitor_company
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company_query_monitor_company
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.igreen.common.model.CompanyQueryMonitorCompanyExample" >
+    delete from company_query_monitor_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryMonitorCompany" useGeneratedKeys="true" keyProperty="id" >
+    insert into company_query_monitor_company (regist_item_id, monitor_sequence, region_code, 
+      legal_person_code, company_name, monitor_type, 
+      province, monitor_year, create_tm
+      )
+    values (#{registItemId,jdbcType=INTEGER}, #{monitorSequence,jdbcType=INTEGER}, #{regionCode,jdbcType=VARCHAR}, 
+      #{legalPersonCode,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{monitorType,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{monitorYear,jdbcType=VARCHAR}, #{createTm,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryMonitorCompany" useGeneratedKeys="true" keyProperty="id" >
+    insert into company_query_monitor_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="monitorSequence != null" >
+        monitor_sequence,
+      </if>
+      <if test="regionCode != null" >
+        region_code,
+      </if>
+      <if test="legalPersonCode != null" >
+        legal_person_code,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="monitorType != null" >
+        monitor_type,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="monitorYear != null" >
+        monitor_year,
+      </if>
+      <if test="createTm != null" >
+        create_tm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="monitorSequence != null" >
+        #{monitorSequence,jdbcType=INTEGER},
+      </if>
+      <if test="regionCode != null" >
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonCode != null" >
+        #{legalPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorType != null" >
+        #{monitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorYear != null" >
+        #{monitorYear,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null" >
+        #{createTm,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.igreen.common.model.CompanyQueryMonitorCompanyExample" resultType="java.lang.Integer" >
+    select count(*) from company_query_monitor_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update company_query_monitor_company
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.registItemId != null" >
+        regist_item_id = #{record.registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.monitorSequence != null" >
+        monitor_sequence = #{record.monitorSequence,jdbcType=INTEGER},
+      </if>
+      <if test="record.regionCode != null" >
+        region_code = #{record.regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalPersonCode != null" >
+        legal_person_code = #{record.legalPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monitorType != null" >
+        monitor_type = #{record.monitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monitorYear != null" >
+        monitor_year = #{record.monitorYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTm != null" >
+        create_tm = #{record.createTm,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update company_query_monitor_company
+    set id = #{record.id,jdbcType=INTEGER},
+      regist_item_id = #{record.registItemId,jdbcType=INTEGER},
+      monitor_sequence = #{record.monitorSequence,jdbcType=INTEGER},
+      region_code = #{record.regionCode,jdbcType=VARCHAR},
+      legal_person_code = #{record.legalPersonCode,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      monitor_type = #{record.monitorType,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      monitor_year = #{record.monitorYear,jdbcType=VARCHAR},
+      create_tm = #{record.createTm,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryMonitorCompany" >
+    update company_query_monitor_company
+    <set >
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="monitorSequence != null" >
+        monitor_sequence = #{monitorSequence,jdbcType=INTEGER},
+      </if>
+      <if test="regionCode != null" >
+        region_code = #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonCode != null" >
+        legal_person_code = #{legalPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorType != null" >
+        monitor_type = #{monitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorYear != null" >
+        monitor_year = #{monitorYear,jdbcType=VARCHAR},
+      </if>
+      <if test="createTm != null" >
+        create_tm = #{createTm,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryMonitorCompany" >
+    update company_query_monitor_company
+    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+      monitor_sequence = #{monitorSequence,jdbcType=INTEGER},
+      region_code = #{regionCode,jdbcType=VARCHAR},
+      legal_person_code = #{legalPersonCode,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      monitor_type = #{monitorType,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      monitor_year = #{monitorYear,jdbcType=VARCHAR},
+      create_tm = #{createTm,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
