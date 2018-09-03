@@ -2,12 +2,15 @@ package com.igreen.common.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
+
+import com.igreen.common.util.IgreenUtil;
 
 /**
  * 描述:regist_item表的实体类
  * @version
- * @author:  panjingxiao
- * @创建时间: 2018-08-28
+ * @author:  Administrator
+ * @创建时间: 2017-04-17
  */
 public class RegistItem {
     /**
@@ -144,6 +147,11 @@ public class RegistItem {
      * 经营(业务)范围及方式
      */
     private String businessWay;
+    
+    /**
+     * 数据来源，1手工录入，2excel导入，3网络爬虫
+     */
+    private Integer dataSource;
 
     /**
      * 状态
@@ -158,7 +166,7 @@ public class RegistItem {
     /**
      * 创建时间
      */
-    private Date createdTime;
+    private Date createdTime = new Date();
 
     /**
      * 更新者
@@ -174,93 +182,210 @@ public class RegistItem {
      * 备注
      */
     private String remark;
-
+    
     /**
-     * 数据来源，1手工录入，2excel导入，3网络爬虫
-     */
-    private Integer dataSource;
-
-    /**
-     * 公司在IPE的companyId
+     * 公司在IPE上的ID
      */
     private Integer companyId;
-
-    /**
-     * 集团公司是否上市
-     */
+    
+    
     private String groupCompanyPublic;
-
-    /**
-     * 集团公司名称
-     */
+    
     private String groupCompanyName;
-
-    /**
-     * 集团公司交易所名称
-     */
+    
     private String groupCompanyExchangeName;
-
-    /**
-     * 集团公司上市代码
-     */
+    
     private String groupCompanyStockCode;
-
-    /**
-     * 是否有污水处理设施
-     */
-    private String sewageFacility;
-
-    /**
-     * 是否有工业废气处理设施
-     */
+    
+    private String sweageFacility;
+    
     private String processGasFacility;
-
-    /**
-     * 是否有锅炉废气处理设施
-     */
+    
     private String boilerGasFacility;
-
-    /**
-     * 工业污水去向
-     */
-    private String industrialSewageDischarge;
-
-    /**
-     * 生活污水去向
-     */
-    private String lifeSweageDischarge;
-
-    /**
-     * 工业污水排放标准
-     */
-    private String industrialSewageEmissionStandard;
-
-    /**
-     * 生活污水排放标准
-     */
+    
+    private String industrialSweageDischarge;
+    
+    private String lifeSewageDischarge;
+    
+    private String indistrialSweageEmissionStandard;
+    
     private String lifeSweageEmissionStandard;
-
-    /**
-     * 废气执行排放标准
-     */
+    
     private String gasEmissionStandard;
-
-    /**
-     * 污染源类型
-     */
+    
     private String pollutantSource;
-
-    /**
-     * 生产经营主要产品
-     */
+    
     private String mainProduction;
-
-    /**
-     * 企业排污情况自述
-     */
+    
     private String pollutantDesc;
+        
+    public String getGroupCompanyPublic() {
+		return groupCompanyPublic;
+	}
 
-    /**
+	public void setGroupCompanyPublic(String groupCompanyPublic) {
+		this.groupCompanyPublic = groupCompanyPublic;
+	}
+
+	public String getGroupCompanyName() {
+		return groupCompanyName;
+	}
+
+	public void setGroupCompanyName(String groupCompanyName) {
+		this.groupCompanyName = groupCompanyName;
+	}
+
+	public String getGroupCompanyExchangeName() {
+		return groupCompanyExchangeName;
+	}
+
+	public void setGroupCompanyExchangeName(String groupCompanyExchangeName) {
+		this.groupCompanyExchangeName = groupCompanyExchangeName;
+	}
+
+	public String getGroupCompanyStockCode() {
+		return groupCompanyStockCode;
+	}
+
+	public void setGroupCompanyStockCode(String groupCompanyStockCode) {
+		this.groupCompanyStockCode = groupCompanyStockCode;
+	}
+
+	public String getSweageFacility() {
+		return sweageFacility;
+	}
+
+	public void setSweageFacility(String sweageFacility) {
+		this.sweageFacility = sweageFacility;
+	}
+
+	public String getProcessGasFacility() {
+		return processGasFacility;
+	}
+
+	public void setProcessGasFacility(String processGasFacility) {
+		this.processGasFacility = processGasFacility;
+	}
+
+	public String getBoilerGasFacility() {
+		return boilerGasFacility;
+	}
+
+	public void setBoilerGasFacility(String boilerGasFacility) {
+		this.boilerGasFacility = boilerGasFacility;
+	}
+
+	public String getIndustrialSweageDischarge() {
+		return industrialSweageDischarge;
+	}
+
+	public void setIndustrialSweageDischarge(String industrialSweageDischarge) {
+		this.industrialSweageDischarge = industrialSweageDischarge;
+	}
+
+	public String getLifeSewageDischarge() {
+		return lifeSewageDischarge;
+	}
+
+	public void setLifeSewageDischarge(String lifeSewageDischarge) {
+		this.lifeSewageDischarge = lifeSewageDischarge;
+	}
+
+	public String getIndistrialSweageEmissionStandard() {
+		return indistrialSweageEmissionStandard;
+	}
+
+	public void setIndistrialSweageEmissionStandard(
+			String indistrialSweageEmissionStandard) {
+		this.indistrialSweageEmissionStandard = indistrialSweageEmissionStandard;
+	}
+
+	public String getLifeSweageEmissionStandard() {
+		return lifeSweageEmissionStandard;
+	}
+
+	public void setLifeSweageEmissionStandard(String lifeSweageEmissionStandard) {
+		this.lifeSweageEmissionStandard = lifeSweageEmissionStandard;
+	}
+
+	public String getGasEmissionStandard() {
+		return gasEmissionStandard;
+	}
+
+	public void setGasEmissionStandard(String gasEmissionStandard) {
+		this.gasEmissionStandard = gasEmissionStandard;
+	}
+
+	public String getPollutantSource() {
+		return pollutantSource;
+	}
+
+	public void setPollutantSource(String pollutantSource) {
+		this.pollutantSource = pollutantSource;
+	}
+
+	public String getMainProduction() {
+		return mainProduction;
+	}
+
+	public void setMainProduction(String mainProduction) {
+		this.mainProduction = mainProduction;
+	}
+
+	public String getPollutantDesc() {
+		return pollutantDesc;
+	}
+
+	public void setPollutantDesc(String pollutantDesc) {
+		this.pollutantDesc = pollutantDesc;
+	}
+
+	public RegistItem() {
+		super();
+	}
+    
+    public RegistItem(Map<String, String> params) {
+		super();
+	    this.companyName = IgreenUtil.getString("companyName", params);
+	    this.legalRepresentative = IgreenUtil.getString("legalRepresentative", params);
+	    this.registNumber = IgreenUtil.getString("registNumber", params);
+	    this.oldRegistNumber = IgreenUtil.getString("oldRegistNumber", params);
+	    this.registeredCapital = IgreenUtil.getBigDecimal("registeredCapital", params);
+	    this.paidInCapital = IgreenUtil.getBigDecimal("paidInCapital", params);
+	    this.currency = IgreenUtil.getString("currency", params);
+	    this.companyType = IgreenUtil.getString("companyType", params);
+	    this.operateState = IgreenUtil.getString("operateState", params);
+	    this.startTime = IgreenUtil.getString("startTime", params);
+	    this.endTime = IgreenUtil.getString("endTime", params);
+	    this.openTime = IgreenUtil.getString("openTime", params);
+	    this.cancelTime = IgreenUtil.getString("cancelTime", params);
+	    this.revokeTime = IgreenUtil.getString("revokeTime", params);
+	    this.registOffice = IgreenUtil.getString("registOffice", params);
+	    this.address = IgreenUtil.getString("address", params);
+	    this.annualYear = IgreenUtil.getString("annualYear", params);
+	    this.annualDay = IgreenUtil.getString("annualDay", params);
+	    this.tradeCode = IgreenUtil.getString("tradeCode", params);
+	    this.tradeName = IgreenUtil.getString("tradeName", params);
+	    this.countryTradeCode = IgreenUtil.getString("countryTradeCode", params);
+	    this.countryTradeName = IgreenUtil.getString("countryTradeName", params);
+	    this.permission = IgreenUtil.getString("permission", params);
+	    this.general = IgreenUtil.getString("general", params);
+	    this.businessScope = IgreenUtil.getString("businessScope", params);
+	    this.businessWay = IgreenUtil.getString("businessWay", params);
+	    this.status = 1;
+	    this.creater = IgreenUtil.getInteger("creater", params);
+	    this.createdTime = new Date();
+	}
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+	/**
      * id
      * @return id id
      */
@@ -691,8 +816,16 @@ public class RegistItem {
     public void setBusinessWay(String businessWay) {
         this.businessWay = businessWay == null ? null : businessWay.trim();
     }
+    
+    public Integer getDataSource() {
+		return dataSource;
+	}
 
-    /**
+	public void setDataSource(Integer dataSource) {
+		this.dataSource = dataSource;
+	}
+
+	/**
      * 状态
      * @return status 状态
      */
@@ -786,277 +919,5 @@ public class RegistItem {
      */
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
-    }
-
-    /**
-     * 数据来源，1手工录入，2excel导入，3网络爬虫
-     * @return data_source 数据来源，1手工录入，2excel导入，3网络爬虫
-     */
-    public Integer getDataSource() {
-        return dataSource;
-    }
-
-    /**
-     * 数据来源，1手工录入，2excel导入，3网络爬虫
-     * @param dataSource 数据来源，1手工录入，2excel导入，3网络爬虫
-     */
-    public void setDataSource(Integer dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    /**
-     * 公司在IPE的companyId
-     * @return company_id 公司在IPE的companyId
-     */
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    /**
-     * 公司在IPE的companyId
-     * @param companyId 公司在IPE的companyId
-     */
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-
-    /**
-     * 集团公司是否上市
-     * @return group_company_public 集团公司是否上市
-     */
-    public String getGroupCompanyPublic() {
-        return groupCompanyPublic;
-    }
-
-    /**
-     * 集团公司是否上市
-     * @param groupCompanyPublic 集团公司是否上市
-     */
-    public void setGroupCompanyPublic(String groupCompanyPublic) {
-        this.groupCompanyPublic = groupCompanyPublic == null ? null : groupCompanyPublic.trim();
-    }
-
-    /**
-     * 集团公司名称
-     * @return group_company_name 集团公司名称
-     */
-    public String getGroupCompanyName() {
-        return groupCompanyName;
-    }
-
-    /**
-     * 集团公司名称
-     * @param groupCompanyName 集团公司名称
-     */
-    public void setGroupCompanyName(String groupCompanyName) {
-        this.groupCompanyName = groupCompanyName == null ? null : groupCompanyName.trim();
-    }
-
-    /**
-     * 集团公司交易所名称
-     * @return group_company_exchange_name 集团公司交易所名称
-     */
-    public String getGroupCompanyExchangeName() {
-        return groupCompanyExchangeName;
-    }
-
-    /**
-     * 集团公司交易所名称
-     * @param groupCompanyExchangeName 集团公司交易所名称
-     */
-    public void setGroupCompanyExchangeName(String groupCompanyExchangeName) {
-        this.groupCompanyExchangeName = groupCompanyExchangeName == null ? null : groupCompanyExchangeName.trim();
-    }
-
-    /**
-     * 集团公司上市代码
-     * @return group_company_stock_code 集团公司上市代码
-     */
-    public String getGroupCompanyStockCode() {
-        return groupCompanyStockCode;
-    }
-
-    /**
-     * 集团公司上市代码
-     * @param groupCompanyStockCode 集团公司上市代码
-     */
-    public void setGroupCompanyStockCode(String groupCompanyStockCode) {
-        this.groupCompanyStockCode = groupCompanyStockCode == null ? null : groupCompanyStockCode.trim();
-    }
-
-    /**
-     * 是否有污水处理设施
-     * @return sewage_facility 是否有污水处理设施
-     */
-    public String getSewageFacility() {
-        return sewageFacility;
-    }
-
-    /**
-     * 是否有污水处理设施
-     * @param sewageFacility 是否有污水处理设施
-     */
-    public void setSewageFacility(String sewageFacility) {
-        this.sewageFacility = sewageFacility == null ? null : sewageFacility.trim();
-    }
-
-    /**
-     * 是否有工业废气处理设施
-     * @return process_gas_facility 是否有工业废气处理设施
-     */
-    public String getProcessGasFacility() {
-        return processGasFacility;
-    }
-
-    /**
-     * 是否有工业废气处理设施
-     * @param processGasFacility 是否有工业废气处理设施
-     */
-    public void setProcessGasFacility(String processGasFacility) {
-        this.processGasFacility = processGasFacility == null ? null : processGasFacility.trim();
-    }
-
-    /**
-     * 是否有锅炉废气处理设施
-     * @return boiler_gas_facility 是否有锅炉废气处理设施
-     */
-    public String getBoilerGasFacility() {
-        return boilerGasFacility;
-    }
-
-    /**
-     * 是否有锅炉废气处理设施
-     * @param boilerGasFacility 是否有锅炉废气处理设施
-     */
-    public void setBoilerGasFacility(String boilerGasFacility) {
-        this.boilerGasFacility = boilerGasFacility == null ? null : boilerGasFacility.trim();
-    }
-
-    /**
-     * 工业污水去向
-     * @return industrial_sewage_discharge 工业污水去向
-     */
-    public String getIndustrialSewageDischarge() {
-        return industrialSewageDischarge;
-    }
-
-    /**
-     * 工业污水去向
-     * @param industrialSewageDischarge 工业污水去向
-     */
-    public void setIndustrialSewageDischarge(String industrialSewageDischarge) {
-        this.industrialSewageDischarge = industrialSewageDischarge == null ? null : industrialSewageDischarge.trim();
-    }
-
-    /**
-     * 生活污水去向
-     * @return life_sweage_discharge 生活污水去向
-     */
-    public String getLifeSweageDischarge() {
-        return lifeSweageDischarge;
-    }
-
-    /**
-     * 生活污水去向
-     * @param lifeSweageDischarge 生活污水去向
-     */
-    public void setLifeSweageDischarge(String lifeSweageDischarge) {
-        this.lifeSweageDischarge = lifeSweageDischarge == null ? null : lifeSweageDischarge.trim();
-    }
-
-    /**
-     * 工业污水排放标准
-     * @return industrial_sewage_emission_standard 工业污水排放标准
-     */
-    public String getIndustrialSewageEmissionStandard() {
-        return industrialSewageEmissionStandard;
-    }
-
-    /**
-     * 工业污水排放标准
-     * @param industrialSewageEmissionStandard 工业污水排放标准
-     */
-    public void setIndustrialSewageEmissionStandard(String industrialSewageEmissionStandard) {
-        this.industrialSewageEmissionStandard = industrialSewageEmissionStandard == null ? null : industrialSewageEmissionStandard.trim();
-    }
-
-    /**
-     * 生活污水排放标准
-     * @return life_sweage_emission_standard 生活污水排放标准
-     */
-    public String getLifeSweageEmissionStandard() {
-        return lifeSweageEmissionStandard;
-    }
-
-    /**
-     * 生活污水排放标准
-     * @param lifeSweageEmissionStandard 生活污水排放标准
-     */
-    public void setLifeSweageEmissionStandard(String lifeSweageEmissionStandard) {
-        this.lifeSweageEmissionStandard = lifeSweageEmissionStandard == null ? null : lifeSweageEmissionStandard.trim();
-    }
-
-    /**
-     * 废气执行排放标准
-     * @return gas_emission_standard 废气执行排放标准
-     */
-    public String getGasEmissionStandard() {
-        return gasEmissionStandard;
-    }
-
-    /**
-     * 废气执行排放标准
-     * @param gasEmissionStandard 废气执行排放标准
-     */
-    public void setGasEmissionStandard(String gasEmissionStandard) {
-        this.gasEmissionStandard = gasEmissionStandard == null ? null : gasEmissionStandard.trim();
-    }
-
-    /**
-     * 污染源类型
-     * @return pollutant_source 污染源类型
-     */
-    public String getPollutantSource() {
-        return pollutantSource;
-    }
-
-    /**
-     * 污染源类型
-     * @param pollutantSource 污染源类型
-     */
-    public void setPollutantSource(String pollutantSource) {
-        this.pollutantSource = pollutantSource == null ? null : pollutantSource.trim();
-    }
-
-    /**
-     * 生产经营主要产品
-     * @return main_production 生产经营主要产品
-     */
-    public String getMainProduction() {
-        return mainProduction;
-    }
-
-    /**
-     * 生产经营主要产品
-     * @param mainProduction 生产经营主要产品
-     */
-    public void setMainProduction(String mainProduction) {
-        this.mainProduction = mainProduction == null ? null : mainProduction.trim();
-    }
-
-    /**
-     * 企业排污情况自述
-     * @return pollutant_desc 企业排污情况自述
-     */
-    public String getPollutantDesc() {
-        return pollutantDesc;
-    }
-
-    /**
-     * 企业排污情况自述
-     * @param pollutantDesc 企业排污情况自述
-     */
-    public void setPollutantDesc(String pollutantDesc) {
-        this.pollutantDesc = pollutantDesc == null ? null : pollutantDesc.trim();
     }
 }
