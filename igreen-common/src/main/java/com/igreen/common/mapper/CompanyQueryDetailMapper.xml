@@ -282,4 +282,15 @@
       updated_time = #{updatedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByParam" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryDetail" >
+    select
+    <include refid="Base_Column_List" />
+    from company_query_detail
+    <where>
+      <if test="configId != null">
+        config_id = #{configId}
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -26,5 +26,7 @@ public interface CompanyQueryDetailMapper {
 
     int updateByPrimaryKeySelective(CompanyQueryDetail record);
 
+    List<CompanyQueryDetail> selectByParam(CompanyQueryDetail example);
+
     int updateByPrimaryKey(CompanyQueryDetail record);
 }
