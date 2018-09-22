@@ -3,6 +3,8 @@
 <mapper namespace="com.igreen.common.dao.CompanyQueryExcelEnergyEfficiencyLabelMapper" >
   <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryExcelEnergyEfficiencyLabel" >
     <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="energy_efficiency_label_id" property="energyEfficiencyLabelId" jdbcType="BIGINT" />
     <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
     <result column="notice_no" property="noticeNo" jdbcType="VARCHAR" />
     <result column="filing_company" property="filingCompany" jdbcType="VARCHAR" />
@@ -73,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, regist_item_id, notice_no, filing_company, company_type, statas, creater, created_time, 
-    updater, updated_time, remark
+    ID, data_version, energy_efficiency_label_id, regist_item_id, notice_no, filing_company, 
+    company_type, statas, creater, created_time, updater, updated_time, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryExcelEnergyEfficiencyLabelExample" >
     select
@@ -107,11 +109,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryExcelEnergyEfficiencyLabel" useGeneratedKeys="true" keyProperty="id" >
-    insert into company_query_excel_energy_efficiency_label (regist_item_id, notice_no, filing_company, 
+    insert into company_query_excel_energy_efficiency_label (data_version, energy_efficiency_label_id, 
+      regist_item_id, notice_no, filing_company, 
       company_type, statas, creater, 
       created_time, updater, updated_time, 
       remark)
-    values (#{registItemId,jdbcType=INTEGER}, #{noticeNo,jdbcType=VARCHAR}, #{filingCompany,jdbcType=VARCHAR}, 
+    values (#{dataVersion,jdbcType=INTEGER}, #{energyEfficiencyLabelId,jdbcType=BIGINT}, 
+      #{registItemId,jdbcType=INTEGER}, #{noticeNo,jdbcType=VARCHAR}, #{filingCompany,jdbcType=VARCHAR}, 
       #{companyType,jdbcType=VARCHAR}, #{statas,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, 
       #{createdTime,jdbcType=DATE}, #{updater,jdbcType=VARCHAR}, #{updatedTime,jdbcType=DATE}, 
       #{remark,jdbcType=VARCHAR})
@@ -119,6 +123,12 @@
   <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryExcelEnergyEfficiencyLabel" useGeneratedKeys="true" keyProperty="id" >
     insert into company_query_excel_energy_efficiency_label
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        data_version,
+      </if>
+      <if test="energyEfficiencyLabelId != null" >
+        energy_efficiency_label_id,
+      </if>
       <if test="registItemId != null" >
         regist_item_id,
       </if>
@@ -151,6 +161,12 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="energyEfficiencyLabelId != null" >
+        #{energyEfficiencyLabelId,jdbcType=BIGINT},
+      </if>
       <if test="registItemId != null" >
         #{registItemId,jdbcType=INTEGER},
       </if>
@@ -195,6 +211,12 @@
       <if test="record.id != null" >
         ID = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.dataVersion != null" >
+        data_version = #{record.dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.energyEfficiencyLabelId != null" >
+        energy_efficiency_label_id = #{record.energyEfficiencyLabelId,jdbcType=BIGINT},
+      </if>
       <if test="record.registItemId != null" >
         regist_item_id = #{record.registItemId,jdbcType=INTEGER},
       </if>
@@ -233,6 +255,8 @@
   <update id="updateByExample" parameterType="map" >
     update company_query_excel_energy_efficiency_label
     set ID = #{record.id,jdbcType=BIGINT},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      energy_efficiency_label_id = #{record.energyEfficiencyLabelId,jdbcType=BIGINT},
       regist_item_id = #{record.registItemId,jdbcType=INTEGER},
       notice_no = #{record.noticeNo,jdbcType=VARCHAR},
       filing_company = #{record.filingCompany,jdbcType=VARCHAR},
@@ -250,6 +274,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryExcelEnergyEfficiencyLabel" >
     update company_query_excel_energy_efficiency_label
     <set >
+      <if test="dataVersion != null" >
+        data_version = #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="energyEfficiencyLabelId != null" >
+        energy_efficiency_label_id = #{energyEfficiencyLabelId,jdbcType=BIGINT},
+      </if>
       <if test="registItemId != null" >
         regist_item_id = #{registItemId,jdbcType=INTEGER},
       </if>
@@ -285,7 +315,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryExcelEnergyEfficiencyLabel" >
     update company_query_excel_energy_efficiency_label
-    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      energy_efficiency_label_id = #{energyEfficiencyLabelId,jdbcType=BIGINT},
+      regist_item_id = #{registItemId,jdbcType=INTEGER},
       notice_no = #{noticeNo,jdbcType=VARCHAR},
       filing_company = #{filingCompany,jdbcType=VARCHAR},
       company_type = #{companyType,jdbcType=VARCHAR},

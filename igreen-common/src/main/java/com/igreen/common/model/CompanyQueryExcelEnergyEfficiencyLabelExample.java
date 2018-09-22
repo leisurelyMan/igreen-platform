@@ -75,7 +75,7 @@ public class CompanyQueryExcelEnergyEfficiencyLabelExample {
     }
 
     /**
-     * company_query_excel_energy_efficiency_label 2018-08-27
+     * company_query_excel_energy_efficiency_label 2018-09-20
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -201,6 +201,126 @@ public class CompanyQueryExcelEnergyEfficiencyLabelExample {
 
         public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("ID not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIsNull() {
+            addCriterion("data_version is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIsNotNull() {
+            addCriterion("data_version is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionEqualTo(Integer value) {
+            addCriterion("data_version =", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotEqualTo(Integer value) {
+            addCriterion("data_version <>", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionGreaterThan(Integer value) {
+            addCriterion("data_version >", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionGreaterThanOrEqualTo(Integer value) {
+            addCriterion("data_version >=", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionLessThan(Integer value) {
+            addCriterion("data_version <", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionLessThanOrEqualTo(Integer value) {
+            addCriterion("data_version <=", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIn(List<Integer> values) {
+            addCriterion("data_version in", values, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotIn(List<Integer> values) {
+            addCriterion("data_version not in", values, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionBetween(Integer value1, Integer value2) {
+            addCriterion("data_version between", value1, value2, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotBetween(Integer value1, Integer value2) {
+            addCriterion("data_version not between", value1, value2, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdIsNull() {
+            addCriterion("energy_efficiency_label_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdIsNotNull() {
+            addCriterion("energy_efficiency_label_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdEqualTo(Long value) {
+            addCriterion("energy_efficiency_label_id =", value, "energyEfficiencyLabelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdNotEqualTo(Long value) {
+            addCriterion("energy_efficiency_label_id <>", value, "energyEfficiencyLabelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdGreaterThan(Long value) {
+            addCriterion("energy_efficiency_label_id >", value, "energyEfficiencyLabelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("energy_efficiency_label_id >=", value, "energyEfficiencyLabelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdLessThan(Long value) {
+            addCriterion("energy_efficiency_label_id <", value, "energyEfficiencyLabelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdLessThanOrEqualTo(Long value) {
+            addCriterion("energy_efficiency_label_id <=", value, "energyEfficiencyLabelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdIn(List<Long> values) {
+            addCriterion("energy_efficiency_label_id in", values, "energyEfficiencyLabelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdNotIn(List<Long> values) {
+            addCriterion("energy_efficiency_label_id not in", values, "energyEfficiencyLabelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdBetween(Long value1, Long value2) {
+            addCriterion("energy_efficiency_label_id between", value1, value2, "energyEfficiencyLabelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnergyEfficiencyLabelIdNotBetween(Long value1, Long value2) {
+            addCriterion("energy_efficiency_label_id not between", value1, value2, "energyEfficiencyLabelId");
             return (Criteria) this;
         }
 
@@ -869,7 +989,7 @@ public class CompanyQueryExcelEnergyEfficiencyLabelExample {
      * 描述:company_query_excel_energy_efficiency_label表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2018-08-27
+     * @创建时间: 2018-09-20
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -879,7 +999,7 @@ public class CompanyQueryExcelEnergyEfficiencyLabelExample {
     }
 
     /**
-     * company_query_excel_energy_efficiency_label 2018-08-27
+     * company_query_excel_energy_efficiency_label 2018-09-20
      */
     public static class Criterion {
         private String condition;

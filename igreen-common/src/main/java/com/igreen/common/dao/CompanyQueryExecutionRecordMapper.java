@@ -11,7 +11,7 @@ public interface CompanyQueryExecutionRecordMapper {
 
     int deleteByExample(CompanyQueryExecutionRecordExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(CompanyQueryExecutionRecordWithBLOBs record);
 
@@ -21,7 +21,7 @@ public interface CompanyQueryExecutionRecordMapper {
 
     List<CompanyQueryExecutionRecord> selectByExample(CompanyQueryExecutionRecordExample example);
 
-    CompanyQueryExecutionRecordWithBLOBs selectByPrimaryKey(Integer id);
+    CompanyQueryExecutionRecordWithBLOBs selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") CompanyQueryExecutionRecordWithBLOBs record, @Param("example") CompanyQueryExecutionRecordExample example);
 

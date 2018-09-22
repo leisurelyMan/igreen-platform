@@ -29,7 +29,7 @@ public class CompanyQueryExecutionRecordServiceImpl implements CompanyQueryExecu
 	}
 
 	@Override
-	public int deleteByPrimaryKey(Integer id) {
+	public int deleteByPrimaryKey(Long id) {
 		return companyQueryExecutionRecordMapper.deleteByPrimaryKey(id);
 	}
 
@@ -55,7 +55,7 @@ public class CompanyQueryExecutionRecordServiceImpl implements CompanyQueryExecu
 	}
 
 	@Override
-	public CompanyQueryExecutionRecordWithBLOBs selectByPrimaryKey(Integer id) {
+	public CompanyQueryExecutionRecordWithBLOBs selectByPrimaryKey(Long id) {
 		return companyQueryExecutionRecordMapper.selectByPrimaryKey(id);
 	}
 

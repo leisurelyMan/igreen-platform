@@ -28,7 +28,7 @@ public class CompanyQueryPollutionDischargeLicenseServiceImpl implements Company
 	}
 
 	@Override
-	public int deleteByPrimaryKey(Integer id) {
+	public int deleteByPrimaryKey(Long id) {
 		return companyQueryPollutionDischargeLicenseMapper.deleteByPrimaryKey(id);
 	}
 
@@ -49,7 +49,7 @@ public class CompanyQueryPollutionDischargeLicenseServiceImpl implements Company
 	}
 
 	@Override
-	public CompanyQueryPollutionDischargeLicense selectByPrimaryKey(Integer id) {
+	public CompanyQueryPollutionDischargeLicense selectByPrimaryKey(Long id) {
 		return companyQueryPollutionDischargeLicenseMapper.selectByPrimaryKey(id);
 	}
 

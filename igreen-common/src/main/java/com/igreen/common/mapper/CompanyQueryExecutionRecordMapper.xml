@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.igreen.common.dao.CompanyQueryExecutionRecordMapper" >
   <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryExecutionRecord" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="execution_record_id" property="executionRecordId" jdbcType="INTEGER" />
     <result column="pollution_id" property="pollutionId" jdbcType="INTEGER" />
     <result column="frequency" property="frequency" jdbcType="VARCHAR" />
   </resultMap>
@@ -69,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, pollution_id, frequency
+    id, data_version, execution_record_id, pollution_id, frequency
   </sql>
   <sql id="Blob_Column_List" >
     content, other_info
@@ -104,17 +106,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from company_query_execution_record
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from company_query_execution_record
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.igreen.common.model.CompanyQueryExecutionRecordExample" >
     delete from company_query_execution_record
@@ -123,14 +125,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryExecutionRecordWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
-    insert into company_query_execution_record (pollution_id, frequency, content, 
-      other_info)
-    values (#{pollutionId,jdbcType=INTEGER}, #{frequency,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, 
-      #{otherInfo,jdbcType=LONGVARCHAR})
+    insert into company_query_execution_record (data_version, execution_record_id, pollution_id, 
+      frequency, content, other_info
+      )
+    values (#{dataVersion,jdbcType=INTEGER}, #{executionRecordId,jdbcType=INTEGER}, #{pollutionId,jdbcType=INTEGER}, 
+      #{frequency,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{otherInfo,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryExecutionRecordWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
     insert into company_query_execution_record
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        data_version,
+      </if>
+      <if test="executionRecordId != null" >
+        execution_record_id,
+      </if>
       <if test="pollutionId != null" >
         pollution_id,
       </if>
@@ -145,6 +155,12 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="executionRecordId != null" >
+        #{executionRecordId,jdbcType=INTEGER},
+      </if>
       <if test="pollutionId != null" >
         #{pollutionId,jdbcType=INTEGER},
       </if>
@@ -169,7 +185,13 @@
     update company_query_execution_record
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.dataVersion != null" >
+        data_version = #{record.dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.executionRecordId != null" >
+        execution_record_id = #{record.executionRecordId,jdbcType=INTEGER},
       </if>
       <if test="record.pollutionId != null" >
         pollution_id = #{record.pollutionId,jdbcType=INTEGER},
@@ -190,7 +212,9 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update company_query_execution_record
-    set id = #{record.id,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=BIGINT},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      execution_record_id = #{record.executionRecordId,jdbcType=INTEGER},
       pollution_id = #{record.pollutionId,jdbcType=INTEGER},
       frequency = #{record.frequency,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=LONGVARCHAR},
@@ -201,7 +225,9 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update company_query_execution_record
-    set id = #{record.id,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=BIGINT},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      execution_record_id = #{record.executionRecordId,jdbcType=INTEGER},
       pollution_id = #{record.pollutionId,jdbcType=INTEGER},
       frequency = #{record.frequency,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -211,6 +237,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryExecutionRecordWithBLOBs" >
     update company_query_execution_record
     <set >
+      <if test="dataVersion != null" >
+        data_version = #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="executionRecordId != null" >
+        execution_record_id = #{executionRecordId,jdbcType=INTEGER},
+      </if>
       <if test="pollutionId != null" >
         pollution_id = #{pollutionId,jdbcType=INTEGER},
       </if>
@@ -224,20 +256,24 @@
         other_info = #{otherInfo,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.igreen.common.model.CompanyQueryExecutionRecordWithBLOBs" >
     update company_query_execution_record
-    set pollution_id = #{pollutionId,jdbcType=INTEGER},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      execution_record_id = #{executionRecordId,jdbcType=INTEGER},
+      pollution_id = #{pollutionId,jdbcType=INTEGER},
       frequency = #{frequency,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR},
       other_info = #{otherInfo,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryExecutionRecord" >
     update company_query_execution_record
-    set pollution_id = #{pollutionId,jdbcType=INTEGER},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      execution_record_id = #{executionRecordId,jdbcType=INTEGER},
+      pollution_id = #{pollutionId,jdbcType=INTEGER},
       frequency = #{frequency,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

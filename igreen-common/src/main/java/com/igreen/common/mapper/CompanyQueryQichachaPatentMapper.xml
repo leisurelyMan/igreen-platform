@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.igreen.common.dao.CompanyQueryQichachaPatentMapper" >
   <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryQichachaPatent" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="patent_id" property="patentId" jdbcType="VARCHAR" />
     <result column="key_no" property="keyNo" jdbcType="VARCHAR" />
     <result column="key_nop" property="keyNop" jdbcType="VARCHAR" />
     <result column="ipc_list" property="ipcList" jdbcType="VARCHAR" />
@@ -79,9 +81,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, key_no, key_nop, ipc_list, kind_code, application_number, application_date, publication_number, 
-    publication_date, legal_status, legal_status_desc, title, agency, kind_code_desc, 
-    ipc_desc, inventor_string_list, assigneestring_list
+    id, data_version, patent_id, key_no, key_nop, ipc_list, kind_code, application_number, 
+    application_date, publication_number, publication_date, legal_status, legal_status_desc, 
+    title, agency, kind_code_desc, ipc_desc, inventor_string_list, assigneestring_list
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryQichachaPatentExample" >
     select
@@ -97,15 +99,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from company_query_qichacha_patent
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from company_query_qichacha_patent
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.igreen.common.model.CompanyQueryQichachaPatentExample" >
     delete from company_query_qichacha_patent
@@ -114,22 +116,30 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryQichachaPatent" useGeneratedKeys="true" keyProperty="id" >
-    insert into company_query_qichacha_patent (key_no, key_nop, ipc_list, 
-      kind_code, application_number, application_date, 
-      publication_number, publication_date, legal_status, 
-      legal_status_desc, title, agency, 
-      kind_code_desc, ipc_desc, inventor_string_list, 
-      assigneestring_list)
-    values (#{keyNo,jdbcType=VARCHAR}, #{keyNop,jdbcType=VARCHAR}, #{ipcList,jdbcType=VARCHAR}, 
-      #{kindCode,jdbcType=VARCHAR}, #{applicationNumber,jdbcType=VARCHAR}, #{applicationDate,jdbcType=VARCHAR}, 
-      #{publicationNumber,jdbcType=VARCHAR}, #{publicationDate,jdbcType=VARCHAR}, #{legalStatus,jdbcType=VARCHAR}, 
-      #{legalStatusDesc,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{agency,jdbcType=VARCHAR}, 
-      #{kindCodeDesc,jdbcType=VARCHAR}, #{ipcDesc,jdbcType=VARCHAR}, #{inventorStringList,jdbcType=VARCHAR}, 
-      #{assigneestringList,jdbcType=VARCHAR})
+    insert into company_query_qichacha_patent (data_version, patent_id, key_no, 
+      key_nop, ipc_list, kind_code, 
+      application_number, application_date, publication_number, 
+      publication_date, legal_status, legal_status_desc, 
+      title, agency, kind_code_desc, 
+      ipc_desc, inventor_string_list, assigneestring_list
+      )
+    values (#{dataVersion,jdbcType=INTEGER}, #{patentId,jdbcType=VARCHAR}, #{keyNo,jdbcType=VARCHAR}, 
+      #{keyNop,jdbcType=VARCHAR}, #{ipcList,jdbcType=VARCHAR}, #{kindCode,jdbcType=VARCHAR}, 
+      #{applicationNumber,jdbcType=VARCHAR}, #{applicationDate,jdbcType=VARCHAR}, #{publicationNumber,jdbcType=VARCHAR}, 
+      #{publicationDate,jdbcType=VARCHAR}, #{legalStatus,jdbcType=VARCHAR}, #{legalStatusDesc,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{agency,jdbcType=VARCHAR}, #{kindCodeDesc,jdbcType=VARCHAR}, 
+      #{ipcDesc,jdbcType=VARCHAR}, #{inventorStringList,jdbcType=VARCHAR}, #{assigneestringList,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryQichachaPatent" useGeneratedKeys="true" keyProperty="id" >
     insert into company_query_qichacha_patent
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        data_version,
+      </if>
+      <if test="patentId != null" >
+        patent_id,
+      </if>
       <if test="keyNo != null" >
         key_no,
       </if>
@@ -180,6 +190,12 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="patentId != null" >
+        #{patentId,jdbcType=VARCHAR},
+      </if>
       <if test="keyNo != null" >
         #{keyNo,jdbcType=VARCHAR},
       </if>
@@ -240,7 +256,13 @@
     update company_query_qichacha_patent
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.dataVersion != null" >
+        data_version = #{record.dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.patentId != null" >
+        patent_id = #{record.patentId,jdbcType=VARCHAR},
       </if>
       <if test="record.keyNo != null" >
         key_no = #{record.keyNo,jdbcType=VARCHAR},
@@ -297,7 +319,9 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update company_query_qichacha_patent
-    set id = #{record.id,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=BIGINT},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      patent_id = #{record.patentId,jdbcType=VARCHAR},
       key_no = #{record.keyNo,jdbcType=VARCHAR},
       key_nop = #{record.keyNop,jdbcType=VARCHAR},
       ipc_list = #{record.ipcList,jdbcType=VARCHAR},
@@ -321,6 +345,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryQichachaPatent" >
     update company_query_qichacha_patent
     <set >
+      <if test="dataVersion != null" >
+        data_version = #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="patentId != null" >
+        patent_id = #{patentId,jdbcType=VARCHAR},
+      </if>
       <if test="keyNo != null" >
         key_no = #{keyNo,jdbcType=VARCHAR},
       </if>
@@ -370,11 +400,13 @@
         assigneestring_list = #{assigneestringList,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryQichachaPatent" >
     update company_query_qichacha_patent
-    set key_no = #{keyNo,jdbcType=VARCHAR},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      patent_id = #{patentId,jdbcType=VARCHAR},
+      key_no = #{keyNo,jdbcType=VARCHAR},
       key_nop = #{keyNop,jdbcType=VARCHAR},
       ipc_list = #{ipcList,jdbcType=VARCHAR},
       kind_code = #{kindCode,jdbcType=VARCHAR},
@@ -390,6 +422,6 @@
       ipc_desc = #{ipcDesc,jdbcType=VARCHAR},
       inventor_string_list = #{inventorStringList,jdbcType=VARCHAR},
       assigneestring_list = #{assigneestringList,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

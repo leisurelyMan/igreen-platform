@@ -6,13 +6,23 @@ import java.util.Date;
  * 描述:company_query_pollution_discharge_license表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-08-27
+ * @创建时间: 2018-09-20
  */
 public class CompanyQueryPollutionDischargeLicense {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
+
+    /**
+     * data_version
+     */
+    private Integer dataVersion;
+
+    /**
+     * license_id
+     */
+    private Integer licenseId;
 
     /**
      * 登记信息ID
@@ -123,7 +133,7 @@ public class CompanyQueryPollutionDischargeLicense {
      * id
      * @return id id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -131,8 +141,40 @@ public class CompanyQueryPollutionDischargeLicense {
      * id
      * @param id id
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * data_version
+     * @return data_version data_version
+     */
+    public Integer getDataVersion() {
+        return dataVersion;
+    }
+
+    /**
+     * data_version
+     * @param dataVersion data_version
+     */
+    public void setDataVersion(Integer dataVersion) {
+        this.dataVersion = dataVersion;
+    }
+
+    /**
+     * license_id
+     * @return license_id license_id
+     */
+    public Integer getLicenseId() {
+        return licenseId;
+    }
+
+    /**
+     * license_id
+     * @param licenseId license_id
+     */
+    public void setLicenseId(Integer licenseId) {
+        this.licenseId = licenseId;
     }
 
     /**

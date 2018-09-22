@@ -10,7 +10,7 @@ public interface CompanyQueryQichachaJudgementService {
 
     int deleteByExample(CompanyQueryQichachaJudgementExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(CompanyQueryQichachaJudgement record);
 
@@ -20,7 +20,7 @@ public interface CompanyQueryQichachaJudgementService {
 
     List<CompanyQueryQichachaJudgement> selectByExample(CompanyQueryQichachaJudgementExample example);
 
-    CompanyQueryQichachaJudgement selectByPrimaryKey(String id);
+    CompanyQueryQichachaJudgement selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(CompanyQueryQichachaJudgement record, CompanyQueryQichachaJudgementExample example);
 

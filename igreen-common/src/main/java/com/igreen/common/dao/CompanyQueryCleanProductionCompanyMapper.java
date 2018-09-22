@@ -10,7 +10,7 @@ public interface CompanyQueryCleanProductionCompanyMapper {
 
     int deleteByExample(CompanyQueryCleanProductionCompanyExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(CompanyQueryCleanProductionCompany record);
 
@@ -18,7 +18,7 @@ public interface CompanyQueryCleanProductionCompanyMapper {
 
     List<CompanyQueryCleanProductionCompany> selectByExample(CompanyQueryCleanProductionCompanyExample example);
 
-    CompanyQueryCleanProductionCompany selectByPrimaryKey(Integer id);
+    CompanyQueryCleanProductionCompany selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") CompanyQueryCleanProductionCompany record, @Param("example") CompanyQueryCleanProductionCompanyExample example);
 

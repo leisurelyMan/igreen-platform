@@ -10,7 +10,7 @@ public interface CompanyQueryQichachaJudgementMapper {
 
     int deleteByExample(CompanyQueryQichachaJudgementExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(CompanyQueryQichachaJudgement record);
 
@@ -20,7 +20,7 @@ public interface CompanyQueryQichachaJudgementMapper {
 
     List<CompanyQueryQichachaJudgement> selectByExample(CompanyQueryQichachaJudgementExample example);
 
-    CompanyQueryQichachaJudgement selectByPrimaryKey(String id);
+    CompanyQueryQichachaJudgement selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") CompanyQueryQichachaJudgement record, @Param("example") CompanyQueryQichachaJudgementExample example);
 

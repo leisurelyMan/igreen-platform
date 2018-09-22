@@ -10,7 +10,7 @@ public interface CompanyQueryMonitorCompanyService {
 
     int deleteByExample(CompanyQueryMonitorCompanyExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(CompanyQueryMonitorCompany record);
 
@@ -18,7 +18,7 @@ public interface CompanyQueryMonitorCompanyService {
 
     List<CompanyQueryMonitorCompany> selectByExample(CompanyQueryMonitorCompanyExample example);
 
-    CompanyQueryMonitorCompany selectByPrimaryKey(Integer id);
+    CompanyQueryMonitorCompany selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(CompanyQueryMonitorCompany record, CompanyQueryMonitorCompanyExample example);
 

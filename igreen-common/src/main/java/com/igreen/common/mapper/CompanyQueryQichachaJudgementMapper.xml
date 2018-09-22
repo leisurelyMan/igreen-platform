@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.igreen.common.dao.CompanyQueryQichachaJudgementMapper" >
   <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryQichachaJudgement" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="judgement_id" property="judgementId" jdbcType="VARCHAR" />
     <result column="key_no" property="keyNo" jdbcType="VARCHAR" />
     <result column="t_id" property="tId" jdbcType="VARCHAR" />
     <result column="court" property="court" jdbcType="VARCHAR" />
@@ -77,8 +79,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, key_no, t_id, court, case_name, case_no, case_type, submit_date, is_prosecutor, 
-    is_defendant, update_date, court_year
+    id, data_version, judgement_id, key_no, t_id, court, case_name, case_no, case_type, 
+    submit_date, is_prosecutor, is_defendant, update_date, court_year
   </sql>
   <sql id="Blob_Column_List" >
     case_role
@@ -113,17 +115,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from company_query_qichacha_judgement
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from company_query_qichacha_judgement
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.igreen.common.model.CompanyQueryQichachaJudgementExample" >
     delete from company_query_qichacha_judgement
@@ -132,20 +134,26 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryQichachaJudgement" useGeneratedKeys="true" keyProperty="id" >
-    insert into company_query_qichacha_judgement (key_no, t_id, court, 
-      case_name, case_no, case_type, 
-      submit_date, is_prosecutor, is_defendant, 
-      update_date, court_year, case_role
-      )
-    values (#{keyNo,jdbcType=VARCHAR}, #{tId,jdbcType=VARCHAR}, #{court,jdbcType=VARCHAR}, 
-      #{caseName,jdbcType=VARCHAR}, #{caseNo,jdbcType=VARCHAR}, #{caseType,jdbcType=VARCHAR}, 
-      #{submitDate,jdbcType=VARCHAR}, #{isProsecutor,jdbcType=VARCHAR}, #{isDefendant,jdbcType=VARCHAR}, 
-      #{updateDate,jdbcType=VARCHAR}, #{courtYear,jdbcType=VARCHAR}, #{caseRole,jdbcType=LONGVARCHAR}
-      )
+    insert into company_query_qichacha_judgement (data_version, judgement_id, key_no, 
+      t_id, court, case_name, 
+      case_no, case_type, submit_date, 
+      is_prosecutor, is_defendant, update_date, 
+      court_year, case_role)
+    values (#{dataVersion,jdbcType=INTEGER}, #{judgementId,jdbcType=VARCHAR}, #{keyNo,jdbcType=VARCHAR}, 
+      #{tId,jdbcType=VARCHAR}, #{court,jdbcType=VARCHAR}, #{caseName,jdbcType=VARCHAR}, 
+      #{caseNo,jdbcType=VARCHAR}, #{caseType,jdbcType=VARCHAR}, #{submitDate,jdbcType=VARCHAR}, 
+      #{isProsecutor,jdbcType=VARCHAR}, #{isDefendant,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}, 
+      #{courtYear,jdbcType=VARCHAR}, #{caseRole,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryQichachaJudgement" useGeneratedKeys="true" keyProperty="id" >
     insert into company_query_qichacha_judgement
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        data_version,
+      </if>
+      <if test="judgementId != null" >
+        judgement_id,
+      </if>
       <if test="keyNo != null" >
         key_no,
       </if>
@@ -184,6 +192,12 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="judgementId != null" >
+        #{judgementId,jdbcType=VARCHAR},
+      </if>
       <if test="keyNo != null" >
         #{keyNo,jdbcType=VARCHAR},
       </if>
@@ -232,7 +246,13 @@
     update company_query_qichacha_judgement
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.dataVersion != null" >
+        data_version = #{record.dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.judgementId != null" >
+        judgement_id = #{record.judgementId,jdbcType=VARCHAR},
       </if>
       <if test="record.keyNo != null" >
         key_no = #{record.keyNo,jdbcType=VARCHAR},
@@ -277,7 +297,9 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update company_query_qichacha_judgement
-    set id = #{record.id,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=BIGINT},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      judgement_id = #{record.judgementId,jdbcType=VARCHAR},
       key_no = #{record.keyNo,jdbcType=VARCHAR},
       t_id = #{record.tId,jdbcType=VARCHAR},
       court = #{record.court,jdbcType=VARCHAR},
@@ -296,7 +318,9 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update company_query_qichacha_judgement
-    set id = #{record.id,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=BIGINT},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      judgement_id = #{record.judgementId,jdbcType=VARCHAR},
       key_no = #{record.keyNo,jdbcType=VARCHAR},
       t_id = #{record.tId,jdbcType=VARCHAR},
       court = #{record.court,jdbcType=VARCHAR},
@@ -315,6 +339,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryQichachaJudgement" >
     update company_query_qichacha_judgement
     <set >
+      <if test="dataVersion != null" >
+        data_version = #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="judgementId != null" >
+        judgement_id = #{judgementId,jdbcType=VARCHAR},
+      </if>
       <if test="keyNo != null" >
         key_no = #{keyNo,jdbcType=VARCHAR},
       </if>
@@ -352,11 +382,13 @@
         case_role = #{caseRole,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.igreen.common.model.CompanyQueryQichachaJudgement" >
     update company_query_qichacha_judgement
-    set key_no = #{keyNo,jdbcType=VARCHAR},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      judgement_id = #{judgementId,jdbcType=VARCHAR},
+      key_no = #{keyNo,jdbcType=VARCHAR},
       t_id = #{tId,jdbcType=VARCHAR},
       court = #{court,jdbcType=VARCHAR},
       case_name = #{caseName,jdbcType=VARCHAR},
@@ -368,11 +400,13 @@
       update_date = #{updateDate,jdbcType=VARCHAR},
       court_year = #{courtYear,jdbcType=VARCHAR},
       case_role = #{caseRole,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryQichachaJudgement" >
     update company_query_qichacha_judgement
-    set key_no = #{keyNo,jdbcType=VARCHAR},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      judgement_id = #{judgementId,jdbcType=VARCHAR},
+      key_no = #{keyNo,jdbcType=VARCHAR},
       t_id = #{tId,jdbcType=VARCHAR},
       court = #{court,jdbcType=VARCHAR},
       case_name = #{caseName,jdbcType=VARCHAR},
@@ -383,6 +417,6 @@
       is_defendant = #{isDefendant,jdbcType=VARCHAR},
       update_date = #{updateDate,jdbcType=VARCHAR},
       court_year = #{courtYear,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

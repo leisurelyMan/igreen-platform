@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.igreen.common.dao.CompanyQueryMonitorCompanyMapper" >
   <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryMonitorCompany" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="monitor_company_id" property="monitorCompanyId" jdbcType="INTEGER" />
     <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
     <result column="monitor_sequence" property="monitorSequence" jdbcType="INTEGER" />
     <result column="region_code" property="regionCode" jdbcType="VARCHAR" />
@@ -72,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, regist_item_id, monitor_sequence, region_code, legal_person_code, company_name, 
-    monitor_type, province, monitor_year, create_tm
+    id, data_version, monitor_company_id, regist_item_id, monitor_sequence, region_code, 
+    legal_person_code, company_name, monitor_type, province, monitor_year, create_tm
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryMonitorCompanyExample" >
     select
@@ -89,15 +91,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from company_query_monitor_company
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from company_query_monitor_company
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.igreen.common.model.CompanyQueryMonitorCompanyExample" >
     delete from company_query_monitor_company
@@ -106,18 +108,24 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryMonitorCompany" useGeneratedKeys="true" keyProperty="id" >
-    insert into company_query_monitor_company (regist_item_id, monitor_sequence, region_code, 
-      legal_person_code, company_name, monitor_type, 
-      province, monitor_year, create_tm
-      )
-    values (#{registItemId,jdbcType=INTEGER}, #{monitorSequence,jdbcType=INTEGER}, #{regionCode,jdbcType=VARCHAR}, 
-      #{legalPersonCode,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{monitorType,jdbcType=VARCHAR}, 
-      #{province,jdbcType=VARCHAR}, #{monitorYear,jdbcType=VARCHAR}, #{createTm,jdbcType=TIMESTAMP}
-      )
+    insert into company_query_monitor_company (data_version, monitor_company_id, regist_item_id, 
+      monitor_sequence, region_code, legal_person_code, 
+      company_name, monitor_type, province, 
+      monitor_year, create_tm)
+    values (#{dataVersion,jdbcType=INTEGER}, #{monitorCompanyId,jdbcType=INTEGER}, #{registItemId,jdbcType=INTEGER}, 
+      #{monitorSequence,jdbcType=INTEGER}, #{regionCode,jdbcType=VARCHAR}, #{legalPersonCode,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{monitorType,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{monitorYear,jdbcType=VARCHAR}, #{createTm,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryMonitorCompany" useGeneratedKeys="true" keyProperty="id" >
     insert into company_query_monitor_company
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        data_version,
+      </if>
+      <if test="monitorCompanyId != null" >
+        monitor_company_id,
+      </if>
       <if test="registItemId != null" >
         regist_item_id,
       </if>
@@ -147,6 +155,12 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="monitorCompanyId != null" >
+        #{monitorCompanyId,jdbcType=INTEGER},
+      </if>
       <if test="registItemId != null" >
         #{registItemId,jdbcType=INTEGER},
       </if>
@@ -186,7 +200,13 @@
     update company_query_monitor_company
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.dataVersion != null" >
+        data_version = #{record.dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.monitorCompanyId != null" >
+        monitor_company_id = #{record.monitorCompanyId,jdbcType=INTEGER},
       </if>
       <if test="record.registItemId != null" >
         regist_item_id = #{record.registItemId,jdbcType=INTEGER},
@@ -222,7 +242,9 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update company_query_monitor_company
-    set id = #{record.id,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=BIGINT},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      monitor_company_id = #{record.monitorCompanyId,jdbcType=INTEGER},
       regist_item_id = #{record.registItemId,jdbcType=INTEGER},
       monitor_sequence = #{record.monitorSequence,jdbcType=INTEGER},
       region_code = #{record.regionCode,jdbcType=VARCHAR},
@@ -239,6 +261,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryMonitorCompany" >
     update company_query_monitor_company
     <set >
+      <if test="dataVersion != null" >
+        data_version = #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="monitorCompanyId != null" >
+        monitor_company_id = #{monitorCompanyId,jdbcType=INTEGER},
+      </if>
       <if test="registItemId != null" >
         regist_item_id = #{registItemId,jdbcType=INTEGER},
       </if>
@@ -267,11 +295,13 @@
         create_tm = #{createTm,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryMonitorCompany" >
     update company_query_monitor_company
-    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      monitor_company_id = #{monitorCompanyId,jdbcType=INTEGER},
+      regist_item_id = #{registItemId,jdbcType=INTEGER},
       monitor_sequence = #{monitorSequence,jdbcType=INTEGER},
       region_code = #{regionCode,jdbcType=VARCHAR},
       legal_person_code = #{legalPersonCode,jdbcType=VARCHAR},
@@ -280,6 +310,6 @@
       province = #{province,jdbcType=VARCHAR},
       monitor_year = #{monitorYear,jdbcType=VARCHAR},
       create_tm = #{createTm,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

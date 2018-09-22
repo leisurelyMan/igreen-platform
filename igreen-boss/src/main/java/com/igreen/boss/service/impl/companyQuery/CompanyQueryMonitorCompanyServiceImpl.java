@@ -28,7 +28,7 @@ public class CompanyQueryMonitorCompanyServiceImpl implements CompanyQueryMonito
 	}
 
 	@Override
-	public int deleteByPrimaryKey(Integer id) {
+	public int deleteByPrimaryKey(Long id) {
 		return companyQueryMonitorCompanyMapper.deleteByPrimaryKey(id);
 	}
 
@@ -48,7 +48,7 @@ public class CompanyQueryMonitorCompanyServiceImpl implements CompanyQueryMonito
 	}
 
 	@Override
-	public CompanyQueryMonitorCompany selectByPrimaryKey(Integer id) {
+	public CompanyQueryMonitorCompany selectByPrimaryKey(Long id) {
 		return companyQueryMonitorCompanyMapper.selectByPrimaryKey(id);
 	}
 

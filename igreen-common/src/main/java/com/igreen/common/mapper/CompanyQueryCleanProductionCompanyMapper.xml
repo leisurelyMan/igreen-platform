@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.igreen.common.dao.CompanyQueryCleanProductionCompanyMapper" >
   <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryCleanProductionCompany" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="clean_production_company_id" property="cleanProductionCompanyId" jdbcType="INTEGER" />
     <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
     <result column="check_year" property="checkYear" jdbcType="VARCHAR" />
     <result column="batch_no" property="batchNo" jdbcType="VARCHAR" />
@@ -79,9 +81,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, regist_item_id, check_year, batch_no, city, serial_number, company_name, trade, 
-    product_sales_amount, region, address, report_time, submit_check_time, complete_estimate_time, 
-    complete_check_time, check_organization, create_tm
+    id, data_version, clean_production_company_id, regist_item_id, check_year, batch_no, 
+    city, serial_number, company_name, trade, product_sales_amount, region, address, 
+    report_time, submit_check_time, complete_estimate_time, complete_check_time, check_organization, 
+    create_tm
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CompanyQueryCleanProductionCompanyExample" >
     select
@@ -97,15 +100,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from company_query_clean_production_company
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from company_query_clean_production_company
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.igreen.common.model.CompanyQueryCleanProductionCompanyExample" >
     delete from company_query_clean_production_company
@@ -114,13 +117,15 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryCleanProductionCompany" useGeneratedKeys="true" keyProperty="id" >
-    insert into company_query_clean_production_company (regist_item_id, check_year, batch_no, 
+    insert into company_query_clean_production_company (data_version, clean_production_company_id, 
+      regist_item_id, check_year, batch_no, 
       city, serial_number, company_name, 
       trade, product_sales_amount, region, 
       address, report_time, submit_check_time, 
       complete_estimate_time, complete_check_time, 
       check_organization, create_tm)
-    values (#{registItemId,jdbcType=INTEGER}, #{checkYear,jdbcType=VARCHAR}, #{batchNo,jdbcType=VARCHAR}, 
+    values (#{dataVersion,jdbcType=INTEGER}, #{cleanProductionCompanyId,jdbcType=INTEGER}, 
+      #{registItemId,jdbcType=INTEGER}, #{checkYear,jdbcType=VARCHAR}, #{batchNo,jdbcType=VARCHAR}, 
       #{city,jdbcType=VARCHAR}, #{serialNumber,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
       #{trade,jdbcType=VARCHAR}, #{productSalesAmount,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{reportTime,jdbcType=VARCHAR}, #{submitCheckTime,jdbcType=VARCHAR}, 
@@ -130,6 +135,12 @@
   <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryCleanProductionCompany" useGeneratedKeys="true" keyProperty="id" >
     insert into company_query_clean_production_company
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        data_version,
+      </if>
+      <if test="cleanProductionCompanyId != null" >
+        clean_production_company_id,
+      </if>
       <if test="registItemId != null" >
         regist_item_id,
       </if>
@@ -180,6 +191,12 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="cleanProductionCompanyId != null" >
+        #{cleanProductionCompanyId,jdbcType=INTEGER},
+      </if>
       <if test="registItemId != null" >
         #{registItemId,jdbcType=INTEGER},
       </if>
@@ -240,7 +257,13 @@
     update company_query_clean_production_company
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.dataVersion != null" >
+        data_version = #{record.dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.cleanProductionCompanyId != null" >
+        clean_production_company_id = #{record.cleanProductionCompanyId,jdbcType=INTEGER},
       </if>
       <if test="record.registItemId != null" >
         regist_item_id = #{record.registItemId,jdbcType=INTEGER},
@@ -297,7 +320,9 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update company_query_clean_production_company
-    set id = #{record.id,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=BIGINT},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      clean_production_company_id = #{record.cleanProductionCompanyId,jdbcType=INTEGER},
       regist_item_id = #{record.registItemId,jdbcType=INTEGER},
       check_year = #{record.checkYear,jdbcType=VARCHAR},
       batch_no = #{record.batchNo,jdbcType=VARCHAR},
@@ -321,6 +346,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryCleanProductionCompany" >
     update company_query_clean_production_company
     <set >
+      <if test="dataVersion != null" >
+        data_version = #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="cleanProductionCompanyId != null" >
+        clean_production_company_id = #{cleanProductionCompanyId,jdbcType=INTEGER},
+      </if>
       <if test="registItemId != null" >
         regist_item_id = #{registItemId,jdbcType=INTEGER},
       </if>
@@ -370,11 +401,13 @@
         create_tm = #{createTm,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryCleanProductionCompany" >
     update company_query_clean_production_company
-    set regist_item_id = #{registItemId,jdbcType=INTEGER},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      clean_production_company_id = #{cleanProductionCompanyId,jdbcType=INTEGER},
+      regist_item_id = #{registItemId,jdbcType=INTEGER},
       check_year = #{checkYear,jdbcType=VARCHAR},
       batch_no = #{batchNo,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
@@ -390,6 +423,6 @@
       complete_check_time = #{completeCheckTime,jdbcType=VARCHAR},
       check_organization = #{checkOrganization,jdbcType=VARCHAR},
       create_tm = #{createTm,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

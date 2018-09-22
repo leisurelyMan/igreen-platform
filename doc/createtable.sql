@@ -35,6 +35,8 @@ ADD COLUMN `qichacha_key_no`  varchar(40) NULL COMMENT '企查查基础信息' A
 DROP TABLE IF EXISTS `company_query_qichacha_company_base`;
 CREATE TABLE `company_query_qichacha_company_base` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `data_version` int(11) NOT NULL COMMENT 'data_version',  
+  `base_id` int(11) NOT NULL COMMENT 'base_id',
   `key_no` varchar(40) NOT NULL COMMENT 'KeyNo',
   `name` varchar(255) DEFAULT NULL COMMENT '公司名称',
   `start_date` varchar(50) DEFAULT NULL COMMENT '注册时间',
@@ -49,12 +51,15 @@ CREATE TABLE `company_query_qichacha_company_base` (
   `scope` text COMMENT '经营范围',
   `org_no` varchar(20) DEFAULT NULL COMMENT '组织机构代码',
   `status` varchar(100) DEFAULT NULL COMMENT '状态',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `query_index` (`data_version`,`base_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='company_query_qichacha_company_base';
 
 DROP TABLE IF EXISTS `company_query_qichacha_judgement`;
 CREATE TABLE `company_query_qichacha_judgement` (
-  `id` varchar(20) NOT NULL COMMENT 'row_content',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'row_content',
+  `data_version` int(11) NOT NULL COMMENT 'data_version',  
+  `judgement_id` varchar(20) NOT NULL COMMENT 'judgement_id',
   `key_no` varchar(40) DEFAULT NULL COMMENT 'key_no',
   `t_id` varchar(40) DEFAULT NULL COMMENT 't_id',
   `court` varchar(255) DEFAULT NULL COMMENT '执行法院',
@@ -68,12 +73,15 @@ CREATE TABLE `company_query_qichacha_judgement` (
   `court_year` varchar(10) DEFAULT NULL COMMENT '年度',
   `case_role` text COMMENT '角色',
   PRIMARY KEY (`id`),
+  KEY `query_index` (`data_version`,`judgement_id`),
   KEY `idx_qichacha_judgement` (`key_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='company_query_qichacha_judgement';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='company_query_qichacha_judgement';
 
 DROP TABLE IF EXISTS `company_query_qichacha_patent`;
 CREATE TABLE `company_query_qichacha_patent` (
-  `id` varchar(20) NOT NULL COMMENT 'id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `data_version` int(11) NOT NULL COMMENT 'data_version',  
+  `patent_id` varchar(20) NOT NULL COMMENT 'patent_id',
   `key_no` varchar(35) DEFAULT NULL COMMENT 'key_no',
   `key_nop` varchar(35) DEFAULT NULL COMMENT 'key_nop',
   `ipc_list` varchar(10) DEFAULT NULL COMMENT '专利类别',
@@ -91,12 +99,15 @@ CREATE TABLE `company_query_qichacha_patent` (
   `inventor_string_list` varchar(200) DEFAULT NULL COMMENT '发明人',
   `assigneestring_list` varchar(200) DEFAULT NULL COMMENT '代理人',
   PRIMARY KEY (`id`),
+  KEY `query_index` (`data_version`,`patent_id`),
   KEY `idx_qichacha_patent` (`key_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='company_query_qichacha_patent';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='company_query_qichacha_patent';
 
 DROP TABLE IF EXISTS `company_query_monitor_company`;
 CREATE TABLE `company_query_monitor_company` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `data_version` int(11) NOT NULL COMMENT 'data_version',  
+  `monitor_company_id` int(11) NOT NULL COMMENT 'monitor_company_id',
   `regist_item_id` int(11) DEFAULT NULL COMMENT '登记信息ID',
   `monitor_sequence` int(11) DEFAULT NULL COMMENT '序号',
   `region_code` varchar(20) DEFAULT NULL COMMENT '行政区划代码',
@@ -106,12 +117,15 @@ CREATE TABLE `company_query_monitor_company` (
   `province` varchar(50) DEFAULT NULL COMMENT '所属省份',
   `monitor_year` varchar(20) DEFAULT NULL COMMENT '所属年份',
   `create_tm` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `query_index` (`data_version`,`monitor_company_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='国家重点监控企业名单';
 
 DROP TABLE IF EXISTS `company_query_pollution_discharge_license`;
 CREATE TABLE `company_query_pollution_discharge_license` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `data_version` int(11) NOT NULL COMMENT 'data_version',  
+  `license_id` int(11) NOT NULL COMMENT 'license_id',
   `regist_item_id` int(11) DEFAULT NULL COMMENT '登记信息ID',
   `province` varchar(16) DEFAULT NULL COMMENT '省',
   `city` varchar(32) DEFAULT NULL COMMENT '城市',
@@ -133,23 +147,29 @@ CREATE TABLE `company_query_pollution_discharge_license` (
   `water_pollution_discharge_rule` varchar(1000) DEFAULT NULL COMMENT '废水污染物排放规律',
   `water_pollution_discharge_standard` varchar(1000) DEFAULT NULL COMMENT '废水污染物排放执行标准',
   `pollution_trade` varchar(1000) DEFAULT NULL COMMENT '排污权使用和交易信息',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='排污许可信息表';
+  PRIMARY KEY (`id`),
+  KEY `query_index` (`data_version`,`license_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='排污许可信息表';
 
 DROP TABLE IF EXISTS `company_query_execution_record`;
 CREATE TABLE `company_query_execution_record` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `data_version` int(11) NOT NULL COMMENT 'data_version',  
+  `execution_record_id` int(11) NOT NULL COMMENT 'execution_record_id',
   `pollution_id` int(11) NOT NULL COMMENT '排污许可信息表外键',
   `content` text COMMENT '主要内容',
   `frequency` varchar(1000) DEFAULT NULL COMMENT '上报频次',
   `other_info` text COMMENT '其他信息',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `query_index` (`data_version`,`execution_record_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='company_query_execution_record';
 
 
 DROP TABLE IF EXISTS `company_query_clean_production_company`;
 CREATE TABLE `company_query_clean_production_company` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `data_version` int(11) NOT NULL COMMENT 'data_version',  
+  `clean_production_company_id` int(11) NOT NULL COMMENT 'clean_production_company_id',
   `regist_item_id` int(11) DEFAULT NULL COMMENT '登记企业主键',
   `check_year` varchar(10) DEFAULT NULL COMMENT '年份',
   `batch_no` varchar(10) DEFAULT NULL COMMENT '批次',
@@ -166,13 +186,16 @@ CREATE TABLE `company_query_clean_production_company` (
   `complete_check_time` varchar(20) DEFAULT NULL COMMENT '完成验收时间',
   `check_organization` varchar(200) DEFAULT NULL COMMENT '审核咨询机构名称',
   `create_tm` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `query_index` (`data_version`,`clean_production_company_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='环保部清洁生产企业';
 
 
 DROP TABLE IF EXISTS `company_query_excel_energy_efficiency_label`;
 CREATE TABLE `company_query_excel_energy_efficiency_label` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `data_version` int(11) NOT NULL COMMENT 'data_version',  
+  `energy_efficiency_label_id` bigint(20) NOT NULL COMMENT 'energy_efficiency_label_id',
   `regist_item_id` int(11) DEFAULT NULL COMMENT '公司信息ID',
   `notice_no` varchar(100) DEFAULT NULL COMMENT '公告号',
   `filing_company` varchar(255) DEFAULT NULL COMMENT '备案单位',
@@ -183,7 +206,6 @@ CREATE TABLE `company_query_excel_energy_efficiency_label` (
   `updater` varchar(100) DEFAULT NULL COMMENT '更新者',
   `updated_time` date DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `query_index` (`data_version`,`energy_efficiency_label_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='能效指标备案：实验室公告';
-
-

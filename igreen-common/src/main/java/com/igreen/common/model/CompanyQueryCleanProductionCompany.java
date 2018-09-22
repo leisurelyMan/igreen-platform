@@ -6,13 +6,23 @@ import java.util.Date;
  * 描述:company_query_clean_production_company表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-08-27
+ * @创建时间: 2018-09-20
  */
 public class CompanyQueryCleanProductionCompany {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
+
+    /**
+     * data_version
+     */
+    private Integer dataVersion;
+
+    /**
+     * clean_production_company_id
+     */
+    private Integer cleanProductionCompanyId;
 
     /**
      * 登记企业主键
@@ -98,7 +108,7 @@ public class CompanyQueryCleanProductionCompany {
      * id
      * @return id id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -106,8 +116,40 @@ public class CompanyQueryCleanProductionCompany {
      * id
      * @param id id
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * data_version
+     * @return data_version data_version
+     */
+    public Integer getDataVersion() {
+        return dataVersion;
+    }
+
+    /**
+     * data_version
+     * @param dataVersion data_version
+     */
+    public void setDataVersion(Integer dataVersion) {
+        this.dataVersion = dataVersion;
+    }
+
+    /**
+     * clean_production_company_id
+     * @return clean_production_company_id clean_production_company_id
+     */
+    public Integer getCleanProductionCompanyId() {
+        return cleanProductionCompanyId;
+    }
+
+    /**
+     * clean_production_company_id
+     * @param cleanProductionCompanyId clean_production_company_id
+     */
+    public void setCleanProductionCompanyId(Integer cleanProductionCompanyId) {
+        this.cleanProductionCompanyId = cleanProductionCompanyId;
     }
 
     /**

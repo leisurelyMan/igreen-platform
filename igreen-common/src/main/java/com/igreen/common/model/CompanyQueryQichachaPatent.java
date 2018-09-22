@@ -4,13 +4,23 @@ package com.igreen.common.model;
  * 描述:company_query_qichacha_patent表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-08-27
+ * @创建时间: 2018-09-20
  */
 public class CompanyQueryQichachaPatent {
     /**
      * id
      */
-    private String id;
+    private Long id;
+
+    /**
+     * data_version
+     */
+    private Integer dataVersion;
+
+    /**
+     * patent_id
+     */
+    private String patentId;
 
     /**
      * key_no
@@ -96,7 +106,7 @@ public class CompanyQueryQichachaPatent {
      * id
      * @return id id
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -104,8 +114,40 @@ public class CompanyQueryQichachaPatent {
      * id
      * @param id id
      */
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * data_version
+     * @return data_version data_version
+     */
+    public Integer getDataVersion() {
+        return dataVersion;
+    }
+
+    /**
+     * data_version
+     * @param dataVersion data_version
+     */
+    public void setDataVersion(Integer dataVersion) {
+        this.dataVersion = dataVersion;
+    }
+
+    /**
+     * patent_id
+     * @return patent_id patent_id
+     */
+    public String getPatentId() {
+        return patentId;
+    }
+
+    /**
+     * patent_id
+     * @param patentId patent_id
+     */
+    public void setPatentId(String patentId) {
+        this.patentId = patentId == null ? null : patentId.trim();
     }
 
     /**

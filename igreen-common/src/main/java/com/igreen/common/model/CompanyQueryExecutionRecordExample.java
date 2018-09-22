@@ -73,7 +73,7 @@ public class CompanyQueryExecutionRecordExample {
     }
 
     /**
-     * company_query_execution_record 2018-08-27
+     * company_query_execution_record 2018-09-20
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -126,53 +126,173 @@ public class CompanyQueryExecutionRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
+        public Criteria andIdEqualTo(Long value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
+        public Criteria andIdNotEqualTo(Long value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
+        public Criteria andIdGreaterThan(Long value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andIdGreaterThanOrEqualTo(Long value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
+        public Criteria andIdLessThan(Long value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
+        public Criteria andIdLessThanOrEqualTo(Long value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
+        public Criteria andIdIn(List<Long> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
+        public Criteria andIdNotIn(List<Long> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
+        public Criteria andIdBetween(Long value1, Long value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIsNull() {
+            addCriterion("data_version is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIsNotNull() {
+            addCriterion("data_version is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionEqualTo(Integer value) {
+            addCriterion("data_version =", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotEqualTo(Integer value) {
+            addCriterion("data_version <>", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionGreaterThan(Integer value) {
+            addCriterion("data_version >", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionGreaterThanOrEqualTo(Integer value) {
+            addCriterion("data_version >=", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionLessThan(Integer value) {
+            addCriterion("data_version <", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionLessThanOrEqualTo(Integer value) {
+            addCriterion("data_version <=", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIn(List<Integer> values) {
+            addCriterion("data_version in", values, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotIn(List<Integer> values) {
+            addCriterion("data_version not in", values, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionBetween(Integer value1, Integer value2) {
+            addCriterion("data_version between", value1, value2, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotBetween(Integer value1, Integer value2) {
+            addCriterion("data_version not between", value1, value2, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdIsNull() {
+            addCriterion("execution_record_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdIsNotNull() {
+            addCriterion("execution_record_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdEqualTo(Integer value) {
+            addCriterion("execution_record_id =", value, "executionRecordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdNotEqualTo(Integer value) {
+            addCriterion("execution_record_id <>", value, "executionRecordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdGreaterThan(Integer value) {
+            addCriterion("execution_record_id >", value, "executionRecordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("execution_record_id >=", value, "executionRecordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdLessThan(Integer value) {
+            addCriterion("execution_record_id <", value, "executionRecordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdLessThanOrEqualTo(Integer value) {
+            addCriterion("execution_record_id <=", value, "executionRecordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdIn(List<Integer> values) {
+            addCriterion("execution_record_id in", values, "executionRecordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdNotIn(List<Integer> values) {
+            addCriterion("execution_record_id not in", values, "executionRecordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdBetween(Integer value1, Integer value2) {
+            addCriterion("execution_record_id between", value1, value2, "executionRecordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExecutionRecordIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("execution_record_id not between", value1, value2, "executionRecordId");
             return (Criteria) this;
         }
 
@@ -311,7 +431,7 @@ public class CompanyQueryExecutionRecordExample {
      * 描述:company_query_execution_record表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2018-08-27
+     * @创建时间: 2018-09-20
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -321,7 +441,7 @@ public class CompanyQueryExecutionRecordExample {
     }
 
     /**
-     * company_query_execution_record 2018-08-27
+     * company_query_execution_record 2018-09-20
      */
     public static class Criterion {
         private String condition;

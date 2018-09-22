@@ -10,7 +10,7 @@ public interface CompanyQueryPollutionDischargeLicenseMapper {
 
     int deleteByExample(CompanyQueryPollutionDischargeLicenseExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(CompanyQueryPollutionDischargeLicense record);
 
@@ -18,7 +18,7 @@ public interface CompanyQueryPollutionDischargeLicenseMapper {
 
     List<CompanyQueryPollutionDischargeLicense> selectByExample(CompanyQueryPollutionDischargeLicenseExample example);
 
-    CompanyQueryPollutionDischargeLicense selectByPrimaryKey(Integer id);
+    CompanyQueryPollutionDischargeLicense selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") CompanyQueryPollutionDischargeLicense record, @Param("example") CompanyQueryPollutionDischargeLicenseExample example);
 

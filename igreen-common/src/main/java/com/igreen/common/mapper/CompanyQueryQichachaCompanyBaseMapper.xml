@@ -3,6 +3,8 @@
 <mapper namespace="com.igreen.common.dao.CompanyQueryQichachaCompanyBaseMapper" >
   <resultMap id="BaseResultMap" type="com.igreen.common.model.CompanyQueryQichachaCompanyBase" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
     <result column="key_no" property="keyNo" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="start_date" property="startDate" jdbcType="VARCHAR" />
@@ -79,8 +81,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, key_no, name, start_date, province, industry_code, subIndustry_code, industry, 
-    subIndustry, credit_code, regist_capi, econ_kind, org_no, status
+    id, data_version, base_id, key_no, name, start_date, province, industry_code, subIndustry_code, 
+    industry, subIndustry, credit_code, regist_capi, econ_kind, org_no, status
   </sql>
   <sql id="Blob_Column_List" >
     scope
@@ -134,20 +136,28 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" useGeneratedKeys="true" keyProperty="id" >
-    insert into company_query_qichacha_company_base (key_no, name, start_date, 
-      province, industry_code, subIndustry_code, 
-      industry, subIndustry, credit_code, 
-      regist_capi, econ_kind, org_no, 
-      status, scope)
-    values (#{keyNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{startDate,jdbcType=VARCHAR}, 
-      #{province,jdbcType=VARCHAR}, #{industryCode,jdbcType=VARCHAR}, #{subindustryCode,jdbcType=VARCHAR}, 
-      #{industry,jdbcType=VARCHAR}, #{subindustry,jdbcType=VARCHAR}, #{creditCode,jdbcType=VARCHAR}, 
-      #{registCapi,jdbcType=VARCHAR}, #{econKind,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{scope,jdbcType=LONGVARCHAR})
+    insert into company_query_qichacha_company_base (data_version, base_id, key_no, 
+      name, start_date, province, 
+      industry_code, subIndustry_code, industry, 
+      subIndustry, credit_code, regist_capi, 
+      econ_kind, org_no, status, 
+      scope)
+    values (#{dataVersion,jdbcType=INTEGER}, #{baseId,jdbcType=INTEGER}, #{keyNo,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{startDate,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{industryCode,jdbcType=VARCHAR}, #{subindustryCode,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, 
+      #{subindustry,jdbcType=VARCHAR}, #{creditCode,jdbcType=VARCHAR}, #{registCapi,jdbcType=VARCHAR}, 
+      #{econKind,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{scope,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" useGeneratedKeys="true" keyProperty="id" >
     insert into company_query_qichacha_company_base
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        data_version,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
       <if test="keyNo != null" >
         key_no,
       </if>
@@ -192,6 +202,12 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataVersion != null" >
+        #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
       <if test="keyNo != null" >
         #{keyNo,jdbcType=VARCHAR},
       </if>
@@ -248,6 +264,12 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.dataVersion != null" >
+        data_version = #{record.dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.baseId != null" >
+        base_id = #{record.baseId,jdbcType=INTEGER},
+      </if>
       <if test="record.keyNo != null" >
         key_no = #{record.keyNo,jdbcType=VARCHAR},
       </if>
@@ -298,6 +320,8 @@
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update company_query_qichacha_company_base
     set id = #{record.id,jdbcType=INTEGER},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      base_id = #{record.baseId,jdbcType=INTEGER},
       key_no = #{record.keyNo,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       start_date = #{record.startDate,jdbcType=VARCHAR},
@@ -319,6 +343,8 @@
   <update id="updateByExample" parameterType="map" >
     update company_query_qichacha_company_base
     set id = #{record.id,jdbcType=INTEGER},
+      data_version = #{record.dataVersion,jdbcType=INTEGER},
+      base_id = #{record.baseId,jdbcType=INTEGER},
       key_no = #{record.keyNo,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       start_date = #{record.startDate,jdbcType=VARCHAR},
@@ -339,6 +365,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" >
     update company_query_qichacha_company_base
     <set >
+      <if test="dataVersion != null" >
+        data_version = #{dataVersion,jdbcType=INTEGER},
+      </if>
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
       <if test="keyNo != null" >
         key_no = #{keyNo,jdbcType=VARCHAR},
       </if>
@@ -386,7 +418,9 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" >
     update company_query_qichacha_company_base
-    set key_no = #{keyNo,jdbcType=VARCHAR},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      base_id = #{baseId,jdbcType=INTEGER},
+      key_no = #{keyNo,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       start_date = #{startDate,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},
@@ -404,7 +438,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.CompanyQueryQichachaCompanyBase" >
     update company_query_qichacha_company_base
-    set key_no = #{keyNo,jdbcType=VARCHAR},
+    set data_version = #{dataVersion,jdbcType=INTEGER},
+      base_id = #{baseId,jdbcType=INTEGER},
+      key_no = #{keyNo,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       start_date = #{startDate,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},

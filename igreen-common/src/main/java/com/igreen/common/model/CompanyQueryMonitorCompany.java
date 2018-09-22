@@ -6,13 +6,23 @@ import java.util.Date;
  * 描述:company_query_monitor_company表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-08-27
+ * @创建时间: 2018-09-20
  */
 public class CompanyQueryMonitorCompany {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
+
+    /**
+     * data_version
+     */
+    private Integer dataVersion;
+
+    /**
+     * monitor_company_id
+     */
+    private Integer monitorCompanyId;
 
     /**
      * 登记信息ID
@@ -63,7 +73,7 @@ public class CompanyQueryMonitorCompany {
      * id
      * @return id id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -71,8 +81,40 @@ public class CompanyQueryMonitorCompany {
      * id
      * @param id id
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * data_version
+     * @return data_version data_version
+     */
+    public Integer getDataVersion() {
+        return dataVersion;
+    }
+
+    /**
+     * data_version
+     * @param dataVersion data_version
+     */
+    public void setDataVersion(Integer dataVersion) {
+        this.dataVersion = dataVersion;
+    }
+
+    /**
+     * monitor_company_id
+     * @return monitor_company_id monitor_company_id
+     */
+    public Integer getMonitorCompanyId() {
+        return monitorCompanyId;
+    }
+
+    /**
+     * monitor_company_id
+     * @param monitorCompanyId monitor_company_id
+     */
+    public void setMonitorCompanyId(Integer monitorCompanyId) {
+        this.monitorCompanyId = monitorCompanyId;
     }
 
     /**

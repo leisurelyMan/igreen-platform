@@ -6,13 +6,23 @@ import java.util.Date;
  * 描述:company_query_excel_energy_efficiency_label表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-08-27
+ * @创建时间: 2018-09-20
  */
 public class CompanyQueryExcelEnergyEfficiencyLabel {
     /**
      * ID
      */
     private Long id;
+
+    /**
+     * data_version
+     */
+    private Integer dataVersion;
+
+    /**
+     * energy_efficiency_label_id
+     */
+    private Long energyEfficiencyLabelId;
 
     /**
      * 公司信息ID
@@ -78,6 +88,38 @@ public class CompanyQueryExcelEnergyEfficiencyLabel {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * data_version
+     * @return data_version data_version
+     */
+    public Integer getDataVersion() {
+        return dataVersion;
+    }
+
+    /**
+     * data_version
+     * @param dataVersion data_version
+     */
+    public void setDataVersion(Integer dataVersion) {
+        this.dataVersion = dataVersion;
+    }
+
+    /**
+     * energy_efficiency_label_id
+     * @return energy_efficiency_label_id energy_efficiency_label_id
+     */
+    public Long getEnergyEfficiencyLabelId() {
+        return energyEfficiencyLabelId;
+    }
+
+    /**
+     * energy_efficiency_label_id
+     * @param energyEfficiencyLabelId energy_efficiency_label_id
+     */
+    public void setEnergyEfficiencyLabelId(Long energyEfficiencyLabelId) {
+        this.energyEfficiencyLabelId = energyEfficiencyLabelId;
     }
 
     /**

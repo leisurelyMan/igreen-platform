@@ -10,7 +10,7 @@ public interface CompanyQueryQichachaPatentService {
 
     int deleteByExample(CompanyQueryQichachaPatentExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(CompanyQueryQichachaPatent record);
 
@@ -18,7 +18,7 @@ public interface CompanyQueryQichachaPatentService {
 
     List<CompanyQueryQichachaPatent> selectByExample(CompanyQueryQichachaPatentExample example);
 
-    CompanyQueryQichachaPatent selectByPrimaryKey(String id);
+    CompanyQueryQichachaPatent selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(CompanyQueryQichachaPatent record, CompanyQueryQichachaPatentExample example);
 

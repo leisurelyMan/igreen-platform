@@ -28,7 +28,7 @@ public class CompanyQueryQichachaJudgementServiceImpl implements CompanyQueryQic
 	}
 
 	@Override
-	public int deleteByPrimaryKey(String id) {
+	public int deleteByPrimaryKey(Long id) {
 		return companyQueryQichachaJudgementMapper.deleteByPrimaryKey(id);
 	}
 
@@ -53,7 +53,7 @@ public class CompanyQueryQichachaJudgementServiceImpl implements CompanyQueryQic
 	}
 
 	@Override
-	public CompanyQueryQichachaJudgement selectByPrimaryKey(String id) {
+	public CompanyQueryQichachaJudgement selectByPrimaryKey(Long id) {
 		return companyQueryQichachaJudgementMapper.selectByPrimaryKey(id);
 	}
 

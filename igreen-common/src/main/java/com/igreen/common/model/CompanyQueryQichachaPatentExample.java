@@ -73,7 +73,7 @@ public class CompanyQueryQichachaPatentExample {
     }
 
     /**
-     * company_query_qichacha_patent 2018-08-27
+     * company_query_qichacha_patent 2018-09-20
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -126,63 +126,183 @@ public class CompanyQueryQichachaPatentExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(String value) {
+        public Criteria andIdEqualTo(Long value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(String value) {
+        public Criteria andIdNotEqualTo(Long value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(String value) {
+        public Criteria andIdGreaterThan(Long value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(String value) {
+        public Criteria andIdGreaterThanOrEqualTo(Long value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(String value) {
+        public Criteria andIdLessThan(Long value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(String value) {
+        public Criteria andIdLessThanOrEqualTo(Long value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLike(String value) {
-            addCriterion("id like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotLike(String value) {
-            addCriterion("id not like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdIn(List<String> values) {
+        public Criteria andIdIn(List<Long> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<String> values) {
+        public Criteria andIdNotIn(List<Long> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(String value1, String value2) {
+        public Criteria andIdBetween(Long value1, Long value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(String value1, String value2) {
+        public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIsNull() {
+            addCriterion("data_version is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIsNotNull() {
+            addCriterion("data_version is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionEqualTo(Integer value) {
+            addCriterion("data_version =", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotEqualTo(Integer value) {
+            addCriterion("data_version <>", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionGreaterThan(Integer value) {
+            addCriterion("data_version >", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionGreaterThanOrEqualTo(Integer value) {
+            addCriterion("data_version >=", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionLessThan(Integer value) {
+            addCriterion("data_version <", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionLessThanOrEqualTo(Integer value) {
+            addCriterion("data_version <=", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIn(List<Integer> values) {
+            addCriterion("data_version in", values, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotIn(List<Integer> values) {
+            addCriterion("data_version not in", values, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionBetween(Integer value1, Integer value2) {
+            addCriterion("data_version between", value1, value2, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotBetween(Integer value1, Integer value2) {
+            addCriterion("data_version not between", value1, value2, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdIsNull() {
+            addCriterion("patent_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdIsNotNull() {
+            addCriterion("patent_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdEqualTo(String value) {
+            addCriterion("patent_id =", value, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdNotEqualTo(String value) {
+            addCriterion("patent_id <>", value, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdGreaterThan(String value) {
+            addCriterion("patent_id >", value, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdGreaterThanOrEqualTo(String value) {
+            addCriterion("patent_id >=", value, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdLessThan(String value) {
+            addCriterion("patent_id <", value, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdLessThanOrEqualTo(String value) {
+            addCriterion("patent_id <=", value, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdLike(String value) {
+            addCriterion("patent_id like", value, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdNotLike(String value) {
+            addCriterion("patent_id not like", value, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdIn(List<String> values) {
+            addCriterion("patent_id in", values, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdNotIn(List<String> values) {
+            addCriterion("patent_id not in", values, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdBetween(String value1, String value2) {
+            addCriterion("patent_id between", value1, value2, "patentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPatentIdNotBetween(String value1, String value2) {
+            addCriterion("patent_id not between", value1, value2, "patentId");
             return (Criteria) this;
         }
 
@@ -1311,7 +1431,7 @@ public class CompanyQueryQichachaPatentExample {
      * 描述:company_query_qichacha_patent表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2018-08-27
+     * @创建时间: 2018-09-20
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -1321,7 +1441,7 @@ public class CompanyQueryQichachaPatentExample {
     }
 
     /**
-     * company_query_qichacha_patent 2018-08-27
+     * company_query_qichacha_patent 2018-09-20
      */
     public static class Criterion {
         private String condition;

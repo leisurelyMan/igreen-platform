@@ -74,7 +74,7 @@ public class CompanyQueryMonitorCompanyExample {
     }
 
     /**
-     * company_query_monitor_company 2018-08-27
+     * company_query_monitor_company 2018-09-20
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -127,53 +127,173 @@ public class CompanyQueryMonitorCompanyExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
+        public Criteria andIdEqualTo(Long value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
+        public Criteria andIdNotEqualTo(Long value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
+        public Criteria andIdGreaterThan(Long value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andIdGreaterThanOrEqualTo(Long value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
+        public Criteria andIdLessThan(Long value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
+        public Criteria andIdLessThanOrEqualTo(Long value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
+        public Criteria andIdIn(List<Long> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
+        public Criteria andIdNotIn(List<Long> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
+        public Criteria andIdBetween(Long value1, Long value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIsNull() {
+            addCriterion("data_version is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIsNotNull() {
+            addCriterion("data_version is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionEqualTo(Integer value) {
+            addCriterion("data_version =", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotEqualTo(Integer value) {
+            addCriterion("data_version <>", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionGreaterThan(Integer value) {
+            addCriterion("data_version >", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionGreaterThanOrEqualTo(Integer value) {
+            addCriterion("data_version >=", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionLessThan(Integer value) {
+            addCriterion("data_version <", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionLessThanOrEqualTo(Integer value) {
+            addCriterion("data_version <=", value, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionIn(List<Integer> values) {
+            addCriterion("data_version in", values, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotIn(List<Integer> values) {
+            addCriterion("data_version not in", values, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionBetween(Integer value1, Integer value2) {
+            addCriterion("data_version between", value1, value2, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataVersionNotBetween(Integer value1, Integer value2) {
+            addCriterion("data_version not between", value1, value2, "dataVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdIsNull() {
+            addCriterion("monitor_company_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdIsNotNull() {
+            addCriterion("monitor_company_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdEqualTo(Integer value) {
+            addCriterion("monitor_company_id =", value, "monitorCompanyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdNotEqualTo(Integer value) {
+            addCriterion("monitor_company_id <>", value, "monitorCompanyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdGreaterThan(Integer value) {
+            addCriterion("monitor_company_id >", value, "monitorCompanyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("monitor_company_id >=", value, "monitorCompanyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdLessThan(Integer value) {
+            addCriterion("monitor_company_id <", value, "monitorCompanyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdLessThanOrEqualTo(Integer value) {
+            addCriterion("monitor_company_id <=", value, "monitorCompanyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdIn(List<Integer> values) {
+            addCriterion("monitor_company_id in", values, "monitorCompanyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdNotIn(List<Integer> values) {
+            addCriterion("monitor_company_id not in", values, "monitorCompanyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdBetween(Integer value1, Integer value2) {
+            addCriterion("monitor_company_id between", value1, value2, "monitorCompanyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorCompanyIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("monitor_company_id not between", value1, value2, "monitorCompanyId");
             return (Criteria) this;
         }
 
@@ -782,7 +902,7 @@ public class CompanyQueryMonitorCompanyExample {
      * 描述:company_query_monitor_company表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2018-08-27
+     * @创建时间: 2018-09-20
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -792,7 +912,7 @@ public class CompanyQueryMonitorCompanyExample {
     }
 
     /**
-     * company_query_monitor_company 2018-08-27
+     * company_query_monitor_company 2018-09-20
      */
     public static class Criterion {
         private String condition;

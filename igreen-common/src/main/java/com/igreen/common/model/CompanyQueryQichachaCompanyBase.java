@@ -4,13 +4,23 @@ package com.igreen.common.model;
  * 描述:company_query_qichacha_company_base表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-08-27
+ * @创建时间: 2018-09-20
  */
 public class CompanyQueryQichachaCompanyBase {
     /**
      * id
      */
     private Integer id;
+
+    /**
+     * data_version
+     */
+    private Integer dataVersion;
+
+    /**
+     * base_id
+     */
+    private Integer baseId;
 
     /**
      * KeyNo
@@ -96,6 +106,38 @@ public class CompanyQueryQichachaCompanyBase {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * data_version
+     * @return data_version data_version
+     */
+    public Integer getDataVersion() {
+        return dataVersion;
+    }
+
+    /**
+     * data_version
+     * @param dataVersion data_version
+     */
+    public void setDataVersion(Integer dataVersion) {
+        this.dataVersion = dataVersion;
+    }
+
+    /**
+     * base_id
+     * @return base_id base_id
+     */
+    public Integer getBaseId() {
+        return baseId;
+    }
+
+    /**
+     * base_id
+     * @param baseId base_id
+     */
+    public void setBaseId(Integer baseId) {
+        this.baseId = baseId;
     }
 
     /**

@@ -4,13 +4,23 @@ package com.igreen.common.model;
  * 描述:company_query_qichacha_judgement表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-08-27
+ * @创建时间: 2018-09-20
  */
 public class CompanyQueryQichachaJudgement {
     /**
      * row_content
      */
-    private String id;
+    private Long id;
+
+    /**
+     * data_version
+     */
+    private Integer dataVersion;
+
+    /**
+     * judgement_id
+     */
+    private String judgementId;
 
     /**
      * key_no
@@ -76,7 +86,7 @@ public class CompanyQueryQichachaJudgement {
      * row_content
      * @return id row_content
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -84,8 +94,40 @@ public class CompanyQueryQichachaJudgement {
      * row_content
      * @param id row_content
      */
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * data_version
+     * @return data_version data_version
+     */
+    public Integer getDataVersion() {
+        return dataVersion;
+    }
+
+    /**
+     * data_version
+     * @param dataVersion data_version
+     */
+    public void setDataVersion(Integer dataVersion) {
+        this.dataVersion = dataVersion;
+    }
+
+    /**
+     * judgement_id
+     * @return judgement_id judgement_id
+     */
+    public String getJudgementId() {
+        return judgementId;
+    }
+
+    /**
+     * judgement_id
+     * @param judgementId judgement_id
+     */
+    public void setJudgementId(String judgementId) {
+        this.judgementId = judgementId == null ? null : judgementId.trim();
     }
 
     /**

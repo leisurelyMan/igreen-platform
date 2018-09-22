@@ -28,7 +28,7 @@ public class CompanyQueryCleanProductionCompanyServiceImpl implements CompanyQue
 	}
 
 	@Override
-	public int deleteByPrimaryKey(Integer id) {
+	public int deleteByPrimaryKey(Long id) {
 		return companyQueryCleanProductionCompanyMapper.deleteByPrimaryKey(id);
 	}
 
@@ -48,7 +48,7 @@ public class CompanyQueryCleanProductionCompanyServiceImpl implements CompanyQue
 	}
 
 	@Override
-	public CompanyQueryCleanProductionCompany selectByPrimaryKey(Integer id) {
+	public CompanyQueryCleanProductionCompany selectByPrimaryKey(Long id) {
 		return companyQueryCleanProductionCompanyMapper.selectByPrimaryKey(id);
 	}
 

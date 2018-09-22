@@ -28,7 +28,7 @@ public class CompanyQueryQichachaPatentServiceImpl implements CompanyQueryQichac
 	}
 
 	@Override
-	public int deleteByPrimaryKey(String id) {
+	public int deleteByPrimaryKey(Long id) {
 		return companyQueryQichachaPatentMapper.deleteByPrimaryKey(id);
 	}
 
@@ -48,7 +48,7 @@ public class CompanyQueryQichachaPatentServiceImpl implements CompanyQueryQichac
 	}
 
 	@Override
-	public CompanyQueryQichachaPatent selectByPrimaryKey(String id) {
+	public CompanyQueryQichachaPatent selectByPrimaryKey(Long id) {
 		return companyQueryQichachaPatentMapper.selectByPrimaryKey(id);
 	}
 
