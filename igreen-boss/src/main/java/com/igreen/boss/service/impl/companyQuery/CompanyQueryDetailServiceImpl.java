@@ -186,6 +186,7 @@ public class CompanyQueryDetailServiceImpl implements CompanyQueryDetailService 
 					for(QichachaCompanyBase companyBase : qichachaCompanyBases){
 						CompanyQueryQichachaCompanyBase companyQueryQichachaCompanyBase = new CompanyQueryQichachaCompanyBase();
 						BeanUtils.copyProperties(companyBase,companyQueryQichachaCompanyBase);
+						
 						companyQueryQichachaCompanyBaseMapper.insertSelective(companyQueryQichachaCompanyBase);
 					}
 				}

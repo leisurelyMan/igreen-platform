@@ -73,7 +73,7 @@ public class CompanyQueryQichachaCompanyBaseExample {
     }
 
     /**
-     * company_query_qichacha_company_base 2018-09-20
+     * company_query_qichacha_company_base 2018-09-22
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -233,66 +233,6 @@ public class CompanyQueryQichachaCompanyBaseExample {
 
         public Criteria andDataVersionNotBetween(Integer value1, Integer value2) {
             addCriterion("data_version not between", value1, value2, "dataVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdIsNull() {
-            addCriterion("base_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdIsNotNull() {
-            addCriterion("base_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdEqualTo(Integer value) {
-            addCriterion("base_id =", value, "baseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdNotEqualTo(Integer value) {
-            addCriterion("base_id <>", value, "baseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdGreaterThan(Integer value) {
-            addCriterion("base_id >", value, "baseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("base_id >=", value, "baseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdLessThan(Integer value) {
-            addCriterion("base_id <", value, "baseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdLessThanOrEqualTo(Integer value) {
-            addCriterion("base_id <=", value, "baseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdIn(List<Integer> values) {
-            addCriterion("base_id in", values, "baseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdNotIn(List<Integer> values) {
-            addCriterion("base_id not in", values, "baseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdBetween(Integer value1, Integer value2) {
-            addCriterion("base_id between", value1, value2, "baseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("base_id not between", value1, value2, "baseId");
             return (Criteria) this;
         }
 
@@ -1211,7 +1151,7 @@ public class CompanyQueryQichachaCompanyBaseExample {
      * 描述:company_query_qichacha_company_base表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2018-09-20
+     * @创建时间: 2018-09-22
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -1221,7 +1161,7 @@ public class CompanyQueryQichachaCompanyBaseExample {
     }
 
     /**
-     * company_query_qichacha_company_base 2018-09-20
+     * company_query_qichacha_company_base 2018-09-22
      */
     public static class Criterion {
         private String condition;

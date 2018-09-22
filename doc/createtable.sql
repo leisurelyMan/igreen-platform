@@ -36,7 +36,6 @@ DROP TABLE IF EXISTS `company_query_qichacha_company_base`;
 CREATE TABLE `company_query_qichacha_company_base` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `data_version` int(11) NOT NULL COMMENT 'data_version',  
-  `base_id` int(11) NOT NULL COMMENT 'base_id',
   `key_no` varchar(40) NOT NULL COMMENT 'KeyNo',
   `name` varchar(255) DEFAULT NULL COMMENT '公司名称',
   `start_date` varchar(50) DEFAULT NULL COMMENT '注册时间',
@@ -52,7 +51,7 @@ CREATE TABLE `company_query_qichacha_company_base` (
   `org_no` varchar(20) DEFAULT NULL COMMENT '组织机构代码',
   `status` varchar(100) DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`id`),
-  KEY `query_index` (`data_version`,`base_id`)
+  KEY `query_index` (`data_version`,`key_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='company_query_qichacha_company_base';
 
 DROP TABLE IF EXISTS `company_query_qichacha_judgement`;
