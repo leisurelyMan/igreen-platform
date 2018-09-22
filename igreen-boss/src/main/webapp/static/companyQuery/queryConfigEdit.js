@@ -99,7 +99,7 @@ function getDetails(){
 				companyName = $(this).html();
 		});
 		var detail = {
-				"qichachaKeyNo":companyId,
+				"qichachaKeyNo":qichachaKeyNo,
 				"companyName":companyName
 		};
 		details.push(detail);

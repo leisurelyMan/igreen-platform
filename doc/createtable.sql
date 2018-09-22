@@ -208,3 +208,31 @@ CREATE TABLE `company_query_excel_energy_efficiency_label` (
   PRIMARY KEY (`ID`),
   KEY `query_index` (`data_version`,`energy_efficiency_label_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='能效指标备案：实验室公告';
+
+
+drop table if exists ai_ipe;
+
+/*==============================================================*/
+/* Table: ai_ipe                                                */
+/*==============================================================*/
+create table ai_ipe
+(
+   id                   int not null auto_increment comment 'id',
+   company              varchar(255) comment '公司名称',
+   season               varchar(20) comment '季度',
+   fine                 varchar(20) comment '罚款',
+   revoked              varchar(20) comment '暂扣、吊销许可证',
+   confiscate           varchar(20) comment '没收违法所得',
+   detention            varchar(20) comment '行政拘留',
+   production           varchar(20) comment '责令停产整顿',
+   instruct             varchar(20) comment '责令停产、停业、关闭',
+   other                varchar(20) comment 'other',
+   total_sum            varchar(20) comment '总计',
+   creater              int comment '创建者',
+   created_time         timestamp comment '创建时间',
+   updater              int comment '更新者',
+   updated_time         timestamp comment '更新时间',
+   primary key (id)
+);
+
+alter table ai_ipe comment 'IPE预测';

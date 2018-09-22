@@ -203,6 +203,9 @@
     <if test="id != null" >
       and id = #{id,jdbcType=INTEGER}
     </if>
+    <if test="registItemId != null" >
+      and regist_item_id = #{registItemId,jdbcType=INTEGER}
+    </if>
     <if test="province != null" >
       and province = #{province,jdbcType=VARCHAR}
     </if>

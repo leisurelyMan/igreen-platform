@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.AiIpeMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.AiIpe" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="season" property="season" jdbcType="VARCHAR" />
+    <result column="fine" property="fine" jdbcType="VARCHAR" />
+    <result column="revoked" property="revoked" jdbcType="VARCHAR" />
+    <result column="confiscate" property="confiscate" jdbcType="VARCHAR" />
+    <result column="detention" property="detention" jdbcType="VARCHAR" />
+    <result column="production" property="production" jdbcType="VARCHAR" />
+    <result column="instruct" property="instruct" jdbcType="VARCHAR" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+    <result column="total_sum" property="totalSum" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, company, season, fine, revoked, confiscate, detention, production, instruct, 
+    other, total_sum, creater, created_time, updater, updated_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.AiIpeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ai_ipe
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ai_ipe
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ai_ipe
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.igreen.common.model.AiIpeExample" >
+    delete from ai_ipe
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.igreen.common.model.AiIpe" useGeneratedKeys="true" keyProperty="id" >
+    insert into ai_ipe (company, season, fine, 
+      revoked, confiscate, detention, 
+      production, instruct, other, 
+      total_sum, creater, created_time, 
+      updater, updated_time)
+    values (#{company,jdbcType=VARCHAR}, #{season,jdbcType=VARCHAR}, #{fine,jdbcType=VARCHAR}, 
+      #{revoked,jdbcType=VARCHAR}, #{confiscate,jdbcType=VARCHAR}, #{detention,jdbcType=VARCHAR}, 
+      #{production,jdbcType=VARCHAR}, #{instruct,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, 
+      #{totalSum,jdbcType=VARCHAR}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.igreen.common.model.AiIpe" useGeneratedKeys="true" keyProperty="id" >
+    insert into ai_ipe
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="season != null" >
+        season,
+      </if>
+      <if test="fine != null" >
+        fine,
+      </if>
+      <if test="revoked != null" >
+        revoked,
+      </if>
+      <if test="confiscate != null" >
+        confiscate,
+      </if>
+      <if test="detention != null" >
+        detention,
+      </if>
+      <if test="production != null" >
+        production,
+      </if>
+      <if test="instruct != null" >
+        instruct,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+      <if test="totalSum != null" >
+        total_sum,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="season != null" >
+        #{season,jdbcType=VARCHAR},
+      </if>
+      <if test="fine != null" >
+        #{fine,jdbcType=VARCHAR},
+      </if>
+      <if test="revoked != null" >
+        #{revoked,jdbcType=VARCHAR},
+      </if>
+      <if test="confiscate != null" >
+        #{confiscate,jdbcType=VARCHAR},
+      </if>
+      <if test="detention != null" >
+        #{detention,jdbcType=VARCHAR},
+      </if>
+      <if test="production != null" >
+        #{production,jdbcType=VARCHAR},
+      </if>
+      <if test="instruct != null" >
+        #{instruct,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="totalSum != null" >
+        #{totalSum,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.igreen.common.model.AiIpeExample" resultType="java.lang.Integer" >
+    select count(*) from ai_ipe
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ai_ipe
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.season != null" >
+        season = #{record.season,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fine != null" >
+        fine = #{record.fine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.revoked != null" >
+        revoked = #{record.revoked,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confiscate != null" >
+        confiscate = #{record.confiscate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detention != null" >
+        detention = #{record.detention,jdbcType=VARCHAR},
+      </if>
+      <if test="record.production != null" >
+        production = #{record.production,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instruct != null" >
+        instruct = #{record.instruct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.other != null" >
+        other = #{record.other,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalSum != null" >
+        total_sum = #{record.totalSum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        updater = #{record.updater,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ai_ipe
+    set id = #{record.id,jdbcType=INTEGER},
+      company = #{record.company,jdbcType=VARCHAR},
+      season = #{record.season,jdbcType=VARCHAR},
+      fine = #{record.fine,jdbcType=VARCHAR},
+      revoked = #{record.revoked,jdbcType=VARCHAR},
+      confiscate = #{record.confiscate,jdbcType=VARCHAR},
+      detention = #{record.detention,jdbcType=VARCHAR},
+      production = #{record.production,jdbcType=VARCHAR},
+      instruct = #{record.instruct,jdbcType=VARCHAR},
+      other = #{record.other,jdbcType=VARCHAR},
+      total_sum = #{record.totalSum,jdbcType=VARCHAR},
+      creater = #{record.creater,jdbcType=INTEGER},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=INTEGER},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.AiIpe" >
+    update ai_ipe
+    <set >
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="season != null" >
+        season = #{season,jdbcType=VARCHAR},
+      </if>
+      <if test="fine != null" >
+        fine = #{fine,jdbcType=VARCHAR},
+      </if>
+      <if test="revoked != null" >
+        revoked = #{revoked,jdbcType=VARCHAR},
+      </if>
+      <if test="confiscate != null" >
+        confiscate = #{confiscate,jdbcType=VARCHAR},
+      </if>
+      <if test="detention != null" >
+        detention = #{detention,jdbcType=VARCHAR},
+      </if>
+      <if test="production != null" >
+        production = #{production,jdbcType=VARCHAR},
+      </if>
+      <if test="instruct != null" >
+        instruct = #{instruct,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="totalSum != null" >
+        total_sum = #{totalSum,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.AiIpe" >
+    update ai_ipe
+    set company = #{company,jdbcType=VARCHAR},
+      season = #{season,jdbcType=VARCHAR},
+      fine = #{fine,jdbcType=VARCHAR},
+      revoked = #{revoked,jdbcType=VARCHAR},
+      confiscate = #{confiscate,jdbcType=VARCHAR},
+      detention = #{detention,jdbcType=VARCHAR},
+      production = #{production,jdbcType=VARCHAR},
+      instruct = #{instruct,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR},
+      total_sum = #{totalSum,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=INTEGER},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
