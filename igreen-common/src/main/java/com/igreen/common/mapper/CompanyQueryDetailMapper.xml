@@ -21,16 +21,16 @@
     <result column="start_date" property="startDate" jdbcType="VARCHAR" />
     <result column="province" property="province" jdbcType="VARCHAR" />
     <result column="industry_code" property="industryCode" jdbcType="VARCHAR" />
-    <result column="subIndustry_code" property="subIndustryCode" jdbcType="VARCHAR " />
+    <result column="subIndustry_code" property="subIndustryCode" jdbcType="VARCHAR" />
     <result column="industry" property="industry" jdbcType="VARCHAR" />
     <result column="subIndustry" property="subIndustry" jdbcType="VARCHAR" />
     <result column="credit_code" property="creditCode" jdbcType="VARCHAR" />
     <result column="regist_capi" property="registCapi" jdbcType="VARCHAR" />
     <result column="econ_kind" property="econKind" jdbcType="VARCHAR" />
-    <result column="scope" property="scope" jdbcType="TEXT" />
+    <result column="scope" property="scope" jdbcType="LONGVARCHAR" />
     <result column="org_no" property="orgNo" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR " />
-    <result column="regist_item_id" property="registItemId" jdbcType="VARCHAR " />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

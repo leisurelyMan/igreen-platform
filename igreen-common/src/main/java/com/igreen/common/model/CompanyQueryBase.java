@@ -41,7 +41,7 @@ public class CompanyQueryBase {
     //状态
     private String status;
     // 企业id
-    private String registItemId;
+    private Integer registItemId;
 
     public int getId() {
         return id;
@@ -171,11 +171,11 @@ public class CompanyQueryBase {
         this.status = status;
     }
 
-    public String getRegistItemId() {
+    public Integer getRegistItemId() {
         return registItemId;
     }
 
-    public void setRegistItemId(String registItemId) {
+    public void setRegistItemId(Integer registItemId) {
         this.registItemId = registItemId;
     }
 }

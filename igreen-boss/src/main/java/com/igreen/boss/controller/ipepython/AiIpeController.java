@@ -182,7 +182,7 @@ public class AiIpeController extends BaseController {
             JSONArray arrValue = array.getJSONArray(i);
             aiIpe.setCompany(arrValue.getString(0));
             aiIpe.setFine(formatDouble(arrValue.getString(1)));
-            aiIpe.setRevoke(formatDouble(arrValue.getString(2)));
+            aiIpe.setRevoked(formatDouble(arrValue.getString(2)));
             aiIpe.setConfiscate(formatDouble(arrValue.getString(3)));
             aiIpe.setDetention(formatDouble(arrValue.getString(4)));
             aiIpe.setProduction(formatDouble(arrValue.getString(5)));

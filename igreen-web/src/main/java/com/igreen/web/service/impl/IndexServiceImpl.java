@@ -649,7 +649,7 @@ public class IndexServiceImpl implements IndexService{
 			for (CompanyMonitorTemp monitorTemp : monitorTemps) {
 				String mapKey = null;
 				if("registItemId".equals(key)) {
-					mapKey = monitorTemp.getRegistItemId();
+					mapKey = monitorTemp.getRegistItemId().toString();
 				} else {
 					mapKey = monitorTemp.getKeyNo();
 				}

@@ -4,7 +4,7 @@ public class CompanyMonitorTemp {
 
     private String keyNo;
     // 企业id
-    private String registItemId;
+    private Integer registItemId;
     // 数量
     private Integer countNum;
 
@@ -16,11 +16,11 @@ public class CompanyMonitorTemp {
         this.keyNo = keyNo;
     }
 
-    public String getRegistItemId() {
+    public Integer getRegistItemId() {
         return registItemId;
     }
 
-    public void setRegistItemId(String registItemId) {
+    public void setRegistItemId(Integer registItemId) {
         this.registItemId = registItemId;
     }
 
