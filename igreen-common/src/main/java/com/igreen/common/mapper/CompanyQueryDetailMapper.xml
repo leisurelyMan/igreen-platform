@@ -377,7 +377,7 @@
     season, sum(fine) AS fineSum, sum(revoked) AS revokedSum, sum(confiscate) AS confiscateSum, sum(detention) AS detentionSum, sum(production) AS productionSum, sum(instruct) AS instructSum
     FROM ai_ipe
     WHERE
-    company IN (SELECT company_name FROM company_query_detail WHERE config_id = #{configId})
+    regist_item_id IN (SELECT regist_item_id FROM company_query_detail WHERE config_id = #{configId})
     group by season
   </select>
 
