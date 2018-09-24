@@ -81,6 +81,12 @@ public class CompanyMonitorController {
         return new ModelAndView("monitor_item.jsp");
     }
 
+    /**
+     * 跳转到
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="monitorIndex")
     public ModelAndView monitorIndex(ModelMap model, @RequestParam("configid") Integer configid) {
 
         // table
@@ -98,6 +104,7 @@ public class CompanyMonitorController {
         model.addAttribute("foreCasts", foreCastList);
         return new ModelAndView("monitorCompany.jsp");
     }
+
     /**
      * 跳转到
      * @param model

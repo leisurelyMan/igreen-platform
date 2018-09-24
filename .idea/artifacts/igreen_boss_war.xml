@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="igreen-boss:war">
+    <output-path>$PROJECT_DIR$/igreen-boss/target</output-path>
+    <root id="archive" name="igreen-boss.war">
+      <element id="artifact" artifact-name="igreen-boss:war exploded" />
+    </root>
+  </artifact>
+</component>
