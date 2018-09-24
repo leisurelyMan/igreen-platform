@@ -557,6 +557,65 @@ public class IndexServiceImpl implements IndexService{
 		return detailService.getRegistProvince(configid);
 	}
 
+	/**
+	 * 获取预测数据
+	 *
+	 * @param configid
+	 * @return
+	 */
+	@Override
+	public List<MonitorForeCast> getMonitorForeCast(Integer configid) {
+		List<AiIpeSum> aiIpeSums = detailService.getMonitorForeCast(configid);
+		return makeForeCast(aiIpeSums);
+	}
+
+	/**
+	 * 预测折线图
+	 * @param aiIpeSums
+	 * @return
+	 */
+	private List<MonitorForeCast> makeForeCast(List<AiIpeSum> aiIpeSums) {
+
+		List<MonitorForeCast> foreCastList = new ArrayList<MonitorForeCast>();
+		Map<String, List<Integer>> tempMap = new HashMap<String, List<Integer>>();
+		for (AiIpeSum ipeSum : aiIpeSums) {
+			if (tempMap.get("暂扣、吊销许可证") == null) {
+				tempMap.put("暂扣、吊销许可证", new ArrayList<Integer>());
+			}
+			tempMap.get("暂扣、吊销许可证").add(ipeSum.getRevokedSum());
+
+			if (tempMap.get("没收违法所得") == null) {
+				tempMap.put("没收违法所得", new ArrayList<Integer>());
+			}
+			tempMap.get("没收违法所得").add(ipeSum.getConfiscateSum());
+
+			if (tempMap.get("行政拘留") == null) {
+				tempMap.put("行政拘留", new ArrayList<Integer>());
+			}
+			tempMap.get("行政拘留").add(ipeSum.getDetentionSum());
+
+			if (tempMap.get("责令停产整顿") == null) {
+				tempMap.put("责令停产整顿", new ArrayList<Integer>());
+			}
+			tempMap.get("责令停产整顿").add(ipeSum.getProductionSum());
+
+			if (tempMap.get("责令停产、停业、关闭") == null) {
+				tempMap.put("责令停产、停业、关闭", new ArrayList<Integer>());
+			}
+			tempMap.get("责令停产、停业、关闭").add(ipeSum.getInstructSum());
+		}
+
+		Iterator<Map.Entry<String, List<Integer>>> iterator = tempMap.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry<String, List<Integer>> entry = iterator.next();
+			MonitorForeCast foreCast = new MonitorForeCast();
+			foreCast.setName(entry.getKey());
+			foreCast.setData(entry.getValue());
+			foreCastList.add(foreCast);
+		}
+		return foreCastList;
+	}
+
 
 	private List<MonitorCompanyTable> makeResultVo(List<CompanyQueryBase> baseList,Map<String, Integer> judgementsMap,
 												   Map<String, Integer> patentMap, Map<String, Integer> companiesMap, Map<String, Integer> executionRecordsMap) {

@@ -2,6 +2,7 @@ package com.igreen.web.controller;
 
 import com.igreen.common.model.CompanyMonitorReportTemp;
 import com.igreen.common.model.CompanyQueryDetail;
+import com.igreen.common.model.MonitorForeCast;
 import com.igreen.web.service.CompanyQueryDetailService;
 import com.igreen.web.service.IndexService;
 import com.igreen.web.view.IgreenSearch;
@@ -88,10 +89,13 @@ public class CompanyMonitorController {
         List<CompanyMonitorReportTemp> reportTempList = indexService.getRegistIndustry(configid);
         // 地域分布
         List<CompanyMonitorReportTemp> provinceReportList = indexService.getRegistProvince(configid);
+        // 预测
+        List<MonitorForeCast> foreCastList = indexService.getMonitorForeCast(configid);
 
         model.addAttribute("monitorCompanys", monitorCompanyList);
         model.addAttribute("industryReports", reportTempList);
         model.addAttribute("provinceReports", provinceReportList);
+        model.addAttribute("foreCasts", foreCastList);
         return new ModelAndView("monitorCompany.jsp");
     }
     /**

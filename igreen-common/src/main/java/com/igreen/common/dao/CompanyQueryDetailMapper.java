@@ -43,4 +43,6 @@ public interface CompanyQueryDetailMapper {
     List<CompanyMonitorReportTemp> getRegistIndustry(Integer configid);
 
     List<CompanyMonitorReportTemp> getRegistProvince(Integer configid);
+
+    List<AiIpeSum> getMonitorForeCast(Integer configid);
 }

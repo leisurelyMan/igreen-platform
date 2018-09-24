@@ -1,10 +1,7 @@
 package com.igreen.web.service.impl;
 
 import com.igreen.common.dao.CompanyQueryDetailMapper;
-import com.igreen.common.model.CompanyMonitorReportTemp;
-import com.igreen.common.model.CompanyMonitorTemp;
-import com.igreen.common.model.CompanyQueryBase;
-import com.igreen.common.model.CompanyQueryDetail;
+import com.igreen.common.model.*;
 import com.igreen.web.service.CompanyQueryDetailService;
 import org.springframework.stereotype.Service;
 
@@ -95,4 +92,16 @@ public class CompanyQueryDetailServiceImpl implements CompanyQueryDetailService 
     public List<CompanyMonitorReportTemp> getRegistProvince(Integer configid) {
         return companyQueryDetailMapper.getRegistProvince(configid);
     }
+
+    /**
+     * 获取预测数据
+     *
+     * @param configid
+     * @return
+     */
+    @Override
+    public List<AiIpeSum> getMonitorForeCast(Integer configid) {
+        return companyQueryDetailMapper.getMonitorForeCast(configid);
+    }
+
 }

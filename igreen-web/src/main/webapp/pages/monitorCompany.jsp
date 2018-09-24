@@ -365,7 +365,8 @@
 
         function renderTrendsFunc(){
             var trendsChart = echarts.init(document.getElementById('trendsChart'));
-            var _axisX = ['1.1', '1.2', '1.3', '2.1', '2.3', '3.30', '4.1', '4.2', '4.3', '4.20', '5.1', '6.1', '7.1', '8.1', '9.1', '10.1', '11.1', '12.1']
+            //var _axisX = ['1.1', '1.2', '1.3', '2.1', '2.3', '3.30', '4.1', '4.2', '4.3', '4.20', '5.1', '6.1', '7.1', '8.1', '9.1', '10.1', '11.1', '12.1']
+            var _axisX = ['一季度', '二季度', '三季度', '四季度'];
             trendsChart.setOption({
                 grid: {
                     left: '0',
@@ -380,10 +381,10 @@
                     padding:0,
                     formatter: function(params){
                         var nameArray = params[0].name.split('.')
-                        var date = nameArray[0] + '月' + nameArray[1] + '日'
+                        //var date = nameArray[0] + '月' + nameArray[1] + '日';
+                        var date = nameArray[0];
                         return '<div style="height:40px;">'+
                             '<div style="float:right;background:#4cbf93;height:40px;width:64px;">' +
-                            '<div style="width:64px;height:40px;line-height:40px;text-align:center;font-size:16px;"><img src="/images/arrow-up.png"/>48%</div>' +
                             '</div>' +
                             '<div style="float:left;padding:5px;width:85px;height:30px;font-size:12px;line-height:16px;">' +
                             '<div>'+date+'</div>' +
@@ -411,7 +412,7 @@
                         },
                         formatter: function(params){
                             var month = params.split('.')[0]
-                            return month+'月'
+                            return month
                         }
                     },
                     data: _axisX
@@ -430,23 +431,28 @@
                         }
                     }
                 },
-                series: [{
-                    data: _.times(18, i => {
-                        return _.random(0, 100, false)
-                    }),
-                type: 'line',
-                symbolSize:10,
-                lineStyle:{
-                width:1,
-                    color:'#e1e1e1'
-            },
-            areaStyle: {
-                color:'#edf7f9'
-            },
-            itemStyle:{
-                color:'#7e7e7e'
-            }
-        }]
+                series: [
+                    <c:forEach var="item" items="${foreCasts}" varStatus="status">
+                    {
+                        name : '${item.name}',
+                        data: JSON.parse('${item.data}'),
+                        type: 'line',
+                        symbolSize:10,
+                        lineStyle:{
+                          width:1,
+                          color:'#e1e1e1'
+                        },
+                        areaStyle: {
+                            color:'#edf7f9'
+                        },
+                        itemStyle:{
+                            color:'#7e7e7e'
+                        }
+                    }
+                    <c:if test="${!status.last}">,</c:if>
+                    </c:forEach>
+
+        ]
         });
         }
         renderTrendsFunc()

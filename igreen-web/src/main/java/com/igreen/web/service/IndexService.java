@@ -3,6 +3,7 @@ package com.igreen.web.service;
 import java.util.List;
 
 import com.igreen.common.model.CompanyMonitorReportTemp;
+import com.igreen.common.model.MonitorForeCast;
 import com.igreen.web.util.Result;
 import com.igreen.web.view.Igreen;
 import com.igreen.web.view.IgreenSearch;
@@ -45,4 +46,12 @@ public interface IndexService {
 	 * @return
 	 */
 	List<CompanyMonitorReportTemp> getRegistProvince(Integer configid);
+
+	/**
+	 * 获取预测数据
+	 *
+	 * @param configid
+	 * @return
+	 */
+	public List<MonitorForeCast> getMonitorForeCast(Integer configid);
 }

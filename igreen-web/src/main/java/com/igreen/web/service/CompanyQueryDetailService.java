@@ -1,9 +1,6 @@
 package com.igreen.web.service;
 
-import com.igreen.common.model.CompanyMonitorReportTemp;
-import com.igreen.common.model.CompanyMonitorTemp;
-import com.igreen.common.model.CompanyQueryBase;
-import com.igreen.common.model.CompanyQueryDetail;
+import com.igreen.common.model.*;
 
 import java.util.List;
 
@@ -55,4 +52,12 @@ public interface CompanyQueryDetailService {
      * @return
      */
     List<CompanyMonitorReportTemp> getRegistProvince(Integer configid);
+
+    /**
+     * 获取预测数据
+     *
+     * @param configid
+     * @return
+     */
+    public List<AiIpeSum> getMonitorForeCast(Integer configid);
 }
