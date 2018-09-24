@@ -337,6 +337,8 @@ public class CompanyQueryDetailServiceImpl implements CompanyQueryDetailService 
 						.andSeasonEqualTo(aiIpe.getSeason());
 					List<AiIpe> aiIpes = aiIpeMapper.selectByExample(aiIpeExample);
 					if(aiIpes == null || aiIpes.size() == 0){
+						aiIpe.setRegistItemId(detail.getRegistItemId());
+						aiIpe.setQichachaKeyNo(detail.getQichachaKeyNo());
 						aiIpe.setCreatedTime(new Date());
 						aiIpeMapper.insertSelective(aiIpe);
 					}else{

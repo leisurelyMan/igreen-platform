@@ -13,6 +13,8 @@
     <result column="instruct" property="instruct" jdbcType="VARCHAR" />
     <result column="other" property="other" jdbcType="VARCHAR" />
     <result column="total_sum" property="totalSum" jdbcType="VARCHAR" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="qichacha_key_no" property="qichachaKeyNo" jdbcType="VARCHAR" />
     <result column="creater" property="creater" jdbcType="INTEGER" />
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="updater" property="updater" jdbcType="INTEGER" />
@@ -78,7 +80,8 @@
   </sql>
   <sql id="Base_Column_List" >
     id, company, season, fine, revoked, confiscate, detention, production, instruct, 
-    other, total_sum, creater, created_time, updater, updated_time
+    other, total_sum, regist_item_id, qichacha_key_no, creater, created_time, updater, 
+    updated_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.AiIpeExample" >
     select
@@ -114,13 +117,15 @@
     insert into ai_ipe (company, season, fine, 
       revoked, confiscate, detention, 
       production, instruct, other, 
-      total_sum, creater, created_time, 
-      updater, updated_time)
+      total_sum, regist_item_id, qichacha_key_no, 
+      creater, created_time, updater, 
+      updated_time)
     values (#{company,jdbcType=VARCHAR}, #{season,jdbcType=VARCHAR}, #{fine,jdbcType=VARCHAR}, 
       #{revoked,jdbcType=VARCHAR}, #{confiscate,jdbcType=VARCHAR}, #{detention,jdbcType=VARCHAR}, 
       #{production,jdbcType=VARCHAR}, #{instruct,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, 
-      #{totalSum,jdbcType=VARCHAR}, #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=TIMESTAMP})
+      #{totalSum,jdbcType=VARCHAR}, #{registItemId,jdbcType=INTEGER}, #{qichachaKeyNo,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=INTEGER}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.AiIpe" useGeneratedKeys="true" keyProperty="id" >
     insert into ai_ipe
@@ -154,6 +159,12 @@
       </if>
       <if test="totalSum != null" >
         total_sum,
+      </if>
+      <if test="registItemId != null" >
+        regist_item_id,
+      </if>
+      <if test="qichachaKeyNo != null" >
+        qichacha_key_no,
       </if>
       <if test="creater != null" >
         creater,
@@ -198,6 +209,12 @@
       </if>
       <if test="totalSum != null" >
         #{totalSum,jdbcType=VARCHAR},
+      </if>
+      <if test="registItemId != null" >
+        #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="qichachaKeyNo != null" >
+        #{qichachaKeyNo,jdbcType=VARCHAR},
       </if>
       <if test="creater != null" >
         #{creater,jdbcType=INTEGER},
@@ -255,6 +272,12 @@
       <if test="record.totalSum != null" >
         total_sum = #{record.totalSum,jdbcType=VARCHAR},
       </if>
+      <if test="record.registItemId != null" >
+        regist_item_id = #{record.registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.qichachaKeyNo != null" >
+        qichacha_key_no = #{record.qichachaKeyNo,jdbcType=VARCHAR},
+      </if>
       <if test="record.creater != null" >
         creater = #{record.creater,jdbcType=INTEGER},
       </if>
@@ -285,6 +308,8 @@
       instruct = #{record.instruct,jdbcType=VARCHAR},
       other = #{record.other,jdbcType=VARCHAR},
       total_sum = #{record.totalSum,jdbcType=VARCHAR},
+      regist_item_id = #{record.registItemId,jdbcType=INTEGER},
+      qichacha_key_no = #{record.qichachaKeyNo,jdbcType=VARCHAR},
       creater = #{record.creater,jdbcType=INTEGER},
       created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       updater = #{record.updater,jdbcType=INTEGER},
@@ -326,6 +351,12 @@
       <if test="totalSum != null" >
         total_sum = #{totalSum,jdbcType=VARCHAR},
       </if>
+      <if test="registItemId != null" >
+        regist_item_id = #{registItemId,jdbcType=INTEGER},
+      </if>
+      <if test="qichachaKeyNo != null" >
+        qichacha_key_no = #{qichachaKeyNo,jdbcType=VARCHAR},
+      </if>
       <if test="creater != null" >
         creater = #{creater,jdbcType=INTEGER},
       </if>
@@ -353,6 +384,8 @@
       instruct = #{instruct,jdbcType=VARCHAR},
       other = #{other,jdbcType=VARCHAR},
       total_sum = #{totalSum,jdbcType=VARCHAR},
+      regist_item_id = #{registItemId,jdbcType=INTEGER},
+      qichacha_key_no = #{qichachaKeyNo,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=INTEGER},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       updater = #{updater,jdbcType=INTEGER},
