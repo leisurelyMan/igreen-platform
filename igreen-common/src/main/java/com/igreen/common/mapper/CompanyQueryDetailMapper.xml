@@ -29,7 +29,7 @@
     <result column="econ_kind" property="econKind" jdbcType="VARCHAR" />
     <result column="scope" property="scope" jdbcType="LONGVARCHAR" />
     <result column="org_no" property="orgNo" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="VARCHAR " />
+    <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
