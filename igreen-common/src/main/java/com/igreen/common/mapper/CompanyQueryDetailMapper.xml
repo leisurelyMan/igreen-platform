@@ -13,6 +13,25 @@
     <result column="updater" property="updater" jdbcType="INTEGER" />
     <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="BaseResultMap2" type="com.igreen.common.model.CompanyQueryBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="data_version" property="dataVersion" jdbcType="INTEGER" />
+    <result column="key_no" property="keyNo" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="industry_code" property="industryCode" jdbcType="VARCHAR" />
+    <result column="subIndustry_code" property="subIndustryCode" jdbcType="VARCHAR " />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="subIndustry" property="subIndustry" jdbcType="VARCHAR" />
+    <result column="credit_code" property="creditCode" jdbcType="VARCHAR" />
+    <result column="regist_capi" property="registCapi" jdbcType="VARCHAR" />
+    <result column="econ_kind" property="econKind" jdbcType="VARCHAR" />
+    <result column="scope" property="scope" jdbcType="TEXT" />
+    <result column="org_no" property="orgNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR " />
+    <result column="regist_item_id" property="registItemId" jdbcType="VARCHAR " />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -293,4 +312,64 @@
       </if>
     </where>
   </select>
+
+  <select id="selectCompanyBaseByConfigId" resultMap="BaseResultMap2" parameterType="java.lang.Integer" >
+  select
+  a.id,a.data_version,a.key_no,a.name,a.start_date,a.province,a.industry_code,a.subIndustry_code,a.industry,a.subIndustry,a.credit_code,a.regist_capi,a.econ_kind,a.scope,a.org_no,a.status, b.regist_item_id
+  from company_query_qichacha_company_base a INNER JOIN company_query_detail b ON a.key_no = b.qichacha_key_no AND config_id = #{configId}
+</select>
+
+  <select id="selectJudgementsCountByConfigId" resultType="com.igreen.common.model.CompanyMonitorTemp" parameterType="java.lang.Integer" >
+  select
+  key_no AS keyNo, COUNT(1) as countNum
+  FROM company_query_qichacha_judgement
+  WHERE
+  key_no IN (SELECT qichacha_key_no FROM company_query_detail WHERE config_id = #{configId})
+  group by key_no
+</select>
+
+  <select id="selectPatentCountByConfigId" resultType="com.igreen.common.model.CompanyMonitorTemp" parameterType="java.lang.Integer" >
+    select
+    key_no AS keyNo, COUNT(1) as countNum
+    FROM company_query_qichacha_patent
+    WHERE
+    key_no IN (SELECT qichacha_key_no FROM company_query_detail WHERE config_id = #{configId})
+    group by key_no
+  </select>
+
+  <select id="selectCompaniesCountByConfigId" resultType="com.igreen.common.model.CompanyMonitorTemp" parameterType="java.lang.Integer" >
+    select
+    regist_item_id AS registItemId, COUNT(1) as countNum
+    FROM company_query_monitor_company
+    WHERE
+    regist_item_id IN (SELECT regist_item_id FROM company_query_detail WHERE config_id = #{configId})
+    group by regist_item_id
+  </select>
+  <select id="selectExecutionRecordsCountByConfigId" resultType="com.igreen.common.model.CompanyMonitorTemp" parameterType="java.lang.Integer" >
+    select
+    regist_item_id AS registItemId, COUNT(1) as countNum
+    FROM company_query_pollution_discharge_license
+    WHERE
+    regist_item_id IN (SELECT regist_item_id FROM company_query_detail WHERE config_id = #{configId})
+    group by regist_item_id
+  </select>
+
+  <select id="getRegistIndustry" resultType="com.igreen.common.model.CompanyMonitorReportTemp" parameterType="java.lang.Integer" >
+    select
+    industry AS name, COUNT(1) as nameValue
+    FROM company_query_qichacha_company_base
+    WHERE
+    key_no IN (SELECT qichacha_key_no FROM company_query_detail WHERE config_id = #{configId})
+    group by industry
+  </select>
+
+  <select id="getRegistProvince" resultType="com.igreen.common.model.CompanyMonitorReportTemp" parameterType="java.lang.Integer" >
+    select
+    province AS name, COUNT(1) as nameValue
+    FROM company_query_qichacha_company_base
+    WHERE
+    key_no IN (SELECT qichacha_key_no FROM company_query_detail WHERE config_id = #{configId})
+    group by province
+  </select>
+
 </mapper>

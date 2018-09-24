@@ -1,7 +1,7 @@
 package com.igreen.common.dao;
 
-import com.igreen.common.model.CompanyQueryDetail;
-import com.igreen.common.model.CompanyQueryDetailExample;
+import com.igreen.common.model.*;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +29,18 @@ public interface CompanyQueryDetailMapper {
     List<CompanyQueryDetail> selectByParam(CompanyQueryDetail example);
 
     int updateByPrimaryKey(CompanyQueryDetail record);
+
+    List<CompanyQueryBase> selectCompanyBaseByConfigId(Integer configid);
+
+    List<CompanyMonitorTemp> selectJudgementsCountByConfigId(Integer configid);
+
+    List<CompanyMonitorTemp> selectPatentCountByConfigId(Integer configid);
+
+    List<CompanyMonitorTemp> selectCompaniesCountByConfigId(Integer configid);
+
+    List<CompanyMonitorTemp> selectExecutionRecordsCountByConfigId(Integer configid);
+
+    List<CompanyMonitorReportTemp> getRegistIndustry(Integer configid);
+
+    List<CompanyMonitorReportTemp> getRegistProvince(Integer configid);
 }

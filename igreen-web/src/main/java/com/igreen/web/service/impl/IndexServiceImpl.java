@@ -3,23 +3,21 @@ package com.igreen.web.service.impl;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.*;
-
 import javax.annotation.Resource;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.igreen.common.dao.*;
 import com.igreen.common.model.*;
+import com.igreen.web.service.CompanyQueryDetailService;
 import com.igreen.web.util.HttpClientHelper;
-import com.igreen.web.view.IgreenSearch;
+import com.igreen.web.view.*;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import com.igreen.common.dto.MapDto;
 import com.igreen.web.job.GetRegtionTaskJob;
 import com.igreen.web.service.IndexService;
 import com.igreen.web.util.Result;
-import com.igreen.web.view.Igreen;
-import com.igreen.web.view.RelationCompanyView;
-import com.igreen.web.view.SearchCompanyInfo;
 
 @Service
 public class IndexServiceImpl implements IndexService{
@@ -130,6 +128,9 @@ public class IndexServiceImpl implements IndexService{
 
 	@Resource
 	ExcelEnergyEfficiencyLabelMapper excelEnergyEfficiencyLabelMapper;
+
+	@Resource
+	private CompanyQueryDetailService detailService;
 	
 	@Override
 	public Igreen search(String companyName) {
@@ -503,6 +504,103 @@ public class IndexServiceImpl implements IndexService{
 
 		return igreen;
 	}
+
+	/**
+	 * 获取监控表格数据
+	 *
+	 * @param configid 监控编码数据
+	 * @return
+	 */
+	@Override
+	public List<MonitorCompanyTable> getMonitorCompanyList(Integer configid) {
+		// 基础数据
+		List<CompanyQueryBase> baseList = detailService.selectCompanyBaseByConfigId(configid);
+
+		// 诉讼（件）
+		List<CompanyMonitorTemp> judgementsTempList = detailService.selectJudgementsCountByConfigId(configid);
+		Map<String, Integer> judgementsMap = makeTempToMap(judgementsTempList, "keyNo");
+
+		// 专利（件）
+		List<CompanyMonitorTemp> patentCountTempList = detailService.selectPatentCountByConfigId(configid);
+		Map<String, Integer> patentMap = makeTempToMap(patentCountTempList, "keyNo");
+
+		// 重点监管企业数
+		List<CompanyMonitorTemp> companiesCountTempList = detailService.selectCompaniesCountByConfigId(configid);
+		Map<String, Integer> companiesMap = makeTempToMap(companiesCountTempList, "registItemId");
+
+		// 排污许可数
+		List<CompanyMonitorTemp> executionRecordsCountTempList = detailService.selectExecutionRecordsCountByConfigId(configid);
+		Map<String, Integer> executionRecordsMap = makeTempToMap(executionRecordsCountTempList, "registItemId");
+
+		return makeResultVo(baseList, judgementsMap, patentMap, companiesMap, executionRecordsMap);
+	}
+
+	/**
+	 * 注册资本分布
+	 *
+	 * @param configid
+	 * @return
+	 */
+	@Override
+	public List<CompanyMonitorReportTemp> getRegistIndustry(Integer configid) {
+		return detailService.getRegistIndustry(configid);
+	}
+
+	/**
+	 * 地域分布
+	 *
+	 * @param configid
+	 * @return
+	 */
+	@Override
+	public List<CompanyMonitorReportTemp> getRegistProvince(Integer configid) {
+		return detailService.getRegistProvince(configid);
+	}
+
+
+	private List<MonitorCompanyTable> makeResultVo(List<CompanyQueryBase> baseList,Map<String, Integer> judgementsMap,
+												   Map<String, Integer> patentMap, Map<String, Integer> companiesMap, Map<String, Integer> executionRecordsMap) {
+
+		List<MonitorCompanyTable> companyTableList = new ArrayList<MonitorCompanyTable>();
+		for(CompanyQueryBase base : baseList){
+			MonitorCompanyTable table = new MonitorCompanyTable();
+			table.setCompanyName(base.getName());
+			table.setIndustryName(base.getSubIndustry());
+			table.setOrgNo(base.getOrgNo());
+			table.setProvince(base.getProvince());
+			table.setJudgementsCount(judgementsMap.get(base.getKeyNo()) == null ? 0 : judgementsMap.get(base.getKeyNo()));
+			table.setPatentCount(patentMap.get(base.getKeyNo()) == null ? 0 : patentMap.get(base.getKeyNo()));
+			table.setMonitorCompaniesCount(companiesMap.get(base.getRegistItemId()) == null ? 0 : companiesMap.get(base.getRegistItemId()));
+			table.setExecutionRecordsCount(executionRecordsMap.get(base.getRegistItemId()) == null ? 0 : executionRecordsMap.get(base.getRegistItemId()));
+			companyTableList.add(table);
+		}
+
+		return companyTableList;
+	}
+
+	/**
+	 * 转化map
+	 * @param monitorTemps
+	 * @param key
+	 * @return
+	 */
+	private Map<String, Integer> makeTempToMap(List<CompanyMonitorTemp> monitorTemps, String key){
+		Map<String, Integer> tempMap = new HashMap<String, Integer>();
+		if(CollectionUtils.isNotEmpty(monitorTemps)) {
+			for (CompanyMonitorTemp monitorTemp : monitorTemps) {
+				String mapKey = null;
+				if("registItemId".equals(key)) {
+					mapKey = monitorTemp.getRegistItemId();
+				} else {
+					mapKey = monitorTemp.getKeyNo();
+				}
+				tempMap.put(mapKey, monitorTemp.getCountNum());
+			}
+		}
+		return tempMap;
+	}
+
+
 
 	private List<AiIpe> convertModels(String arrStr){
 		List<AiIpe> aiIpeList = new ArrayList<>();

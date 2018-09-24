@@ -1,9 +1,11 @@
 package com.igreen.web.controller;
 
+import com.igreen.common.model.CompanyMonitorReportTemp;
 import com.igreen.common.model.CompanyQueryDetail;
 import com.igreen.web.service.CompanyQueryDetailService;
 import com.igreen.web.service.IndexService;
 import com.igreen.web.view.IgreenSearch;
+import com.igreen.web.view.MonitorCompanyTable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +80,20 @@ public class CompanyMonitorController {
         return new ModelAndView("monitor_item.jsp");
     }
 
+    public ModelAndView monitorIndex(ModelMap model, @RequestParam("configid") Integer configid) {
+
+        // table
+        List<MonitorCompanyTable> monitorCompanyList = indexService.getMonitorCompanyList(configid);
+        // 注册资本分布
+        List<CompanyMonitorReportTemp> reportTempList = indexService.getRegistIndustry(configid);
+        // 地域分布
+        List<CompanyMonitorReportTemp> provinceReportList = indexService.getRegistProvince(configid);
+
+        model.addAttribute("monitorCompanys", monitorCompanyList);
+        model.addAttribute("industryReports", reportTempList);
+        model.addAttribute("provinceReports", provinceReportList);
+        return new ModelAndView("monitorCompany.jsp");
+    }
     /**
      * 跳转到
      * @param model
