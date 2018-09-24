@@ -84,9 +84,9 @@
           </div>
           <div class="block-cnt">
             <div id="shareholderChart" style="width: 557px;height:190px;"></div>
-            <div class="num">30%</div>
+            <div class="num"></div>
           </div>
-          <div class="note">文字描述文字描述文字3000描述文字描述。</div>
+          <div class="note"></div>
         </div>
         <div class="block block-region">
           <div class="block-tit">
@@ -95,7 +95,7 @@
           <div class="block-cnt">
             <div id="regionChart" style="width: 382px;height:190px;"></div>
           </div>
-          <div class="note">文字描述文字描述文字3000描述文字描述。</div>
+          <div class="note"></div>
         </div>
       </div>
       <div class="row">
