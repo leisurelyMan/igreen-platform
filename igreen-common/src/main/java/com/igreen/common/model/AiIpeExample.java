@@ -74,7 +74,7 @@ public class AiIpeExample {
     }
 
     /**
-     * ai_ipe 2018-09-22
+     * ai_ipe 2018-09-24
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -877,6 +877,136 @@ public class AiIpeExample {
             return (Criteria) this;
         }
 
+        public Criteria andRegistItemIdIsNull() {
+            addCriterion("regist_item_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdIsNotNull() {
+            addCriterion("regist_item_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdEqualTo(Integer value) {
+            addCriterion("regist_item_id =", value, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdNotEqualTo(Integer value) {
+            addCriterion("regist_item_id <>", value, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdGreaterThan(Integer value) {
+            addCriterion("regist_item_id >", value, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("regist_item_id >=", value, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdLessThan(Integer value) {
+            addCriterion("regist_item_id <", value, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdLessThanOrEqualTo(Integer value) {
+            addCriterion("regist_item_id <=", value, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdIn(List<Integer> values) {
+            addCriterion("regist_item_id in", values, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdNotIn(List<Integer> values) {
+            addCriterion("regist_item_id not in", values, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdBetween(Integer value1, Integer value2) {
+            addCriterion("regist_item_id between", value1, value2, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegistItemIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("regist_item_id not between", value1, value2, "registItemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoIsNull() {
+            addCriterion("qichacha_key_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoIsNotNull() {
+            addCriterion("qichacha_key_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoEqualTo(String value) {
+            addCriterion("qichacha_key_no =", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoNotEqualTo(String value) {
+            addCriterion("qichacha_key_no <>", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoGreaterThan(String value) {
+            addCriterion("qichacha_key_no >", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoGreaterThanOrEqualTo(String value) {
+            addCriterion("qichacha_key_no >=", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoLessThan(String value) {
+            addCriterion("qichacha_key_no <", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoLessThanOrEqualTo(String value) {
+            addCriterion("qichacha_key_no <=", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoLike(String value) {
+            addCriterion("qichacha_key_no like", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoNotLike(String value) {
+            addCriterion("qichacha_key_no not like", value, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoIn(List<String> values) {
+            addCriterion("qichacha_key_no in", values, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoNotIn(List<String> values) {
+            addCriterion("qichacha_key_no not in", values, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoBetween(String value1, String value2) {
+            addCriterion("qichacha_key_no between", value1, value2, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andQichachaKeyNoNotBetween(String value1, String value2) {
+            addCriterion("qichacha_key_no not between", value1, value2, "qichachaKeyNo");
+            return (Criteria) this;
+        }
+
         public Criteria andCreaterIsNull() {
             addCriterion("creater is null");
             return (Criteria) this;
@@ -1122,7 +1252,7 @@ public class AiIpeExample {
      * 描述:ai_ipe表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2018-09-22
+     * @创建时间: 2018-09-24
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -1132,7 +1262,7 @@ public class AiIpeExample {
     }
 
     /**
-     * ai_ipe 2018-09-22
+     * ai_ipe 2018-09-24
      */
     public static class Criterion {
         private String condition;

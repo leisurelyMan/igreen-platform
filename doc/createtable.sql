@@ -236,3 +236,8 @@ create table ai_ipe
 );
 
 alter table ai_ipe comment 'IPE预测';
+
+ALTER TABLE `ai_ipe`
+ADD COLUMN `regist_item_id`  int NULL COMMENT '公司ID' AFTER `total_sum`,
+ADD COLUMN `qichacha_key_no`  varchar(40) NULL COMMENT '企查查keyno' AFTER `regist_item_id`;
+

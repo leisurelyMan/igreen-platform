@@ -6,7 +6,7 @@ import java.util.Date;
  * 描述:ai_ipe表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2018-09-22
+ * @创建时间: 2018-09-24
  */
 public class AiIpe {
     /**
@@ -63,6 +63,16 @@ public class AiIpe {
      * 总计
      */
     private String totalSum;
+
+    /**
+     * 公司ID
+     */
+    private Integer registItemId;
+
+    /**
+     * 企查查keyno
+     */
+    private String qichachaKeyNo;
 
     /**
      * 创建者
@@ -258,6 +268,38 @@ public class AiIpe {
      */
     public void setTotalSum(String totalSum) {
         this.totalSum = totalSum == null ? null : totalSum.trim();
+    }
+
+    /**
+     * 公司ID
+     * @return regist_item_id 公司ID
+     */
+    public Integer getRegistItemId() {
+        return registItemId;
+    }
+
+    /**
+     * 公司ID
+     * @param registItemId 公司ID
+     */
+    public void setRegistItemId(Integer registItemId) {
+        this.registItemId = registItemId;
+    }
+
+    /**
+     * 企查查keyno
+     * @return qichacha_key_no 企查查keyno
+     */
+    public String getQichachaKeyNo() {
+        return qichachaKeyNo;
+    }
+
+    /**
+     * 企查查keyno
+     * @param qichachaKeyNo 企查查keyno
+     */
+    public void setQichachaKeyNo(String qichachaKeyNo) {
+        this.qichachaKeyNo = qichachaKeyNo == null ? null : qichachaKeyNo.trim();
     }
 
     /**
