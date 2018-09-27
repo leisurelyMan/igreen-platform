@@ -573,7 +573,7 @@ public class IndexServiceImpl implements IndexService{
 			temps = tempList;
 		}
 
-		return tempList;
+		return temps;
 	}
 
 	/**

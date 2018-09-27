@@ -426,9 +426,6 @@
                           width:1,
                           color:'${item.style}'
                         },
-                        areaStyle: {
-                            color:'${item.style}'
-                        },
                         itemStyle:{
                             color:'${item.style}'
                         }
