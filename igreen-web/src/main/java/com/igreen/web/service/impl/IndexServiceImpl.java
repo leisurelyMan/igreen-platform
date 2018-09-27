@@ -554,7 +554,26 @@ public class IndexServiceImpl implements IndexService{
 	 */
 	@Override
 	public List<CompanyMonitorReportTemp> getRegistProvince(Integer configid) {
-		return detailService.getRegistProvince(configid);
+
+		List<CompanyMonitorReportTemp> temps = new ArrayList<CompanyMonitorReportTemp>();
+		List<CompanyMonitorReportTemp> tempList = detailService.getRegistProvince(configid);
+		if(tempList != null && tempList.size() > 8) {
+			Collections.sort(tempList, new CompanyMonitorReportTemp());
+			int sum = 0;
+
+			temps.addAll(tempList.subList(0, 7));
+			for(CompanyMonitorReportTemp temp : tempList.subList(7, tempList.size())) {
+				sum += temp.getNameValue() == null ? 0 : temp.getNameValue();
+			}
+			CompanyMonitorReportTemp other = new CompanyMonitorReportTemp();
+			other.setNameValue(sum);
+			other.setName("其它");
+			temps.add(other);
+		} else {
+			temps = tempList;
+		}
+
+		return tempList;
 	}
 
 	/**
@@ -578,6 +597,12 @@ public class IndexServiceImpl implements IndexService{
 
 		List<MonitorForeCast> foreCastList = new ArrayList<MonitorForeCast>();
 		Map<String, List<Integer>> tempMap = new HashMap<String, List<Integer>>();
+		Map<String, String> styleMap = new HashMap<String, String>();
+		styleMap.put("暂扣、吊销许可证", "#0b97d4");
+		styleMap.put("没收违法所得", "#fa682d");
+		styleMap.put("行政拘留", "#70bf64");
+		styleMap.put("责令停产整顿", "#ffcb38");
+		styleMap.put("责令停产、停业、关闭", "#cdcdcd");
 		for (AiIpeSum ipeSum : aiIpeSums) {
 			if (tempMap.get("暂扣、吊销许可证") == null) {
 				tempMap.put("暂扣、吊销许可证", new ArrayList<Integer>());
@@ -611,6 +636,7 @@ public class IndexServiceImpl implements IndexService{
 			MonitorForeCast foreCast = new MonitorForeCast();
 			foreCast.setName(entry.getKey());
 			foreCast.setData(entry.getValue());
+			foreCast.setStyle(styleMap.get(entry.getKey()));
 			foreCastList.add(foreCast);
 		}
 		return foreCastList;

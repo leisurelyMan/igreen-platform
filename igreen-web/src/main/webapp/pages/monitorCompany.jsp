@@ -149,11 +149,11 @@
           </div>
           <div class="block-cnt">
             <div class="legend clearfix">
-              <ul id="tab-switch">
+              <%--<ul id="tab-switch">
                 <li class="cur">近三月</li>
                 <li>近六月</li>
                 <li>近一年</li>
-              </ul>
+              </ul>--%>
               <span>预测单位</span>
               <span class="type type-1">暂扣、吊销许可证</span>
               <span class="type type-2">没收违法所得</span>
@@ -370,29 +370,13 @@
             trendsChart.setOption({
                 grid: {
                     left: '0',
-                    right: '0%',
+                    right: '20',
                     top:'3%',
                     bottom:'3%',
                     containLabel: true
                 },
                 tooltip : {
-                    trigger: 'axis',
-                    backgroundColor: '#4c4c4c',
-                    padding:0,
-                    formatter: function(params){
-                        var nameArray = params[0].name.split('.')
-                        //var date = nameArray[0] + '月' + nameArray[1] + '日';
-                        var date = nameArray[0];
-                        return '<div style="height:40px;">'+
-                            '<div style="float:right;background:#4cbf93;height:40px;width:64px;">' +
-                            '</div>' +
-                            '<div style="float:left;padding:5px;width:85px;height:30px;font-size:12px;line-height:16px;">' +
-                            '<div>'+date+'</div>' +
-                            '<div>'+params[0].value+' 单位</div>' +
-                            '</div>' +
-                            '</div>'
-                    },
-                    extraCssText: 'border-radius:0;'
+                    trigger: 'axis'
                 },
                 xAxis: {
                     type: 'category',
@@ -440,13 +424,13 @@
                         symbolSize:10,
                         lineStyle:{
                           width:1,
-                          color:'#e1e1e1'
+                          color:'${item.style}'
                         },
                         areaStyle: {
-                            color:'#edf7f9'
+                            color:'${item.style}'
                         },
                         itemStyle:{
-                            color:'#7e7e7e'
+                            color:'${item.style}'
                         }
                     }
                     <c:if test="${!status.last}">,</c:if>
