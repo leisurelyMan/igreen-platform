@@ -555,11 +555,12 @@ public class IndexServiceImpl implements IndexService{
 	@Override
 	public List<CompanyMonitorReportTemp> getRegistProvince(Integer configid) {
 
-		List<CompanyMonitorReportTemp> temps = new ArrayList<CompanyMonitorReportTemp>();
+		List<CompanyMonitorReportTemp> temps = null;
 		List<CompanyMonitorReportTemp> tempList = detailService.getRegistProvince(configid);
 		if(tempList != null && tempList.size() > 8) {
-			Collections.sort(tempList, new CompanyMonitorReportTemp());
 			int sum = 0;
+			temps = new ArrayList<CompanyMonitorReportTemp>();
+			Collections.sort(tempList, new CompanyMonitorReportTemp());
 
 			temps.addAll(tempList.subList(0, 7));
 			for(CompanyMonitorReportTemp temp : tempList.subList(7, tempList.size())) {
