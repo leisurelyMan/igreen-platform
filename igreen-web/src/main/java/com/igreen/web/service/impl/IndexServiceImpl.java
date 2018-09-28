@@ -10,6 +10,7 @@ import com.igreen.common.dao.*;
 import com.igreen.common.model.*;
 import com.igreen.web.service.CompanyQueryDetailService;
 import com.igreen.web.util.HttpClientHelper;
+import com.igreen.web.util.PropertiesUtil;
 import com.igreen.web.view.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -563,6 +564,14 @@ public class IndexServiceImpl implements IndexService{
 			Collections.sort(tempList, new CompanyMonitorReportTemp());
 
 			temps.addAll(tempList.subList(0, 7));
+			for (CompanyMonitorReportTemp temp : temps) {
+				String code = temp.getCode();
+				if(StringUtils.isNotBlank(code)) {
+					String name = PropertiesUtil.getProvinceName(code);
+					temp.setName(StringUtils.isBlank(name) ? "未知" : name);
+				}
+			}
+
 			for(CompanyMonitorReportTemp temp : tempList.subList(7, tempList.size())) {
 				sum += temp.getNameValue() == null ? 0 : temp.getNameValue();
 			}

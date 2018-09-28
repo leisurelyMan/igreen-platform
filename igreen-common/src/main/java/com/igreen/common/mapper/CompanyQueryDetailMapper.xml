@@ -365,7 +365,7 @@
 
   <select id="getRegistProvince" resultType="com.igreen.common.model.CompanyMonitorReportTemp" parameterType="java.lang.Integer" >
     select
-    province AS name, COUNT(1) as nameValue
+    province AS code, COUNT(1) as nameValue
     FROM company_query_qichacha_company_base
     WHERE
     key_no IN (SELECT qichacha_key_no FROM company_query_detail WHERE config_id = #{configId})

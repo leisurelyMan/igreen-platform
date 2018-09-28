@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 public class PropertiesUtil {
 	private static Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);
 	private static Properties properties = null;
+	private static Properties provinceProperties = null;
 	static {
 		init();
 	}
@@ -21,10 +22,11 @@ public class PropertiesUtil {
 
 	private static void init() {
 		properties = new Properties();
-		InputStream in = 
-				PropertiesUtil.class.getClassLoader().getResourceAsStream("mail.properties");
+		InputStream in =  PropertiesUtil.class.getClassLoader().getResourceAsStream("mail.properties");
+		InputStream provinceIn =  PropertiesUtil.class.getClassLoader().getResourceAsStream("province.properties");
 		try {
 			properties.load(in);
+			provinceProperties.load(provinceIn);
 		} catch (IOException e) {
 			logger.error("读取配置文件出错 {}",e);
 		} finally {
@@ -35,6 +37,11 @@ public class PropertiesUtil {
 	public static String getValue(String key) {
 		String property = properties.getProperty(key);
 		return property;
+	}
+
+	public static String getProvinceName(String key) {
+		String name = provinceProperties.getProperty(key);
+		return name;
 	}
 }
 

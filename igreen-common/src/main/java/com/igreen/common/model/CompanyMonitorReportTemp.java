@@ -4,9 +4,20 @@ import java.util.*;
 
 public class CompanyMonitorReportTemp implements Comparator<CompanyMonitorReportTemp> {
 
+    // code
+    private String code;
+    // 名称
     private String name;
     // 数量
     private Integer nameValue;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getName() {
         return name;
