@@ -569,6 +569,8 @@ public class IndexServiceImpl implements IndexService{
 				if(StringUtils.isNotBlank(code)) {
 					String name = PropertiesUtil.getProvinceName(code);
 					temp.setName(StringUtils.isBlank(name) ? "未知" : name);
+				} else {
+					temp.setName("未知");
 				}
 			}
 
