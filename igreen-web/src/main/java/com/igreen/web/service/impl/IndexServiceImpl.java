@@ -516,17 +516,6 @@ public class IndexServiceImpl implements IndexService{
 	public List<MonitorCompanyTable> getMonitorCompanyList(Integer configid) {
 		// 基础数据
 		List<CompanyQueryBase> baseList = detailService.selectCompanyBaseByConfigId(configid);
-		if(CollectionUtils.isEmpty(baseList)){
-			for (CompanyQueryBase temp : baseList) {
-				String code = temp.getProvince();
-				if(StringUtils.isNotBlank(code)) {
-					String name = PropertiesUtil.getProvinceName(code);
-					temp.setProvince(StringUtils.isBlank(name) ? "未知" : name);
-				} else {
-					temp.setProvince("未知");
-				}
-			}
-		}
 
 		// 诉讼（件）
 		List<CompanyMonitorTemp> judgementsTempList = detailService.selectJudgementsCountByConfigId(configid);
@@ -684,7 +673,13 @@ public class IndexServiceImpl implements IndexService{
 			table.setCompanyName(base.getName());
 			table.setIndustryName(base.getSubIndustry());
 			table.setOrgNo(base.getOrgNo());
-			table.setProvince(base.getProvince());
+			String code = base.getProvince();
+			if(StringUtils.isNotBlank(code)) {
+				String name = PropertiesUtil.getProvinceName(code);
+				table.setProvince(StringUtils.isBlank(name) ? "未知" : name);
+			} else {
+				table.setProvince("未知");
+			}
 			table.setJudgementsCount(judgementsMap.get(base.getKeyNo()) == null ? 0 : judgementsMap.get(base.getKeyNo()));
 			table.setPatentCount(patentMap.get(base.getKeyNo()) == null ? 0 : patentMap.get(base.getKeyNo()));
 			table.setMonitorCompaniesCount(companiesMap.get(base.getRegistItemId()) == null ? 0 : companiesMap.get(base.getRegistItemId()));

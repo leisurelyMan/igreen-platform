@@ -22,6 +22,7 @@ public class PropertiesUtil {
 
 	private static void init() {
 		properties = new Properties();
+		provinceProperties = new Properties();
 		InputStream in =  PropertiesUtil.class.getClassLoader().getResourceAsStream("mail.properties");
 		InputStream provinceIn =  PropertiesUtil.class.getClassLoader().getResourceAsStream("province.properties");
 		try {
