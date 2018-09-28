@@ -20,11 +20,42 @@
   <script src="/js/libs/respond.min.js"></script>
   <![endif]-->
   <link rel="shortcut icon" href="/favicon.ico"></head>
+<style>
+
+    table tbody {
+        display:block;
+        height:195px;
+        overflow-y:scroll;
+    }
+
+    table thead, tbody tr {
+        display:table;
+        width:100%;
+        table-layout:fixed;
+
+    }
+
+    table thead {
+        width: calc( 100% - 1em )
+    }
+    li a {
+        color: #000;
+    }
+    a {
+        color: #3c3c3c;
+        text-decoration: none;
+    }
+    a:-webkit-any-link {
+        color: -webkit-link;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+</style>
 </head>
 <body>
 <div id="app-content">
   <div class="site-header">
-    <div class="wrapper">
+    <div class="wrapper" style="background: url(/images/logo-2.png) 45px 50% no-repeat;">
       <ul class="site-nav">
         <li><a href="/pages/index.html">主页</a></li>
         <li><a href="/pages/index.html#link3">公司大事件 </a></li>
@@ -61,10 +92,10 @@
             <tbody>
             <c:forEach var="item" items="${monitorCompanys}" varStatus="status">
               <tr>
-                <td>${ status.index + 1}</td>
-                <td><c:out value="${item.companyName}"/></td>
-                <td><c:out value="${item.orgNo}"/></td>
-                <td><c:out value="${item.province}"/></td>
+                <td style="width:5%">${ status.index + 1}</td>
+                <td style="width:20%"><c:out value="${item.companyName}"/></td>
+                <td style="width:12%"><c:out value="${item.orgNo}"/></td>
+                <td style="width:15%"><c:out value="${item.province}"/></td>
                 <td><c:out value="${item.industryName}"/></td>
                 <td><c:out value="${item.judgementsCount}"/></td>
                 <td><c:out value="${item.patentCount}"/></td>

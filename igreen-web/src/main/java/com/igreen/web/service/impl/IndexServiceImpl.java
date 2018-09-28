@@ -516,6 +516,17 @@ public class IndexServiceImpl implements IndexService{
 	public List<MonitorCompanyTable> getMonitorCompanyList(Integer configid) {
 		// 基础数据
 		List<CompanyQueryBase> baseList = detailService.selectCompanyBaseByConfigId(configid);
+		if(CollectionUtils.isEmpty(baseList)){
+			for (CompanyQueryBase temp : baseList) {
+				String code = temp.getProvince();
+				if(StringUtils.isNotBlank(code)) {
+					String name = PropertiesUtil.getProvinceName(code);
+					temp.setProvince(StringUtils.isBlank(name) ? "未知" : name);
+				} else {
+					temp.setProvince("未知");
+				}
+			}
+		}
 
 		// 诉讼（件）
 		List<CompanyMonitorTemp> judgementsTempList = detailService.selectJudgementsCountByConfigId(configid);
@@ -583,6 +594,15 @@ public class IndexServiceImpl implements IndexService{
 			temps.add(other);
 		} else {
 			temps = tempList;
+			for (CompanyMonitorReportTemp temp : temps) {
+				String code = temp.getCode();
+				if(StringUtils.isNotBlank(code)) {
+					String name = PropertiesUtil.getProvinceName(code);
+					temp.setName(StringUtils.isBlank(name) ? "未知" : name);
+				} else {
+					temp.setName("未知");
+				}
+			}
 		}
 
 		return temps;
