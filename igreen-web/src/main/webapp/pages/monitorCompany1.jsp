@@ -4,6 +4,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Enrobot监控</title>
   <meta name="keywords" content="">
   <meta name="description" content="">
   <meta http-equiv="pragma" content="no-cache">
@@ -18,10 +19,7 @@
   <script src="/js/libs/html5shiv.min.js"></script>
   <script src="/js/libs/respond.min.js"></script>
   <![endif]-->
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link href="/css/index.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
+  <link rel="shortcut icon" href="/favicon.ico"></head>
 <style>
 
   table tbody {
@@ -37,6 +35,9 @@
 
   }
 
+  table thead {
+    width: calc( 100% - 1em )
+  }
   li a {
     color: #000;
   }
@@ -49,39 +50,22 @@
     cursor: pointer;
     text-decoration: underline;
   }
-  /*滚动条样式*/
-  table tbody::-webkit-scrollbar {/*滚动条整体样式*/
-    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
-    height: 3px;
-  }
-  table tbody::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-    border-radius: 5px;
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    background: rgba(0,0,0,0.2);
-  }
-  table tbody::-webkit-scrollbar-track {/*滚动条里面轨道*/
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    border-radius: 0;
-    background: rgba(0,0,0,0.1);
-  }
 </style>
 </head>
 <body>
 <div id="app-content">
-  <!--页头begin-->
-  <div class="header-2">
-    <div class="mainBox">
-      <div class="logo"><a href="/pages/index.html"><img src="/images/logo-2.png" height="40" width="186" alt=""></a></div>
-      <ul>
+  <div class="site-header">
+    <div class="wrapper" style="background: url(/images/logo-2.png) 45px 50% no-repeat;">
+      <ul class="site-nav">
+        <li><a href="/pages/index.html">主页</a></li>
         <li><a href="/pages/index.html#link3">公司大事件 </a></li>
         <li><a href="/pages/index.html#link2">业务模块</a></li>
         <li><a href="/pages/index.html#link1">公司简介</a></li>
         <li><a href="/pages/search.html">企业征信</a></li>
+        <li><a>联系我们</a></li>
       </ul>
-      <div class="head-links"><a href="#">个人中心</a><i></i><a href="#">注册</a><i></i><a href="#">登录</a></div>
     </div>
   </div>
-  <!--页头end-->
   <div class="wrapper">
     <div class="page-title">Enrobot 监控</div>
     <div class="page-content">
@@ -131,9 +115,9 @@
           </div>
           <div class="block-cnt">
             <div id="shareholderChart" style="width: 557px;height:190px;"></div>
-            <div class="num">30%</div>
+            <div class="num"></div>
           </div>
-          <!--<div class="note">文字描述文字描述文字3000描述文字描述。</div>-->
+          <div class="note"></div>
         </div>
         <div class="block block-region">
           <div class="block-tit">
@@ -142,65 +126,65 @@
           <div class="block-cnt">
             <div id="regionChart" style="width: 382px;height:190px;"></div>
           </div>
-          <!--<div class="note">文字描述文字描述文字3000描述文字描述。</div>-->
+          <div class="note"></div>
         </div>
       </div>
-      <!-- <div class="row">
-          <div class="block block-risk">
-              <div class="block-tit">
-                  <ul class="fr">
-                      <li>年度总处罚： 1.78</li>
-                      <li>已处理： 222件</li>
-                      <li>待处理： 222件</li>
-                  </ul>
-                  <span>环境风险预测</span>
-              </div>
-              <div class="block-cnt clearfix">
-                  <div class="level">
-                      <div class="lever-chart-wrap">
-                          <div id="levelChart1" style="width: 189px;height:100px;"></div>
-                      </div>
-                      <div class="level-text level-text-1"><span>处罚类型1</span></div>
-                  </div>
-                  <div class="level">
-                      <div class="lever-chart-wrap">
-                          <div id="levelChart2" style="width: 189px;height:100px;"></div>
-                      </div>
-                      <div class="level-text level-text-2"><span>处罚类型2</span></div>
-                  </div>
-                  <div class="level">
-                      <div class="lever-chart-wrap">
-                          <div id="levelChart3" style="width: 189px;height:100px;"></div>
-                      </div>
-                      <div class="level-text level-text-3"><span>处罚类型3</span></div>
-                  </div>
-                  <div class="level">
-                      <div class="lever-chart-wrap">
-                          <div id="levelChart4" style="width: 189px;height:100px;"></div>
-                      </div>
-                      <div class="level-text level-text-4"><span>处罚类型4</span></div>
-                  </div>
-                  <div class="level">
-                      <div class="lever-chart-wrap">
-                          <div id="levelChart5" style="width: 189px;height:100px;"></div>
-                      </div>
-                      <div class="level-text level-text-5"><span>处罚类型5</span></div>
-                  </div>
-              </div>
+      <div class="row">
+        <div class="block block-risk">
+          <div class="block-tit">
+            <ul class="fr">
+              <li>年度总处罚： 1.78</li>
+              <li>已处理： 222件</li>
+              <li>待处理： 222件</li>
+            </ul>
+            <span>环境风险预测</span>
           </div>
-      </div> -->
-      <div class="row clearfix">
-        <div class="block block-trends fl">
+          <div class="block-cnt clearfix">
+            <div class="level">
+              <div class="lever-chart-wrap">
+                <div id="levelChart1" style="width: 189px;height:100px;"></div>
+              </div>
+              <div class="level-text level-text-1"><span>暂扣、吊销许可证</span></div>
+            </div>
+            <div class="level">
+              <div class="lever-chart-wrap">
+                <div id="levelChart2" style="width: 189px;height:100px;"></div>
+              </div>
+              <div class="level-text level-text-2"><span>没收违法所得</span></div>
+            </div>
+            <div class="level">
+              <div class="lever-chart-wrap">
+                <div id="levelChart3" style="width: 189px;height:100px;"></div>
+              </div>
+              <div class="level-text level-text-3"><span>行政拘留</span></div>
+            </div>
+            <div class="level">
+              <div class="lever-chart-wrap">
+                <div id="levelChart4" style="width: 189px;height:100px;"></div>
+              </div>
+              <div class="level-text level-text-4"><span>责令停产整顿</span></div>
+            </div>
+            <div class="level">
+              <div class="lever-chart-wrap">
+                <div id="levelChart5" style="width: 189px;height:100px;"></div>
+              </div>
+              <div class="level-text level-text-5"><span>责令停产、停业、关闭</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="block block-trends">
           <div class="block-tit">
             <span>未来一年的平均预测结果</span>
           </div>
           <div class="block-cnt">
             <div class="legend clearfix">
-              <!--<ul id="tab-switch">
+              <%--<ul id="tab-switch">
                 <li class="cur">近三月</li>
                 <li>近六月</li>
                 <li>近一年</li>
-              </ul>-->
+              </ul>--%>
               <span>预测单位</span>
               <span class="type type-1">暂扣、吊销许可证</span>
               <span class="type type-2">没收违法所得</span>
@@ -208,60 +192,44 @@
               <span class="type type-4">责令停产整顿</span>
               <span class="type type-5">责令停产、停业、关闭</span>
             </div>
-            <div id="trendsChart" style="width: 470px;height:295px;"></div>
-          </div>
-        </div>
-        <div class="block block-risk-right fr">
-          <div class="block-tit">
-            <span>环境风险预测</span>
-          </div>
-          <div class="block-cnt">
-            <div id="levelChartRight" style="width: 382px;height:376px;"></div>
+            <div id="trendsChart" style="width: 945px;height:295px;"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!--页脚begin-->
-  <div class="footer">
-    <div class="mainBox clearfix">
-      <dl class="left-links">
-        <dt>公司概况</dt>
-        <dd><a href="#">关于我们</a></dd>
-        <dd><a href="#">媒体报道</a></dd>
-        <dd><a href="#">公司动态</a></dd>
-        <dd><a href="#">联系我们</a></dd>
-      </dl>
-      <i class="line"></i>
-      <dl>
-        <dt>新手帮助</dt>
-        <dd><a href="#">新手指引</a></dd>
-        <dd><a href="#">产品介绍</a></dd>
-      </dl>
-      <i class="line"></i>
-      <dl>
-        <dt>平台安全</dt>
-        <dd><a href="#">安全保障</a></dd>
-        <dd><a href="#">隐私保护</a></dd>
-        <dd><a href="#">政策法规</a></dd>
-      </dl>
-      <i class="line"></i>
-      <dl>
-        <dt>联系我们</dt>
-        <dd><a href="#">联系邮箱</a></dd>
-        <dd><a href="#">客服电话</a></dd>
-        <dd><a href="#">工作时间</a></dd>
-      </dl>
-      <i class="line"></i>
-      <dl class="right-links">
-        <dt>关注我们</dt>
-        <dd><a href="#">关注微信</a></dd>
-        <dd><a href="#">关注微博</a></dd>
-      </dl>
+  <div class="site-footer">
+    <div class="wrapper">
+      <div class="column">
+        <div>公司概况</div>
+        <p><a href="">关于我们</a></p>
+        <p><a href="">媒体报道</a></p>
+        <p><a href="">公司动态</a></p>
+      </div>
+      <div class="column">
+        <div>新手帮助</div>
+        <p><a href="">新手指引</a></p>
+        <p><a href="">产品介绍</a></p>
+        <p><a href="">用户协议</a></p>
+        <p><a href="">意见反馈</a></p>
+      </div>
+      <div class="column">
+        <div>平台安全</div>
+        <p><a href="">安全保障</a></p>
+        <p><a href="">隐私保护</a></p>
+        <p><a href="">政策法规</a></p>
+        <p><a href="">免责声明</a></p>
+      </div>
+      <div class="column">
+        <div>联系我们</div>
+        <p>客服电话：(010)-58760933</p>
+        <p>工作时间：周一至周五 9 : 00-18 : 30</p>
+        <p>商务合作：<a href="mailto:zskj123456@163.com">zskj123456@163.com</a></p>
+        <p>官方微信：<a class="link">igreenbank</a></p>
+      </div>
     </div>
-    <div class="copyright">集团公司 版权所有 Copyright © 1988-2015  All Right Reserved 京ICP备10207363-1号</div>
+    <div class="copy">集团公司 版权所有 Copyright © 1988-2015  All Right Reserved 京ICP备10207363-1号</div>
   </div>
-  <!--页脚end-->
 </div>
 <script src="/js/libs/lodash.min.js"></script>
 <script src="/js/libs/echarts.min.js"></script>
@@ -319,7 +287,10 @@
                     labelLine:{
                         length2:100
                     },
-                    data:industryJson
+                    /*data: _.times(5, i => {
+                        return {value: _.random(0, 100, false), name:'行业'+i}
+                    })*/
+                    data : industryJson
                 }
             ]
         });
@@ -382,17 +353,13 @@
             ]
         });
 
-        var levelChartOptionRight = {
+        var levelChartOption = {
             grid: {
                 left: '28%',
                 right: '28%',
                 top:'15%',
                 bottom:'5%',
                 containLabel: false
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: "{b}: {c} ({d}%)"
             },
             xAxis: {
                 show: false,
@@ -402,23 +369,30 @@
                 show: false,
                 type: 'value'
             },
-            color:['#c65a24','#ef9162','#f4c24a','#aa7560','#d6a994'],
             series: [{
-                data: [<c:forEach var="item" items="${foreCasts}" varStatus="status">
-                    <c:set value="0" var="sum" />
-                    <c:forEach var="dataNum" items="${item.data}" varStatus="status"><c:set value="${sum + dataNum}" var="sum" /></c:forEach>
-                    {
-                        name : '${item.name}',
-                        value: ${sum},
+                data: _.times(5, i => {
+                    return {
+                        value: _.random(0, 100, false),
+                        itemStyle:{
+                            borderColor: '#7ecef4',
+                            color: '#edf7f9'
+                        }
                     }
-                    <c:if test="${!status.last}">,</c:if>
-                    </c:forEach>],
-                type: 'pie',
-                radius: ['35%', '50%']
-            }]
-        }
-        var levelChartRight = echarts.init(document.getElementById('levelChartRight'));
-        levelChartRight.setOption(levelChartOptionRight)
+                }),
+        type: 'bar',
+            barWidth: 11,
+    }]
+    }
+        var levelChart1 = echarts.init(document.getElementById('levelChart1'));
+        levelChart1.setOption(levelChartOption)
+        var levelChart2 = echarts.init(document.getElementById('levelChart2'));
+        levelChart2.setOption(levelChartOption)
+        var levelChart3 = echarts.init(document.getElementById('levelChart3'));
+        levelChart3.setOption(levelChartOption)
+        var levelChart4 = echarts.init(document.getElementById('levelChart4'));
+        levelChart4.setOption(levelChartOption)
+        var levelChart5 = echarts.init(document.getElementById('levelChart5'));
+        levelChart5.setOption(levelChartOption)
 
         function renderTrendsFunc(){
             var trendsChart = echarts.init(document.getElementById('trendsChart'));
@@ -427,7 +401,7 @@
             trendsChart.setOption({
                 grid: {
                     left: '0',
-                    right: '0%',
+                    right: '20',
                     top:'3%',
                     bottom:'3%',
                     containLabel: true
@@ -472,7 +446,8 @@
                         }
                     }
                 },
-                series: [<c:forEach var="item" items="${foreCasts}" varStatus="status">
+                series: [
+                    <c:forEach var="item" items="${foreCasts}" varStatus="status">
                     {
                         name : '${item.name}',
                         data: JSON.parse('${item.data}'),
@@ -487,7 +462,9 @@
                         }
                     }
                     <c:if test="${!status.last}">,</c:if>
-                    </c:forEach>]
+                    </c:forEach>
+
+                ]
             });
         }
         renderTrendsFunc()
@@ -499,7 +476,5 @@
         })
     })();
 </script>
-<script type="text/javascript" src="/js/vendors.20180913.js"></script>
-<script type="text/javascript" src="/js/index.20180913.js"></script>
-</body>
+<script type="text/javascript" src="/js/vendors.20180913.js"></script><script type="text/javascript" src="/js/index.20180913.js"></script></body>
 </html>
