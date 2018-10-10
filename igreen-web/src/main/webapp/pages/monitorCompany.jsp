@@ -47,7 +47,6 @@
   a:-webkit-any-link {
     color: -webkit-link;
     cursor: pointer;
-    text-decoration: underline;
   }
   /*滚动条样式*/
   table tbody::-webkit-scrollbar {/*滚动条整体样式*/
