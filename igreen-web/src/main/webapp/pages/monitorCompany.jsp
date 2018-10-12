@@ -82,7 +82,7 @@
   </div>
   <!--页头end-->
   <div class="wrapper">
-    <div class="page-title">Enrobot 监控</div>
+    <div class="page-title">EnRobot 监控</div>
     <div class="page-content">
       <!-- 摘要表格:begin -->
       <div class="block block-table">
@@ -126,11 +126,11 @@
       <div class="clearfix row">
         <div class="block block-shareholder">
           <div class="block-tit">
-            <span>注册资本分布</span>
+            <span>行业分布</span>
           </div>
           <div class="block-cnt">
             <div id="shareholderChart" style="width: 557px;height:190px;"></div>
-            <div class="num">30%</div>
+            <div class="num"></div>
           </div>
           <!--<div class="note">文字描述文字描述文字3000描述文字描述。</div>-->
         </div>
@@ -191,7 +191,7 @@
       <div class="row clearfix">
         <div class="block block-trends fl">
           <div class="block-tit">
-            <span>未来一年的平均预测结果</span>
+            <span>2019年违约风险预测</span>
           </div>
           <div class="block-cnt">
             <div class="legend clearfix">
@@ -212,7 +212,7 @@
         </div>
         <div class="block block-risk-right fr">
           <div class="block-tit">
-            <span>环境风险预测</span>
+            <span>各类处罚统计</span>
           </div>
           <div class="block-cnt">
             <div id="levelChartRight" style="width: 382px;height:376px;"></div>
