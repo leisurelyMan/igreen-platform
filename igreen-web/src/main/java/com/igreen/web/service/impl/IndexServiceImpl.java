@@ -604,9 +604,9 @@ public class IndexServiceImpl implements IndexService{
 	 * @return
 	 */
 	@Override
-	public List<MonitorForeCast> getMonitorForeCast(Integer configid) {
+	public List<MonitorForeCast> getMonitorForeCast(Integer configid, Integer size) {
 		List<AiIpeSum> aiIpeSums = detailService.getMonitorForeCast(configid);
-		return makeForeCast(aiIpeSums);
+		return makeForeCast(aiIpeSums, size == null ? 1 : size);
 	}
 
 	/**
@@ -614,10 +614,10 @@ public class IndexServiceImpl implements IndexService{
 	 * @param aiIpeSums
 	 * @return
 	 */
-	private List<MonitorForeCast> makeForeCast(List<AiIpeSum> aiIpeSums) {
+	private List<MonitorForeCast> makeForeCast(List<AiIpeSum> aiIpeSums, Integer size) {
 
 		List<MonitorForeCast> foreCastList = new ArrayList<MonitorForeCast>();
-		Map<String, List<Integer>> tempMap = new HashMap<String, List<Integer>>();
+		Map<String, List<Double>> tempMap = new HashMap<String, List<Double>>();
 		Map<String, String> styleMap = new HashMap<String, String>();
 		styleMap.put("暂扣、吊销许可证", "#0b97d4");
 		styleMap.put("没收违法所得", "#fa682d");
@@ -626,34 +626,34 @@ public class IndexServiceImpl implements IndexService{
 		styleMap.put("责令停产、停业、关闭", "#cdcdcd");
 		for (AiIpeSum ipeSum : aiIpeSums) {
 			if (tempMap.get("暂扣、吊销许可证") == null) {
-				tempMap.put("暂扣、吊销许可证", new ArrayList<Integer>());
+				tempMap.put("暂扣、吊销许可证", new ArrayList<Double>());
 			}
-			tempMap.get("暂扣、吊销许可证").add(ipeSum.getRevokedSum());
+			tempMap.get("暂扣、吊销许可证").add((double) Math.round((ipeSum.getRevokedSum()*100) / (size*100)));
 
 			if (tempMap.get("没收违法所得") == null) {
-				tempMap.put("没收违法所得", new ArrayList<Integer>());
+				tempMap.put("没收违法所得", new ArrayList<Double>());
 			}
-			tempMap.get("没收违法所得").add(ipeSum.getConfiscateSum());
+			tempMap.get("没收违法所得").add((double)Math.round((ipeSum.getConfiscateSum()*100) / (size*100)));
 
 			if (tempMap.get("行政拘留") == null) {
-				tempMap.put("行政拘留", new ArrayList<Integer>());
+				tempMap.put("行政拘留", new ArrayList<Double>());
 			}
-			tempMap.get("行政拘留").add(ipeSum.getDetentionSum());
+			tempMap.get("行政拘留").add((double)Math.round((ipeSum.getDetentionSum()*100) / (size*100)));
 
 			if (tempMap.get("责令停产整顿") == null) {
-				tempMap.put("责令停产整顿", new ArrayList<Integer>());
+				tempMap.put("责令停产整顿", new ArrayList<Double>());
 			}
-			tempMap.get("责令停产整顿").add(ipeSum.getProductionSum());
+			tempMap.get("责令停产整顿").add((double)Math.round((ipeSum.getProductionSum()*100) / (size*100)));
 
 			if (tempMap.get("责令停产、停业、关闭") == null) {
-				tempMap.put("责令停产、停业、关闭", new ArrayList<Integer>());
+				tempMap.put("责令停产、停业、关闭", new ArrayList<Double>());
 			}
-			tempMap.get("责令停产、停业、关闭").add(ipeSum.getInstructSum());
+			tempMap.get("责令停产、停业、关闭").add((double)Math.round((ipeSum.getInstructSum()*100) / (size*100)));
 		}
 
-		Iterator<Map.Entry<String, List<Integer>>> iterator = tempMap.entrySet().iterator();
+		Iterator<Map.Entry<String, List<Double>>> iterator = tempMap.entrySet().iterator();
 		while (iterator.hasNext()) {
-			Map.Entry<String, List<Integer>> entry = iterator.next();
+			Map.Entry<String, List<Double>> entry = iterator.next();
 			MonitorForeCast foreCast = new MonitorForeCast();
 			foreCast.setName(entry.getKey());
 			foreCast.setData(entry.getValue());

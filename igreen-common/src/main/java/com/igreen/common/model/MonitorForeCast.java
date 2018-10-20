@@ -6,7 +6,7 @@ public class MonitorForeCast {
 
     private String name;
     // 数量
-    private List<Integer> data;
+    private List<Double> data;
     // 样式
     private String style;
 
@@ -18,11 +18,11 @@ public class MonitorForeCast {
         this.name = name;
     }
 
-    public List<Integer> getData() {
+    public List<Double> getData() {
         return data;
     }
 
-    public void setData(List<Integer> data) {
+    public void setData(List<Double> data) {
         this.data = data;
     }
 

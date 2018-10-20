@@ -391,7 +391,7 @@
             },
             tooltip: {
                 trigger: 'item',
-                formatter: "{b}: {c} ({d}%)"
+                formatter: "{b}: {d}%"
             },
             xAxis: {
                 show: false,
@@ -469,6 +469,10 @@
                         lineStyle:{
                             type:'dashed'
                         }
+                    },
+                    axisLabel: {
+                        //设置y轴数值为%
+                        formatter: '{value} %'
                     }
                 },
                 series: [<c:forEach var="item" items="${foreCasts}" varStatus="status">

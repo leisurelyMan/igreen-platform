@@ -53,5 +53,5 @@ public interface IndexService {
 	 * @param configid
 	 * @return
 	 */
-	public List<MonitorForeCast> getMonitorForeCast(Integer configid);
+	public List<MonitorForeCast> getMonitorForeCast(Integer configid, Integer size);
 }

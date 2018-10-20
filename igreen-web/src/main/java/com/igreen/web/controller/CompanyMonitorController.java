@@ -96,7 +96,7 @@ public class CompanyMonitorController {
         // 地域分布
         List<CompanyMonitorReportTemp> provinceReportList = indexService.getRegistProvince(configid);
         // 预测
-        List<MonitorForeCast> foreCastList = indexService.getMonitorForeCast(configid);
+        List<MonitorForeCast> foreCastList = indexService.getMonitorForeCast(configid, monitorCompanyList.size());
 
         model.addAttribute("monitorCompanys", monitorCompanyList);
         model.addAttribute("industryReports", reportTempList);
