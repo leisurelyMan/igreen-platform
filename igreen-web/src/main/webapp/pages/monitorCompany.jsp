@@ -410,7 +410,7 @@
                     <c:set value="${fn:indexOf(item.name, '、')}" var="dataIndex"/>
                     <c:set value="${fn:length(item.name)}" var="dataLenth"/>
                     {
-                        name : <c:if test="${fn:contains(item.name, '、')}">'${fn:substring(item.name, 0, dataIndex)}\n${fn:substring(item.name, dataIndex, dataLenth)}' </c:if> <c:if test="${!fn:contains(item.name, '、')}">'${item.name}'</c:if>,
+                        name : <c:if test="${fn:contains(item.name, '、')}">'${fn:substring(item.name, 0, dataIndex)}\n${fn:substring(item.name, dataIndex+1, dataLenth)}' </c:if> <c:if test="${!fn:contains(item.name, '、')}">'${item.name}'</c:if>,
                         value: ${sum},
                     }
                     <c:if test="${!status.last}">,</c:if>
