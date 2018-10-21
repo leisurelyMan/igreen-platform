@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -207,7 +208,7 @@
               <span class="type type-4">责令停产整顿</span>
               <span class="type type-5">责令停产、停业、关闭</span>
             </div>
-            <div id="trendsChart" style="width: 470px;height:295px;"></div>
+            <div id="trendsChart" style="width: 500px;height:295px;"></div>
           </div>
         </div>
         <div class="block block-risk-right fr">
@@ -406,8 +407,10 @@
                 data: [<c:forEach var="item" items="${foreCasts}" varStatus="status">
                     <c:set value="0" var="sum" />
                     <c:forEach var="dataNum" items="${item.data}" varStatus="status"><c:set value="${sum + dataNum}" var="sum" /></c:forEach>
+                    <c:set value="${fn:indexOf(item.name, '、')}" var="dataIndex"/>
+                    <c:set value="${fn:length(item.name)}" var="dataLenth"/>
                     {
-                        name : '${item.name}',
+                        name : <c:if test="${fn:contains(item.name, '、')}">'${fn:substring(item.name, 0, dataIndex)}\n${fn:substring(item.name, dataIndex, dataLenth)}' </c:if> <c:if test="${!fn:contains(item.name, '、')}">'${item.name}'</c:if>,
                         value: ${sum},
                     }
                     <c:if test="${!status.last}">,</c:if>
@@ -426,7 +429,7 @@
             trendsChart.setOption({
                 grid: {
                     left: '0',
-                    right: '0%',
+                    right: '20',
                     top:'3%',
                     bottom:'3%',
                     containLabel: true
