@@ -97,8 +97,8 @@
               <th class="tl" style="width:5%">编号</th>
               <th class="tl" style="width:20%">企业名称</th>
               <th class="tl" style="width:12%">组织机构代码</th>
-              <th class="tl" style="width:15%">省市</th>
-              <th class="tl">行业</th>
+              <th class="tl" style="width:8%">省市</th>
+              <th class="tl" style="width:20%">行业</th>
               <th class="tl">诉讼（件）</th>
               <th class="tl">专利（件）</th>
               <th style="width:10%">重点监管<br>企业数</th>
@@ -111,8 +111,8 @@
                 <td style="width:5%">${ status.index + 1}</td>
                 <td style="width:20%"><c:out value="${item.companyName}"/></td>
                 <td style="width:12%"><c:out value="${item.orgNo}"/></td>
-                <td style="width:15%"><c:out value="${item.province}"/></td>
-                <td><c:out value="${item.industryName}"/></td>
+                <td style="width:8%"><c:out value="${item.province}"/></td>
+                <td style="width:20%"><c:out value="${item.industryName}"/></td>
                 <td><c:out value="${item.judgementsCount}"/></td>
                 <td><c:out value="${item.patentCount}"/></td>
                 <td class="tc"><c:out value="${item.monitorCompaniesCount}"/></td>
@@ -295,7 +295,7 @@
             },
             tooltip: {
                 trigger: 'item',
-                formatter: "{a} <br/>{b}: {c} ({d})"
+                formatter: "{a} <br/>{b}: {d}% ({c}家)"
             },
             color:['#5481a0','#749fb7', '#6998a8', '#656d7a', '#bdbec0', '#e7e7e7', '#89afad', '#a1c4c3', '#b6d3d2'],
             series: [
@@ -335,7 +335,7 @@
             },
             tooltip: {
                 trigger: 'item',
-                formatter: "{a} <br/>{b}: {c} ({d})"
+                formatter: "{a} <br/>{b}: {d}% ({c}家)"
             },
             color:['#476ca8','#5ac2ae', '#c7da3e'],
             legend: {
