@@ -15,32 +15,32 @@ public class AiIpeSum {
     /**
      * 罚款
      */
-    private Integer fineSum;
+    private Double fineSum;
 
     /**
      * 暂扣、吊销许可证
      */
-    private Integer revokedSum;
+    private Double revokedSum;
 
     /**
      * 没收违法所得
      */
-    private Integer confiscateSum;
+    private Double confiscateSum;
 
     /**
      * 行政拘留
      */
-    private Integer detentionSum;
+    private Double detentionSum;
 
     /**
      * 责令停产整顿
      */
-    private Integer productionSum;
+    private Double productionSum;
 
     /**
      * 责令停产、停业、关闭
      */
-    private Integer instructSum;
+    private Double instructSum;
 
     public String getCompany() {
         return company;
@@ -58,51 +58,51 @@ public class AiIpeSum {
         this.season = season;
     }
 
-    public Integer getFineSum() {
+    public Double getFineSum() {
         return fineSum;
     }
 
-    public void setFineSum(Integer fineSum) {
+    public void setFineSum(Double fineSum) {
         this.fineSum = fineSum;
     }
 
-    public Integer getRevokedSum() {
+    public Double getRevokedSum() {
         return revokedSum;
     }
 
-    public void setRevokedSum(Integer revokedSum) {
+    public void setRevokedSum(Double revokedSum) {
         this.revokedSum = revokedSum;
     }
 
-    public Integer getConfiscateSum() {
+    public Double getConfiscateSum() {
         return confiscateSum;
     }
 
-    public void setConfiscateSum(Integer confiscateSum) {
+    public void setConfiscateSum(Double confiscateSum) {
         this.confiscateSum = confiscateSum;
     }
 
-    public Integer getDetentionSum() {
+    public Double getDetentionSum() {
         return detentionSum;
     }
 
-    public void setDetentionSum(Integer detentionSum) {
+    public void setDetentionSum(Double detentionSum) {
         this.detentionSum = detentionSum;
     }
 
-    public Integer getProductionSum() {
+    public Double getProductionSum() {
         return productionSum;
     }
 
-    public void setProductionSum(Integer productionSum) {
+    public void setProductionSum(Double productionSum) {
         this.productionSum = productionSum;
     }
 
-    public Integer getInstructSum() {
+    public Double getInstructSum() {
         return instructSum;
     }
 
-    public void setInstructSum(Integer instructSum) {
+    public void setInstructSum(Double instructSum) {
         this.instructSum = instructSum;
     }
 }

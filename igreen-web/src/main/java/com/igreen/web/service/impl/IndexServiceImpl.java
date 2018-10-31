@@ -1,6 +1,7 @@
 package com.igreen.web.service.impl;
 
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
 import javax.annotation.Resource;
@@ -646,27 +647,27 @@ public class IndexServiceImpl implements IndexService{
 			if (tempMap.get("暂扣、吊销许可证") == null) {
 				tempMap.put("暂扣、吊销许可证", new ArrayList<Double>());
 			}
-			tempMap.get("暂扣、吊销许可证").add((double) Math.round((ipeSum.getRevokedSum()*100) / (size*100)));
+			tempMap.get("暂扣、吊销许可证").add(getTwoDecimal(ipeSum.getRevokedSum() / (double)size));
 
 			if (tempMap.get("没收违法所得") == null) {
 				tempMap.put("没收违法所得", new ArrayList<Double>());
 			}
-			tempMap.get("没收违法所得").add((double)Math.round((ipeSum.getConfiscateSum()*100) / (size*100)));
+			tempMap.get("没收违法所得").add(getTwoDecimal(ipeSum.getConfiscateSum() / (double)size));
 
 			if (tempMap.get("行政拘留") == null) {
 				tempMap.put("行政拘留", new ArrayList<Double>());
 			}
-			tempMap.get("行政拘留").add((double)Math.round((ipeSum.getDetentionSum()*100) / (size*100)));
+			tempMap.get("行政拘留").add(getTwoDecimal(ipeSum.getDetentionSum() / (double)size));
 
 			if (tempMap.get("责令停产整顿") == null) {
 				tempMap.put("责令停产整顿", new ArrayList<Double>());
 			}
-			tempMap.get("责令停产整顿").add((double)Math.round((ipeSum.getProductionSum()*100) / (size*100)));
+			tempMap.get("责令停产整顿").add(getTwoDecimal(ipeSum.getProductionSum() / (double)size));
 
 			if (tempMap.get("责令停产、停业、关闭") == null) {
 				tempMap.put("责令停产、停业、关闭", new ArrayList<Double>());
 			}
-			tempMap.get("责令停产、停业、关闭").add((double)Math.round((ipeSum.getInstructSum()*100) / (size*100)));
+			tempMap.get("责令停产、停业、关闭").add(getTwoDecimal(ipeSum.getInstructSum() / (double)size));
 		}
 
 		Iterator<Map.Entry<String, List<Double>>> iterator = tempMap.entrySet().iterator();
@@ -681,6 +682,12 @@ public class IndexServiceImpl implements IndexService{
 		return foreCastList;
 	}
 
+	private double getTwoDecimal(double num) {
+		DecimalFormat dFormat = new DecimalFormat("#.00");
+		String yearString = dFormat.format(num);
+		Double temp = Double.valueOf(yearString);
+		return temp;
+	}
 
 	private List<MonitorCompanyTable> makeResultVo(List<CompanyQueryBase> baseList,Map<String, Integer> judgementsMap,
 												   Map<String, Integer> patentMap, Map<String, Integer> companiesMap, Map<String, Integer> executionRecordsMap, Map<String, Integer> administrativePenaltyMap) {
