@@ -114,11 +114,11 @@
                 <td style="width:10%"><c:out value="${item.orgNo}"/></td>
                 <td style="width:5%"><c:out value="${item.province}"/></td>
                 <td style="width:10%"><c:out value="${item.industryName}"/></td>
-                <td style="width:10%"><c:out value="${item.judgementsCount}"/></td>
-                <td style="width:10%"><c:out value="${item.patentCount}"/></td>
+                <td class="tc" style="width:10%"><c:out value="${item.judgementsCount}"/></td>
+                <td class="tc" style="width:10%"><c:out value="${item.patentCount}"/></td>
                 <td class="tc" style="width:10%"><c:out value="${item.monitorCompaniesCount}"/></td>
                 <td class="tc" style="width:10%"><c:out value="${item.executionRecordsCount}"/></td>
-                <td style="width:9.9%"><c:out value="${item.administrativePenaltyCount}"/></td>
+                <td class="tc" style="width:9.9%"><c:out value="${item.administrativePenaltyCount}"/></td>
               </tr>
             </c:forEach>
             </tbody>
