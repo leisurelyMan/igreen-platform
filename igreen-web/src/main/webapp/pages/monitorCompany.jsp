@@ -482,7 +482,7 @@
                 },
                 series: [<c:forEach var="item" items="${foreCasts}" varStatus="status">
                     {
-                        name : '${item.name}',
+                        name : '${item.name}(%)',
                         data: JSON.parse('${item.data}'),
                         type: 'line',
                         symbolSize:10,
