@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.igreen.common.model.AdministrativePenalty;
+import com.igreen.common.model.CompanyMonitorTemp;
+import org.apache.ibatis.annotations.Param;
 
 public interface AdministrativePenaltyMapper {
 	
@@ -28,4 +30,6 @@ public interface AdministrativePenaltyMapper {
 	List<AdministrativePenalty> selectByRegistItemId(Integer registItemId);
 
 	void auditByRegistItemId(Integer registItemId);
+
+    List<CompanyMonitorTemp> selectAdministrativePenaltyByResIds(@Param("regIds") List<Integer> regIds);
 }

@@ -517,6 +517,13 @@ public class IndexServiceImpl implements IndexService{
 		// 基础数据
 		List<CompanyQueryBase> baseList = detailService.selectCompanyBaseByConfigId(configid);
 
+		Map<String, Integer> administrativePenaltyMap = null;
+		List<Integer> registItemIds = getRegistItemIdList(baseList);
+		if(CollectionUtils.isNotEmpty(registItemIds)){
+			List<CompanyMonitorTemp> administrativePenaltyTempList = administrativePenaltyMapper.selectAdministrativePenaltyByResIds(registItemIds);
+			administrativePenaltyMap = makeTempToMap(administrativePenaltyTempList, "registItemId");
+		}
+
 		// 诉讼（件）
 		List<CompanyMonitorTemp> judgementsTempList = detailService.selectJudgementsCountByConfigId(configid);
 		Map<String, Integer> judgementsMap = makeTempToMap(judgementsTempList, "keyNo");
@@ -533,9 +540,20 @@ public class IndexServiceImpl implements IndexService{
 		List<CompanyMonitorTemp> executionRecordsCountTempList = detailService.selectExecutionRecordsCountByConfigId(configid);
 		Map<String, Integer> executionRecordsMap = makeTempToMap(executionRecordsCountTempList, "registItemId");
 
-		return makeResultVo(baseList, judgementsMap, patentMap, companiesMap, executionRecordsMap);
+		return makeResultVo(baseList, judgementsMap, patentMap, companiesMap, executionRecordsMap, administrativePenaltyMap);
 	}
 
+	private List<Integer> getRegistItemIdList(List<CompanyQueryBase> baseList) {
+		List<Integer> registItemIds = null;
+		if(CollectionUtils.isNotEmpty(baseList)) {
+			registItemIds = new ArrayList<>();
+			for(CompanyQueryBase base : baseList) {
+				registItemIds.add(base.getRegistItemId());
+			}
+		}
+
+		return registItemIds;
+	}
 	/**
 	 * 注册资本分布
 	 *
@@ -665,7 +683,7 @@ public class IndexServiceImpl implements IndexService{
 
 
 	private List<MonitorCompanyTable> makeResultVo(List<CompanyQueryBase> baseList,Map<String, Integer> judgementsMap,
-												   Map<String, Integer> patentMap, Map<String, Integer> companiesMap, Map<String, Integer> executionRecordsMap) {
+												   Map<String, Integer> patentMap, Map<String, Integer> companiesMap, Map<String, Integer> executionRecordsMap, Map<String, Integer> administrativePenaltyMap) {
 
 		List<MonitorCompanyTable> companyTableList = new ArrayList<MonitorCompanyTable>();
 		for(CompanyQueryBase base : baseList){
@@ -684,6 +702,7 @@ public class IndexServiceImpl implements IndexService{
 			table.setPatentCount(patentMap.get(base.getKeyNo()) == null ? 0 : patentMap.get(base.getKeyNo()));
 			table.setMonitorCompaniesCount(companiesMap.get(base.getRegistItemId()) == null ? 0 : companiesMap.get(base.getRegistItemId()));
 			table.setExecutionRecordsCount(executionRecordsMap.get(base.getRegistItemId()) == null ? 0 : executionRecordsMap.get(base.getRegistItemId()));
+			table.setAdministrativePenaltyCount(administrativePenaltyMap.get(base.getRegistItemId()) == null ? 0 : administrativePenaltyMap.get(base.getRegistItemId()));
 			companyTableList.add(table);
 		}
 

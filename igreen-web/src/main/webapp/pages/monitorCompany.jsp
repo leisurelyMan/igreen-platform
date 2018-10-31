@@ -88,7 +88,7 @@
       <!-- 摘要表格:begin -->
       <div class="block block-table">
         <div class="block-tit">
-          <span>摘要表格</span>
+          <span>监控名单</span>
         </div>
         <div class="block-cnt">
           <table>
@@ -96,13 +96,14 @@
             <tr>
               <th class="tl" style="width:5%">编号</th>
               <th class="tl" style="width:20%">企业名称</th>
-              <th class="tl" style="width:12%">组织机构代码</th>
-              <th class="tl" style="width:8%">省市</th>
-              <th class="tl" style="width:20%">行业</th>
-              <th class="tl">诉讼（件）</th>
-              <th class="tl">专利（件）</th>
+              <th class="tl" style="width:10%">组织机构代码</th>
+              <th class="tl" style="width:5%">省市</th>
+              <th class="tl" style="width:10%">行业</th>
+              <th class="tl" style="width:10%">诉讼（件）</th>
+              <th class="tl" style="width:10%">专利（件）</th>
               <th style="width:10%">重点监管<br>企业数</th>
               <th style="width:10%">排污<br>许可数</th>
+              <th style="width:10%">环境<br>违规数</th>
             </tr>
             </thead>
             <tbody>
@@ -110,13 +111,14 @@
               <tr>
                 <td style="width:5%">${ status.index + 1}</td>
                 <td style="width:20%"><c:out value="${item.companyName}"/></td>
-                <td style="width:12%"><c:out value="${item.orgNo}"/></td>
-                <td style="width:8%"><c:out value="${item.province}"/></td>
-                <td style="width:20%"><c:out value="${item.industryName}"/></td>
-                <td><c:out value="${item.judgementsCount}"/></td>
-                <td><c:out value="${item.patentCount}"/></td>
-                <td class="tc"><c:out value="${item.monitorCompaniesCount}"/></td>
-                <td class="tc"><c:out value="${item.executionRecordsCount}"/></td>
+                <td style="width:10%"><c:out value="${item.orgNo}"/></td>
+                <td style="width:5%"><c:out value="${item.province}"/></td>
+                <td style="width:10%"><c:out value="${item.industryName}"/></td>
+                <td style="width:10%"><c:out value="${item.judgementsCount}"/></td>
+                <td style="width:10%"><c:out value="${item.patentCount}"/></td>
+                <td class="tc" style="width:10%"><c:out value="${item.monitorCompaniesCount}"/></td>
+                <td class="tc" style="width:10%"><c:out value="${item.executionRecordsCount}"/></td>
+                <td style="width:9.9%"><c:out value="${item.administrativePenaltyCount}"/></td>
               </tr>
             </c:forEach>
             </tbody>

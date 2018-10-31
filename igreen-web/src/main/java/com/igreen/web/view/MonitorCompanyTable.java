@@ -21,6 +21,8 @@ public class MonitorCompanyTable {
     private int monitorCompaniesCount;
     // 排污许可数
     private int executionRecordsCount;
+    // 环境违规数
+    private int administrativePenaltyCount;
 
     public String getCompanyName() {
         return companyName;
@@ -84,5 +86,13 @@ public class MonitorCompanyTable {
 
     public void setExecutionRecordsCount(int executionRecordsCount) {
         this.executionRecordsCount = executionRecordsCount;
+    }
+
+    public int getAdministrativePenaltyCount() {
+        return administrativePenaltyCount;
+    }
+
+    public void setAdministrativePenaltyCount(int administrativePenaltyCount) {
+        this.administrativePenaltyCount = administrativePenaltyCount;
     }
 }
