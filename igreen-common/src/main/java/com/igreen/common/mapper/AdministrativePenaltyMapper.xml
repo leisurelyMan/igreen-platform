@@ -96,7 +96,7 @@
   	</if>
   	limit #{startRow},#{pageRows}
   </select>
-  
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from administrative_penalty
     where id = #{id,jdbcType=INTEGER}
@@ -357,4 +357,12 @@
     set status = 1
     where regist_item_id = #{registItemId,jdbcType=INTEGER}
   </delete>
+
+  <select id="selectAdministrativePenaltyByResIds" resultType="com.igreen.common.model.CompanyMonitorTemp">
+    SELECT regist_item_id AS registItemId, count(1) AS countNum FROM administrative_penalty WHERE regist_item_id IN
+    <foreach collection="regIds" item= "regId" index ="index" open= "(" close =")" separator=",">
+    #{regId}
+  </foreach >
+    group by regist_item_id
+  </select>
 </mapper>
