@@ -65,7 +65,7 @@ public class WebMagicTest implements PageProcessor {
         System.out.println("开始爬取...");
         startTime = System.currentTimeMillis();
         //Spider.create(new WebMagicTest()).addUrl("http://127.0.0.1/考纲语法.html").thread(5).run();
-        Spider.create(new WebMagicTest()).addUrl("http://127.0.0.1/考纲语法.html").thread(5).run();
+        Spider.create(new WebMagicTest()).addUrl("http://127.0.0.1/bk.html").thread(5).run();
         endTime = System.currentTimeMillis();
         System.out.println("爬取结束，耗时约" + ((endTime - startTime) / 1000) + "秒，抓取了"+count+"条记录");
     }
