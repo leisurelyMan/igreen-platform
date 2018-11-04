@@ -112,7 +112,7 @@
                 <td style="width:20%"><c:out value="${item.companyName}"/></td>
                 <td style="width:12%"><c:out value="${item.orgNo}"/></td>
                 <td style="width:8%"><c:out value="${item.province}"/></td>
-                <td style="width:20%"><c:out value="${item.industryName}"/></td>
+                <td style="width:20%"><c:if test="${item.industryName == null || item.industryName=='NULL'}">其它</c:if><c:if test="${item.industryName != null && item.industryName !='NULL'}"><c:out value="${item.industryName}"/></c:if></td>
                 <td><c:out value="${item.judgementsCount}"/></td>
                 <td><c:out value="${item.patentCount}"/></td>
                 <td class="tc"><c:out value="${item.monitorCompaniesCount}"/></td>
@@ -269,7 +269,7 @@
     var industryJson = new Array();
     <c:forEach var="item" items="${industryReports}" varStatus="status">
     var obj = new Object();
-    obj.name = '${item.name}';
+    obj.name = '<c:if test="${item.name == null || item.name =='NULL'}">其它</c:if><c:if test="${item.name != null && item.name !='NULL'}">${item.name}</c:if>';
     obj.value = '${item.nameValue}';
     industryJson.push(obj);
     </c:forEach>
