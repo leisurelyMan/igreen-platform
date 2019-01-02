@@ -44,7 +44,7 @@ function getActions(cellvalue, options, rowObject){
 }
 
 function getURL(cellvalue, options, rowObject){
-	return "http://www.igreenbank.cn/company/monitor/index.html?configid="+rowObject.id;
+	return "http://www.igreenbank.cn/company/monitor/monitorIndex?configid="+rowObject.id;
 }
 
 function toEdit(id){
