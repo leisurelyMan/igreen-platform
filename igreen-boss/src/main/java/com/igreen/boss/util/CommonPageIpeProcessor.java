@@ -1,9 +1,9 @@
 package com.igreen.boss.util;
 
-import com.igreen.boss.service.crawler.CrawlerResultService;
-import com.igreen.common.model.WebCrawlerConfig;
+import com.igreen.boss.service.crawler.CrawlerResultIpeService;
+import com.igreen.common.model.CrawlerIpeIndustryRecord;
 import com.igreen.common.model.WebCrawlerConfigIpe;
-import com.igreen.common.model.WebCrawlerResult;
+import com.igreen.common.model.WebCrawlerResultIpe;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
@@ -25,7 +25,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
     private WebCrawlerConfigIpe config;
 
-    private CrawlerResultService resultService;
+    private CrawlerResultIpeService resultService;
 
     // 保存地址
     private static final String DISK_PATH = "/data/files/";
@@ -36,7 +36,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
     private int pageNumber;
 
-    public CommonPageIpeProcessor(WebCrawlerConfigIpe config, CrawlerResultService resultService, int pageNumber){
+    public CommonPageIpeProcessor(WebCrawlerConfigIpe config, CrawlerResultIpeService resultService, int pageNumber){
         this.config = config;
         this.resultService = resultService;
         this.pageNumber = pageNumber;
@@ -93,7 +93,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
             Html html = page.getHtml();
             Elements eles =  html.getDocument().getAllElements();
-            WebCrawlerResult result = new WebCrawlerResult();
+            CrawlerIpeIndustryRecord result = new CrawlerIpeIndustryRecord();
             Elements imgs = eles.get(0).select(selectQue + "img");
             if(imgs != null && imgs.size() > 0){
                 for(Element img : imgs){
@@ -128,11 +128,11 @@ public class CommonPageIpeProcessor implements PageProcessor {
             result.setWebDetailUrl(url);
             result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
             result.setSavePath(disk + fileName);
-            result.setSearchId(config.getSearchId());
+           /* result.setSearchId(config.getSearchId());
             result.setSearchName(config.getSearchName());
-            result.setArea(config.getArea());
+            result.setArea(config.getArea());*/
             result.setCity(config.getCity());
-            result.setSourceType(config.getSourceType());
+            /*result.setSourceType(config.getSourceType());*/
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){
         	e.printStackTrace();

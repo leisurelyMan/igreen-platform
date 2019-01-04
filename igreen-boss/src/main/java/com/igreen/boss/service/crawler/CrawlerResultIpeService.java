@@ -3,7 +3,9 @@
  */
 package com.igreen.boss.service.crawler;
 
+import com.igreen.common.model.CrawlerIpeIndustryRecord;
 import com.igreen.common.model.WebCrawlerResult;
+import com.igreen.common.model.WebCrawlerResultIpe;
 import com.igreen.common.util.ListRange;
 import com.igreen.common.util.ResponseModel;
 
@@ -21,14 +23,14 @@ public interface CrawlerResultIpeService {
 	 * @param pageRows
 	 * @return
 	 */
-	public ListRange resultList(WebCrawlerResult result, Integer currentPage, Integer pageRows);
+	public ListRange resultList(CrawlerIpeIndustryRecord result, Integer currentPage, Integer pageRows);
 	
 	/**
 	 * 添加修改结果信息
 	 * @param result
 	 * @return
 	 */
-	public ResponseModel addOrEditResult(WebCrawlerResult result, Integer configId);
+	public ResponseModel addOrEditResult(CrawlerIpeIndustryRecord result, Integer configId);
 	
 	/**
 	 * 删除
@@ -42,5 +44,5 @@ public interface CrawlerResultIpeService {
 	 * @param configId
 	 * @return
 	 */
-	WebCrawlerResult getWebCrawlerResultById(Integer configId);
+	CrawlerIpeIndustryRecord getWebCrawlerResultById(Integer configId);
 }

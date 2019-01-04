@@ -3,6 +3,7 @@ package com.igreen.boss.controller.crawler;
 import com.igreen.boss.controller.BaseController;
 import com.igreen.boss.service.basicInfo.RegistItemService;
 import com.igreen.boss.service.crawler.CrawlerConfigIpeService;
+import com.igreen.boss.service.crawler.CrawlerResultIpeService;
 import com.igreen.boss.service.crawler.CrawlerResultService;
 import com.igreen.boss.util.CommonPageIpeProcessor;
 import com.igreen.common.model.RegistItem;
@@ -33,7 +34,7 @@ public class CrawlerConfigIpeController extends BaseController{
 	private CrawlerConfigIpeService configService;
 	
 	@Resource
-	private CrawlerResultService resultService;
+	private CrawlerResultIpeService resultService;
 
 	@Resource
 	private RegistItemService registItemService;
@@ -46,7 +47,7 @@ public class CrawlerConfigIpeController extends BaseController{
 	 */
 	@RequestMapping(value="listPage")
 	public ModelAndView listPage(ModelMap model){
-		return new ModelAndView("crawler/listPage.jsp",model);
+		return new ModelAndView("crawlerIpe/listPage.jsp",model);
 	}
 	
 	/**

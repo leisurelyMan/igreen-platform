@@ -15,7 +15,7 @@ public interface CrawlerResultIpeMapper {
     /**
      * 添加对象
      */
-    int insert(WebCrawlerResult result);
+    int insert(WebCrawlerResultIpe result);
 
     /**
      * 根据主键查询对象
