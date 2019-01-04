@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/igreen-boss/igreen-boss.iml" filepath="$PROJECT_DIR$/igreen-boss/igreen-boss.iml" />
+      <module fileurl="file://$PROJECT_DIR$/igreen-boss/igreen-boss.iml" filepath="$PROJECT_DIR$/igreen-boss/igreen-boss.iml" />
       <module fileurl="file://$PROJECT_DIR$/igreen-common/igreen-common.iml" filepath="$PROJECT_DIR$/igreen-common/igreen-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/igreen-common/igreen-common.iml" filepath="$PROJECT_DIR$/igreen-common/igreen-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/igreen-platform.iml" filepath="$PROJECT_DIR$/igreen-platform.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/igreen-platform.iml" filepath="$PROJECT_DIR$/.idea/igreen-platform.iml" />
       <module fileurl="file://$PROJECT_DIR$/igreen-web/igreen-web.iml" filepath="$PROJECT_DIR$/igreen-web/igreen-web.iml" />
     </modules>
