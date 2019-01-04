@@ -32,6 +32,8 @@ public class WebCrawlerConfigIpe extends IdEntity {
     private String city; // 城市
     private String area; // 区域
     private String sourceType; // 来源类型
+    // 字段获取xpath配置格式[{field:"xx",type:\'xpath 或者 value\',"pathValue":"xpath规则或者固定值"},{field:"xx",type:\'xpath 或者 value\',"pathValue":"xpath规则或者固定值"},...]
+    private String fieldPropertyRegular;
 
 
     public String getWebName() {
@@ -192,5 +194,13 @@ public class WebCrawlerConfigIpe extends IdEntity {
 
     public void setSourceType(String sourceType) {
         this.sourceType = sourceType;
+    }
+
+    public String getFieldPropertyRegular() {
+        return fieldPropertyRegular;
+    }
+
+    public void setFieldPropertyRegular(String fieldPropertyRegular) {
+        this.fieldPropertyRegular = fieldPropertyRegular;
     }
 }

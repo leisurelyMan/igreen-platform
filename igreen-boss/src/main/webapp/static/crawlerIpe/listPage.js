@@ -108,6 +108,7 @@ jQuery(document).ready(function(){
 	    $('#attrType').val("");
 	    $('#attrName').val("");
 	    $('#detailContentRegular').val("");
+	    $("#fieldPropertyRegular").val("");
 	    
 		//打开对话表
 		$("#dialog").dialog("open");
@@ -163,6 +164,7 @@ function edit(configId){
 			$('#attrType').val(obj.attrType);
 			$('#attrName').val(obj.attrName);
 			$('#detailContentRegular').val(obj.detailContentRegular);
+			$("#fieldPropertyRegular").val(obj.fieldPropertyRegular);
 		    
 			//打开对话表
 			$("#dialog").dialog("open");

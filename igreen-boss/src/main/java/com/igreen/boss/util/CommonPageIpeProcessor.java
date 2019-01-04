@@ -1,11 +1,13 @@
 package com.igreen.boss.util;
 
+import com.alibaba.fastjson.JSONArray;
 import com.igreen.boss.service.crawler.CrawlerResultIpeService;
 import com.igreen.common.model.CrawlerIpeIndustryRecord;
 import com.igreen.common.model.WebCrawlerConfigIpe;
-import com.igreen.common.model.WebCrawlerResultIpe;
+import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -17,6 +19,8 @@ import us.codecraft.webmagic.selector.Html;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.UUID;
 
 public class CommonPageIpeProcessor implements PageProcessor {
@@ -42,6 +46,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
         this.pageNumber = pageNumber;
     }
 
+    @Override
     public void process(Page page) {
 
         String detailUrl = config.getDetailUrlRegular();
@@ -54,12 +59,12 @@ public class CommonPageIpeProcessor implements PageProcessor {
         String[] detailTitles = config.getDetailTitleRegular().split("#");
         for(String detailTitle : detailTitles){
             title = page.getHtml().xpath(detailTitle).toString();
-            if(!StringUtils.isEmpty(title)){
+            if(!StringUtil.isBlank(title)){
                 break;
             }
         }
 
-        if(StringUtils.isEmpty(title)){
+        if(StringUtil.isBlank(title)){
             //skip this page
             page.setSkip(true);
             return;
@@ -69,7 +74,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
             String url = page.getUrl().toString();
             String name = url.substring(url.lastIndexOf("/")+1);
             String fileName = "";
-            if(StringUtils.isEmpty(name)){
+            if(StringUtil.isBlank(name)){
                 fileName = UUID.randomUUID() + ".html";
             }else if(name.contains(".")){
                 fileName = name.substring(0, name.indexOf(".")) + ".html";
@@ -85,7 +90,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
             String[] contentRegs = config.getDetailContentRegular().split("#");
             for(String contentReg : contentRegs){
                 content = page.getHtml().xpath(contentReg).toString();
-                if(!StringUtils.isEmpty(content)){
+                if(!StringUtil.isBlank(content)){
                     selectQue = contentReg.substring(0, contentReg.lastIndexOf("/")).replaceAll("//", "").replaceAll("@", "").replaceAll("/", " ") + " ";
                     break;
                 }
@@ -95,6 +100,12 @@ public class CommonPageIpeProcessor implements PageProcessor {
             Elements eles =  html.getDocument().getAllElements();
             CrawlerIpeIndustryRecord result = new CrawlerIpeIndustryRecord();
             Elements imgs = eles.get(0).select(selectQue + "img");
+
+            String fieldStr = config.getFieldPropertyRegular();
+            if(!StringUtil.isBlank(fieldStr)) {
+                makeRecordByFieldReg(result, eles, fieldStr);
+            }
+
             if(imgs != null && imgs.size() > 0){
                 for(Element img : imgs){
                     String src = img.attr("src");
@@ -139,6 +150,70 @@ public class CommonPageIpeProcessor implements PageProcessor {
         }
     }
 
+    /**
+     * 根据爬虫规则设定字段值
+     * @param result
+     * @param eles
+     * @param fieldStr
+     */
+    private void makeRecordByFieldReg(CrawlerIpeIndustryRecord result, Elements eles, String fieldStr) {
+        if (!StringUtil.isBlank(fieldStr)) {
+            List<CrawlerFieldModel> fieldList = getFieldList(fieldStr);
+            if (!CollectionUtils.isEmpty(fieldList)) {
+                for (CrawlerFieldModel fieldModel : fieldList) {
+                    String value = fieldModel.getPathValue();
+                    String field = fieldModel.getField();
+                    String type = fieldModel.getType();
+                    String attractType = fieldModel.getAttrType();
+                    String attractDom = fieldModel.getAttrDom();
+                    if (!StringUtil.isBlank(type) && "xpath".equals(type)) {
+                        if (!StringUtil.isBlank(attractType) && "attr".equals(attractType)) {
+                            value = getElementByConfig(eles, value).attr(attractDom);
+                        } else if ("text".equals(config.getAttrType())) {
+                            value = getElementByConfig(eles, value).text();
+                        }
+                        setValueField(result, value, field);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 设定值
+     * @param result
+     * @param value
+     * @param fieldStr
+     */
+    private void setValueField(CrawlerIpeIndustryRecord result, String value, String fieldStr) {
+        try {
+            Field field = result.getClass().getDeclaredField(fieldStr);
+            if(field != null) {
+                field.setAccessible(true);
+                field.set(result, value);
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<CrawlerFieldModel> getFieldList(String fieldStr) {
+        List<CrawlerFieldModel> fieldList = null;
+        try {
+            fieldList = JSONArray.parseArray(fieldStr, CrawlerFieldModel.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return fieldList;
+    }
+
+    @Override
     public Site getSite() {
         return site;
     }
@@ -197,12 +272,12 @@ public class CommonPageIpeProcessor implements PageProcessor {
                 pageParam = getElementByConfig(eles,config.getPageResult()).attr(config.getAttrName());
             } else if("text".equals(config.getAttrType())){
                 String num = getElementByConfig(eles,config.getPageResult()).text();
-                pageParam = StringUtils.trimAllWhitespace(StringUtils.isEmpty(num) ? "0" : num.replaceAll(" ", ""));
+                pageParam = StringUtils.trimAllWhitespace(StringUtil.isBlank(num) ? "0" : num.replaceAll(" ", ""));
             } else if("href".equals(config.getAttrType())){
                 String href = getElementByConfig(eles,config.getPageResult()).attr(config.getAttrType());
-                if(!StringUtils.isEmpty(href)){
+                if(!StringUtil.isBlank(href)){
                     href = href.substring(href.indexOf("?") + 1);
-                    if(!StringUtils.isEmpty(href)){
+                    if(!StringUtil.isBlank(href)){
                         String[] hreArr = href.contains("&") ? href.split("&") : new String[]{href};
                         for(String hre : hreArr){
                             String hres = StringUtils.trimAllWhitespace(hre).replace(" ", "");
@@ -216,7 +291,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
             }
 
             int total = 0;
-            if(!StringUtils.isEmpty(config.getReplaceRegular())){
+            if(!StringUtil.isBlank(config.getReplaceRegular())){
                 total = Integer.parseInt(pageParam.replaceAll(config.getReplaceRegular(), ""));
             } else {
                 total = Integer.parseInt(pageParam);

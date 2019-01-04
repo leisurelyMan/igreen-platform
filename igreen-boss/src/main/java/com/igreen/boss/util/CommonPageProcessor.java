@@ -1,5 +1,6 @@
 package com.igreen.boss.util;
 
+import org.eclipse.jetty.util.StringUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import com.igreen.boss.service.crawler.CrawlerResultService;
@@ -40,6 +41,7 @@ public class CommonPageProcessor  implements PageProcessor {
         this.pageNumber = pageNumber;
     }
 
+    @Override
     public void process(Page page) {
 
         String detailUrl = config.getDetailUrlRegular();
@@ -52,12 +54,12 @@ public class CommonPageProcessor  implements PageProcessor {
         String[] detailTitles = config.getDetailTitleRegular().split("#");
         for(String detailTitle : detailTitles){
             title = page.getHtml().xpath(detailTitle).toString();
-            if(!StringUtils.isEmpty(title)){
+            if(!StringUtil.isBlank(title)){
                 break;
             }
         }
 
-        if(StringUtils.isEmpty(title)){
+        if(StringUtil.isBlank(title)){
             //skip this page
             page.setSkip(true);
             return;
@@ -67,7 +69,7 @@ public class CommonPageProcessor  implements PageProcessor {
             String url = page.getUrl().toString();
             String name = url.substring(url.lastIndexOf("/")+1);
             String fileName = "";
-            if(StringUtils.isEmpty(name)){
+            if(StringUtil.isBlank(name)){
                 fileName = UUID.randomUUID() + ".html";
             }else if(name.contains(".")){
                 fileName = name.substring(0, name.indexOf(".")) + ".html";
@@ -83,7 +85,7 @@ public class CommonPageProcessor  implements PageProcessor {
             String[] contentRegs = config.getDetailContentRegular().split("#");
             for(String contentReg : contentRegs){
                 content = page.getHtml().xpath(contentReg).toString();
-                if(!StringUtils.isEmpty(content)){
+                if(!StringUtil.isBlank(content)){
                     selectQue = contentReg.substring(0, contentReg.lastIndexOf("/")).replaceAll("//", "").replaceAll("@", "").replaceAll("/", " ") + " ";
                     break;
                 }
@@ -137,6 +139,7 @@ public class CommonPageProcessor  implements PageProcessor {
         }
     }
 
+    @Override
     public Site getSite() {
         return site;
     }
@@ -195,12 +198,12 @@ public class CommonPageProcessor  implements PageProcessor {
                 pageParam = getElementByConfig(eles,config.getPageResult()).attr(config.getAttrName());
             } else if("text".equals(config.getAttrType())){
                 String num = getElementByConfig(eles,config.getPageResult()).text();
-                pageParam = StringUtils.trimAllWhitespace(StringUtils.isEmpty(num) ? "0" : num.replaceAll(" ", ""));
+                pageParam = StringUtils.trimAllWhitespace(StringUtil.isBlank(num) ? "0" : num.replaceAll(" ", ""));
             } else if("href".equals(config.getAttrType())){
                 String href = getElementByConfig(eles,config.getPageResult()).attr(config.getAttrType());
-                if(!StringUtils.isEmpty(href)){
+                if(!StringUtil.isBlank(href)){
                     href = href.substring(href.indexOf("?") + 1);
-                    if(!StringUtils.isEmpty(href)){
+                    if(!StringUtil.isBlank(href)){
                         String[] hreArr = href.contains("&") ? href.split("&") : new String[]{href};
                         for(String hre : hreArr){
                             String hres = StringUtils.trimAllWhitespace(hre).replace(" ", "");
@@ -214,7 +217,7 @@ public class CommonPageProcessor  implements PageProcessor {
             }
 
             int total = 0;
-            if(!StringUtils.isEmpty(config.getReplaceRegular())){
+            if(!StringUtil.isBlank(config.getReplaceRegular())){
                 total = Integer.parseInt(pageParam.replaceAll(config.getReplaceRegular(), ""));
             } else {
                 total = Integer.parseInt(pageParam);

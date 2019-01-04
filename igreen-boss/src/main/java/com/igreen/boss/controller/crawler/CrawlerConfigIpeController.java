@@ -94,61 +94,14 @@ public class CrawlerConfigIpeController extends BaseController{
 	@RequestMapping(value="startCrawler", method = {RequestMethod.GET})
 	public @ResponseBody void startCrawler(Integer configId) throws InvocationTargetException, IllegalAccessException {
 
-		final Integer currentPage = 1;
-		final Integer pageRows = 10;
-		final RegistItem registItem = new RegistItem();
+		WebCrawlerConfigIpe config = configService.selectByPrimaryKey(configId);
 
-		int count = registItemService.getCountRegistItem(registItem);
-		int totalPage = count / pageRows + count % pageRows;
-
-
-		final WebCrawlerConfigIpe config = configService.selectByPrimaryKey(configId);
-
-		if(!config.getPageUrlRegular().contains("${searchKey}")){
+		if(config != null){
 			CommonPageIpeProcessor comm = new CommonPageIpeProcessor(config, resultService, 1);
 			comm.startCrawler();
 			return ;
 		}
 
-		for(int i = 1; i < totalPage + 1; i++){
-
-			ExecutorService executorService = Executors.newFixedThreadPool(pageRows);
-			CompletionService<String> completionService = new ExecutorCompletionService<String>(executorService);
-			ListRange range = registItemService.registItemList(registItem,i,pageRows);
-			if(range != null && !CollectionUtils.isEmpty(range.getRows())){
-				Iterator<RegistItem> iterator = (Iterator<RegistItem>) range.getRows().iterator();
-				while (iterator.hasNext()){
-					final WebCrawlerConfigIpe temp = new WebCrawlerConfigIpe();
-					BeanUtils.copyProperties(temp, config);
-					RegistItem item = iterator.next();
-					temp.setPageUrlRegular(temp.getPageUrlRegular().replace("${searchKey}", item.getCompanyName()));
-					temp.setWebSearchUrl(temp.getWebSearchUrl().replace("${searchKey}", item.getCompanyName()));
-					temp.setSearchId(item.getId());
-					temp.setSearchName(item.getCompanyName());
-					Callable<String> call = new Callable<String>() {
-						@Override
-						public String call() throws Exception {
-							CommonPageIpeProcessor comm = new CommonPageIpeProcessor(temp, resultService, 1);
-							comm.startCrawler();
-							return "success";
-						}
-					};
-					completionService.submit(call);
-
-				}
-				try {
-					for (int k = 0 ; k < range.getRows().size(); k ++){
-						completionService.take();
-					}
-
-					executorService.shutdown();
-					Thread.sleep(10000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
 	}
 
 	/**

@@ -20,3 +20,32 @@ CREATE TABLE `crawler_ipe_industry_record` (
   `updater` int(11) DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=89812 DEFAULT CHARSET=utf8 COMMENT='网站抓取对应ipe结果';
+
+DROP TABLE IF EXISTS `web_crawler_config_ipe`;
+CREATE TABLE IF NOT EXISTS `web_crawler_config_ipe` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `web_name` varchar(100) DEFAULT NULL COMMENT '网站名称',
+  `web_domain` varchar(50) DEFAULT NULL COMMENT '网站域名',
+  `web_search_url` varchar(500) DEFAULT NULL COMMENT '全文检索首页URL',
+  `page_url_regular` varchar(500) DEFAULT NULL COMMENT '分页URL匹配规则',
+  `page_type` int(1) DEFAULT NULL COMMENT '已知分页类型（1：总条数；2：总页数）',
+  `max_page` int(11) DEFAULT NULL COMMENT '最大分页',
+  `page_req_method` int(1) DEFAULT '1' COMMENT '分页请求返回方式（1、AJAX返回html和页面跳转；2、AJAX 返回json）',
+  `page_result` varchar(100) DEFAULT NULL COMMENT '分页参数获取正则表达式（多个规则##分割）',
+  `replace_regular` varchar(100) DEFAULT NULL COMMENT '分页数据替换无用字符正则表达式',
+  `detail_url_regular` varchar(500) DEFAULT NULL COMMENT '详情页抓取url规则（多个url规则||分割）',
+  `detail_title_regular` varchar(500) DEFAULT NULL COMMENT '抓取标题正则表达式',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '配置时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '配置更新时间',
+  `start_page` int(11) DEFAULT '0' COMMENT '开始分页',
+  `attr_type` varchar(255) DEFAULT NULL COMMENT '获取分页数据正则',
+  `attr_name` varchar(255) DEFAULT NULL COMMENT '获取分页数据对应的名称',
+  `detail_content_regular` varchar(255) DEFAULT NULL COMMENT '详情页内容获取 xpath',
+  `field_property_regular` varchar(500) DEFAULT NULL COMMENT '字段获取xpath配置格式[{field:"xx",type:''xpath'',"pathValue":"xpath规则",attrType:''text/attr'',attrDom:''attrType == attr时有效，值为attr的属性例如（href, id, name ,或者自定义的）''},{field:"xx",type:''value'',"pathValue":"固定值"},...]',
+  `creater` int(11) DEFAULT NULL COMMENT '创建者',
+  `updater` int(11) DEFAULT NULL COMMENT '更新者',
+  `city` varchar(50) DEFAULT NULL COMMENT '网站地区',
+  `area` varchar(50) DEFAULT NULL COMMENT '网站区域',
+  `source_type` varchar(50) DEFAULT NULL COMMENT '来源类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='网站抓取IPE配置表';
