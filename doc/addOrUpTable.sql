@@ -49,3 +49,9 @@ CREATE TABLE IF NOT EXISTS `web_crawler_config_ipe` (
   `source_type` varchar(50) DEFAULT NULL COMMENT '来源类型',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='网站抓取IPE配置表';
+
+
+
+
+insert into 'sys_ment' (`id`, `name`, `url`, `parent_id`, `order_num`, `close_icon`, `open_icon`, `status`, `creater`, `created_time`, `updater`, `updated_time`, `remark`)
+ values(32, '爬虫配置Ipe', '../crawlerIpe/listPage.do', 4, 15, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL);
