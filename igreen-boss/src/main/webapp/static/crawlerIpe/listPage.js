@@ -2,7 +2,7 @@
 jQuery(document).ready(function(){
 	//创建jqGrid组件
 	jQuery("#list").jqGrid({
-		url : '../crawler/list.do',//组件创建完成之后请求数据的url
+		url : '../crawlerIpe/list.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
 		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>地区</b>','<b>区域</b>','<b>来源</b>','<b>全文检索URL</b>','<b>分页url正则表达式</b>','<b>分页类型</b>','<b>分页请求返回方式</b>','<b>分页结果</b>','<b>详情页url匹配正则表达式</b>','<b>详情页title xpath</b>','<b>最大分页</b>','<b>开始分页</b>','<b>获取分页数据类型</b>','<b>获取分页数据对应的名称</b>','<b>详情页内容获取 xpath</b>','<b>操作</b>' ],//jqGrid的列显示名字
