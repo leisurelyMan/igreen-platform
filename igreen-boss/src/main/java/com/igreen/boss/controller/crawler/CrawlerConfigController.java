@@ -164,7 +164,7 @@ public class CrawlerConfigController extends BaseController{
 		temp.setWebSearchUrl(temp.getWebSearchUrl().replace("${searchKey}", "上海"));
 		temp.setSearchId(-1);
 		temp.setSearchName("上海");
-		temp.setMaxPage(2);
+		temp.setMaxPage(3);
 		CommonPageProcessor comm = new CommonPageProcessor(temp, resultService, 1);
 		comm.startCrawler();
 	}
