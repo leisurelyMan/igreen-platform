@@ -32,12 +32,11 @@ public class ImportController extends BaseController{
 	/**
 	 * 跳转导入数据列表页面
 	 * @param request
-	 * @param response
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="toImportList")
-	public ModelAndView toExchangeList(ModelMap model,Long id){
+	public ModelAndView toExchangeList(HttpServletRequest request,ModelMap model,Long id){
 		model.addAttribute("id", id);
 		return new ModelAndView("basicInfo/import.jsp",model);
 	}

@@ -18,7 +18,7 @@ public class RegularizationUtil {
 	/**
 	 * seq需要验证的字符 ，reg正则表达式
 	 * 
-	 * @param seq
+	 * @param rex
 	 * @param reg
 	 * @return
 	 */

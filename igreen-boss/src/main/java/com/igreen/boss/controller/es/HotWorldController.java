@@ -87,7 +87,7 @@ public class HotWorldController extends BaseController{
 	
 	/**
 	 * 添加/修改
-	 * @param user
+	 * @param hotWord
 	 * @param request
 	 * @param response
 	 * @return
@@ -118,7 +118,7 @@ public class HotWorldController extends BaseController{
 	
 	/**
 	 * 根据ID查询
-	 * @param userId
+	 * @param worldId
 	 * @return
 	 */
 	@RequestMapping(value="getHotWord", method = { RequestMethod.POST,RequestMethod.GET})

@@ -19,6 +19,11 @@ public class ResponseModel {
 		this.message = message;
 	}
 
+	public ResponseModel(Integer code, String message, Object obj) {
+		this.code = code;
+		this.message = message;
+		this.obj = obj;
+	}
 
 	public Integer getCode() {
 		return code;

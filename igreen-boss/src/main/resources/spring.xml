@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
          http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -18,6 +20,8 @@
 	<!-- 引入属性文件 -->
 	<context:property-placeholder location="classpath:config.properties" />
 	<!-- <util:properties id="config" location="classpath:config.properties" /> -->
+
+	<util:properties id="prop" location="classpath:excel.properties"></util:properties>
 
 	<bean id="config" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">

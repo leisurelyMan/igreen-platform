@@ -27,7 +27,7 @@ public class DictionaryController extends BaseController{
 
 	/**
 	 * 添加/修改字典
-	 * @param user
+	 * @param dictionary
 	 * @param request
 	 * @param response
 	 * @return
@@ -39,7 +39,7 @@ public class DictionaryController extends BaseController{
 	
 	/**
 	 * 根据ID查询字典
-	 * @param userId
+	 * @param dictionaryId
 	 * @return
 	 */
 	@RequestMapping(value="getOneDictionary", method = { RequestMethod.POST,RequestMethod.GET})
@@ -61,7 +61,7 @@ public class DictionaryController extends BaseController{
 	
 	/**
 	 * 分页显示字典
-	 * @param user
+	 * @param dictionary
 	 * @param currentPage
 	 * @param pageRows
 	 * @return

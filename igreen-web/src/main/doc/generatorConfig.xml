@@ -39,8 +39,8 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table schema="" tableName="crawler_ipe_industry_record"
-               domainObjectName="CrawlerIpeIndustryRecord">
+        <table schema="" tableName="excel_ipe_industry_record"
+               domainObjectName="ExcelIpeIndustryRecord">
             <property name="useActualColumnNames" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
