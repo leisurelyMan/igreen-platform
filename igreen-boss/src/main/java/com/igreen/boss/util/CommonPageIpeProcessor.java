@@ -1,11 +1,13 @@
 package com.igreen.boss.util;
 
-import org.eclipse.jetty.util.StringUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.igreen.boss.service.crawler.CrawlerResultIpeService;
+import com.igreen.common.model.CrawlerIpeIndustryRecord;
+import com.igreen.common.model.WebCrawlerConfigIpe;
+import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import com.igreen.boss.service.crawler.CrawlerResultService;
-import com.igreen.common.model.WebCrawlerConfig;
-import com.igreen.common.model.WebCrawlerResult;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -13,29 +15,32 @@ import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.UUID;
 
-public class CommonPageProcessor  implements PageProcessor {
+public class CommonPageIpeProcessor implements PageProcessor {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
 
-    private WebCrawlerConfig config;
+    private WebCrawlerConfigIpe config;
 
-    private CrawlerResultService resultService;
-    
+    private CrawlerResultIpeService resultService;
+
     // 保存地址
     private static final String DISK_PATH = "/data/files/";
     // 访问地址http
     private  static final String VISIT_PATH = "http://img.igreenbank.cn/html/";
 
     private  static final String IMAGE_VISIT_PATH = "http://img.igreenbank.cn/";
-    
+
     private int pageNumber;
 
-    public CommonPageProcessor(WebCrawlerConfig config, CrawlerResultService resultService, int pageNumber){
+    public CommonPageIpeProcessor(WebCrawlerConfigIpe config, CrawlerResultIpeService resultService, int pageNumber){
         this.config = config;
         this.resultService = resultService;
         this.pageNumber = pageNumber;
@@ -93,8 +98,14 @@ public class CommonPageProcessor  implements PageProcessor {
 
             Html html = page.getHtml();
             Elements eles =  html.getDocument().getAllElements();
-            WebCrawlerResult result = new WebCrawlerResult();
+            CrawlerIpeIndustryRecord result = new CrawlerIpeIndustryRecord();
             Elements imgs = eles.get(0).select(selectQue + "img");
+
+            String fieldStr = config.getFieldPropertyRegular();
+            if(!StringUtil.isBlank(fieldStr)) {
+                makeRecordByFieldReg(result, eles, fieldStr);
+            }
+
             if(imgs != null && imgs.size() > 0){
                 for(Element img : imgs){
                     String src = img.attr("src");
@@ -128,15 +139,78 @@ public class CommonPageProcessor  implements PageProcessor {
             result.setWebDetailUrl(url);
             result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
             result.setSavePath(disk + fileName);
-            result.setSearchId(config.getSearchId());
+           /* result.setSearchId(config.getSearchId());
             result.setSearchName(config.getSearchName());
-            result.setArea(config.getArea());
+            result.setArea(config.getArea());*/
             result.setCity(config.getCity());
-            result.setSourceType(config.getSourceType());
+            /*result.setSourceType(config.getSourceType());*/
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){
         	e.printStackTrace();
         }
+    }
+
+    /**
+     * 根据爬虫规则设定字段值
+     * @param result
+     * @param eles
+     * @param fieldStr
+     */
+    private void makeRecordByFieldReg(CrawlerIpeIndustryRecord result, Elements eles, String fieldStr) {
+        if (!StringUtil.isBlank(fieldStr)) {
+            List<CrawlerFieldModel> fieldList = getFieldList(fieldStr);
+            if (!CollectionUtils.isEmpty(fieldList)) {
+                for (CrawlerFieldModel fieldModel : fieldList) {
+                    String value = fieldModel.getPathValue();
+                    String field = fieldModel.getField();
+                    String type = fieldModel.getType();
+                    String attractType = fieldModel.getAttrType();
+                    String attractDom = fieldModel.getAttrDom();
+                    if (!StringUtil.isBlank(type) && "xpath".equals(type)) {
+                        if (!StringUtil.isBlank(attractType) && "attr".equals(attractType)) {
+                            value = getElementByConfig(eles, value).attr(attractDom);
+                        } else if ("text".equals(config.getAttrType())) {
+                            value = getElementByConfig(eles, value).text();
+                        }
+                        setValueField(result, value, field);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 设定值
+     * @param result
+     * @param value
+     * @param fieldStr
+     */
+    private void setValueField(CrawlerIpeIndustryRecord result, String value, String fieldStr) {
+        try {
+            Field field = result.getClass().getDeclaredField(fieldStr);
+            if(field != null) {
+                field.setAccessible(true);
+                field.set(result, value);
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<CrawlerFieldModel> getFieldList(String fieldStr) {
+        List<CrawlerFieldModel> fieldList = null;
+        try {
+            fieldList = JSONArray.parseArray(fieldStr, CrawlerFieldModel.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return fieldList;
     }
 
     @Override
@@ -234,7 +308,7 @@ public class CommonPageProcessor  implements PageProcessor {
                 total =  total > config.getMaxPage() ? config.getMaxPage() : total;
             }
             for(int i = 0; i < total; i ++){
-                Spider spider = Spider.create(new CommonPageProcessor(config, resultService, pageNumber));
+                Spider spider = Spider.create(new CommonPageIpeProcessor(config, resultService, pageNumber));
                 //System.out.println("total is :" + i + "==URL===:" + config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
                 spider.addUrl(config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
                 spider.run();
