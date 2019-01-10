@@ -172,8 +172,8 @@ public class CommonPageIpeProcessor implements PageProcessor {
                         } else if ("text".equals(config.getAttrType())) {
                             value = getElementByConfig(eles, value).text();
                         }
-                        setValueField(result, value, field);
                     }
+                    setValueField(result, value, field);
                 }
             }
         }
@@ -319,9 +319,9 @@ public class CommonPageIpeProcessor implements PageProcessor {
     private Elements getElementByConfig(Elements eles, String pageResult){
         Elements element = null;
         if(pageResult.contains("@last")){
-            element = eles.get(0).select(config.getPageResult().replace("@last", "")).last().getAllElements();
+            element = eles.get(0).select(pageResult.replace("@last", "")).last().getAllElements();
         } else {
-            element = eles.get(0).select(config.getPageResult());
+            element = eles.get(0).select(pageResult);
         }
         return element;
     }
