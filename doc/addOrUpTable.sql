@@ -59,3 +59,73 @@ insert into 'sys_ment' (`id`, `name`, `url`, `parent_id`, `order_num`, `close_ic
 
 INSERT INTO `web_crawler_config_ipe` (`id`, `web_name`, `web_domain`, `web_search_url`, `page_url_regular`, `page_type`, `max_page`, `page_req_method`, `page_result`, `replace_regular`, `detail_url_regular`, `detail_title_regular`, `create_time`, `update_time`, `start_page`, `attr_type`, `attr_name`, `detail_content_regular`, `field_property_regular`, `creater`, `updater`, `city`, `area`, `source_type`) VALUES
 	(1, '重庆市环保局', 'www.cepb.gov.cn', 'http://www.cepb.gov.cn/xxgk/hjgl/xzcf/xzcfjd/index.shtml', 'http://www.cepb.gov.cn/xxgk/hjgl/xzcf/xzcfjd/index_${page}.shtml', 1, 15, 1, 'div[class=channelpages]', '\\S+条共有|条\\S+', 'http://www.cepb.gov.cn/doc/\\d{4}/\\d{2}/\\d{2}/\\d+.shtml', '//div[@class=\'mainCont\']/h2/tidyText()', '2019-01-08 20:22:54', '2019-01-08 20:20:15', 2, 'text', '', '//div[@class=\'simplebox mgt10\']/html()', '[{"field":"company_name","type":"xpath","pathValue":"div[id=Zoom] p:first","attrType":"text","attrDom":""},{"field":"province","type":"text","pathValue":"重庆","attrType":"text","attrDom":""},{"field":"city","type":"text","pathValue":"重庆市","attrType":"text","attrDom":""},{"field":"punish_type","type":"xpath","pathValue":"div[id=Zoom] p:eq(1)","attrType":"text","attrDom":""},{"field":"punish_time","type":"xpath","pathValue":"p[class=explain] em","attrType":"text","attrDom":""}]', 2, NULL, '重庆市', '重庆市', '重庆市环保局');
+
+DROP TABLE IF EXISTS `crawler_ipe_industry_record`;
+CREATE TABLE `crawler_ipe_industry_record` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `web_name` varchar(100) DEFAULT NULL COMMENT '网站名称',
+  `web_domain` varchar(50) DEFAULT NULL COMMENT '网站域名',
+  `year` varchar(10) DEFAULT NULL COMMENT '年度',
+  `web_detail_name` varchar(500) DEFAULT NULL COMMENT '详情标题 对应title',
+  `web_detail_url` varchar(500) DEFAULT NULL COMMENT '详情页原url',
+  `web_detail_result_url` varchar(500) DEFAULT NULL COMMENT '抓取详情页url 对应file_name',
+  `save_path` varchar(500) DEFAULT NULL,
+  `company_name` varchar(255) DEFAULT NULL COMMENT '公司名称',
+  `province` varchar(50) DEFAULT NULL COMMENT '省',
+  `city` varchar(50) DEFAULT NULL COMMENT '市',
+  `district` varchar(50) DEFAULT NULL COMMENT '县',
+  `punish_type` varchar(50) DEFAULT NULL COMMENT '处罚类型',
+  `punish_time` varchar(20) DEFAULT 'null' COMMENT '处罚公布时间',
+  `punish_money` varchar(20) DEFAULT 'null' COMMENT '处罚金额',
+  `punish_no` varchar(100) DEFAULT NULL COMMENT '处罚编号',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '配置更新时间',
+  `creater` int(11) DEFAULT NULL COMMENT '创建者',
+  `updater` int(11) DEFAULT NULL COMMENT '更新者',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=89812 DEFAULT CHARSET=utf8 COMMENT='网站抓取对应ipe结果';
+
+CREATE TABLE `excel_ipe_industry_record` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `year` varchar(10) DEFAULT NULL COMMENT '年度',
+  `web_detail_url` varchar(500) DEFAULT NULL COMMENT '详情页原url',
+  `company_name` varchar(255) DEFAULT NULL COMMENT '公司名称',
+  `province` varchar(50) DEFAULT NULL COMMENT '省',
+  `city` varchar(50) DEFAULT NULL COMMENT '市',
+  `district` varchar(50) DEFAULT NULL COMMENT '县',
+  `punish_type` varchar(50) DEFAULT NULL COMMENT '处罚类型',
+  `punish_time` varchar(20) DEFAULT 'null' COMMENT '处罚公布时间',
+  `punish_money` varchar(20) DEFAULT NULL COMMENT '处罚金额',
+  `punish_no` varchar(100) DEFAULT NULL COMMENT '处罚编号',
+  `creater` int(11) DEFAULT NULL COMMENT '创建者',
+  `updater` int(11) DEFAULT NULL COMMENT '更新者',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=91519 DEFAULT CHARSET=utf8 COMMENT='excel导入对应ipe结果';
+
+
+DROP TABLE IF EXISTS `ipe_industry_record`;
+CREATE TABLE `ipe_industry_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `regist_item_id` int(11) DEFAULT NULL COMMENT '登记信息ID',
+  `year` varchar(10) DEFAULT NULL COMMENT '年度',
+  `title` varchar(1000) DEFAULT NULL COMMENT '标题',
+  `ipe_id` bigint(20) DEFAULT NULL COMMENT 'ipe记录ID',
+  `file_name` varchar(100) DEFAULT NULL COMMENT '文件名称',
+  `status` int(11) DEFAULT NULL COMMENT '状态',
+  `creater` int(11) DEFAULT NULL COMMENT '创建者',
+  `created_time` date DEFAULT NULL COMMENT '创建时间',
+  `updater` int(11) DEFAULT NULL COMMENT '更新者',
+  `updated_time` date DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `company_name` varchar(255) DEFAULT NULL COMMENT '公司名称',
+  `province` varchar(50) DEFAULT NULL COMMENT '省',
+  `city` varchar(50) DEFAULT NULL COMMENT '市',
+  `district` varchar(50) DEFAULT NULL COMMENT '县',
+  `web_detail_url` varchar(500) DEFAULT NULL COMMENT '详情页原url',
+  `punish_type` varchar(50) DEFAULT NULL COMMENT '处罚类型',
+  `punish_time` varchar(20) DEFAULT NULL COMMENT '处罚公布时间',
+  `punish_money` varchar(20) DEFAULT NULL COMMENT '处罚金额',
+  `punish_no` varchar(100) DEFAULT NULL COMMENT '处罚编号',
+  `source` int(11) DEFAULT NULL COMMENT '数据来源：1ipe,2爬虫，3Excel导入',
+  PRIMARY KEY (`id`),
+  KEY `industry_index` (`regist_item_id`,`year`)
+) ENGINE=InnoDB AUTO_INCREMENT=959571 DEFAULT CHARSET=utf8 COMMENT='ipe监管记录';

@@ -262,7 +262,42 @@
       </if>
     </trim>
   </insert>
-  
+
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+        insert into ipe_industry_record (regist_item_id, year, title,
+        ipe_id, file_name, status,
+        creater, created_time,
+        remark, company_name,
+        province, city, district,
+        web_detail_url, punish_type, punish_time,
+        punish_money, punish_no, source
+        )
+        values
+        <foreach collection="list" item="record" separator=",">
+        (
+            #{record.registItemId,jdbcType=INTEGER},
+            #{record.year,jdbcType=VARCHAR},
+            #{record.title,jdbcType=VARCHAR},
+            #{record.ipeId,jdbcType=BIGINT},
+            #{record.fileName,jdbcType=VARCHAR},
+            #{record.status,jdbcType=INTEGER},
+            #{record.creater,jdbcType=INTEGER},
+            #{record.createdTime,jdbcType=DATE},
+            #{record.remark,jdbcType=VARCHAR},
+            #{record.companyName,jdbcType=VARCHAR},
+            #{record.province,jdbcType=VARCHAR},
+            #{record.city,jdbcType=VARCHAR},
+            #{record.district,jdbcType=VARCHAR},
+            #{record.webDetailUrl,jdbcType=VARCHAR},
+            #{record.punishType,jdbcType=VARCHAR},
+            #{record.punishTime,jdbcType=VARCHAR},
+            #{record.punishMoney,jdbcType=VARCHAR},
+            #{record.punishNo,jdbcType=VARCHAR},
+            #{record.source,jdbcType=INTEGER}
+        )
+        </foreach>
+    </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.igreen.common.model.IpeIndustryRecord" >
     update ipe_industry_record
     <set >

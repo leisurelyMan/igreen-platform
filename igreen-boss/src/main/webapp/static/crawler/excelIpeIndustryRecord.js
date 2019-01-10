@@ -184,6 +184,31 @@ jQuery(document).ready(function(){
             }
         });
     });
+
+    $("#affirm").click(function(){
+        if(confirm("数据提交后将不能再修改")){
+            $.ajax({
+                type:'post',//可选get
+                async:false,//同步
+                url:'../excelIpeIndustry/affirm.do',//这里是接收数据的URL
+                dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                success:function(msg){
+                    if(msg.code == 1){
+                        alert("数据确认成功");
+                        $("#list").trigger("reloadGrid");
+                        $("#dialog").dialog("close");
+                    }else{
+                        alert(msg.message);
+                        //验证插入后，刷新grid
+                    }
+                },
+                error:function(){//修理失败，未能连接
+                    alert("操作失败");
+                }
+            });
+        }
+    });
+
 });
 
 

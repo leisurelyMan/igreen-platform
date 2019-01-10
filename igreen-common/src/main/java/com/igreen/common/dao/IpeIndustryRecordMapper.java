@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.igreen.common.dto.IpeIndustryDto;
 import com.igreen.common.model.IpeIndustryRecord;
+import com.igreen.common.model.IpeIndustryRecord1;
 
 public interface IpeIndustryRecordMapper {
 	
@@ -47,4 +48,6 @@ public interface IpeIndustryRecordMapper {
 
 
     List<IpeIndustryRecord> selectByCompanyName(String companyName);
+
+	int insertBatch(List<IpeIndustryRecord1> record1List);
 }

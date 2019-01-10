@@ -100,6 +100,17 @@ public class ExcelIpeIndustryRecordController extends BaseController {
     }
 
     /**
+     * 提交所有数据
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value="affirm", method = { RequestMethod.POST,RequestMethod.GET})
+    public @ResponseBody ResponseModel affirm(HttpServletRequest request, HttpServletResponse response){
+        return excelIpeIndustryRecordService.affirm(this.getUser(request, response).getId());
+    }
+
+    /**
      * 导入数据
      * @param request
      * @param response

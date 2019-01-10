@@ -9,9 +9,12 @@ import com.igreen.boss.util.ExcelHead;
 import com.igreen.boss.util.ExcelUtil;
 import com.igreen.common.dao.ExcelIpeIndustryRecordManualMapper;
 import com.igreen.common.dao.ExcelIpeIndustryRecordMapper;
+import com.igreen.common.dao.IpeIndustryRecordMapper;
+import com.igreen.common.enums.IpeIndustryRecordSourceEnum;
 import com.igreen.common.enums.PunishTypeEnum;
 import com.igreen.common.model.ExcelIpeIndustryRecord;
 import com.igreen.common.model.ExcelIpeIndustryRecordExample;
+import com.igreen.common.model.IpeIndustryRecord1;
 import com.igreen.common.util.ListRange;
 import com.igreen.common.util.ResponseModel;
 import com.igreen.common.util.StrUtil;
@@ -25,6 +28,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -38,6 +42,9 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
 
     @Resource
     ExcelIpeIndustryRecordManualMapper excelIpeIndustryRecordManualMapper;
+
+    @Resource
+    IpeIndustryRecordMapper ipeIndustryRecordMapper;
 
     @Value("#{prop['ipeHead']}")
     private String ipeHead;
@@ -128,6 +135,42 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
         ExcelIpeIndustryRecordExample.Criteria criteria = example.createCriteria();
         criteria.andCreaterEqualTo(userId);
         int opnum = excelIpeIndustryRecordMapper.deleteByExample(example);
+        if(opnum <= 0){
+            result.setCode(-1);
+            result.setMessage("删除失败");
+        }
+        return result;
+    }
+
+
+    @Override
+    public ResponseModel affirm(Integer userId) {
+        ExcelIpeIndustryRecordExample example = new ExcelIpeIndustryRecordExample();
+        ExcelIpeIndustryRecordExample.Criteria criteria = example.createCriteria();
+        criteria.andCreaterEqualTo(userId);
+        List<ExcelIpeIndustryRecord> excelIpeIndustryRecordList =
+                excelIpeIndustryRecordMapper.selectByExample(example);
+        List<IpeIndustryRecord1> record1List = new ArrayList<IpeIndustryRecord1>();
+        for(ExcelIpeIndustryRecord record:excelIpeIndustryRecordList){
+            IpeIndustryRecord1 record1 = new IpeIndustryRecord1();
+            org.springframework.beans.BeanUtils.copyProperties(record,record1);
+            record1.setCreatedTime(new Date());
+            record1.setCreater(userId);
+            record1.setSource(IpeIndustryRecordSourceEnum.EXCEL.getValue());
+            record1List.add(record1);
+        }
+
+        if(record1List.size() > 0){
+            if(record1List.size() > 100){
+                for(int i=1;i<= (record1List.size() % 100 == 0 ? record1List.size()/100:record1List.size()/100+1);i++){
+                    ipeIndustryRecordMapper.insertBatch(record1List.subList((i-1)*100,i*100>record1List.size()?record1List.size():i*100));
+                }
+            }else {
+                ipeIndustryRecordMapper.insertBatch(record1List);
+            }
+        }
+        int opnum = excelIpeIndustryRecordMapper.deleteByExample(example);
+        ResponseModel result = new ResponseModel(1, "SUCCESS");
         if(opnum <= 0){
             result.setCode(-1);
             result.setMessage("删除失败");

@@ -21,4 +21,6 @@ public interface ExcelIpeIndustryRecordService {
     ResponseModel deleteRecord(Integer recordId, Integer userId);
 
     ResponseModel deleteAll(Integer userId);
+
+    ResponseModel affirm(Integer userId);
 }

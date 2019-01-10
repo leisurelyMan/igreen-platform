@@ -39,14 +39,8 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table schema="" tableName="crawler_ipe_industry_record"
-               domainObjectName="CrawlerIpeIndustryRecord">
-            <property name="useActualColumnNames" value="false" />
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>
-
-        <table schema="" tableName="excel_ipe_industry_record"
-               domainObjectName="ExcelIpeIndustryRecord">
+        <table schema="" tableName="ipe_industry_record"
+               domainObjectName="IpeIndustryRecord1">
             <property name="useActualColumnNames" value="false" />
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>

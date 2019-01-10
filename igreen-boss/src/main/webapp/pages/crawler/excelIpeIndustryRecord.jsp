@@ -39,6 +39,7 @@
 				<li class="click" id="distinceupload"><span><img src="../static/images/ico04.png" /></span></li>
 				<li class="click" id="add"><span><img src="../static/images/t01.png" /></span>添加</li>
 				<li class="click" style="padding-right: 0px;" id="deleteAll"><input name="" type="button" class="btn" value="删除全部"/></li>
+				<li class="click" style="padding-right: 0px;" id="affirm"><input name="" type="button" class="btn" value="确认数据"/></li>
 			</ul>
 		</div>
 		<table id="list"></table>
