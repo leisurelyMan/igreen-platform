@@ -12,6 +12,7 @@
     <result column="punish_type" property="punishType" jdbcType="VARCHAR" />
     <result column="punish_time" property="punishTime" jdbcType="VARCHAR" />
     <result column="punish_money" property="punishMoney" jdbcType="VARCHAR" />
+    <result column="punish_no" property="punishNo" jdbcType="VARCHAR" />
     <result column="creater" property="creater" jdbcType="INTEGER" />
     <result column="updater" property="updater" jdbcType="INTEGER" />
   </resultMap>
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, year, web_detail_url, company_name, province, city, district, punish_type, punish_time, 
-    punish_money, creater, updater
+    punish_money, punish_no, creater, updater
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.ExcelIpeIndustryRecordExample" >
     select
@@ -111,11 +112,13 @@
     insert into excel_ipe_industry_record (year, web_detail_url, company_name, 
       province, city, district, 
       punish_type, punish_time, punish_money, 
-      creater, updater)
+      punish_no, creater, updater
+      )
     values (#{year,jdbcType=VARCHAR}, #{webDetailUrl,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
       #{punishType,jdbcType=VARCHAR}, #{punishTime,jdbcType=VARCHAR}, #{punishMoney,jdbcType=VARCHAR}, 
-      #{creater,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER})
+      #{punishNo,jdbcType=VARCHAR}, #{creater,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.ExcelIpeIndustryRecord" useGeneratedKeys="true" keyProperty="id" >
     insert into excel_ipe_industry_record
@@ -146,6 +149,9 @@
       </if>
       <if test="punishMoney != null" >
         punish_money,
+      </if>
+      <if test="punishNo != null" >
+        punish_no,
       </if>
       <if test="creater != null" >
         creater,
@@ -181,6 +187,9 @@
       </if>
       <if test="punishMoney != null" >
         #{punishMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="punishNo != null" >
+        #{punishNo,jdbcType=VARCHAR},
       </if>
       <if test="creater != null" >
         #{creater,jdbcType=INTEGER},
@@ -229,6 +238,9 @@
       <if test="record.punishMoney != null" >
         punish_money = #{record.punishMoney,jdbcType=VARCHAR},
       </if>
+      <if test="record.punishNo != null" >
+        punish_no = #{record.punishNo,jdbcType=VARCHAR},
+      </if>
       <if test="record.creater != null" >
         creater = #{record.creater,jdbcType=INTEGER},
       </if>
@@ -252,6 +264,7 @@
       punish_type = #{record.punishType,jdbcType=VARCHAR},
       punish_time = #{record.punishTime,jdbcType=VARCHAR},
       punish_money = #{record.punishMoney,jdbcType=VARCHAR},
+      punish_no = #{record.punishNo,jdbcType=VARCHAR},
       creater = #{record.creater,jdbcType=INTEGER},
       updater = #{record.updater,jdbcType=INTEGER}
     <if test="_parameter != null" >
@@ -288,6 +301,9 @@
       <if test="punishMoney != null" >
         punish_money = #{punishMoney,jdbcType=VARCHAR},
       </if>
+      <if test="punishNo != null" >
+        punish_no = #{punishNo,jdbcType=VARCHAR},
+      </if>
       <if test="creater != null" >
         creater = #{creater,jdbcType=INTEGER},
       </if>
@@ -308,6 +324,7 @@
       punish_type = #{punishType,jdbcType=VARCHAR},
       punish_time = #{punishTime,jdbcType=VARCHAR},
       punish_money = #{punishMoney,jdbcType=VARCHAR},
+      punish_no = #{punishNo,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=INTEGER},
       updater = #{updater,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

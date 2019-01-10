@@ -73,7 +73,7 @@ public class ExcelIpeIndustryRecordExample {
     }
 
     /**
-     * excel_ipe_industry_record 2019-01-09
+     * excel_ipe_industry_record 2019-01-10
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -806,6 +806,76 @@ public class ExcelIpeIndustryRecordExample {
             return (Criteria) this;
         }
 
+        public Criteria andPunishNoIsNull() {
+            addCriterion("punish_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoIsNotNull() {
+            addCriterion("punish_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoEqualTo(String value) {
+            addCriterion("punish_no =", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoNotEqualTo(String value) {
+            addCriterion("punish_no <>", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoGreaterThan(String value) {
+            addCriterion("punish_no >", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoGreaterThanOrEqualTo(String value) {
+            addCriterion("punish_no >=", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoLessThan(String value) {
+            addCriterion("punish_no <", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoLessThanOrEqualTo(String value) {
+            addCriterion("punish_no <=", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoLike(String value) {
+            addCriterion("punish_no like", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoNotLike(String value) {
+            addCriterion("punish_no not like", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoIn(List<String> values) {
+            addCriterion("punish_no in", values, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoNotIn(List<String> values) {
+            addCriterion("punish_no not in", values, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoBetween(String value1, String value2) {
+            addCriterion("punish_no between", value1, value2, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoNotBetween(String value1, String value2) {
+            addCriterion("punish_no not between", value1, value2, "punishNo");
+            return (Criteria) this;
+        }
+
         public Criteria andCreaterIsNull() {
             addCriterion("creater is null");
             return (Criteria) this;
@@ -931,7 +1001,7 @@ public class ExcelIpeIndustryRecordExample {
      * 描述:excel_ipe_industry_record表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2019-01-09
+     * @创建时间: 2019-01-10
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -941,7 +1011,7 @@ public class ExcelIpeIndustryRecordExample {
     }
 
     /**
-     * excel_ipe_industry_record 2019-01-09
+     * excel_ipe_industry_record 2019-01-10
      */
     public static class Criterion {
         private String condition;

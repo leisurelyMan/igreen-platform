@@ -4,7 +4,7 @@ package com.igreen.common.model;
  * 描述:excel_ipe_industry_record表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2019-01-09
+ * @创建时间: 2019-01-10
  */
 public class ExcelIpeIndustryRecord {
     /**
@@ -56,6 +56,11 @@ public class ExcelIpeIndustryRecord {
      * 处罚金额
      */
     private String punishMoney;
+
+    /**
+     * 处罚编号
+     */
+    private String punishNo;
 
     /**
      * 创建者
@@ -225,6 +230,22 @@ public class ExcelIpeIndustryRecord {
      */
     public void setPunishMoney(String punishMoney) {
         this.punishMoney = punishMoney == null ? null : punishMoney.trim();
+    }
+
+    /**
+     * 处罚编号
+     * @return punish_no 处罚编号
+     */
+    public String getPunishNo() {
+        return punishNo;
+    }
+
+    /**
+     * 处罚编号
+     * @param punishNo 处罚编号
+     */
+    public void setPunishNo(String punishNo) {
+        this.punishNo = punishNo == null ? null : punishNo.trim();
     }
 
     /**

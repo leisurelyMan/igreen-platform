@@ -15,8 +15,9 @@
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="district" property="district" jdbcType="VARCHAR" />
     <result column="punish_type" property="punishType" jdbcType="VARCHAR" />
-    <result column="punish_time" property="punishTime" jdbcType="TIMESTAMP" />
-    <result column="punish_money" property="punishMoney" jdbcType="TIMESTAMP" />
+    <result column="punish_time" property="punishTime" jdbcType="VARCHAR" />
+    <result column="punish_money" property="punishMoney" jdbcType="VARCHAR" />
+    <result column="punish_no" property="punishNo" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="creater" property="creater" jdbcType="INTEGER" />
     <result column="updater" property="updater" jdbcType="INTEGER" />
@@ -82,7 +83,7 @@
   <sql id="Base_Column_List" >
     id, web_name, web_domain, year, web_detail_name, web_detail_url, web_detail_result_url, 
     save_path, company_name, province, city, district, punish_type, punish_time, punish_money, 
-    update_time, creater, updater
+    punish_no, update_time, creater, updater
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.CrawlerIpeIndustryRecordExample" >
     select
@@ -119,14 +120,16 @@
       web_detail_name, web_detail_url, web_detail_result_url, 
       save_path, company_name, province, 
       city, district, punish_type, 
-      punish_time, punish_money, update_time, 
-      creater, updater)
+      punish_time, punish_money, punish_no, 
+      update_time, creater, updater
+      )
     values (#{webName,jdbcType=VARCHAR}, #{webDomain,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, 
       #{webDetailName,jdbcType=VARCHAR}, #{webDetailUrl,jdbcType=VARCHAR}, #{webDetailResultUrl,jdbcType=VARCHAR}, 
       #{savePath,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
       #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{punishType,jdbcType=VARCHAR}, 
-      #{punishTime,jdbcType=TIMESTAMP}, #{punishMoney,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{creater,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER})
+      #{punishTime,jdbcType=VARCHAR}, #{punishMoney,jdbcType=VARCHAR}, #{punishNo,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.CrawlerIpeIndustryRecord" useGeneratedKeys="true" keyProperty="id" >
     insert into crawler_ipe_industry_record
@@ -172,6 +175,9 @@
       </if>
       <if test="punishMoney != null" >
         punish_money,
+      </if>
+      <if test="punishNo != null" >
+        punish_no,
       </if>
       <if test="updateTime != null" >
         update_time,
@@ -221,10 +227,13 @@
         #{punishType,jdbcType=VARCHAR},
       </if>
       <if test="punishTime != null" >
-        #{punishTime,jdbcType=TIMESTAMP},
+        #{punishTime,jdbcType=VARCHAR},
       </if>
       <if test="punishMoney != null" >
-        #{punishMoney,jdbcType=TIMESTAMP},
+        #{punishMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="punishNo != null" >
+        #{punishNo,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
@@ -286,10 +295,13 @@
         punish_type = #{record.punishType,jdbcType=VARCHAR},
       </if>
       <if test="record.punishTime != null" >
-        punish_time = #{record.punishTime,jdbcType=TIMESTAMP},
+        punish_time = #{record.punishTime,jdbcType=VARCHAR},
       </if>
       <if test="record.punishMoney != null" >
-        punish_money = #{record.punishMoney,jdbcType=TIMESTAMP},
+        punish_money = #{record.punishMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.punishNo != null" >
+        punish_no = #{record.punishNo,jdbcType=VARCHAR},
       </if>
       <if test="record.updateTime != null" >
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -320,8 +332,9 @@
       city = #{record.city,jdbcType=VARCHAR},
       district = #{record.district,jdbcType=VARCHAR},
       punish_type = #{record.punishType,jdbcType=VARCHAR},
-      punish_time = #{record.punishTime,jdbcType=TIMESTAMP},
-      punish_money = #{record.punishMoney,jdbcType=TIMESTAMP},
+      punish_time = #{record.punishTime,jdbcType=VARCHAR},
+      punish_money = #{record.punishMoney,jdbcType=VARCHAR},
+      punish_no = #{record.punishNo,jdbcType=VARCHAR},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       creater = #{record.creater,jdbcType=INTEGER},
       updater = #{record.updater,jdbcType=INTEGER}
@@ -369,10 +382,13 @@
         punish_type = #{punishType,jdbcType=VARCHAR},
       </if>
       <if test="punishTime != null" >
-        punish_time = #{punishTime,jdbcType=TIMESTAMP},
+        punish_time = #{punishTime,jdbcType=VARCHAR},
       </if>
       <if test="punishMoney != null" >
-        punish_money = #{punishMoney,jdbcType=TIMESTAMP},
+        punish_money = #{punishMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="punishNo != null" >
+        punish_no = #{punishNo,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -400,51 +416,12 @@
       city = #{city,jdbcType=VARCHAR},
       district = #{district,jdbcType=VARCHAR},
       punish_type = #{punishType,jdbcType=VARCHAR},
-      punish_time = #{punishTime,jdbcType=TIMESTAMP},
-      punish_money = #{punishMoney,jdbcType=TIMESTAMP},
+      punish_time = #{punishTime,jdbcType=VARCHAR},
+      punish_money = #{punishMoney,jdbcType=VARCHAR},
+      punish_no = #{punishNo,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       creater = #{creater,jdbcType=INTEGER},
       updater = #{updater,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-  <!-- 查询有效的总记录数 -->
-  <select id="countCrawlerResult" resultType="java.lang.Integer" parameterType="map">
-    select count(1)
-    from crawler_ipe_industry_record
-    where 1 = 1
-    <if test="webName != null" >
-      and web_name = #{webName,jdbcType=VARCHAR}
-    </if>
-    <if test="webDetailName != null" >
-      and web_detail_name like CONCAT('%',#{webDetailName},'%')
-    </if>
-    <if test="webDetailUrl != null" >
-      and web_domain = #{webDomain,jdbcType=VARCHAR}
-    </if>
-  </select>
-
-  <select id="pageCrawlerResult" resultMap="BaseResultMap" parameterType="map" >
-    select
-    <include refid="Base_Column_List" />
-    from crawler_ipe_industry_record
-    where 1 = 1
-    <if test="webName != null" >
-      and web_name = #{webName,jdbcType=VARCHAR}
-    </if>
-    <if test="webDetailName != null" >
-      and web_detail_name like CONCAT('%',#{webDetailName},'%')
-    </if>
-    <if test="webDetailUrl != null" >
-      and web_domain = #{webDomain,jdbcType=VARCHAR}
-    </if>
-    order by create_time desc limit #{startRow},#{pageRows}
-  </select>
-
-  <select id="findByDetailUrl" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    <include refid="Base_Column_List" />
-    from crawler_ipe_industry_record
-    where web_detail_url = #{webDetailUrl,jdbcType=VARCHAR}
-  </select>
 </mapper>

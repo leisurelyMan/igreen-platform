@@ -6,7 +6,7 @@ import java.util.Date;
  * 描述:crawler_ipe_industry_record表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2019-01-03
+ * @创建时间: 2019-01-10
  */
 public class CrawlerIpeIndustryRecord {
     /**
@@ -77,12 +77,17 @@ public class CrawlerIpeIndustryRecord {
     /**
      * 处罚公布时间
      */
-    private Date punishTime;
+    private String punishTime;
 
     /**
      * 处罚金额
      */
-    private Date punishMoney;
+    private String punishMoney;
+
+    /**
+     * 处罚编号
+     */
+    private String punishNo;
 
     /**
      * 配置更新时间
@@ -311,7 +316,7 @@ public class CrawlerIpeIndustryRecord {
      * 处罚公布时间
      * @return punish_time 处罚公布时间
      */
-    public Date getPunishTime() {
+    public String getPunishTime() {
         return punishTime;
     }
 
@@ -319,15 +324,15 @@ public class CrawlerIpeIndustryRecord {
      * 处罚公布时间
      * @param punishTime 处罚公布时间
      */
-    public void setPunishTime(Date punishTime) {
-        this.punishTime = punishTime;
+    public void setPunishTime(String punishTime) {
+        this.punishTime = punishTime == null ? null : punishTime.trim();
     }
 
     /**
      * 处罚金额
      * @return punish_money 处罚金额
      */
-    public Date getPunishMoney() {
+    public String getPunishMoney() {
         return punishMoney;
     }
 
@@ -335,8 +340,24 @@ public class CrawlerIpeIndustryRecord {
      * 处罚金额
      * @param punishMoney 处罚金额
      */
-    public void setPunishMoney(Date punishMoney) {
-        this.punishMoney = punishMoney;
+    public void setPunishMoney(String punishMoney) {
+        this.punishMoney = punishMoney == null ? null : punishMoney.trim();
+    }
+
+    /**
+     * 处罚编号
+     * @return punish_no 处罚编号
+     */
+    public String getPunishNo() {
+        return punishNo;
+    }
+
+    /**
+     * 处罚编号
+     * @param punishNo 处罚编号
+     */
+    public void setPunishNo(String punishNo) {
+        this.punishNo = punishNo == null ? null : punishNo.trim();
     }
 
     /**

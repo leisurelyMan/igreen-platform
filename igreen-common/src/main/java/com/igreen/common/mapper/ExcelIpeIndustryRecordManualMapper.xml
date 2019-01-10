@@ -12,6 +12,7 @@
     <result column="punish_type" property="punishType" jdbcType="VARCHAR" />
     <result column="punish_time" property="punishTime" jdbcType="VARCHAR" />
     <result column="punish_money" property="punishMoney" jdbcType="VARCHAR" />
+    <result column="punish_no" property="punishNo" jdbcType="VARCHAR" />
     <result column="creater" property="creater" jdbcType="INTEGER" />
     <result column="updater" property="updater" jdbcType="INTEGER" />
   </resultMap>
@@ -82,7 +83,7 @@
   <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
     insert into excel_ipe_industry_record (web_detail_url, company_name,
     province, city, district,
-    punish_type, punish_time, punish_money,
+    punish_type, punish_time, punish_money,punish_no,
     creater)
     values
     <foreach collection="list" item="record" separator=",">
@@ -95,6 +96,7 @@
         #{record.punishType,jdbcType=VARCHAR},
         #{record.punishTime,jdbcType=TIMESTAMP},
         #{record.punishMoney,jdbcType=VARCHAR},
+        #{record.punishNo,jdbcType=VARCHAR},
         #{record.creater,jdbcType=INTEGER}
       )
     </foreach>

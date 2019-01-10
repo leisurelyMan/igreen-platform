@@ -74,7 +74,7 @@ public class CrawlerIpeIndustryRecordExample {
     }
 
     /**
-     * crawler_ipe_industry_record 2019-01-03
+     * crawler_ipe_industry_record 2019-01-10
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1027,52 +1027,62 @@ public class CrawlerIpeIndustryRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeEqualTo(Date value) {
+        public Criteria andPunishTimeEqualTo(String value) {
             addCriterion("punish_time =", value, "punishTime");
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeNotEqualTo(Date value) {
+        public Criteria andPunishTimeNotEqualTo(String value) {
             addCriterion("punish_time <>", value, "punishTime");
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeGreaterThan(Date value) {
+        public Criteria andPunishTimeGreaterThan(String value) {
             addCriterion("punish_time >", value, "punishTime");
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andPunishTimeGreaterThanOrEqualTo(String value) {
             addCriterion("punish_time >=", value, "punishTime");
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeLessThan(Date value) {
+        public Criteria andPunishTimeLessThan(String value) {
             addCriterion("punish_time <", value, "punishTime");
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeLessThanOrEqualTo(Date value) {
+        public Criteria andPunishTimeLessThanOrEqualTo(String value) {
             addCriterion("punish_time <=", value, "punishTime");
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeIn(List<Date> values) {
+        public Criteria andPunishTimeLike(String value) {
+            addCriterion("punish_time like", value, "punishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishTimeNotLike(String value) {
+            addCriterion("punish_time not like", value, "punishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishTimeIn(List<String> values) {
             addCriterion("punish_time in", values, "punishTime");
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeNotIn(List<Date> values) {
+        public Criteria andPunishTimeNotIn(List<String> values) {
             addCriterion("punish_time not in", values, "punishTime");
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeBetween(Date value1, Date value2) {
+        public Criteria andPunishTimeBetween(String value1, String value2) {
             addCriterion("punish_time between", value1, value2, "punishTime");
             return (Criteria) this;
         }
 
-        public Criteria andPunishTimeNotBetween(Date value1, Date value2) {
+        public Criteria andPunishTimeNotBetween(String value1, String value2) {
             addCriterion("punish_time not between", value1, value2, "punishTime");
             return (Criteria) this;
         }
@@ -1087,53 +1097,133 @@ public class CrawlerIpeIndustryRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyEqualTo(Date value) {
+        public Criteria andPunishMoneyEqualTo(String value) {
             addCriterion("punish_money =", value, "punishMoney");
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyNotEqualTo(Date value) {
+        public Criteria andPunishMoneyNotEqualTo(String value) {
             addCriterion("punish_money <>", value, "punishMoney");
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyGreaterThan(Date value) {
+        public Criteria andPunishMoneyGreaterThan(String value) {
             addCriterion("punish_money >", value, "punishMoney");
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyGreaterThanOrEqualTo(Date value) {
+        public Criteria andPunishMoneyGreaterThanOrEqualTo(String value) {
             addCriterion("punish_money >=", value, "punishMoney");
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyLessThan(Date value) {
+        public Criteria andPunishMoneyLessThan(String value) {
             addCriterion("punish_money <", value, "punishMoney");
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyLessThanOrEqualTo(Date value) {
+        public Criteria andPunishMoneyLessThanOrEqualTo(String value) {
             addCriterion("punish_money <=", value, "punishMoney");
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyIn(List<Date> values) {
+        public Criteria andPunishMoneyLike(String value) {
+            addCriterion("punish_money like", value, "punishMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishMoneyNotLike(String value) {
+            addCriterion("punish_money not like", value, "punishMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishMoneyIn(List<String> values) {
             addCriterion("punish_money in", values, "punishMoney");
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyNotIn(List<Date> values) {
+        public Criteria andPunishMoneyNotIn(List<String> values) {
             addCriterion("punish_money not in", values, "punishMoney");
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyBetween(Date value1, Date value2) {
+        public Criteria andPunishMoneyBetween(String value1, String value2) {
             addCriterion("punish_money between", value1, value2, "punishMoney");
             return (Criteria) this;
         }
 
-        public Criteria andPunishMoneyNotBetween(Date value1, Date value2) {
+        public Criteria andPunishMoneyNotBetween(String value1, String value2) {
             addCriterion("punish_money not between", value1, value2, "punishMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoIsNull() {
+            addCriterion("punish_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoIsNotNull() {
+            addCriterion("punish_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoEqualTo(String value) {
+            addCriterion("punish_no =", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoNotEqualTo(String value) {
+            addCriterion("punish_no <>", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoGreaterThan(String value) {
+            addCriterion("punish_no >", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoGreaterThanOrEqualTo(String value) {
+            addCriterion("punish_no >=", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoLessThan(String value) {
+            addCriterion("punish_no <", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoLessThanOrEqualTo(String value) {
+            addCriterion("punish_no <=", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoLike(String value) {
+            addCriterion("punish_no like", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoNotLike(String value) {
+            addCriterion("punish_no not like", value, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoIn(List<String> values) {
+            addCriterion("punish_no in", values, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoNotIn(List<String> values) {
+            addCriterion("punish_no not in", values, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoBetween(String value1, String value2) {
+            addCriterion("punish_no between", value1, value2, "punishNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishNoNotBetween(String value1, String value2) {
+            addCriterion("punish_no not between", value1, value2, "punishNo");
             return (Criteria) this;
         }
 
@@ -1322,7 +1412,7 @@ public class CrawlerIpeIndustryRecordExample {
      * 描述:crawler_ipe_industry_record表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2019-01-03
+     * @创建时间: 2019-01-10
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -1332,7 +1422,7 @@ public class CrawlerIpeIndustryRecordExample {
     }
 
     /**
-     * crawler_ipe_industry_record 2019-01-03
+     * crawler_ipe_industry_record 2019-01-10
      */
     public static class Criterion {
         private String condition;
