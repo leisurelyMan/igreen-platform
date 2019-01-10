@@ -424,4 +424,46 @@
       updater = #{updater,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <!-- 查询有效的总记录数 -->
+  <select id="countCrawlerResult" resultType="java.lang.Integer" parameterType="map">
+    select count(1)
+    from crawler_ipe_industry_record
+    where 1 = 1
+    <if test="webName != null" >
+      and web_name = #{webName,jdbcType=VARCHAR}
+    </if>
+    <if test="webDetailName != null" >
+      and web_detail_name like CONCAT('%',#{webDetailName},'%')
+    </if>
+    <if test="webDetailUrl != null" >
+      and web_domain = #{webDomain,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="pageCrawlerResult" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from crawler_ipe_industry_record
+    where 1 = 1
+    <if test="webName != null" >
+      and web_name = #{webName,jdbcType=VARCHAR}
+    </if>
+    <if test="webDetailName != null" >
+      and web_detail_name like CONCAT('%',#{webDetailName},'%')
+    </if>
+    <if test="webDetailUrl != null" >
+      and web_domain = #{webDomain,jdbcType=VARCHAR}
+    </if>
+    order by create_time desc limit #{startRow},#{pageRows}
+  </select>
+
+  <select id="findByDetailUrl" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from crawler_ipe_industry_record
+    where web_detail_url = #{webDetailUrl,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

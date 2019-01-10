@@ -55,6 +55,7 @@
                     <li><label>处罚类型</label><input id="punishType" name="punishType" type="text" class="dfinput" /></li>
                     <li><label>处罚公布时间</label><input id="punishTime" name="punishTime" type="text" class="dfinput" /></li>
                     <li><label>处罚金额</label><input id="punishMoney" name="punishMoney" type="text" class="dfinput" /></li>
+                    <li><label>处罚编号</label><input id="punishNo" name="punishNo" type="text" class="dfinput" /></li>
 				</ul>
 			</form>
 		</div>

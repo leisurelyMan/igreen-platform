@@ -3,6 +3,8 @@ package com.igreen.common.dao;
 import com.igreen.common.model.CrawlerIpeIndustryRecord;
 import com.igreen.common.model.CrawlerIpeIndustryRecordExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface CrawlerIpeIndustryRecordMapper {
@@ -27,4 +29,11 @@ public interface CrawlerIpeIndustryRecordMapper {
     int updateByPrimaryKeySelective(CrawlerIpeIndustryRecord record);
 
     int updateByPrimaryKey(CrawlerIpeIndustryRecord record);
+
+    List<CrawlerIpeIndustryRecord> pageCrawlerResult(Map<String, Object> params);
+
+    Integer countCrawlerResult(Map<String, Object> params);
+
+    CrawlerIpeIndustryRecord findByDetailUrl(String webDetailUrl);
+
 }
