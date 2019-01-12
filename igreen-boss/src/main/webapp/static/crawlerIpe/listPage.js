@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
 		url : '../crawlerIpe/list.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>地区</b>','<b>区域</b>','<b>来源</b>','<b>全文检索URL</b>','<b>分页url正则表达式</b>','<b>分页类型</b>','<b>分页请求返回方式</b>','<b>分页结果</b>','<b>详情页url匹配正则表达式</b>','<b>详情页title xpath</b>','<b>最大分页</b>','<b>开始分页</b>','<b>获取分页数据类型</b>','<b>获取分页数据对应的名称</b>','<b>详情页内容获取 xpath</b>','<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>地区</b>','<b>区域</b>','<b>来源</b>','<b>全文检索URL</b>','<b>分页url正则表达式</b>','<b>分页类型</b>','<b>分页请求返回方式</b>','<b>请求方式</b>','<b>分页结果</b>','<b>详情页url匹配正则表达式</b>','<b>详情页title xpath</b>','<b>最大分页</b>','<b>开始分页</b>','<b>获取分页数据类型</b>','<b>获取分页数据对应的名称</b>','<b>详情页内容获取 xpath</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'webName',index:'webName', width:80,sortable:false},
 		 		    {name:'webDomain',index:'webDomain', width:80,sortable:false},
@@ -16,6 +16,7 @@ jQuery(document).ready(function(){
 		 		    {name:'pageUrlRegular',index:'pageUrlRegular', width:80,sortable:false},
 		 		    {name:'pageType',index:'pageType', width:80,sortable:false},
 		 		    {name:'pageReqMethod',index:'pageReqMethod', width:80,sortable:false},
+            {name:'requestMethod',index:'requestMethod', width:80,sortable:false},
 		 		    {name:'pageResult',index:'pageResult', width:80,sortable:false},
 		 		    {name:'detailUrlRegular',index:'detailUrlRegular', width:80,sortable:false},
 		 		    {name:'detailTitleRegular',index:'detailTitleRegular', width:80,sortable:false},
@@ -109,7 +110,8 @@ jQuery(document).ready(function(){
 	    $('#attrName').val("");
 	    $('#detailContentRegular').val("");
 	    $("#fieldPropertyRegular").val("");
-	    
+        $("#requestMethod").val("");
+
 		//打开对话表
 		$("#dialog").dialog("open");
 	});
@@ -125,6 +127,16 @@ jQuery(document).ready(function(){
 
 function getActions(cellvalue, options, rowObject){
     return '<a href="javascript:edit(\''+rowObject.id+'\')">编辑</a>&nbsp;<a href="javascript:crawler(\''+rowObject.id+'\')">手动爬虫</a>&nbsp;<a href="javascript:crawlerTest(\''+rowObject.id+'\')">测试</a>';
+}
+
+function showDetailId(obj) {
+	var va = $(obj).val();
+	if(va == 2 || va == 3) {
+		$("#detailId").show();
+	} else {
+        $("#detailId").hide();
+	}
+
 }
 
 /**
@@ -165,7 +177,14 @@ function edit(configId){
 			$('#attrName').val(obj.attrName);
 			$('#detailContentRegular').val(obj.detailContentRegular);
 			$("#fieldPropertyRegular").val(obj.fieldPropertyRegular);
-		    
+            $("#requestMethod").val(obj.requestMethod);
+            $("#detailById").val(obj.detailById);
+
+            if(obj.detailById == 2 || obj.detailById == 3) {
+                $("#detailId").show();
+            } else {
+                $("#detailId").hide();
+            }
 			//打开对话表
 			$("#dialog").dialog("open");
 		},

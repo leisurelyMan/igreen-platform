@@ -14,6 +14,8 @@ public class CrawlerFieldModel implements Serializable{
     private String attrType;
     // attrType == attr时有效，值为attr的属性例如（href, id, name ,或者自定义的）
     private String attrDom;
+    // 正则获取数据
+    private String replaceReg;
 
     public String getField() {
         return field;
@@ -53,5 +55,13 @@ public class CrawlerFieldModel implements Serializable{
 
     public void setAttrDom(String attrDom) {
         this.attrDom = attrDom;
+    }
+
+    public String getReplaceReg() {
+        return replaceReg;
+    }
+
+    public void setReplaceReg(String replaceReg) {
+        this.replaceReg = replaceReg;
     }
 }

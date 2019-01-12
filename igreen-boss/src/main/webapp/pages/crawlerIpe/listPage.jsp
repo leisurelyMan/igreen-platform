@@ -61,10 +61,21 @@
 					</select>
 					</li>
 					<li><label>分页请求返回方式</label>
-					<select id="pageReqMethod" name="pageReqMethod">
+					<select id="pageReqMethod" name="pageReqMethod" onchange="showDetailId(this);">
 						<option value="1">AJAX返回html和页面跳转</option>
-						<option value="2">AJAX 返回json</option>
+						<option value="2">列表AJAX 返回json</option>
+						<option value="3">列表和详情AJAX 返回json</option>
 					</select>
+					</li>
+					<li id="detailId" style="display: none;"><label>返回为json时获取详情标识</label>
+						<input id="detailById" name="detailById" type="text" class="dfinput" placeholder="返回为json时获取详情标识 格式例如$.data.xxx"/>
+					</li>
+
+					<li><label>请求方式（适用返回方式 Json）</label>
+						<select id="requestMethod" name="requestMethod">
+							<option value="GET">GET</option>
+							<option value="POST">POST</option>
+						</select>
 					</li>
 					<li><label>最大分页/每页pageSize</label><input id="maxPage" name="maxPage" type="number" class="dfinput" placeholder="网站允许最大分页条数 空代表不限制,已知分页类型为总条数时 代表每页pageSize"/></li>
 					<li><label>开始分页</label><input id="startPage" name="startPage" type="number" class="dfinput" placeholder="网站首页页码数"/></li>
@@ -76,7 +87,7 @@
 					</select>
 					</li>
 					<li><label>获取分页数据对应的名称</label><input id="attrName" name="attrName" type="text" class="dfinput" placeholder="获取分页数据的名称"/></li>
-					<li><label>分页所在位置结果</label><input id="pageResult" name="pageResult" type="text" class="dfinput" placeholder="分页所在位置结果"/></li>
+					<li><label>分页所在位置结果</label><input id="pageResult" name="pageResult" type="text" class="dfinput" placeholder="分页所在位置结果(json返回代表页码)"/></li>
 					<li><label>分页所在位置结果替换正则</label><input id="replaceRegular" name="replaceRegular" type="text" class="dfinput" placeholder="分页所在位置结果替换正则"/></li>
 					<li><label>详情页url匹配正则表达式</label><input id="detailUrlRegular" name="detailUrlRegular" type="text" class="dfinput" placeholder="详情页url正则，多个用@分割"/></li>
 					<li><label>详情页title xpath</label><input id="detailTitleRegular" name="detailTitleRegular" type="text" class="dfinput" placeholder="详情页标题对应xpath 多个用#分隔"/></li>

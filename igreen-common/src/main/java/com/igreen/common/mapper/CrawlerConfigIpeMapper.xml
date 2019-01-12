@@ -26,13 +26,14 @@
     <result column="area" property="area" jdbcType="VARCHAR" />
     <result column="source_type" property="sourceType" jdbcType="VARCHAR" />
     <result column="field_property_regular" property="fieldPropertyRegular" jdbcType="VARCHAR" />
-
+    <result column="request_method" property="requestMethod" jdbcType="VARCHAR" />
+      <result column="detail_by_id" property="detailById" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
     id,web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
     page_req_method,page_result,replace_regular,detail_url_regular,detail_title_regular,create_time,update_time,
-    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type,field_property_regular
+    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type,field_property_regular,request_method,detail_by_id
   </sql>
   
     <!-- 查询有效的总记录数 -->
@@ -84,7 +85,7 @@
   <insert id="insert" parameterType="com.igreen.common.model.WebCrawlerConfigIpe" >
     insert into web_crawler_config_ipe (web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
     page_req_method,page_result,replace_regular,detail_url_regular,detail_title_regular,create_time,update_time,
-    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type,field_property_regular
+    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type,field_property_regular,request_method,detail_by_id
       )
     values (#{webName,jdbcType=VARCHAR},
 #{webDomain,jdbcType=VARCHAR},
@@ -108,7 +109,9 @@ now(),
 #{city,jdbcType=VARCHAR},
 #{area,jdbcType=VARCHAR},
 #{sourceType,jdbcType=VARCHAR},
-#{fieldPropertyRegular, jdbcType=VARCHAR})
+#{fieldPropertyRegular, jdbcType=VARCHAR},
+#{requestMethod, jdbcType=VARCHAR},
+            #{detailById, jdbcType=VARCHAR})
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCrawlerConfigIpe" >
@@ -133,7 +136,9 @@ updater=#{updater,jdbcType=VARCHAR},
 city=#{city,jdbcType=VARCHAR},
 area=#{area,jdbcType=VARCHAR},
 source_type=#{sourceType,jdbcType=VARCHAR},
-field_property_regular=#{fieldPropertyRegular, jdbcType=VARCHAR}
+field_property_regular=#{fieldPropertyRegular, jdbcType=VARCHAR},
+        request_method=#{requestMethod, jdbcType=VARCHAR},
+        detail_by_id=#{detailById, jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -10,11 +10,14 @@ import org.jsoup.select.Elements;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import us.codecraft.webmagic.Page;
+import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
+import us.codecraft.webmagic.selector.JsonPathSelector;
+import us.codecraft.webmagic.utils.HttpConstant;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -46,10 +49,62 @@ public class CommonPageIpeProcessor implements PageProcessor {
         this.pageNumber = pageNumber;
     }
 
+    private String getRequestMethod(){
+        String method = HttpConstant.Method.GET;
+        String configMethod = config.getRequestMethod();
+        if("POST".equals(configMethod)) {
+            method = HttpConstant.Method.POST;
+        }
+        return method;
+    }
+
     @Override
     public void process(Page page) {
 
+        String disk = DISK_PATH + config.getWebDomain() + "/";
+        CrawlerIpeIndustryRecord result = new CrawlerIpeIndustryRecord();
         String detailUrl = config.getDetailUrlRegular();
+        String pageReqMethod= config.getPageReqMethod();
+        // 返回为json
+        if(!StringUtils.isEmpty(pageReqMethod) && ("2".equals(pageReqMethod) || "3".equals(pageReqMethod))) {
+
+            // 列表页数据
+            if (!page.getUrl().get().contains(detailUrl)) {
+                List<String> ids = new JsonPathSelector(config.getDetailById()).selectList(page.getRawText());
+                if (org.apache.commons.collections.CollectionUtils.isNotEmpty(ids)) {
+                    for (String id : ids) {
+                        Request request = new Request(detailUrl+ id.trim());
+                        request.setMethod(getRequestMethod());
+                        request.setCharset("UTF-8");
+                        page.addTargetRequest(request);
+                    }
+                    page.setSkip(true);
+                    return;
+                }
+
+            } else {
+                // 详情也是json
+                if("3".equals(pageReqMethod)) {
+                    String fileName = UUID.randomUUID().toString() + ".json";
+                    fileOut(disk, fileName, page.getRawText());
+
+                    makeRecordByFieldRegByJson(result, page.getRawText(),config.getFieldPropertyRegular());
+
+                    result.setWebName(config.getWebName());
+                    result.setWebDetailName(new JsonPathSelector(config.getDetailTitleRegular()).select(page.getRawText()));
+                    result.setWebDomain(config.getWebDomain());
+                    result.setWebDetailUrl(page.getUrl().toString());
+                    result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
+                    result.setSavePath(disk + fileName);
+                    result.setCity(config.getCity());
+                    resultService.addOrEditResult(result, 0);
+                    return;
+                }
+            }
+        }
+
+
+
         String[] urls = detailUrl.split("@");
         for(String url : urls){
             page.addTargetRequests(page.getHtml().links().regex(url).all());
@@ -83,7 +138,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
             } else {
                 fileName = name.length() > 30 ? UUID.randomUUID().toString() : name + ".html";
             }
-            String disk = DISK_PATH + config.getWebDomain() + "/";
+
 
             String content = null;
             String selectQue = "";
@@ -98,7 +153,6 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
             Html html = page.getHtml();
             Elements eles =  html.getDocument().getAllElements();
-            CrawlerIpeIndustryRecord result = new CrawlerIpeIndustryRecord();
             Elements imgs = eles.get(0).select(selectQue + "img");
 
             String fieldStr = config.getFieldPropertyRegular();
@@ -166,6 +220,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     String type = fieldModel.getType();
                     String attractType = fieldModel.getAttrType();
                     String attractDom = fieldModel.getAttrDom();
+                    String replaceReg = fieldModel.getReplaceReg();
                     if (!StringUtil.isBlank(type) && "xpath".equals(type)) {
                         if (!StringUtil.isBlank(attractType) && "attr".equals(attractType)) {
                             value = getElementByConfig(eles, value).attr(attractDom);
@@ -173,6 +228,34 @@ public class CommonPageIpeProcessor implements PageProcessor {
                             value = getElementByConfig(eles, value).text();
                         }
                     }
+                    if(!StringUtils.isEmpty(replaceReg)) value.replaceAll(replaceReg, "");
+                    setValueField(result, value, field);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 根据爬虫规则json设定字段值
+     * @param result
+     * @param rawText
+     * @param fieldStr
+     */
+    private void makeRecordByFieldRegByJson(CrawlerIpeIndustryRecord result, String rawText, String fieldStr) {
+        if (!StringUtil.isBlank(fieldStr)) {
+            List<CrawlerFieldModel> fieldList = getFieldList(fieldStr);
+            if (!CollectionUtils.isEmpty(fieldList)) {
+                for (CrawlerFieldModel fieldModel : fieldList) {
+                    String value = fieldModel.getPathValue();
+                    String field = fieldModel.getField();
+                    String type = fieldModel.getType();
+                    String replaceReg = fieldModel.getReplaceReg();
+                    if (!StringUtil.isBlank(type) && "XJson".equals(type)) {
+                        value =  new JsonPathSelector(value).select(rawText);
+                    } else if(!StringUtil.isBlank(type) && "text".equals(type)) {
+                    }
+                    if(!StringUtils.isEmpty(replaceReg)) value.replaceAll(replaceReg, "");
                     setValueField(result, value, field);
                 }
             }
@@ -261,7 +344,15 @@ public class CommonPageIpeProcessor implements PageProcessor {
         }
     }
 
-    public  void startCrawler() {
+    public void startCrawler() {
+
+        String pageReqMethod= config.getPageReqMethod();
+        // 返回为json
+        if(!StringUtils.isEmpty(pageReqMethod) && ("2".equals(pageReqMethod) || "3".equals(pageReqMethod))) {
+            spiderResponseJson();
+            return;
+        }
+
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         Html html = httpClientDownloader.download(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
         Elements eles =  html.getDocument().getAllElements();
@@ -316,6 +407,33 @@ public class CommonPageIpeProcessor implements PageProcessor {
         }
     }
 
+    /**
+     * Json 数据的处理
+     */
+    private void spiderResponseJson () {
+        Spider spider = Spider.create(new CommonPageIpeProcessor(config, resultService, pageNumber));
+        Request request = new Request(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
+        request.setMethod(getRequestMethod());
+        request.setCharset("UTF-8");
+        HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
+        Page page = httpClientDownloader.download(request, Spider.create(new CommonPageIpeProcessor(config, resultService, pageNumber)));
+
+        int total = Integer.parseInt(new JsonPathSelector(config.getPageResult()).select(page.getRawText()));
+        if(config.getMaxPage() != null && config.getMaxPage() != 0){
+            total =  total > config.getMaxPage() ? config.getMaxPage() : total;
+        }
+
+        for(int i = 0; i < total; i ++){
+            Spider spider2 = Spider.create(new CommonPageIpeProcessor(config, resultService, pageNumber));
+            request = new Request(config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
+            request.setMethod(getRequestMethod());
+            request.setCharset("UTF-8");
+            spider2.addRequest(request);
+            spider2.run();
+        }
+    }
+
+
     private Elements getElementByConfig(Elements eles, String pageResult){
         Elements element = null;
         if(pageResult.contains("@last")){
@@ -334,5 +452,5 @@ public class CommonPageIpeProcessor implements PageProcessor {
 		this.pageNumber = pageNumber;
 	}
 
-    
+
 }

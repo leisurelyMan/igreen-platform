@@ -14,7 +14,8 @@ public class WebCrawlerConfigIpe extends IdEntity {
     private String webSearchUrl;//全文检索URL
     private String pageUrlRegular;//分页url正则表达式
     private String pageType;//分页类型
-    private String pageReqMethod;//分页请求返回方式
+    // 分页请求返回方式 1:html  2:列表 ajax json 3：详情和列表json
+    private String pageReqMethod;
     private String pageResult;//分页结果
     private String replaceRegular;// 分页数据替换无用字符正则表达式
     private String detailUrlRegular;//详情页url匹配正则表达式
@@ -34,7 +35,11 @@ public class WebCrawlerConfigIpe extends IdEntity {
     private String sourceType; // 来源类型
     // 字段获取xpath配置格式[{field:"xx",type:\'xpath 或者 value\',"pathValue":"xpath规则或者固定值"},{field:"xx",type:\'xpath 或者 value\',"pathValue":"xpath规则或者固定值"},...]
     private String fieldPropertyRegular;
+    // 请求方式 GET POST
+    private String requestMethod;
 
+    // 列表返回为json时，详情页入参数据获取
+    private String detailById;
 
     public String getWebName() {
         return webName;
@@ -202,5 +207,21 @@ public class WebCrawlerConfigIpe extends IdEntity {
 
     public void setFieldPropertyRegular(String fieldPropertyRegular) {
         this.fieldPropertyRegular = fieldPropertyRegular;
+    }
+
+    public String getRequestMethod() {
+        return requestMethod;
+    }
+
+    public void setRequestMethod(String requestMethod) {
+        this.requestMethod = requestMethod;
+    }
+
+    public String getDetailById() {
+        return detailById;
+    }
+
+    public void setDetailById(String detailById) {
+        this.detailById = detailById;
     }
 }
