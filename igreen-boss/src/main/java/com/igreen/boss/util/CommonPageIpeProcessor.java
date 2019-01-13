@@ -105,11 +105,6 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
 
 
-        String[] urls = detailUrl.split("@");
-        for(String url : urls){
-            page.addTargetRequests(page.getHtml().links().regex(url).all());
-        }
-
         String title = null;
         String[] detailTitles = config.getDetailTitleRegular().split("#");
         for(String detailTitle : detailTitles){
@@ -121,6 +116,10 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
         if(StringUtil.isBlank(title)){
             //skip this page
+            String[] urls = detailUrl.split("@");
+            for(String url : urls){
+                page.addTargetRequests(page.getHtml().links().regex(url).all());
+            }
             page.setSkip(true);
             return;
         }
