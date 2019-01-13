@@ -378,6 +378,9 @@ public class CommonPageIpeProcessor implements PageProcessor {
                         }
                     }
                 }
+            }else if("html".equals(config.getAttrType())){
+                String num = getElementByConfig(eles,config.getPageResult()).html();
+                pageParam = StringUtils.trimAllWhitespace(StringUtil.isBlank(num) ? "0" : num.replaceAll(" ", ""));
             }
 
             int total = 0;
