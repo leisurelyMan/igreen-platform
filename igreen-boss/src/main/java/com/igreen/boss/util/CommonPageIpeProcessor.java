@@ -228,7 +228,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
                             value = getElementByConfig(eles, value).text();
                         }
                     }
-                    if(!StringUtils.isEmpty(replaceReg)) value.replaceAll(replaceReg, "");
+                    if(!StringUtils.isEmpty(replaceReg)) value = value.replaceAll(replaceReg, "");
                     setValueField(result, value, field);
                 }
             }
