@@ -225,9 +225,16 @@ public class CommonPageIpeProcessor implements PageProcessor {
                             value = getElementByConfig(eles, value).attr(attractDom);
                         } else if ("text".equals(attractType)) {
                             value = getElementByConfig(eles, value).text();
+                        } else if("html".equals(attractType)) {
+                            value = getElementByConfig(eles, value).html();
                         }
                     }
-                    if(!StringUtils.isEmpty(replaceReg)) value = value.replaceAll(replaceReg, "");
+                    if(!StringUtils.isEmpty(replaceReg)) {
+                        value = value.replace("\n","")
+                                .replace(" ","")
+                                .replaceAll(replaceReg, "");
+                    }
+
                     setValueField(result, value, field);
                 }
             }
