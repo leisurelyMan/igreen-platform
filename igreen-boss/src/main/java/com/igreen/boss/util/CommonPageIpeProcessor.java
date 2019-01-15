@@ -223,7 +223,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     if (!StringUtil.isBlank(type) && "xpath".equals(type)) {
                         if (!StringUtil.isBlank(attractType) && "attr".equals(attractType)) {
                             value = getElementByConfig(eles, value).attr(attractDom);
-                        } else if ("text".equals(config.getAttrType())) {
+                        } else if ("text".equals(attractType)) {
                             value = getElementByConfig(eles, value).text();
                         }
                     }
