@@ -1,10 +1,14 @@
 
 jQuery(document).ready(function(){
+
+var selectedRecord = new Array();
+
 	//创建jqGrid组件
 	jQuery("#list").jqGrid({
 		url : '../crawlerIpeIndustry/pageList.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
+		multiselect: true,
 		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>年度</b>','<b>标题</b>','<b>url</b>','<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>县</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'webName',index:'webName', width:80,sortable:false},
@@ -32,7 +36,26 @@ jQuery(document).ready(function(){
 	    	page:'currentPage',
 	    	rows:'pageRows'
 	    },
-		caption : "爬虫结果"//表格的标题名字
+		caption : "爬虫结果",//表格的标题名字
+        onSelectAll : function(aSel,selected) {
+            if(selected){
+                selectedRecord = [];
+                for(var i=0;i<aSel.length;i++){
+                    var data = jQuery("#list2").jqGrid('getRowData',aSel[i]);
+                    selectedRecord.push(data.id);
+                }
+            }else{
+                selectedRecord = [];
+            }
+        },
+        onSelectRow : function(rowid, selected){
+            var data = jQuery("#list2").jqGrid('getRowData',rowid);
+            if(selected){
+                selectedRecord.push(data.id);
+            }else{
+                selectedRecord.remove(data.id);
+            }
+        }
 	});
 	
 	jQuery("#list").jqGrid('navGrid', '#pager', {edit : false,add : false,del : false});
@@ -58,26 +81,72 @@ jQuery(document).ready(function(){
 	});
 	
 	$("#search").click(function(){
-		var webName = $('#searchWebName').val();
-		var webDetailName = $('#searchWebDetailName').val();
-		var searchName = $('#searchName').val();
-		
-		$("#list").jqGrid("setGridParam",{postData:{webName:webName,webDetailName:webDetailName,searchName:searchName},page:1} );//设置查询参数
+		var webDomain = $('#searchWebDomain').val();
+		var webDetailUrl = $('#searchWebDetailUrl').val();
+		var companyName = $('#searchCompanyName').val();
+        var province = $('#searchProvince').val();
+        var city = $('#searchCity').val();
+        var district = $('#searchDistrict').val();
+        var punishType = $('#searchPunishType').val();
+
+		$("#list").jqGrid("setGridParam",{postData:{webDomain:webDomain,webDetailUrl:webDetailUrl,companyName:companyName,province:province,city:city,district:district,punishType:punishType},page:1} );//设置查询参数
 		$("#list").trigger("reloadGrid");
 	});
+
+    $("#affirm").click(function(){
+
+	    if(selectedRecord!=null&&selectedRecord.length>0){
+            $.ajax({
+                type:'post',//可选get
+                async:false,//同步
+                url:'../crawlerIpeIndustry/affirm.do',//这里是接收数据的URL
+                data:"recordIdList="+selectedRecord,
+                dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                success:function(msg){
+                    if(msg.code == 1){
+                        alert("数据确认成功");
+                        $("#list").trigger("reloadGrid");
+                        $("#dialog").dialog("close");
+                    }else{
+                        alert(msg.message);
+                        //验证插入后，刷新grid
+                    }
+                },
+                error:function(){//修理失败，未能连接
+                    alert("操作失败");
+                }
+            });
+        }else{
+            alert("操作失败");
+        }
+    });
+
+
 });
 
 function view(id){
 	$.ajax({
 		type:'post',//可选get
 		async:false,//同步
-		url:'../crawler/getWebCrawlerResultById.do',//这里是接收数据的URL
-		data:'resultId='+id,//传给后台的数据，多个参数用&连接
+		url:'../crawlerIpeIndustry/getOne.do',//这里是接收数据的URL
+		data:'recordId='+id,//传给后台的数据，多个参数用&连接
 		dataType:'text',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
 		success:function(msg){
 			var obj = eval("("+msg+")");
-			$('#content').html(obj.content);
-		    
+            $('#id').val(obj.id);
+            $('#webName').val(obj.webName);
+            $('#webDomain').val(obj.webDomain);
+            $('#year').val(obj.year);
+            $('#webDetailName').val(obj.webDetailName);
+            $('#webDetailUrl').val(obj.webDetailUrl);
+            $('#companyName').val(obj.companyName);
+            $('#province').val(obj.province);
+            $('#city').val(obj.city);
+            $('#district').val(obj.district);
+            $('#punishType').val(obj.punishType);
+            $('#punishTime').val(obj.punishTime);
+            $('#punishMoney').val(obj.punishMoney);
+
 			//打开对话表
 			$("#dialog").dialog("open");
 		},
@@ -89,7 +158,7 @@ function view(id){
 
 
 function getActions(cellvalue, options, rowObject){
-    return '<a href="javascript:view(\''+rowObject.id+'\')">查看</a>&nbsp;';
+    return '<a href="javascript:view(\''+rowObject.id+'\')">编辑</a>&nbsp;';
 }
 
 

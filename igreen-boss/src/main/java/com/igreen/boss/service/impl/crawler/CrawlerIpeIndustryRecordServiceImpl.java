@@ -4,9 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.igreen.boss.service.crawler.CrawlerIpeIndustryRecordService;
 import com.igreen.common.dao.CrawlerIpeIndustryRecordMapper;
+import com.igreen.common.dao.IpeIndustryRecordMapper;
+import com.igreen.common.enums.IpeIndustryRecordSourceEnum;
 import com.igreen.common.enums.PunishTypeEnum;
-import com.igreen.common.model.CrawlerIpeIndustryRecord;
-import com.igreen.common.model.CrawlerIpeIndustryRecordExample;
+import com.igreen.common.model.*;
 import com.igreen.common.util.ListRange;
 import com.igreen.common.util.ResponseModel;
 import com.igreen.common.util.StrUtil;
@@ -14,6 +15,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +24,9 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
 
     @Resource
     CrawlerIpeIndustryRecordMapper crawlerIpeIndustryRecordMapper;
+
+    @Resource
+    IpeIndustryRecordMapper ipeIndustryRecordMapper;
 
     @Override
     public ListRange pageList(CrawlerIpeIndustryRecord record, Integer currentPage, Integer pageRows) {
@@ -94,10 +99,46 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
         return result;
     }
 
+
     @Override
-    public ResponseModel importData(List<Row> rows, Integer id) {
+    public ResponseModel affirm(List<Integer> recordIdList, Integer userId) {
+        CrawlerIpeIndustryRecordExample example = new CrawlerIpeIndustryRecordExample();
+        CrawlerIpeIndustryRecordExample.Criteria criteria = example.createCriteria();
+        criteria.andIdIn(recordIdList);
+        criteria.andStateEqualTo(1);
+        if(crawlerIpeIndustryRecordMapper.countByExample(example) > 0){
+            new ResponseModel(-1, "包含已提交记录");
+        }
 
-        return null;
+        criteria.andStateEqualTo(0);
+        List<CrawlerIpeIndustryRecord> crawlerIpeIndustryRecordList =
+                crawlerIpeIndustryRecordMapper.selectByExample(example);
+        List<IpeIndustryRecord1> record1List = new ArrayList<IpeIndustryRecord1>();
+        for(CrawlerIpeIndustryRecord record:crawlerIpeIndustryRecordList){
+            IpeIndustryRecord1 record1 = new IpeIndustryRecord1();
+            org.springframework.beans.BeanUtils.copyProperties(record,record1);
+            record1.setCreatedTime(new Date());
+            record1.setCreater(userId);
+            record1.setSource(IpeIndustryRecordSourceEnum.EXCEL.getValue());
+            record1List.add(record1);
+
+        }
+
+        if(record1List.size() > 0){
+            if(record1List.size() > 100){
+                for(int i=1;i<= (record1List.size() % 100 == 0 ? record1List.size()/100:record1List.size()/100+1);i++){
+                    ipeIndustryRecordMapper.insertBatch(record1List.subList((i-1)*100,i*100>record1List.size()?record1List.size():i*100));
+                }
+            }else {
+                ipeIndustryRecordMapper.insertBatch(record1List);
+            }
+        }
+        int opnum = 0;
+        ResponseModel result = new ResponseModel(1, "SUCCESS");
+        if(opnum <= 0){
+            result.setCode(-1);
+            result.setMessage("删除失败");
+        }
+        return result;
     }
-
 }

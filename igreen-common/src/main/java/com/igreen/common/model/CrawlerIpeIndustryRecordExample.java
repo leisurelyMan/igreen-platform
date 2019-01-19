@@ -74,7 +74,7 @@ public class CrawlerIpeIndustryRecordExample {
     }
 
     /**
-     * crawler_ipe_industry_record 2019-01-10
+     * crawler_ipe_industry_record 2019-01-16
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1406,13 +1406,73 @@ public class CrawlerIpeIndustryRecordExample {
             addCriterion("updater not between", value1, value2, "updater");
             return (Criteria) this;
         }
+
+        public Criteria andStateIsNull() {
+            addCriterion("state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateIsNotNull() {
+            addCriterion("state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateEqualTo(Integer value) {
+            addCriterion("state =", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotEqualTo(Integer value) {
+            addCriterion("state <>", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateGreaterThan(Integer value) {
+            addCriterion("state >", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("state >=", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateLessThan(Integer value) {
+            addCriterion("state <", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateLessThanOrEqualTo(Integer value) {
+            addCriterion("state <=", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateIn(List<Integer> values) {
+            addCriterion("state in", values, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotIn(List<Integer> values) {
+            addCriterion("state not in", values, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateBetween(Integer value1, Integer value2) {
+            addCriterion("state between", value1, value2, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("state not between", value1, value2, "state");
+            return (Criteria) this;
+        }
     }
 
     /**
      * 描述:crawler_ipe_industry_record表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2019-01-10
+     * @创建时间: 2019-01-16
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -1422,7 +1482,7 @@ public class CrawlerIpeIndustryRecordExample {
     }
 
     /**
-     * crawler_ipe_industry_record 2019-01-10
+     * crawler_ipe_industry_record 2019-01-16
      */
     public static class Criterion {
         private String condition;

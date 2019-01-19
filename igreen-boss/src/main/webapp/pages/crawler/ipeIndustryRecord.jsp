@@ -29,10 +29,7 @@
 		</div>
 		<div class="tools">
 			<ul class="toolbar">
-				<li>网站名称：<input id="searchWebName" name="searchWebName" type="text" class="searchinput" /></li>
 				<li>网站域名：<input id="searchWebDomain" name="searchWebDomain" type="text" class="searchinput" /></li>
-				<li>年度：<input id="searchYear" name="searchYear" type="text" class="searchinput" /></li>
-				<li>页面title：<input id="searchWebDetailName" name="searchWebDetailName" type="text" class="searchinput" /></li>
 				<li>url：<input id="searchWebDetailUrl" name="searchWebDetailUrl" type="text" class="searchinput" /></li>
 				<li>公司名称：<input id="searchCompanyName" name="searchCompanyName" type="text" class="searchinput" /></li>
 				<li>省：<input id="searchProvince" name="searchProvince" type="text" class="searchinput" /></li>
@@ -52,7 +49,8 @@
 				    </select>
 				</li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
-				<%--<li class="click" id="add"><span><img src="../static/images/t01.png" /></span>添加</li>--%>
+				<li class="click" style="padding-right: 0px;" id="affirm"><input name="" type="button" class="btn" value="确认数据"/></li>
+
 			</ul>
 		</div>
 		<table id="list"></table>

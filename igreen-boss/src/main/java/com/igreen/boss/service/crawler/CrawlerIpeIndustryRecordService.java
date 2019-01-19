@@ -14,7 +14,7 @@ public interface CrawlerIpeIndustryRecordService {
 
     CrawlerIpeIndustryRecord getOne(Integer recordId);
 
-    ResponseModel saveOrUpdate(CrawlerIpeIndustryRecord record, Integer id);
+    ResponseModel saveOrUpdate(CrawlerIpeIndustryRecord record, Integer userId);
 
-    ResponseModel importData(List<Row> rows, Integer id);
+    ResponseModel affirm(List<Integer> recordIdList, Integer userId);
 }
