@@ -74,7 +74,7 @@ public class CrawlerIpeIndustryRecordExample {
     }
 
     /**
-     * crawler_ipe_industry_record 2019-01-16
+     * crawler_ipe_industry_record 2019-01-19
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1466,13 +1466,83 @@ public class CrawlerIpeIndustryRecordExample {
             addCriterion("state not between", value1, value2, "state");
             return (Criteria) this;
         }
+
+        public Criteria andErrorMsgIsNull() {
+            addCriterion("error_msg is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgIsNotNull() {
+            addCriterion("error_msg is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgEqualTo(String value) {
+            addCriterion("error_msg =", value, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgNotEqualTo(String value) {
+            addCriterion("error_msg <>", value, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgGreaterThan(String value) {
+            addCriterion("error_msg >", value, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgGreaterThanOrEqualTo(String value) {
+            addCriterion("error_msg >=", value, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgLessThan(String value) {
+            addCriterion("error_msg <", value, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgLessThanOrEqualTo(String value) {
+            addCriterion("error_msg <=", value, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgLike(String value) {
+            addCriterion("error_msg like", value, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgNotLike(String value) {
+            addCriterion("error_msg not like", value, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgIn(List<String> values) {
+            addCriterion("error_msg in", values, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgNotIn(List<String> values) {
+            addCriterion("error_msg not in", values, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgBetween(String value1, String value2) {
+            addCriterion("error_msg between", value1, value2, "errorMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andErrorMsgNotBetween(String value1, String value2) {
+            addCriterion("error_msg not between", value1, value2, "errorMsg");
+            return (Criteria) this;
+        }
     }
 
     /**
      * 描述:crawler_ipe_industry_record表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2019-01-16
+     * @创建时间: 2019-01-19
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -1482,7 +1552,7 @@ public class CrawlerIpeIndustryRecordExample {
     }
 
     /**
-     * crawler_ipe_industry_record 2019-01-16
+     * crawler_ipe_industry_record 2019-01-19
      */
     public static class Criterion {
         private String condition;

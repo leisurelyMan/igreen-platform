@@ -85,6 +85,7 @@
 						<option value="text">text</option>
 						<option value="href">href</option>
 						<option value="html">html</option>
+						<option value="value">value</option>
 					</select>
 					</li>
 					<li><label>获取分页数据对应的名称</label><input id="attrName" name="attrName" type="text" class="dfinput" placeholder="获取分页数据的名称"/></li>

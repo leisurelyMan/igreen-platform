@@ -139,3 +139,7 @@ ALTER TABLE `web_crawler_config_ipe`
   ADD COLUMN `request_method` VARCHAR(50) NULL DEFAULT 'GET' COMMENT '请求方式 GET POST',
   ADD COLUMN `detail_by_id` VARCHAR(50) NULL DEFAULT null COMMENT '列表返回为json时，详情页入参数据获取(列表页获取)',
   CHANGE  column  `field_property_regular` `field_property_regular`VARCHAR(1000) NULL DEFAULT null COMMENT '字段获取xpath配置格式[{field:"xx",type:''xpath'',"pathValue":"xpath规则",attrType:''text/attr'',attrDom:''attrType == attr时有效，值为attr的属性例如（href, id, name ,或者自定义的）''},{field:"xx",type:''value'',"pathValue":"固定值"},...]';
+
+
+ALTER TABLE `crawler_ipe_industry_record`
+  ADD COLUMN `error_msg` VARCHAR(500) NULL DEFAULT null COMMENT '爬虫失败信息';

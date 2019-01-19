@@ -6,7 +6,7 @@ import java.util.Date;
  * 描述:crawler_ipe_industry_record表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2019-01-16
+ * @创建时间: 2019-01-19
  */
 public class CrawlerIpeIndustryRecord {
     /**
@@ -108,6 +108,11 @@ public class CrawlerIpeIndustryRecord {
      * 状态 1已提交，0待提交
      */
     private Integer state;
+
+    /**
+     * 爬虫失败信息
+     */
+    private String errorMsg;
 
     /**
      * 
@@ -427,5 +432,21 @@ public class CrawlerIpeIndustryRecord {
      */
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    /**
+     * 爬虫失败信息
+     * @return error_msg 爬虫失败信息
+     */
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * 爬虫失败信息
+     * @param errorMsg 爬虫失败信息
+     */
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg == null ? null : errorMsg.trim();
     }
 }
