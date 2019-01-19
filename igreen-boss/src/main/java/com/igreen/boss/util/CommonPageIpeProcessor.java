@@ -29,7 +29,7 @@ import java.util.concurrent.*;
 
 public class CommonPageIpeProcessor implements PageProcessor {
 
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
+    private Site site = Site.me().setCharset("utf-8").setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
 
     private WebCrawlerConfigIpe config;
 
@@ -239,20 +239,20 @@ public class CommonPageIpeProcessor implements PageProcessor {
                         Elements elements = null;
                         if (!StringUtil.isBlank(attractType) && "attr".equals(attractType)) {
                             elements = getElementByConfig(eles, value);
-                            value = elements != null?  elements.get(0).attr(attractDom) : "";
+                            value = elements != null && elements.size() > 0?  elements.get(0).attr(attractDom) : "";
                         } else if ("text".equals(attractType)) {
                             elements = getElementByConfig(eles, value);
-                            value = elements != null?  elements.get(0).text() : "";
+                            value = elements != null && elements.size() > 0?  elements.get(0).text() : "";
                         } else if("html".equals(attractType)) {
                             elements = getElementByConfig(eles, value);
-                            value = elements != null?  elements.get(0).html() : "";
+                            value = elements != null && elements.size() > 0?  elements.get(0).html() : "";
                         }
                     }
                     if(!StringUtils.isEmpty(replaceReg)/* && !"punishTime".equals(field)*/) {
                         value = value.replace("\n","")
                                 .replace(" ","")
                                 .replaceAll(" ", "")
-                                .replaceAll(replaceReg, "");
+                                .replaceAll(replaceReg, "").replaceAll(" ","");
                     }/* else {
                         if("punishTime".equals(field)) {
                             value = value.replace("\n","")
@@ -495,9 +495,17 @@ public class CommonPageIpeProcessor implements PageProcessor {
     private Elements getElementByConfig(Elements eles, String pageResult){
         Elements element = null;
         if(pageResult.contains("@last")){
-            element = eles.get(0).select(pageResult.replace("@last", "")).last().getAllElements();
+            element = eles.get(0).select(pageResult.replace("@last", ""));
+            if(element != null && element.size() > 0) {
+                element = element.last().getAllElements();
+            }
+            /*element = eles.get(0).select(pageResult.replace("@last", "")).last().getAllElements();*/
         } else if(pageResult.contains("@first")){
-            element = eles.get(0).select(pageResult.replace("@first", "")).first().getAllElements();
+            element = eles.get(0).select(pageResult.replace("@first", ""));
+            if(element != null && element.size() > 0) {
+                element = element.first().getAllElements();
+            }
+            /*element = eles.get(0).select(pageResult.replace("@first", "")).first().getAllElements();*/
         }else {
             element = eles.get(0).select(pageResult);
         }

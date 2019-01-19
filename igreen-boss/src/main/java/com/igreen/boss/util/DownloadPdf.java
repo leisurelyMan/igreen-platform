@@ -96,6 +96,7 @@ public class DownloadPdf {
     public static void downloadAndSave(String source, String destination){
         try {
             URL url = new URL(source);
+            url.openConnection().addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");
             File file = new File(destination);
             FileUtils.copyURLToFile(url, file);
             System.out.println(source + "下载完成");
