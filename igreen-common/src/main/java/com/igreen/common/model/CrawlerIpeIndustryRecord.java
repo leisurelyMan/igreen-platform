@@ -103,6 +103,10 @@ public class CrawlerIpeIndustryRecord {
      * 更新者
      */
     private Integer updater;
+    /**
+     * 错误信息
+     */
+    private String errorMsg;
 
     /**
      * 
@@ -406,5 +410,13 @@ public class CrawlerIpeIndustryRecord {
      */
     public void setUpdater(Integer updater) {
         this.updater = updater;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 }

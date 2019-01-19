@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.*;
 
 public class CommonPageIpeProcessor implements PageProcessor {
 
@@ -108,13 +109,28 @@ public class CommonPageIpeProcessor implements PageProcessor {
         String title = null;
         String[] detailTitles = config.getDetailTitleRegular().split("#");
         for(String detailTitle : detailTitles){
-            title = page.getHtml().xpath(detailTitle).toString();
+            String reg = null;
+            String url = detailTitle;
+            if(detailTitle.contains("!!")) {
+                String[] regArr = detailTitle.split("!!");
+                url = regArr[0];
+                reg = regArr[1];
+            }
+            title = page.getHtml().xpath(url).toString();
             if(!StringUtil.isBlank(title)){
+                if(!StringUtils.isEmpty(reg)) {
+                    title = title.replace("\n","")
+                            .replace(" ","")
+                            .replaceAll(" ", "")
+                            .replaceAll(reg, "");
+                }
                 break;
             }
         }
 
-        if(StringUtil.isBlank(title)){
+        String strTemp = "\\$\\{page\\}";
+        boolean isDetail = page.getUrl().get().contains(config.getPageUrlRegular().split(strTemp)[0]);
+        if(/*StringUtil.isBlank(title) && */isDetail){
             //skip this page
             String[] urls = detailUrl.split("@");
             for(String url : urls){
@@ -126,6 +142,11 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
         try {
             String url = page.getUrl().toString();
+            result.setWebName(config.getWebName());
+            result.setWebDetailName(title);
+            result.setWebDomain(config.getWebDomain());
+            result.setWebDetailUrl(url);
+
             String name = url.substring(url.lastIndexOf("/")+1);
             String fileName = "";
             if(StringUtil.isBlank(name)){
@@ -186,20 +207,14 @@ public class CommonPageIpeProcessor implements PageProcessor {
             }
             fileOut(disk, fileName, content);
 
-        	result.setWebName(config.getWebName());
-            result.setWebDetailName(title);
-            result.setWebDomain(config.getWebDomain());
-            result.setWebDetailUrl(url);
             result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
             result.setSavePath(disk + fileName);
-           /* result.setSearchId(config.getSearchId());
-            result.setSearchName(config.getSearchName());
-            result.setArea(config.getArea());*/
             result.setCity(config.getCity());
-            /*result.setSourceType(config.getSourceType());*/
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){
         	e.printStackTrace();
+        	result.setErrorMsg(e.getMessage());
+            resultService.addOrEditResult(result, 0);
         }
     }
 
@@ -221,19 +236,30 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     String attractDom = fieldModel.getAttrDom();
                     String replaceReg = fieldModel.getReplaceReg();
                     if (!StringUtil.isBlank(type) && "xpath".equals(type)) {
+                        Elements elements = null;
                         if (!StringUtil.isBlank(attractType) && "attr".equals(attractType)) {
-                            value = getElementByConfig(eles, value).attr(attractDom);
+                            elements = getElementByConfig(eles, value);
+                            value = elements != null?  elements.get(0).attr(attractDom) : "";
                         } else if ("text".equals(attractType)) {
-                            value = getElementByConfig(eles, value).text();
+                            elements = getElementByConfig(eles, value);
+                            value = elements != null?  elements.get(0).text() : "";
                         } else if("html".equals(attractType)) {
-                            value = getElementByConfig(eles, value).html();
+                            elements = getElementByConfig(eles, value);
+                            value = elements != null?  elements.get(0).html() : "";
                         }
                     }
-                    if(!StringUtils.isEmpty(replaceReg)) {
+                    if(!StringUtils.isEmpty(replaceReg)/* && !"punishTime".equals(field)*/) {
                         value = value.replace("\n","")
                                 .replace(" ","")
+                                .replaceAll(" ", "")
                                 .replaceAll(replaceReg, "");
-                    }
+                    }/* else {
+                        if("punishTime".equals(field)) {
+                            value = value.replace("\n","")
+                                    .replaceAll(replaceReg, "").trim();
+                        }
+
+                    }*/
 
                     setValueField(result, value, field);
                 }
@@ -362,7 +388,9 @@ public class CommonPageIpeProcessor implements PageProcessor {
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         Html html = httpClientDownloader.download(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
         Elements eles =  html.getDocument().getAllElements();
-        //System.out.println(html);
+
+        crawerThread(config.getWebSearchUrl().replace("${page}", config.getStartPage().toString()));
+
         if(!eles.isEmpty()){
             String pageParam = "0";
             if("attr".equals(config.getAttrType())){
@@ -388,6 +416,8 @@ public class CommonPageIpeProcessor implements PageProcessor {
             }else if("html".equals(config.getAttrType())){
                 String num = getElementByConfig(eles,config.getPageResult()).html();
                 pageParam = StringUtils.trimAllWhitespace(StringUtil.isBlank(num) ? "0" : num.replaceAll(" ", ""));
+            } else if("value".equals(config.getAttrType())){
+                pageParam = StringUtils.isEmpty(config.getMaxPage()) ?  "0": config.getMaxPage().toString();
             }
 
             int total = 0;
@@ -414,6 +444,25 @@ public class CommonPageIpeProcessor implements PageProcessor {
                 spider.run();
             }
         }
+    }
+
+    /**
+     * 开启第一页爬取
+     * @param url
+     */
+    private void crawerThread(String url) {
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        CompletionService<String> completionService = new ExecutorCompletionService<String>(executorService);
+        Callable<String> call = new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                Spider spider = Spider.create(new CommonPageIpeProcessor(config, resultService, pageNumber));
+                spider.addUrl(url);
+                spider.run();
+                return "success";
+            }
+        };
+        completionService.submit(call);
     }
 
     /**
@@ -447,7 +496,9 @@ public class CommonPageIpeProcessor implements PageProcessor {
         Elements element = null;
         if(pageResult.contains("@last")){
             element = eles.get(0).select(pageResult.replace("@last", "")).last().getAllElements();
-        } else {
+        } else if(pageResult.contains("@first")){
+            element = eles.get(0).select(pageResult.replace("@first", "")).first().getAllElements();
+        }else {
             element = eles.get(0).select(pageResult);
         }
         return element;
