@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.CrawlerIpeIndustryRecordManualMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.CrawlerIpeIndustryRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="web_name" property="webName" jdbcType="VARCHAR" />
+    <result column="web_domain" property="webDomain" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="web_detail_name" property="webDetailName" jdbcType="VARCHAR" />
+    <result column="web_detail_url" property="webDetailUrl" jdbcType="VARCHAR" />
+    <result column="web_detail_result_url" property="webDetailResultUrl" jdbcType="VARCHAR" />
+    <result column="save_path" property="savePath" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="punish_type" property="punishType" jdbcType="VARCHAR" />
+    <result column="punish_time" property="punishTime" jdbcType="VARCHAR" />
+    <result column="punish_money" property="punishMoney" jdbcType="VARCHAR" />
+    <result column="punish_no" property="punishNo" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="error_msg" property="errorMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, web_name, web_domain, year, web_detail_name, web_detail_url, web_detail_result_url, 
+    save_path, company_name, province, city, district, punish_type, punish_time, punish_money, 
+    punish_no, update_time, creater, updater, state, error_msg
+  </sql>
+
+  <select id="countCrawlerResult" resultType="java.lang.Integer" parameterType="map">
+    select count(1)
+    from crawler_ipe_industry_record
+    where 1 = 1
+    <if test="webName != null" >
+      and web_name = #{webName,jdbcType=VARCHAR}
+    </if>
+    <if test="webDetailName != null" >
+      and web_detail_name like CONCAT('%',#{webDetailName},'%')
+    </if>
+    <if test="webDetailUrl != null" >
+      and web_domain = #{webDomain,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="pageCrawlerResult" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from crawler_ipe_industry_record
+    where 1 = 1
+    <if test="webName != null" >
+      and web_name = #{webName,jdbcType=VARCHAR}
+    </if>
+    <if test="webDetailName != null" >
+      and web_detail_name like CONCAT('%',#{webDetailName},'%')
+    </if>
+    <if test="webDetailUrl != null" >
+      and web_domain = #{webDomain,jdbcType=VARCHAR}
+    </if>
+    order by create_time desc limit #{startRow},#{pageRows}
+  </select>
+
+  <select id="findByDetailUrl" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from crawler_ipe_industry_record
+    where web_detail_url = #{webDetailUrl,jdbcType=VARCHAR}
+  </select>
+
+
+  <update id="commitRecord" parameterType="java.util.List">
+    update crawler_ipe_industry_record set state = 1
+    where id in
+    <foreach collection="list" item="listItem" open="(" close=")" separator="," >
+    #{listItem}
+  </foreach>
+  </update>
+</mapper>

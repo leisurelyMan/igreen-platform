@@ -7,6 +7,7 @@ import com.igreen.common.util.ListRange;
 import com.igreen.common.util.ResponseModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -70,7 +72,7 @@ public class CrawlerIpeIndustryRecordController extends BaseController {
      * @param response
      * @return
      */
-    @RequestMapping(value="addHotWord", method = { RequestMethod.POST})
+    @RequestMapping(value="saveOrUpdate", method = { RequestMethod.POST})
     public @ResponseBody ResponseModel saveOrUpdate(CrawlerIpeIndustryRecord record, HttpServletRequest request, HttpServletResponse response){
         return crawlerIpeIndustryRecordService.saveOrUpdate(record,this.getUser(request, response).getId());
     }
@@ -82,7 +84,12 @@ public class CrawlerIpeIndustryRecordController extends BaseController {
      * @return
      */
     @RequestMapping(value="affirm", method = { RequestMethod.POST,RequestMethod.GET})
-    public @ResponseBody ResponseModel affirm(List<Integer> recordIdList, HttpServletRequest request, HttpServletResponse response){
+    public @ResponseBody ResponseModel affirm(String recordIds, HttpServletRequest request, HttpServletResponse response){
+        List<Integer> recordIdList = new ArrayList<Integer>();
+        for(String recordId : recordIds.split(",")){
+            if(!StringUtils.isEmpty(recordId))
+                recordIdList.add(Integer.parseInt(recordId));
+        }
         return crawlerIpeIndustryRecordService.affirm(recordIdList,this.getUser(request, response).getId());
     }
 

@@ -9,7 +9,7 @@ var selectedRecord = new Array();
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
 		multiselect: true,
-		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>年度</b>','<b>标题</b>','<b>url</b>','<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>县</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额</b>','<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>年度</b>','<b>标题</b>','<b>url</b>','<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>县</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额</b>','<b>操作</b>','' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'webName',index:'webName', width:80,sortable:false},
 		 		    {name:'webDomain',index:'webDomain', width:80,sortable:false},
@@ -23,7 +23,8 @@ var selectedRecord = new Array();
                     {name:'punishType',index:'punishType', width:80,sortable:false},
                     {name:'punishTime',index:'punishTime', width:80,sortable:false},
                     {name:'punishMoney',index:'punishMoney', width:80,sortable:false},
-					{name:'id',index:'id', width:130,formatter:getActions,sortable:false,resizable:false,align:'center'}
+					{name:'id',index:'id2', width:130,formatter:getActions,sortable:false,resizable:false,align:'center'},
+					{name:'id',index:'id', width:100,sortable:false,hidden:true}
 		           ],
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
@@ -41,7 +42,7 @@ var selectedRecord = new Array();
             if(selected){
                 selectedRecord = [];
                 for(var i=0;i<aSel.length;i++){
-                    var data = jQuery("#list2").jqGrid('getRowData',aSel[i]);
+                    var data = jQuery("#list").jqGrid('getRowData',aSel[i]);
                     selectedRecord.push(data.id);
                 }
             }else{
@@ -49,7 +50,7 @@ var selectedRecord = new Array();
             }
         },
         onSelectRow : function(rowid, selected){
-            var data = jQuery("#list2").jqGrid('getRowData',rowid);
+            var data = jQuery("#list").jqGrid('getRowData',rowid);
             if(selected){
                 selectedRecord.push(data.id);
             }else{
@@ -71,6 +72,32 @@ var selectedRecord = new Array();
 		width: 800,
 		height: 820,
 		buttons:[//定义两个button按钮
+		    {
+                text:"确定",
+                id:'btn_ok',
+                click:function(){
+                    $.ajax({
+                        type:'post',//可选get
+                        async:false,//同步
+                        url:'../crawlerIpeIndustry/saveOrUpdate.do',//这里是接收数据的URL
+                        data:$('#dialogform').serialize(),//传给后台的数据，多个参数用&连接
+                        dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                        success:function(msg){
+                            if(msg.code == -1){
+                                alert(msg.message);
+                                //验证插入后，刷新grid
+                            }else{
+                                alert("保存成功");
+                                $("#list").trigger("reloadGrid");
+                                $("#dialog").dialog("close");
+                            }
+                        },
+                        error:function(){//修理失败，未能连接
+                            alert("保存失败");
+                        }
+                    });
+                }
+        	},
 		    {
 		    	text:"取消",
 		    	click:function(){
@@ -96,11 +123,15 @@ var selectedRecord = new Array();
     $("#affirm").click(function(){
 
 	    if(selectedRecord!=null&&selectedRecord.length>0){
+	        var recordIds="";
+            for(var i=0;i<selectedRecord.length;i++){
+                recordIds+=selectedRecord[i]+",";
+            }
             $.ajax({
                 type:'post',//可选get
                 async:false,//同步
                 url:'../crawlerIpeIndustry/affirm.do',//这里是接收数据的URL
-                data:"recordIdList="+selectedRecord,
+                data:"recordIds="+recordIds,
                 dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
                 success:function(msg){
                     if(msg.code == 1){
