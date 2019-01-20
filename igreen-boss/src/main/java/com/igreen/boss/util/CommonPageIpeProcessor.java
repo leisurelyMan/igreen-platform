@@ -75,7 +75,11 @@ public class CommonPageIpeProcessor implements PageProcessor {
         if(!StringUtils.isEmpty(pageReqMethod) && ("2".equals(pageReqMethod) || "3".equals(pageReqMethod))) {
 
             // 列表页数据
-            if (!page.getUrl().get().contains(detailUrl)) {
+            String strTemp = "\\$\\{page\\}";
+            String searchUrl = config.getWebSearchUrl();
+            String pageUrl = config.getPageUrlRegular();
+            boolean isPageUrl = page.getUrl().get().contains(pageUrl.split(strTemp)[0]) || page.getUrl().get().contains(searchUrl.split(strTemp)[0]);
+            if (isPageUrl) {
                 List<String> ids = new JsonPathSelector(config.getDetailById()).selectList(page.getRawText());
                 if (org.apache.commons.collections.CollectionUtils.isNotEmpty(ids)) {
                     for (String id : ids) {
