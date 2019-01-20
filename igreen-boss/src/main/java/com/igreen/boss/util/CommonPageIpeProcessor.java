@@ -22,7 +22,9 @@ import us.codecraft.webmagic.utils.HttpConstant;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.*;
@@ -41,6 +43,9 @@ public class CommonPageIpeProcessor implements PageProcessor {
     private  static final String VISIT_PATH = "http://img.igreenbank.cn/html/";
 
     private  static final String IMAGE_VISIT_PATH = "http://img.igreenbank.cn/";
+    // 需要下载的附件类型
+    private static final String[] fileSuffixs = new String[]{".doc",".docx",".pdf",".jpg",".xls",".xlsx",".zip",".rar",".DOC",".DOCX",".PDF",".JPG",".XLS",".XLSX"};
+    private static final List<String> fileList =  Arrays.asList(fileSuffixs);
 
     private int pageNumber;
 
@@ -205,6 +210,8 @@ public class CommonPageIpeProcessor implements PageProcessor {
                 }
 
             }
+            // 下载内容中的附件
+            content = crawlerFiles(selectQue, eles, url, content);
             fileOut(disk, fileName, content);
 
             result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
@@ -216,6 +223,71 @@ public class CommonPageIpeProcessor implements PageProcessor {
         	result.setErrorMsg(e.getMessage());
             resultService.addOrEditResult(result, 0);
         }
+    }
+
+    /**
+     * 下载内容中的附件
+     * @param selectQue
+     * @param eles
+     * @param url
+     * @param content
+     * @return
+     */
+    private String crawlerFiles(String selectQue, Elements eles, String url, String content) {
+
+        try {
+            Elements files = eles.get(0).select(selectQue + "a");
+            if(files != null && files.size() > 0){
+                for(Element file : files){
+                    String sourcePath = "";
+                    String source = "";
+                    String href = file.attr("href");
+
+                    String suffix = getFileSuffix(href);
+                    if(StringUtils.isEmpty(suffix)) {
+                        return content;
+                    }
+
+                    if(!href.contains("http://") && !href.contains("http://")){
+                        if(href.contains("./")){ // 附件在当前目录
+                            sourcePath = url.substring(0, url.lastIndexOf("/")) + "/";
+                        } else {
+                            String temp = url.replaceAll("http://", "").replaceAll("http://", "");
+                            sourcePath = "http://" + (temp.contains("/") ? temp.substring(0, temp.indexOf("/")) : temp) + "/";
+                        }
+                        source =sourcePath + href;
+                    } else {
+                        source = href;
+                    }
+
+                    String imageFile = (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain()) + "/" + suffix.replaceAll(".", "").toLowerCase()+ "/"+ href.substring(href.lastIndexOf("//") + 1);
+                    String diskPath = DISK_PATH + imageFile;
+                    DownloadPdf.downloadAndSave(source, diskPath);
+                    content = content.replace(href, IMAGE_VISIT_PATH + imageFile);
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return content;
+    }
+
+    /**
+     * 是否存在附件
+     * @return
+     */
+    private String getFileSuffix(String href) {
+        String suffix = null;
+        for (String fileStr : fileList) {
+            if(href.contains(fileStr)) {
+                suffix = fileStr;
+                break;
+            }
+        }
+
+        return suffix;
     }
 
     /**
