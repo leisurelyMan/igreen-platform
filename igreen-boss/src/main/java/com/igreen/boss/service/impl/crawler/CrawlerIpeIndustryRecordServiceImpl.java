@@ -3,6 +3,7 @@ package com.igreen.boss.service.impl.crawler;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.igreen.boss.service.crawler.CrawlerIpeIndustryRecordService;
+import com.igreen.common.dao.CrawlerIpeIndustryRecordManualMapper;
 import com.igreen.common.dao.CrawlerIpeIndustryRecordMapper;
 import com.igreen.common.dao.IpeIndustryRecordMapper;
 import com.igreen.common.enums.IpeIndustryRecordSourceEnum;
@@ -27,6 +28,9 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
 
     @Resource
     IpeIndustryRecordMapper ipeIndustryRecordMapper;
+
+    @Resource
+    CrawlerIpeIndustryRecordManualMapper industryRecordManualMapper;
 
     @Override
     public ListRange pageList(CrawlerIpeIndustryRecord record, Integer currentPage, Integer pageRows) {
@@ -133,7 +137,7 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
                 ipeIndustryRecordMapper.insertBatch(record1List);
             }
         }
-        int opnum = 0;
+        int opnum = industryRecordManualMapper.commitRecord(recordIdList);
         ResponseModel result = new ResponseModel(1, "SUCCESS");
         if(opnum <= 0){
             result.setCode(-1);

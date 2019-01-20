@@ -2,6 +2,7 @@ package com.igreen.boss.service.impl.crawler;
 
 import com.igreen.boss.service.crawler.CrawlerResultIpeService;
 import com.igreen.boss.util.FileUtil;
+import com.igreen.common.dao.CrawlerIpeIndustryRecordManualMapper;
 import com.igreen.common.dao.CrawlerIpeIndustryRecordMapper;
 import com.igreen.common.dao.CrawlerResultIpeMapper;
 import com.igreen.common.dao.CrawlerResultMapper;
@@ -26,6 +27,10 @@ public class CrawlerResultIpeServiceImpl implements CrawlerResultIpeService {
 	
 	@Resource
     private CrawlerIpeIndustryRecordMapper resultMapper;
+
+
+	@Resource
+	CrawlerIpeIndustryRecordManualMapper industryRecordManualMapper;
 	
 	@Override
 	public ListRange resultList(CrawlerIpeIndustryRecord webResult, Integer currentPage, Integer pageRows) {
@@ -39,7 +44,7 @@ public class CrawlerResultIpeServiceImpl implements CrawlerResultIpeService {
 
 		params.put("startRow", (currentPage-1)*pageRows);
 		params.put("pageRows", pageRows);
-		ListRange result = new ListRange(resultMapper.pageCrawlerResult(params), resultMapper.countCrawlerResult(params), currentPage, pageRows);
+		ListRange result = new ListRange(industryRecordManualMapper.pageCrawlerResult(params), industryRecordManualMapper.countCrawlerResult(params), currentPage, pageRows);
 		return result;
 	}
 
@@ -48,7 +53,7 @@ public class CrawlerResultIpeServiceImpl implements CrawlerResultIpeService {
 	public ResponseModel addOrEditResult(CrawlerIpeIndustryRecord webResult, Integer userId){
 		try {
 
-			CrawlerIpeIndustryRecord config = resultMapper.findByDetailUrl(webResult.getWebDetailUrl());
+			CrawlerIpeIndustryRecord config = industryRecordManualMapper.findByDetailUrl(webResult.getWebDetailUrl());
 			if(config != null && webResult.getId() != config.getId())
 				return new ResponseModel(-1, "该网站已经配置，无需重复配置");
 			
