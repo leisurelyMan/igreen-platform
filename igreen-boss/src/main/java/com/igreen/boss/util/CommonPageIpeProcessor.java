@@ -129,7 +129,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
         }
 
         String strTemp = "\\$\\{page\\}";
-        boolean isDetail = page.getUrl().get().contains(config.getPageUrlRegular().split(strTemp)[0]);
+        boolean isDetail = page.getUrl().get().contains(config.getPageUrlRegular().split(strTemp)[0]) || page.getUrl().get().contains(config.getWebSearchUrl().split(strTemp)[0]);
         if(/*StringUtil.isBlank(title) && */isDetail){
             //skip this page
             String[] urls = detailUrl.split("@");
