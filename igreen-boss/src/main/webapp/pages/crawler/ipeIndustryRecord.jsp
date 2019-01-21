@@ -35,9 +35,16 @@
 				<li>省：<input id="searchProvince" name="searchProvince" type="text" class="searchinput" /></li>
 				<li>市：<input id="searchCity" name="searchCity" type="text" class="searchinput" /></li>
 				<li>县：<input id="searchDistrict" name="searchDistrict" type="text" class="searchinput" /></li>
+				<li>状态：
+                    <select id="searchState" name="searchState" >
+                        <option value="">全部</option>
+                        <option value="1">已提交</option>
+                        <option value="0">未提交</option>
+                    </select>
+                </li>
 				<li>处罚类型：
 				    <select id="searchPunishType" name="searchPunishType" >
-                        <option>全部</option>
+                        <option value="">全部</option>
                         <option value="-1">空</option>
                         <option value="1">罚款</option>
                         <option value="2">暂扣、吊销许可证</option>

@@ -66,6 +66,9 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
         //县
         if (!StrUtil.isNull(record.getDistrict()))
             criteria.andDistrictLike("%"+record.getDistrict()+"%");
+        //状态
+        if (record.getState() != null)
+            criteria.andStateEqualTo(record.getState());
         //处罚类型
         if (!StrUtil.isNull(record.getPunishType())){
             if(record.getPunishType().equals(PunishTypeEnum.IS_NULL.getValue()))

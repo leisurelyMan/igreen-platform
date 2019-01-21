@@ -125,7 +125,6 @@ public class ExcelIpeIndustryRecordController extends BaseController {
         if(file.isEmpty()){
             return new ResponseModel(-1,"文件不存在！");
         }
-
         return excelIpeIndustryRecordService.importData(file,this.getUser(request, response).getId());
     }
 }

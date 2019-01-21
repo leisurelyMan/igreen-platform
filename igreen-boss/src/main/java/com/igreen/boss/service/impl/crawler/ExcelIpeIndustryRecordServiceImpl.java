@@ -16,12 +16,14 @@ import com.igreen.common.model.ExcelIpeIndustryRecord;
 import com.igreen.common.model.ExcelIpeIndustryRecordExample;
 import com.igreen.common.model.IpeIndustryRecord1;
 import com.igreen.common.util.ListRange;
+import com.igreen.common.util.RegularizationUtil;
 import com.igreen.common.util.ResponseModel;
 import com.igreen.common.util.StrUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -202,7 +204,9 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
                 ExcelIpeIndustryRecord record = new ExcelIpeIndustryRecord();
                 for (String fieldName : excelHeadMap.keySet()){
                     try {
-                        BeanUtils.setProperty(record,fieldName,ExcelUtil.getCellValue(row.getCell(excelHeadMap.get(fieldName).getCellNum())));
+                        String fieldValue = ExcelUtil.getCellValue(row.getCell(excelHeadMap.get(fieldName).getCellNum()));
+                        if(!StringUtils.isEmpty(fieldValue) && RegularizationUtil.rularization(excelHeadMap.get(fieldName).getRegular(),fieldValue))
+                            BeanUtils.setProperty(record,fieldName,fieldValue);
                     } catch (Exception e) {
                         e.printStackTrace();
                         return new ResponseModel(-1,"读取Excel文件失败",JSON.toJSONString(row));
