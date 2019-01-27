@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.igreen.common.dao.IpeAiResultMapper" >
+  <resultMap id="BaseResultMap" type="com.igreen.common.model.IpeAiResult" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
+    <result column="ipe_record_id" property="ipeRecordId" jdbcType="INTEGER" />
+    <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="industry_time" property="industryTime" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="key_words" property="keyWords" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="creater" property="creater" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, regist_item_id, ipe_record_id, file_url, industry_time, company_name, key_words, 
+    region, state, creater, created_time, updater, updated_time
+  </sql>
+
+
+  <insert id="insert" parameterType="com.igreen.common.model.IpeAiResult" useGeneratedKeys="true" keyProperty="id" >
+    insert into ipe_ai_result (regist_item_id, ipe_record_id, file_url, 
+      industry_time, company_name, key_words, 
+      region, state, creater, 
+      created_time, updater, updated_time
+      )
+    values (#{registItemId,jdbcType=INTEGER}, #{ipeRecordId,jdbcType=INTEGER}, #{fileUrl,jdbcType=VARCHAR}, 
+      #{industryTime,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{keyWords,jdbcType=VARCHAR}, 
+      #{region,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+    insert into ipe_ai_result (regist_item_id, ipe_record_id, file_url,
+    industry_time, company_name, key_words,
+    region, state,
+    created_time, updated_time
+    )
+    values
+    <foreach collection="list" item="record" separator=",">
+      (
+      #{record.registItemId,jdbcType=INTEGER},
+      #{record.ipeRecordId,jdbcType=INTEGER},
+      #{record.fileUrl,jdbcType=VARCHAR},
+      #{record.industryTime,jdbcType=VARCHAR},
+      #{record.companyName,jdbcType=VARCHAR},
+      #{record.keyWords,jdbcType=VARCHAR},
+      #{record.region,jdbcType=VARCHAR},
+      #{record.state,jdbcType=INTEGER},
+      #{record.createdTime,jdbcType=TIMESTAMP},
+      #{record.updatedTime,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+
+
+</mapper>

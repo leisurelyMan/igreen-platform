@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.igreen.boss.service.crawler.CrawlerIpeIndustryRecordService;
 import com.igreen.common.dao.CrawlerIpeIndustryRecordManualMapper;
 import com.igreen.common.dao.CrawlerIpeIndustryRecordMapper;
+import com.igreen.common.dao.IpeAiResultManualMapper;
 import com.igreen.common.dao.IpeIndustryRecordMapper;
 import com.igreen.common.enums.IpeIndustryRecordSourceEnum;
 import com.igreen.common.enums.PunishTypeEnum;
@@ -31,6 +32,9 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
 
     @Resource
     CrawlerIpeIndustryRecordManualMapper industryRecordManualMapper;
+
+    @Resource
+    IpeAiResultManualMapper ipeAiResultManualMapper;
 
     @Override
     public ListRange pageList(CrawlerIpeIndustryRecord record, Integer currentPage, Integer pageRows) {
@@ -121,6 +125,8 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
         List<CrawlerIpeIndustryRecord> crawlerIpeIndustryRecordList =
                 crawlerIpeIndustryRecordMapper.selectByExample(example);
         List<IpeIndustryRecord1> record1List = new ArrayList<IpeIndustryRecord1>();
+        List<IpeAiResult> aiResultList = new ArrayList<IpeAiResult>();
+
         for(CrawlerIpeIndustryRecord record:crawlerIpeIndustryRecordList){
             IpeIndustryRecord1 record1 = new IpeIndustryRecord1();
             org.springframework.beans.BeanUtils.copyProperties(record,record1);
@@ -128,6 +134,9 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
             record1.setCreater(userId);
             record1.setSource(IpeIndustryRecordSourceEnum.EXCEL.getValue());
             record1List.add(record1);
+
+            IpeAiResult aiResult = new IpeAiResult();
+
 
         }
 
