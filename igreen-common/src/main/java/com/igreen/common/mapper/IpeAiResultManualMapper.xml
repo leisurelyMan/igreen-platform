@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.igreen.common.dao.IpeAiResultMapper" >
+<mapper namespace="com.igreen.common.dao.IpeAiResultManualMapper" >
   <resultMap id="BaseResultMap" type="com.igreen.common.model.IpeAiResult" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="regist_item_id" property="registItemId" jdbcType="INTEGER" />
@@ -79,19 +79,6 @@
     region, state, creater, created_time, updater, updated_time
   </sql>
 
-
-  <insert id="insert" parameterType="com.igreen.common.model.IpeAiResult" useGeneratedKeys="true" keyProperty="id" >
-    insert into ipe_ai_result (regist_item_id, ipe_record_id, file_url, 
-      industry_time, company_name, key_words, 
-      region, state, creater, 
-      created_time, updater, updated_time
-      )
-    values (#{registItemId,jdbcType=INTEGER}, #{ipeRecordId,jdbcType=INTEGER}, #{fileUrl,jdbcType=VARCHAR}, 
-      #{industryTime,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{keyWords,jdbcType=VARCHAR}, 
-      #{region,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{creater,jdbcType=INTEGER}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=INTEGER}, #{updatedTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
 
   <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
     insert into ipe_ai_result (regist_item_id, ipe_record_id, file_url,
