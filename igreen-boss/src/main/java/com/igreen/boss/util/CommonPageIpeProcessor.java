@@ -31,7 +31,8 @@ import java.util.concurrent.*;
 
 public class CommonPageIpeProcessor implements PageProcessor {
 
-    private Site site = Site.me().setCharset("utf-8").setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
+    //private Site site = Site.me().setCharset("utf-8").setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
 
     private WebCrawlerConfigIpe config;
 
