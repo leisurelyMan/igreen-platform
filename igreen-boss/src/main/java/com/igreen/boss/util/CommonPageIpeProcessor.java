@@ -106,7 +106,8 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     result.setWebDetailUrl(page.getUrl().toString());
                     result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
                     result.setSavePath(disk + fileName);
-                    result.setCity(config.getCity());
+                    result.setState(0);
+                    //result.setCity(config.getCity());
                     resultService.addOrEditResult(result, 0);
                     return;
                 }
@@ -220,7 +221,8 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
             result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
             result.setSavePath(disk + fileName);
-            result.setCity(config.getCity());
+            result.setState(0);
+            //result.setCity(config.getCity());
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){
         	e.printStackTrace();
