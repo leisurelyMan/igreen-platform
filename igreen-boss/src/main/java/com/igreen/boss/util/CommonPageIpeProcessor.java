@@ -38,16 +38,6 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
     private CrawlerResultIpeService resultService;
 
-    // 保存地址
-    private static final String DISK_PATH = "/data/files/";
-    // 访问地址http
-    private  static final String VISIT_PATH = "http://img.igreenbank.cn/html/";
-
-    private  static final String IMAGE_VISIT_PATH = "http://img.igreenbank.cn/";
-    // 需要下载的附件类型
-    private static final String[] fileSuffixs = new String[]{".doc",".docx",".pdf",".jpg",".xls",".xlsx",".zip",".rar",".DOC",".DOCX",".PDF",".JPG",".XLS",".XLSX"};
-    private static final List<String> fileList =  Arrays.asList(fileSuffixs);
-
     private int pageNumber;
 
     public CommonPageIpeProcessor(WebCrawlerConfigIpe config, CrawlerResultIpeService resultService, int pageNumber){
@@ -68,7 +58,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
     @Override
     public void process(Page page) {
 
-        String disk = DISK_PATH + config.getWebDomain() + "/";
+        String disk = HtmlDownload.DISK_PATH + config.getWebDomain() + "/";
         CrawlerIpeIndustryRecord result = new CrawlerIpeIndustryRecord();
         String detailUrl = config.getDetailUrlRegular();
         String pageReqMethod= config.getPageReqMethod();
@@ -97,7 +87,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
                 // 详情也是json
                 if("3".equals(pageReqMethod)) {
                     String fileName = UUID.randomUUID().toString() + ".json";
-                    fileOut(disk, fileName, page.getRawText());
+                    HtmlDownload.fileOut(disk, fileName, page.getRawText());
 
                     makeRecordByFieldRegByJson(result, page.getRawText(),config.getFieldPropertyRegular());
 
@@ -105,7 +95,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     result.setWebDetailName(new JsonPathSelector(config.getDetailTitleRegular()).select(page.getRawText()));
                     result.setWebDomain(config.getWebDomain());
                     result.setWebDetailUrl(page.getUrl().toString());
-                    result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
+                    result.setWebDetailResultUrl(HtmlDownload.VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
                     result.setSavePath(disk + fileName);
                     result.setState(0);
                     //result.setCity(config.getCity());
@@ -158,18 +148,8 @@ public class CommonPageIpeProcessor implements PageProcessor {
             result.setWebDomain(config.getWebDomain());
             result.setWebDetailUrl(url);
 
-            String name = url.substring(url.lastIndexOf("/")+1);
-            String fileName = "";
-            if(StringUtil.isBlank(name)){
-                fileName = UUID.randomUUID() + ".html";
-            }else if(name.contains(".")){
-                fileName = name.substring(0, name.indexOf(".")) + ".html";
-            } else if(fileName.contains("=")){
-                fileName = name.substring(name.indexOf("=")) + ".html";
-            } else {
-                fileName = name.length() > 30 ? UUID.randomUUID().toString() : name + ".html";
-            }
-
+            //String name = url.substring(url.lastIndexOf("/")+1);
+            String fileName = HtmlDownload.getFileName(url);
 
             String content = null;
             String selectQue = "";
@@ -209,18 +189,18 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     }
 
                     String imageFile = (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain()) + "/img/"+ src.substring(src.lastIndexOf("//") + 1);
-                    String diskPath = DISK_PATH + imageFile;
+                    String diskPath = HtmlDownload.DISK_PATH + imageFile;
                     DownloadPdf.downloadAndSave(source, diskPath);
                     /*result.setAttachmentPath(diskPath);*/
-                    content = content.replace(src, IMAGE_VISIT_PATH + imageFile);
+                    content = content.replace(src, HtmlDownload.IMAGE_VISIT_PATH + imageFile);
                 }
 
             }
             // 下载内容中的附件
             content = crawlerFiles(selectQue, eles, url, content);
-            fileOut(disk, fileName, content);
+            HtmlDownload.fileOut(disk, fileName, content);
 
-            result.setWebDetailResultUrl(VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
+            result.setWebDetailResultUrl(HtmlDownload.VISIT_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain())  + "/" + fileName);
             result.setSavePath(disk + fileName);
             result.setState(0);
             //result.setCity(config.getCity());
@@ -268,9 +248,9 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     }
 
                     String imageFile = (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain()) + "/" + suffix.replaceAll(".", "").toLowerCase()+ "/"+ href.substring(href.lastIndexOf("//") + 1);
-                    String diskPath = DISK_PATH + imageFile;
+                    String diskPath = HtmlDownload.DISK_PATH + imageFile;
                     DownloadPdf.downloadAndSave(source, diskPath);
-                    content = content.replace(href, IMAGE_VISIT_PATH + imageFile);
+                    content = content.replace(href, HtmlDownload.IMAGE_VISIT_PATH + imageFile);
                 }
 
             }
@@ -287,7 +267,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
      */
     private String getFileSuffix(String href) {
         String suffix = null;
-        for (String fileStr : fileList) {
+        for (String fileStr : HtmlDownload.FILE_LIST) {
             if(href.contains(fileStr)) {
                 suffix = fileStr;
                 break;
@@ -422,37 +402,6 @@ public class CommonPageIpeProcessor implements PageProcessor {
 
         return input.replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1");
 
-    }
-
-    private void fileOut(String disk, String fileName, String content){
-        FileOutputStream outputStream = null;
-
-        try{
-            File file = new File(disk);
-            if(!file.exists()){
-                file.mkdirs();
-            }
-            String path = disk + fileName;
-            File file2 = new File(path);
-            outputStream = new FileOutputStream(file2);
-            if(!file2.exists()){
-                file2.createNewFile();
-            }
-            outputStream.write(content.getBytes());
-            outputStream.flush();
-
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-
-            if(outputStream != null){
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     public void startCrawler() {
