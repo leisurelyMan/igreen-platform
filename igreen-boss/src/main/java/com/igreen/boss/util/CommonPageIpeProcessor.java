@@ -295,17 +295,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     String attractDom = fieldModel.getAttrDom();
                     String replaceReg = fieldModel.getReplaceReg();
                     if (!StringUtil.isBlank(type) && "xpath".equals(type)) {
-                        Elements elements = null;
-                        if (!StringUtil.isBlank(attractType) && "attr".equals(attractType)) {
-                            elements = getElementByConfig(eles, value);
-                            value = elements != null && elements.size() > 0?  elements.get(0).attr(attractDom) : "";
-                        } else if ("text".equals(attractType)) {
-                            elements = getElementByConfig(eles, value);
-                            value = elements != null && elements.size() > 0?  elements.get(0).text() : "";
-                        } else if("html".equals(attractType)) {
-                            elements = getElementByConfig(eles, value);
-                            value = elements != null && elements.size() > 0?  elements.get(0).html() : "";
-                        }
+                        value = getValue(eles, value, attractDom, attractType);
                     }
                     if(!StringUtils.isEmpty(replaceReg)/* && !"punishTime".equals(field)*/) {
                         value = value.replace("\n","")
@@ -326,6 +316,36 @@ public class CommonPageIpeProcessor implements PageProcessor {
         }
     }
 
+    /**
+     * Xpath 支持多个寻找规则
+     * @param eles
+     * @param pathValueStr
+     * @param attractDom
+     * @param attractType
+     * @return
+     */
+    private String getValue(Elements eles, String pathValueStr, String attractDom, String attractType) {
+        String value = "";
+        String[] pathValues = pathValueStr.split("|分|");
+        Elements elements = null;
+        for(String pathValue : pathValues) {
+            if (!StringUtil.isBlank(attractType) && "attr".equals(attractType)) {
+                elements = getElementByConfig(eles, pathValue);
+                value = elements != null && elements.size() > 0?  elements.get(0).attr(attractDom) : "";
+            } else if ("text".equals(attractType)) {
+                elements = getElementByConfig(eles, pathValue);
+                value = elements != null && elements.size() > 0?  elements.get(0).text() : "";
+            } else if("html".equals(attractType)) {
+                elements = getElementByConfig(eles, pathValue);
+                value = elements != null && elements.size() > 0?  elements.get(0).html() : "";
+            }
+            if (!StringUtils.isEmpty(value)) {
+                break;
+            }
+        }
+
+        return value;
+    }
 
     /**
      * 根据爬虫规则json设定字段值
