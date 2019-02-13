@@ -327,6 +327,9 @@ public class CommonPageIpeProcessor implements PageProcessor {
                             value = elements != null && elements.size() > 0?  elements.get(0).html() : "";
                         }
                     }
+                    if(field.equals("companyName")){
+                        System.out.println(replaceReg);
+                    }
                     if(!StringUtils.isEmpty(replaceReg)/* && !"punishTime".equals(field)*/) {
                         value = value.replace("\n","")
                                 .replace(" ","")
