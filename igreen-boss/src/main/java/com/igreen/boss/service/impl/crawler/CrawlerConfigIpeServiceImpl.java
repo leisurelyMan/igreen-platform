@@ -36,6 +36,20 @@ public class CrawlerConfigIpeServiceImpl implements CrawlerConfigIpeService {
 		return result;
 	}
 
+	/**
+	 * 获取总条数
+	 *
+	 * @param crawlerConfig
+	 * @return
+	 */
+	@Override
+	public int configCount(WebCrawlerConfigIpe crawlerConfig) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		if(!StrUtil.isNull(crawlerConfig.getWebName()))
+			params.put("webName", crawlerConfig.getWebName());
+		return configMapper.countCrawlerConfig(params);
+	}
+
 
 	@Override
 	public ResponseModel addOrEditConfig(WebCrawlerConfigIpe crawlerConfig, Integer userId){

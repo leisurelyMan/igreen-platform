@@ -22,6 +22,13 @@ public interface CrawlerConfigIpeService {
 	 * @return
 	 */
 	public ListRange configList(WebCrawlerConfigIpe crawlerConfig, Integer currentPage, Integer pageRows);
+
+	/**
+	 * 获取总条数
+	 * @param crawlerConfig
+	 * @return
+	 */
+	int configCount(WebCrawlerConfigIpe crawlerConfig);
 	
 	/**
 	 * 添加修改配置信息
