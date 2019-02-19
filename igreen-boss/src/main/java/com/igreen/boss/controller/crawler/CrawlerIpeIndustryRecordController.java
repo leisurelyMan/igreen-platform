@@ -37,6 +37,16 @@ public class CrawlerIpeIndustryRecordController extends BaseController {
     }
 
     /**
+     * 结果列表页面
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="toManuallyAnnotated")
+    public ModelAndView toManuallyAnnotated(ModelMap model){
+        return new ModelAndView("crawler/manuallyAnnotated.jsp",model);
+    }
+
+    /**
      * 查询列表信息
      * @param record
      * @param currentPage

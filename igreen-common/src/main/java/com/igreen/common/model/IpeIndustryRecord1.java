@@ -6,7 +6,7 @@ import java.util.Date;
  * 描述:ipe_industry_record表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2019-01-10
+ * @创建时间: 2019-02-19
  */
 public class IpeIndustryRecord1 {
     /**
@@ -118,6 +118,16 @@ public class IpeIndustryRecord1 {
      * 数据来源：1ipe,2爬虫，3Excel导入
      */
     private Integer source;
+
+    /**
+     * 处罚原因
+     */
+    private String punishReason;
+
+    /**
+     * 污染类型
+     */
+    private String majorityType;
 
     /**
      * id
@@ -469,5 +479,37 @@ public class IpeIndustryRecord1 {
      */
     public void setSource(Integer source) {
         this.source = source;
+    }
+
+    /**
+     * 处罚原因
+     * @return punish_reason 处罚原因
+     */
+    public String getPunishReason() {
+        return punishReason;
+    }
+
+    /**
+     * 处罚原因
+     * @param punishReason 处罚原因
+     */
+    public void setPunishReason(String punishReason) {
+        this.punishReason = punishReason == null ? null : punishReason.trim();
+    }
+
+    /**
+     * 污染类型
+     * @return majority_type 污染类型
+     */
+    public String getMajorityType() {
+        return majorityType;
+    }
+
+    /**
+     * 污染类型
+     * @param majorityType 污染类型
+     */
+    public void setMajorityType(String majorityType) {
+        this.majorityType = majorityType == null ? null : majorityType.trim();
     }
 }

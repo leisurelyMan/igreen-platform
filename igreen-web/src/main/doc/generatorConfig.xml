@@ -45,5 +45,11 @@
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
 
+        <table schema="" tableName="ipe_industry_record"
+               domainObjectName="IpeIndustryRecord1">
+            <property name="useActualColumnNames" value="false" />
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+
     </context>
 </generatorConfiguration>

@@ -143,3 +143,11 @@ ALTER TABLE `web_crawler_config_ipe`
 
 ALTER TABLE `crawler_ipe_industry_record`
   ADD COLUMN `error_msg` VARCHAR(500) NULL DEFAULT null COMMENT '爬虫失败信息';
+
+ALTER TABLE `crawler_ipe_industry_record`
+  ADD COLUMN `punish_reason` VARCHAR(500) NULL DEFAULT null COMMENT '处罚原因',
+  ADD COLUMN `majority_type` VARCHAR(100) NULL DEFAULT null COMMENT '污染类型';
+
+ALTER TABLE `ipe_industry_record`
+  ADD COLUMN `punish_reason` VARCHAR(500) NULL DEFAULT null COMMENT '处罚原因',
+  ADD COLUMN `majority_type` VARCHAR(100) NULL DEFAULT null COMMENT '污染类型';

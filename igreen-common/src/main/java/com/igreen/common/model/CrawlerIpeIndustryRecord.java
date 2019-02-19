@@ -6,7 +6,7 @@ import java.util.Date;
  * 描述:crawler_ipe_industry_record表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2019-01-19
+ * @创建时间: 2019-02-19
  */
 public class CrawlerIpeIndustryRecord {
     /**
@@ -88,6 +88,16 @@ public class CrawlerIpeIndustryRecord {
      * 处罚编号
      */
     private String punishNo;
+
+    /**
+     * 处罚原因
+     */
+    private String punishReason;
+
+    /**
+     * 污染类型
+     */
+    private String majorityType;
 
     /**
      * 配置更新时间
@@ -368,6 +378,38 @@ public class CrawlerIpeIndustryRecord {
      */
     public void setPunishNo(String punishNo) {
         this.punishNo = punishNo == null ? null : punishNo.trim();
+    }
+
+    /**
+     * 处罚原因
+     * @return punish_reason 处罚原因
+     */
+    public String getPunishReason() {
+        return punishReason;
+    }
+
+    /**
+     * 处罚原因
+     * @param punishReason 处罚原因
+     */
+    public void setPunishReason(String punishReason) {
+        this.punishReason = punishReason == null ? null : punishReason.trim();
+    }
+
+    /**
+     * 污染类型
+     * @return majority_type 污染类型
+     */
+    public String getMajorityType() {
+        return majorityType;
+    }
+
+    /**
+     * 污染类型
+     * @param majorityType 污染类型
+     */
+    public void setMajorityType(String majorityType) {
+        this.majorityType = majorityType == null ? null : majorityType.trim();
     }
 
     /**

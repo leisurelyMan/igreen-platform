@@ -24,6 +24,8 @@
     <result column="punish_money" property="punishMoney" jdbcType="VARCHAR" />
     <result column="punish_no" property="punishNo" jdbcType="VARCHAR" />
     <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="punish_reason" property="punishReason" jdbcType="VARCHAR" />
+    <result column="majority_type" property="majorityType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,7 +88,7 @@
   <sql id="Base_Column_List" >
     id, regist_item_id, year, title, ipe_id, file_name, status, creater, created_time, 
     updater, updated_time, remark, company_name, province, city, district, web_detail_url, 
-    punish_type, punish_time, punish_money, punish_no, source
+    punish_type, punish_time, punish_money, punish_no, source, punish_reason, majority_type
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.IpeIndustryRecord1Example" >
     select
@@ -125,16 +127,16 @@
       updated_time, remark, company_name, 
       province, city, district, 
       web_detail_url, punish_type, punish_time, 
-      punish_money, punish_no, source
-      )
+      punish_money, punish_no, source, 
+      punish_reason, majority_type)
     values (#{registItemId,jdbcType=INTEGER}, #{year,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{ipeId,jdbcType=BIGINT}, #{fileName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{creater,jdbcType=INTEGER}, #{createdTime,jdbcType=DATE}, #{updater,jdbcType=INTEGER}, 
       #{updatedTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
       #{webDetailUrl,jdbcType=VARCHAR}, #{punishType,jdbcType=VARCHAR}, #{punishTime,jdbcType=VARCHAR}, 
-      #{punishMoney,jdbcType=VARCHAR}, #{punishNo,jdbcType=VARCHAR}, #{source,jdbcType=INTEGER}
-      )
+      #{punishMoney,jdbcType=VARCHAR}, #{punishNo,jdbcType=VARCHAR}, #{source,jdbcType=INTEGER}, 
+      #{punishReason,jdbcType=VARCHAR}, #{majorityType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.IpeIndustryRecord1" useGeneratedKeys="true" keyProperty="id" >
     insert into ipe_industry_record
@@ -202,6 +204,12 @@
       <if test="source != null" >
         source,
       </if>
+      <if test="punishReason != null" >
+        punish_reason,
+      </if>
+      <if test="majorityType != null" >
+        majority_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="registItemId != null" >
@@ -266,6 +274,12 @@
       </if>
       <if test="source != null" >
         #{source,jdbcType=INTEGER},
+      </if>
+      <if test="punishReason != null" >
+        #{punishReason,jdbcType=VARCHAR},
+      </if>
+      <if test="majorityType != null" >
+        #{majorityType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -344,6 +358,12 @@
       <if test="record.source != null" >
         source = #{record.source,jdbcType=INTEGER},
       </if>
+      <if test="record.punishReason != null" >
+        punish_reason = #{record.punishReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorityType != null" >
+        majority_type = #{record.majorityType,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -372,7 +392,9 @@
       punish_time = #{record.punishTime,jdbcType=VARCHAR},
       punish_money = #{record.punishMoney,jdbcType=VARCHAR},
       punish_no = #{record.punishNo,jdbcType=VARCHAR},
-      source = #{record.source,jdbcType=INTEGER}
+      source = #{record.source,jdbcType=INTEGER},
+      punish_reason = #{record.punishReason,jdbcType=VARCHAR},
+      majority_type = #{record.majorityType,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -443,6 +465,12 @@
       <if test="source != null" >
         source = #{source,jdbcType=INTEGER},
       </if>
+      <if test="punishReason != null" >
+        punish_reason = #{punishReason,jdbcType=VARCHAR},
+      </if>
+      <if test="majorityType != null" >
+        majority_type = #{majorityType,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -468,7 +496,9 @@
       punish_time = #{punishTime,jdbcType=VARCHAR},
       punish_money = #{punishMoney,jdbcType=VARCHAR},
       punish_no = #{punishNo,jdbcType=VARCHAR},
-      source = #{source,jdbcType=INTEGER}
+      source = #{source,jdbcType=INTEGER},
+      punish_reason = #{punishReason,jdbcType=VARCHAR},
+      majority_type = #{majorityType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

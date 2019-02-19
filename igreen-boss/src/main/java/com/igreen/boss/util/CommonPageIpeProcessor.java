@@ -297,7 +297,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     if (!StringUtil.isBlank(type) && "xpath".equals(type)) {
                         value = getValue(eles, value, attractDom, attractType);
                     }
-                    if(field.equals("companyName")){
+                    if(field.equals("year") || field.equals("punishTime")){
                         System.out.println(replaceReg);
                     }
                     if(!StringUtils.isEmpty(replaceReg)/* && !"punishTime".equals(field)*/) {
