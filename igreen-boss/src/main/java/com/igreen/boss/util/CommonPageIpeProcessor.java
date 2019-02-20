@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.igreen.boss.service.crawler.CrawlerResultIpeService;
 import com.igreen.common.model.CrawlerIpeIndustryRecord;
 import com.igreen.common.model.WebCrawlerConfigIpe;
+import org.jsoup.Jsoup;
 import org.jsoup.helper.StringUtil;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.CollectionUtils;
@@ -329,7 +331,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
      */
     private String getValue(Elements eles, String pathValueStr, String attractDom, String attractType) {
         String value = "";
-        String[] pathValues = pathValueStr.split("|分|");
+        String[] pathValues = pathValueStr.split("\\|分\\|");
         Elements elements = null;
         for(String pathValue : pathValues) {
             if (!StringUtil.isBlank(attractType) && "attr".equals(attractType)) {
@@ -570,6 +572,4 @@ public class CommonPageIpeProcessor implements PageProcessor {
 	public void setPageNumber(int pageNumber) {
 		this.pageNumber = pageNumber;
 	}
-
-
 }
