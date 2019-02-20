@@ -424,9 +424,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
      * @return
      */
     private static String deleteCRLFOnce(String input) {
-
         return input.replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1");
-
     }
 
     public void startCrawler() {
