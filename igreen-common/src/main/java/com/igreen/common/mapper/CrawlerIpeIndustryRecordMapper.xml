@@ -137,6 +137,29 @@
       #{creater,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
       #{errorMsg,jdbcType=VARCHAR})
   </insert>
+
+  <insert id="insertByBatch" parameterType="java.util.List">
+    insert into crawler_ipe_industry_record (web_name, web_domain, year,
+    web_detail_name, web_detail_url, web_detail_result_url,
+    save_path, company_name, province,
+    city, district, punish_type,
+    punish_time, punish_money, punish_no,
+    punish_reason, majority_type, update_time,
+    creater, updater, state,
+    error_msg)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{webName,jdbcType=VARCHAR}, #{webDomain,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR},
+      #{webDetailName,jdbcType=VARCHAR}, #{webDetailUrl,jdbcType=VARCHAR}, #{webDetailResultUrl,jdbcType=VARCHAR},
+      #{savePath,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{punishType,jdbcType=VARCHAR},
+      #{punishTime,jdbcType=VARCHAR}, #{punishMoney,jdbcType=VARCHAR}, #{punishNo,jdbcType=VARCHAR},
+      #{punishReason,jdbcType=VARCHAR}, #{majorityType,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+      #{creater,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}, #{state,jdbcType=INTEGER},
+      #{errorMsg,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
   <insert id="insertSelective" parameterType="com.igreen.common.model.CrawlerIpeIndustryRecord" useGeneratedKeys="true" keyProperty="id" >
     insert into crawler_ipe_industry_record
     <trim prefix="(" suffix=")" suffixOverrides="," >

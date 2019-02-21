@@ -151,3 +151,8 @@ ALTER TABLE `crawler_ipe_industry_record`
 ALTER TABLE `ipe_industry_record`
   ADD COLUMN `punish_reason` VARCHAR(500) NULL DEFAULT null COMMENT '处罚原因',
   ADD COLUMN `majority_type` VARCHAR(100) NULL DEFAULT null COMMENT '污染类型';
+
+
+ALTER TABLE `web_crawler_config_ipe`
+	ADD COLUMN `field_type` SMALLINT NOT NULL DEFAULT '1' COMMENT '页面爬虫列表和单页区分：1、单页；2、列表' AFTER `detail_content_regular`,
+	ADD COLUMN `field_list_sign` VARCHAR(255) NULL COMMENT 'field_type=2时该字段有效' AFTER `field_type`;

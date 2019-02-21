@@ -9,6 +9,8 @@ import com.igreen.common.model.WebCrawlerResultIpe;
 import com.igreen.common.util.ListRange;
 import com.igreen.common.util.ResponseModel;
 
+import java.util.List;
+
 /**
  * 爬虫结果信息
  * @author chenxy
@@ -45,4 +47,10 @@ public interface CrawlerResultIpeService {
 	 * @return
 	 */
 	CrawlerIpeIndustryRecord getWebCrawlerResultById(Integer configId);
+
+	/**
+	 * 批量插入
+	 * @param recordList
+	 */
+	public ResponseModel addOrEditResultList(List<CrawlerIpeIndustryRecord> recordList, String webDetailUrl);
 }

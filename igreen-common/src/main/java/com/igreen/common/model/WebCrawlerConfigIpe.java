@@ -40,6 +40,10 @@ public class WebCrawlerConfigIpe extends IdEntity {
 
     // 列表返回为json时，详情页入参数据获取
     private String detailById;
+    // 页面爬虫列表和单页区分：1、单页；2、列表
+    private Integer fieldType;
+    // field_type=2 时该字段有效 列表区分xpath
+    private String fieldListSign;
 
     public String getWebName() {
         return webName;
@@ -223,5 +227,21 @@ public class WebCrawlerConfigIpe extends IdEntity {
 
     public void setDetailById(String detailById) {
         this.detailById = detailById;
+    }
+
+    public Integer getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(Integer fieldType) {
+        this.fieldType = fieldType;
+    }
+
+    public String getFieldListSign() {
+        return fieldListSign;
+    }
+
+    public void setFieldListSign(String fieldListSign) {
+        this.fieldListSign = fieldListSign;
     }
 }

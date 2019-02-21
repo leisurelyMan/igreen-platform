@@ -27,4 +27,6 @@ public interface CrawlerIpeIndustryRecordMapper {
     int updateByPrimaryKeySelective(CrawlerIpeIndustryRecord record);
 
     int updateByPrimaryKey(CrawlerIpeIndustryRecord record);
+
+    void insertByBatch(List<CrawlerIpeIndustryRecord> recordList);
 }

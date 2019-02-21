@@ -111,6 +111,7 @@ jQuery(document).ready(function(){
 	    $('#detailContentRegular').val("");
 	    $("#fieldPropertyRegular").val("");
         $("#requestMethod").val("");
+        $("#fieldListSign").val("");
 
 		//打开对话表
 		$("#dialog").dialog("open");
@@ -132,12 +133,23 @@ function getActions(cellvalue, options, rowObject){
 function showDetailId(obj) {
 	var va = $(obj).val();
 	if(va == 2 || va == 3) {
-		$("#detailId").show();
+		$("#detailIdLi").show();
 	} else {
-        $("#detailId").hide();
+        $("#detailIdLi").hide();
 	}
-
 }
+
+function showFieldListSignLi(obj) {
+    var va = $(obj).val();
+    if(va == 2) {
+        $("#fieldListSignLi").show();
+    } else {
+        $("#fieldListSignLi").hide();
+        $("#fieldListSign").val('');
+    }
+}
+
+
 
 /**
  * 编辑角色详情
@@ -179,12 +191,21 @@ function edit(configId){
 			$("#fieldPropertyRegular").val(obj.fieldPropertyRegular);
             $("#requestMethod").val(obj.requestMethod);
             $("#detailById").val(obj.detailById);
+            $("#fieldType").val(obj.fieldType);
+            $("#fieldListSign").val(obj.fieldListSign);
 
             if(obj.detailById == 2 || obj.detailById == 3) {
-                $("#detailId").show();
+                $("#detailIdLi").show();
             } else {
-                $("#detailId").hide();
+                $("#detailIdLi").hide();
             }
+
+            if(obj.fieldType == 2) {
+                $("#fieldListSignLi").show();
+            } else {
+                $("#fieldListSignLi").hide();
+            }
+
 			//打开对话表
 			$("#dialog").dialog("open");
 		},

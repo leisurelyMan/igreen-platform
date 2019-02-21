@@ -67,7 +67,7 @@
 						<option value="3">列表和详情AJAX 返回json</option>
 					</select>
 					</li>
-					<li id="detailId" style="display: none;"><label>返回为json时获取详情标识</label>
+					<li id="detailIdLi" style="display: none;"><label>返回为json时获取详情标识</label>
 						<input id="detailById" name="detailById" type="text" class="dfinput" placeholder="返回为json时获取详情标识 格式例如$.data.xxx"/>
 					</li>
 
@@ -94,6 +94,15 @@
 					<li><label>详情页url匹配正则表达式</label><input id="detailUrlRegular" name="detailUrlRegular" type="text" class="dfinput" placeholder="详情页url正则，多个用@分割"/></li>
 					<li><label>详情页title xpath</label><input id="detailTitleRegular" name="detailTitleRegular" type="text" class="dfinput" placeholder="详情页标题对应xpath 多个用#分隔"/></li>
 					<li><label>详情页内容获取 xpath</label><input id="detailContentRegular" name="detailContentRegular" type="text" class="dfinput" placeholder="详情页内容所在标签的xpath 多个用#分隔"/></li>
+					<li><label>爬虫页获取数据方式</label>
+						<select id="fieldType" name="fieldType" onchange="showFieldListSignLi(this);">
+							<option value="1">单页单条</option>
+							<option value="2">列表多条</option>
+						</select>
+					</li>
+					<li id="fieldListSignLi" style="display: none;"><label>获取列表分隔xpath</label>
+						<input id="fieldListSign" name="fieldListSign" type="text" class="dfinput" placeholder="填写xpath，分割列表"/>
+					</li>
 					<li><label>字段获取xpath配置</label><input id="fieldPropertyRegular" name="fieldPropertyRegular" type="text" class="dfinput" placeholder="获取xpath配置格式[{field:''xx'',type:'xpath',''pathValue'':''xpath规则'',attrType:'text/attr',attrDom:'attrType == attr时有效，值为attr的属性例如（href, id, name ,或者自定义的）'},{field:''xx'',type:'value',''pathValue'':''固定值''},...]"/></li>
 				</ul>
 			</form>

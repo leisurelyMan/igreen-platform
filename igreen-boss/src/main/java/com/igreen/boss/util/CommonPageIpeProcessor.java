@@ -9,6 +9,7 @@ import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import us.codecraft.webmagic.Page;
@@ -26,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -39,6 +41,13 @@ public class CommonPageIpeProcessor implements PageProcessor {
     private WebCrawlerConfigIpe config;
 
     private CrawlerResultIpeService resultService;
+
+    private static class FieldType {
+        // 单条数据
+        public static final int SINGLE_DATA_TYPE = 1;
+        // 列表数据
+        public static final int LIST_DATA_TYPE = 2;
+    }
 
     private int pageNumber;
 
@@ -168,11 +177,6 @@ public class CommonPageIpeProcessor implements PageProcessor {
             Elements eles =  html.getDocument().getAllElements();
             Elements imgs = eles.get(0).select(selectQue + "img");
 
-            String fieldStr = config.getFieldPropertyRegular();
-            if(!StringUtil.isBlank(fieldStr)) {
-                makeRecordByFieldReg(result, eles, fieldStr);
-            }
-
             if(imgs != null && imgs.size() > 0){
                 for(Element img : imgs){
                     String src = img.attr("src");
@@ -206,6 +210,16 @@ public class CommonPageIpeProcessor implements PageProcessor {
             result.setSavePath(disk + fileName);
             result.setState(0);
             //result.setCity(config.getCity());
+            String fieldStr = config.getFieldPropertyRegular();
+            if(!StringUtil.isBlank(fieldStr)) {
+                if(config.getFieldType() == FieldType.SINGLE_DATA_TYPE) {
+                    makeRecordByFieldReg(result, eles, fieldStr);
+                } else if(config.getFieldType() == FieldType.LIST_DATA_TYPE) {
+                    List<CrawlerIpeIndustryRecord> recordList = getMakeRecordListByFieldReg(result, eles, fieldStr, config.getFieldListSign());
+                    resultService.addOrEditResultList(recordList, result.getWebDetailUrl());
+                    return;
+                }
+            }
             resultService.addOrEditResult(result, 0);
         } catch (Exception e){
         	e.printStackTrace();
@@ -277,6 +291,31 @@ public class CommonPageIpeProcessor implements PageProcessor {
         }
 
         return suffix;
+    }
+
+    /**
+     * 获取列表类型数据
+     * @param result
+     * @param eles
+     * @param fieldStr
+     * @param fieldListSign
+     * @return
+     */
+    private List<CrawlerIpeIndustryRecord> getMakeRecordListByFieldReg(CrawlerIpeIndustryRecord result, Elements eles, String fieldStr, String fieldListSign) {
+        List<CrawlerIpeIndustryRecord> recordList = null;
+        if(!StringUtils.isEmpty(fieldListSign)) {
+            recordList = new ArrayList<>();
+            Elements elements = eles.select(fieldListSign);
+            if(elements != null && elements.size() > 0) {
+                for (Element e : elements) {
+                    CrawlerIpeIndustryRecord record = new CrawlerIpeIndustryRecord();
+                    BeanUtils.copyProperties(result, record);
+                    makeRecordByFieldReg(record, e.getAllElements(), fieldStr);
+                    recordList.add(record);
+                }
+            }
+        }
+        return recordList;
     }
 
     /**

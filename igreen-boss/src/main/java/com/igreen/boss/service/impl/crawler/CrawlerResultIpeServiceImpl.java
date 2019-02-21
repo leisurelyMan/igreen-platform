@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -93,4 +94,25 @@ public class CrawlerResultIpeServiceImpl implements CrawlerResultIpeService {
 		return crawler;
 	}
 
+	/**
+	 * 批量插入
+	 *
+	 * @param recordList
+	 */
+	@Override
+	public ResponseModel addOrEditResultList(List<CrawlerIpeIndustryRecord> recordList, String webDetailUrl) {
+		try {
+
+			CrawlerIpeIndustryRecord config = industryRecordManualMapper.findByDetailUrl(webDetailUrl);
+			if(config != null) {
+				return new ResponseModel(-1, "该网站已经配置，无需重复配置");
+			}
+			resultMapper.insertByBatch(recordList);
+			return new ResponseModel(1, "SUCCESS");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return new ResponseModel(-1, "系统异常");
+		}
+
+	}
 }

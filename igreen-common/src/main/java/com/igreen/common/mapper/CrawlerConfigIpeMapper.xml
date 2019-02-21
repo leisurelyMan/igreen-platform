@@ -27,13 +27,15 @@
     <result column="source_type" property="sourceType" jdbcType="VARCHAR" />
     <result column="field_property_regular" property="fieldPropertyRegular" jdbcType="VARCHAR" />
     <result column="request_method" property="requestMethod" jdbcType="VARCHAR" />
-      <result column="detail_by_id" property="detailById" jdbcType="VARCHAR" />
+    <result column="detail_by_id" property="detailById" jdbcType="VARCHAR" />
+      <result column="field_type" property="fieldType" jdbcType="INTEGER" />
+      <result column="field_list_sign" property="fieldListSign" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
     id,web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
     page_req_method,page_result,replace_regular,detail_url_regular,detail_title_regular,create_time,update_time,
-    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type,field_property_regular,request_method,detail_by_id
+    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type,field_property_regular,request_method,detail_by_id,field_type,field_list_sign
   </sql>
   
     <!-- 查询有效的总记录数 -->
@@ -85,7 +87,7 @@
   <insert id="insert" parameterType="com.igreen.common.model.WebCrawlerConfigIpe" >
     insert into web_crawler_config_ipe (web_name,web_domain,web_search_url,page_url_regular,page_type,max_page,
     page_req_method,page_result,replace_regular,detail_url_regular,detail_title_regular,create_time,update_time,
-    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type,field_property_regular,request_method,detail_by_id
+    start_page,attr_type,attr_name,detail_content_regular,creater,updater,city,area,source_type,field_property_regular,request_method,detail_by_id,field_type,field_list_sign
       )
     values (#{webName,jdbcType=VARCHAR},
 #{webDomain,jdbcType=VARCHAR},
@@ -111,7 +113,9 @@ now(),
 #{sourceType,jdbcType=VARCHAR},
 #{fieldPropertyRegular, jdbcType=VARCHAR},
 #{requestMethod, jdbcType=VARCHAR},
-            #{detailById, jdbcType=VARCHAR})
+            #{detailById, jdbcType=VARCHAR},
+            #{fieldType, jdbcType=INTEGER},
+            #{fieldListSign, jdbcType=VARCHAR})
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.igreen.common.model.WebCrawlerConfigIpe" >
@@ -138,7 +142,9 @@ area=#{area,jdbcType=VARCHAR},
 source_type=#{sourceType,jdbcType=VARCHAR},
 field_property_regular=#{fieldPropertyRegular, jdbcType=VARCHAR},
         request_method=#{requestMethod, jdbcType=VARCHAR},
-        detail_by_id=#{detailById, jdbcType=VARCHAR}
+        detail_by_id=#{detailById, jdbcType=VARCHAR},
+        field_type=#{fieldType, jdbcType=INTEGER},
+        field_list_sign=#{fieldListSign, jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
