@@ -29,7 +29,9 @@ public class CrawlerConfigIpeServiceImpl implements CrawlerConfigIpeService {
 		Map<String, Object> params = new HashMap<String, Object>();
 		if(!StrUtil.isNull(crawlerConfig.getWebName()))
 			params.put("webName", crawlerConfig.getWebName());
-		
+		if(!StrUtil.isNull(crawlerConfig.getWebDomain()))
+			params.put("webDomain", crawlerConfig.getWebDomain());
+
 		params.put("startRow", (currentPage-1)*pageRows);
 		params.put("pageRows", pageRows);
 		ListRange result = new ListRange(configMapper.pageCrawlerConfig(params), configMapper.countCrawlerConfig(params), currentPage, pageRows);

@@ -157,4 +157,18 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
         }
         return result;
     }
+
+    @Override
+    public ResponseModel deleteByWebDomain(String webDomain) {
+        CrawlerIpeIndustryRecordExample example = new CrawlerIpeIndustryRecordExample();
+        CrawlerIpeIndustryRecordExample.Criteria criteria = example.createCriteria();
+        criteria.andWebDomainEqualTo(webDomain);
+        int opnum = crawlerIpeIndustryRecordMapper.deleteByExample(example);
+        ResponseModel result = new ResponseModel(1, "SUCCESS");
+        if(opnum <= 0){
+            result.setCode(-1);
+            result.setMessage("删除失败");
+        }
+        return result;
+    }
 }

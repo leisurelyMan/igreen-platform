@@ -57,6 +57,7 @@
 				</li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
 				<li class="click" style="padding-right: 0px;" id="affirm"><input name="" type="button" class="btn" value="确认数据"/></li>
+				<li class="click" style="padding-right: 0px;" id="delbtn"><input name="" type="button" class="btn" value="根据域名删除数据"/></li>
 
 			</ul>
 		</div>

@@ -103,4 +103,14 @@ public class CrawlerIpeIndustryRecordController extends BaseController {
         return crawlerIpeIndustryRecordService.affirm(recordIdList,this.getUser(request, response).getId());
     }
 
+    /**
+     *
+     * @param webDomain
+     * @return
+     */
+    @RequestMapping(value="deleteByWebDomain", method = { RequestMethod.POST,RequestMethod.GET})
+    public @ResponseBody ResponseModel deleteByWebDomain(String webDomain){
+        return crawlerIpeIndustryRecordService.deleteByWebDomain(webDomain);
+    }
+
 }

@@ -17,4 +17,6 @@ public interface CrawlerIpeIndustryRecordService {
     ResponseModel saveOrUpdate(CrawlerIpeIndustryRecord record, Integer userId);
 
     ResponseModel affirm(List<Integer> recordIdList, Integer userId);
+
+    ResponseModel deleteByWebDomain(String webDomain);
 }
