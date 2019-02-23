@@ -44,4 +44,22 @@ public class DateUtil {
             return map.get(pattern);
         }
     }
+
+
+    public static String fromatDateStr(String dateStr){
+        String result = "";
+        if(RegularizationUtil.rularization("^\\d+{4}\\d",dateStr)){
+
+        }
+
+
+        return result;
+    }
+
+
+
+
+    public static void main(String[] args) {
+
+    }
 }

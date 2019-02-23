@@ -19,4 +19,6 @@ public interface CrawlerIpeIndustryRecordService {
     ResponseModel affirm(List<Integer> recordIdList, Integer userId);
 
     ResponseModel deleteByWebDomain(String webDomain);
+
+    ResponseModel deleteHistory(String webDomain);
 }

@@ -155,32 +155,60 @@ var selectedRecord = new Array();
     });
 
     $("#delbtn").click(function(){
-    var webDomain = $('#searchWebDomain').val();
-    if(webDomain == null || webDomain == ''){
-        alert("请输入域名");
-    }else{
-        $.ajax({
-            type:'post',//可选get
-            async:false,//同步
-            url:'../crawlerIpeIndustry/deleteByWebDomain.do',//这里是接收数据的URL
-            data:"webDomain="+webDomain,
-            dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
-            success:function(msg){
-                if(msg.code == 1){
-                    alert("数据删除成功");
-                    $("#list").trigger("reloadGrid");
-                    $("#dialog").dialog("close");
-                }else{
-                    alert(msg.message);
-                    //验证插入后，刷新grid
+        var webDomain = $('#searchWebDomain').val();
+        if(webDomain == null || webDomain == ''){
+            alert("请输入域名");
+        }else{
+            $.ajax({
+                type:'post',//可选get
+                async:false,//同步
+                url:'../crawlerIpeIndustry/deleteByWebDomain.do',//这里是接收数据的URL
+                data:"webDomain="+webDomain,
+                dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                success:function(msg){
+                    if(msg.code == 1){
+                        alert("数据删除成功");
+                        $("#list").trigger("reloadGrid");
+                        $("#dialog").dialog("close");
+                    }else{
+                        alert(msg.message);
+                        //验证插入后，刷新grid
+                    }
+                },
+                error:function(){//修理失败，未能连接
+                    alert("操作失败");
                 }
-            },
-            error:function(){//修理失败，未能连接
-                alert("操作失败");
-            }
-        });
-    }
+            });
+        }
 
+    });
+
+    $("#yeardelbtn").click(function(){
+        var webDomain = $('#searchWebDomain').val();
+        if(webDomain == null || webDomain == ''){
+            alert("请输入域名");
+        }else{
+            $.ajax({
+                type:'post',//可选get
+                async:false,//同步
+                url:'../crawlerIpeIndustry/deleteHistory.do',//这里是接收数据的URL
+                data:"webDomain="+webDomain,
+                dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                success:function(msg){
+                    if(msg.code == 1){
+                        alert("数据删除成功");
+                        $("#list").trigger("reloadGrid");
+                        $("#dialog").dialog("close");
+                    }else{
+                        alert(msg.message);
+                        //验证插入后，刷新grid
+                    }
+                },
+                error:function(){//修理失败，未能连接
+                    alert("操作失败");
+                }
+            });
+        }
     });
 });
 

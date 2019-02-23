@@ -104,7 +104,7 @@ public class CrawlerIpeIndustryRecordController extends BaseController {
     }
 
     /**
-     *
+     * 根据域名删除数据
      * @param webDomain
      * @return
      */
@@ -113,4 +113,12 @@ public class CrawlerIpeIndustryRecordController extends BaseController {
         return crawlerIpeIndustryRecordService.deleteByWebDomain(webDomain);
     }
 
+    /**
+     * 根据域名删除2018年之前的数据
+     * @return
+     */
+    @RequestMapping(value="deleteHistory", method = { RequestMethod.POST,RequestMethod.GET})
+    public @ResponseBody ResponseModel deleteHistory(String webDomain){
+        return crawlerIpeIndustryRecordService.deleteHistory(webDomain);
+    }
 }

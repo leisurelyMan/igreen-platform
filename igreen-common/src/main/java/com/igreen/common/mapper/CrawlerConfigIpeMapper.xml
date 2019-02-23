@@ -57,7 +57,7 @@
   	<if test="webName != null" >
   		and web_name = #{webName,jdbcType=VARCHAR}
   	</if>
-  	<if test="web_domain != null" >
+  	<if test="webDomain != null" >
   		and web_domain = #{webDomain,jdbcType=VARCHAR}
   	</if>
       order by create_time desc limit #{startRow},#{pageRows}
