@@ -187,6 +187,7 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
         CrawlerIpeIndustryRecordExample.Criteria criteria = example.createCriteria();
         criteria.andWebDomainEqualTo(webDomain);
         criteria.andYearNotEqualTo("2018");
+        criteria.andYearNotEqualTo("");
         int opnum = crawlerIpeIndustryRecordMapper.deleteByExample(example);
         ResponseModel result = new ResponseModel(1, "SUCCESS");
         if(opnum <= 0){

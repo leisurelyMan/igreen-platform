@@ -151,3 +151,8 @@ ALTER TABLE `crawler_ipe_industry_record`
 ALTER TABLE `ipe_industry_record`
   ADD COLUMN `punish_reason` VARCHAR(500) NULL DEFAULT null COMMENT '处罚原因',
   ADD COLUMN `majority_type` VARCHAR(100) NULL DEFAULT null COMMENT '污染类型';
+
+
+alter table ipe_industry_record modify column web_detail_url varchar(2000);
+alter table crawler_ipe_industry_record modify column web_detail_url varchar(2000);
+alter table excel_ipe_industry_record modify column web_detail_url varchar(2000);
