@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.igreen.boss.service.crawler.CrawlerResultIpeService;
 import com.igreen.common.model.CrawlerIpeIndustryRecord;
 import com.igreen.common.model.WebCrawlerConfigIpe;
+import com.igreen.common.util.RegularizationUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Document;
@@ -296,16 +297,18 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     String attractType = fieldModel.getAttrType();
                     String attractDom = fieldModel.getAttrDom();
                     String replaceReg = fieldModel.getReplaceReg();
+                    String verifyReg = fieldModel.getVerifyReg();
                     if (!StringUtil.isBlank(type) && "xpath".equals(type)) {
-                        value = getValue(eles, value, attractDom, attractType);
+                        value = getValue(eles, value, attractDom, attractType,replaceReg,verifyReg);
                     }
-                    if(field.equals("year") || field.equals("punishTime")){
+                   /* if(field.equals("year") || field.equals("punishTime")){
                         System.out.println(replaceReg);
-                    }
+                    }*/
                     if(!StringUtils.isEmpty(replaceReg)/* && !"punishTime".equals(field)*/) {
                         value = value.replace("\n","")
                                 .replace(" ","")
                                 .replaceAll(" ", "")
+                                .replaceAll("   ","")
                                 .replaceAll(replaceReg, "").replaceAll(" ","");
                     }/* else {
                         if("punishTime".equals(field)) {
@@ -329,7 +332,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
      * @param attractType
      * @return
      */
-    private String getValue(Elements eles, String pathValueStr, String attractDom, String attractType) {
+    private String getValue(Elements eles, String pathValueStr, String attractDom, String attractType,String replaceReg,String verifyReg) {
         String value = "";
         String[] pathValues = pathValueStr.split("\\|分\\|");
         Elements elements = null;
@@ -344,9 +347,24 @@ public class CommonPageIpeProcessor implements PageProcessor {
                 elements = getElementByConfig(eles, pathValue);
                 value = elements != null && elements.size() > 0?  elements.get(0).html() : "";
             }
-            if (!StringUtils.isEmpty(value)) {
-                break;
+            //System.out.println(pathValue+"-------"+elements.size()+"-------"+value);
+            if(!StringUtils.isEmpty(replaceReg)/* && !"punishTime".equals(field)*/) {
+                value = value.replace("\n","")
+                        .replace(" ","")
+                        .replaceAll(" ", "")
+                        .replaceAll("   ","")
+                        .replaceAll(replaceReg, "").replaceAll(" ","");
             }
+
+            if(!StringUtils.isEmpty(verifyReg)){
+                if(RegularizationUtil.rularization(verifyReg,value))
+                    return value;
+            }else {
+                if (!StringUtils.isEmpty(value)) {
+                    break;
+                }
+            }
+
         }
 
         return value;

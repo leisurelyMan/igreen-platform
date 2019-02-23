@@ -16,10 +16,10 @@ public class RegularizationUtil {
 
 	
 	/**
-	 * seq需要验证的字符 ，reg正则表达式
+	 * rex正则表达式 ，reg验证的字符串
 	 * 
-	 * @param rex
-	 * @param reg
+	 * @param rex   正则表达式
+	 * @param reg   验证的字符串
 	 * @return
 	 */
 	public static boolean rularization(String rex, String reg) {
@@ -90,7 +90,8 @@ public class RegularizationUtil {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(numberVerify("abc"));
+		System.out.println(rularization("^[\\u4e00-\\u9fa5（）()]+$","安顺市梅加瑞金属回收有限公司"));
+
 		
 	}
 }

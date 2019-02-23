@@ -16,6 +16,8 @@ public class CrawlerFieldModel implements Serializable{
     private String attrDom;
     // 正则获取数据
     private String replaceReg;
+    //验证数据的正则表达式
+    private String verifyReg;
 
     public String getField() {
         return field;
@@ -63,5 +65,13 @@ public class CrawlerFieldModel implements Serializable{
 
     public void setReplaceReg(String replaceReg) {
         this.replaceReg = replaceReg;
+    }
+
+    public String getVerifyReg() {
+        return verifyReg;
+    }
+
+    public void setVerifyReg(String verifyReg) {
+        this.verifyReg = verifyReg;
     }
 }
