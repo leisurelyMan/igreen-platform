@@ -170,6 +170,7 @@ public class HtmlDownload {
     }
 
     public static void fileOut(String disk, String fileName, String content){
+        fileName = fileName.replace("?","");
         FileOutputStream outputStream = null;
 
         try{
