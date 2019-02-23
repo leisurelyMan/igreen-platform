@@ -132,21 +132,29 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
             org.springframework.beans.BeanUtils.copyProperties(record,record1);
             record1.setCreatedTime(new Date());
             record1.setCreater(userId);
-            record1.setSource(IpeIndustryRecordSourceEnum.EXCEL.getValue());
+            record1.setSource(IpeIndustryRecordSourceEnum.CRAW.getValue());
             record1List.add(record1);
 
             IpeAiResult aiResult = new IpeAiResult();
-
-
+            aiResult.setCompanyName(record1.getCompanyName());
+            aiResult.setCreatedTime(new Date());
+            aiResult.setIndustryTime(record1.getPunishTime());
+            aiResult.setRegion(record1.getProvince()+" "+record1.getCity());
+            aiResult.setIpeRecordId(record1.getId());
+            //{'罚款': '罚款', '责令停产整顿': '停止违法行为'}
+            aiResult.setKeyWords("{'"+record1.getPunishType()+"':'"+record1.getPunishType()+"', '罚款':'"+record1.getPunishMoney()+"'}");
+            aiResultList.add(aiResult);
         }
 
         if(record1List.size() > 0){
             if(record1List.size() > 100){
                 for(int i=1;i<= (record1List.size() % 100 == 0 ? record1List.size()/100:record1List.size()/100+1);i++){
                     ipeIndustryRecordMapper.insertBatch(record1List.subList((i-1)*100,i*100>record1List.size()?record1List.size():i*100));
+                    ipeAiResultManualMapper.insertBatch(aiResultList.subList((i-1)*100,i*100>aiResultList.size()?aiResultList.size():i*100));
                 }
             }else {
                 ipeIndustryRecordMapper.insertBatch(record1List);
+                ipeAiResultManualMapper.insertBatch(aiResultList);
             }
         }
         int opnum = industryRecordManualMapper.commitRecord(recordIdList);

@@ -9,11 +9,13 @@ import com.igreen.boss.util.ExcelHead;
 import com.igreen.boss.util.ExcelUtil;
 import com.igreen.common.dao.ExcelIpeIndustryRecordManualMapper;
 import com.igreen.common.dao.ExcelIpeIndustryRecordMapper;
+import com.igreen.common.dao.IpeAiResultManualMapper;
 import com.igreen.common.dao.IpeIndustryRecordMapper;
 import com.igreen.common.enums.IpeIndustryRecordSourceEnum;
 import com.igreen.common.enums.PunishTypeEnum;
 import com.igreen.common.model.ExcelIpeIndustryRecord;
 import com.igreen.common.model.ExcelIpeIndustryRecordExample;
+import com.igreen.common.model.IpeAiResult;
 import com.igreen.common.model.IpeIndustryRecord1;
 import com.igreen.common.util.ListRange;
 import com.igreen.common.util.RegularizationUtil;
@@ -47,6 +49,9 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
 
     @Resource
     IpeIndustryRecordMapper ipeIndustryRecordMapper;
+
+    @Resource
+    IpeAiResultManualMapper ipeAiResultManualMapper;
 
     @Value("#{prop['ipeHead']}")
     private String ipeHead;
@@ -153,6 +158,9 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
         List<ExcelIpeIndustryRecord> excelIpeIndustryRecordList =
                 excelIpeIndustryRecordMapper.selectByExample(example);
         List<IpeIndustryRecord1> record1List = new ArrayList<IpeIndustryRecord1>();
+        List<IpeAiResult> aiResultList = new ArrayList<IpeAiResult>();
+
+
         for(ExcelIpeIndustryRecord record:excelIpeIndustryRecordList){
             IpeIndustryRecord1 record1 = new IpeIndustryRecord1();
             org.springframework.beans.BeanUtils.copyProperties(record,record1);
@@ -160,15 +168,28 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
             record1.setCreater(userId);
             record1.setSource(IpeIndustryRecordSourceEnum.EXCEL.getValue());
             record1List.add(record1);
+
+
+            IpeAiResult aiResult = new IpeAiResult();
+            aiResult.setCompanyName(record1.getCompanyName());
+            aiResult.setCreatedTime(new Date());
+            aiResult.setIndustryTime(record1.getPunishTime());
+            aiResult.setRegion(record1.getProvince()+" "+record1.getCity());
+            aiResult.setIpeRecordId(record1.getId());
+            //{'罚款': '罚款', '责令停产整顿': '停止违法行为'}
+            aiResult.setKeyWords("{'"+record1.getPunishType()+"':'"+record1.getPunishType()+"', '罚款':'"+record1.getPunishMoney()+"'}");
+            aiResultList.add(aiResult);
         }
 
         if(record1List.size() > 0){
             if(record1List.size() > 100){
                 for(int i=1;i<= (record1List.size() % 100 == 0 ? record1List.size()/100:record1List.size()/100+1);i++){
                     ipeIndustryRecordMapper.insertBatch(record1List.subList((i-1)*100,i*100>record1List.size()?record1List.size():i*100));
+                    ipeAiResultManualMapper.insertBatch(aiResultList.subList((i-1)*100,i*100>aiResultList.size()?aiResultList.size():i*100));
                 }
             }else {
                 ipeIndustryRecordMapper.insertBatch(record1List);
+                ipeAiResultManualMapper.insertBatch(aiResultList);
             }
         }
         int opnum = excelIpeIndustryRecordMapper.deleteByExample(example);
@@ -204,9 +225,9 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
                 ExcelIpeIndustryRecord record = new ExcelIpeIndustryRecord();
                 for (String fieldName : excelHeadMap.keySet()){
                     try {
-                        String fieldValue = ExcelUtil.getCellValue(row.getCell(excelHeadMap.get(fieldName).getCellNum()));
-                        if(!StringUtils.isEmpty(fieldValue) && RegularizationUtil.rularization(excelHeadMap.get(fieldName).getRegular(),fieldValue))
-                            BeanUtils.setProperty(record,fieldName,fieldValue);
+                        String fieldValue = ExcelUtil.getCellValue(row.getCell(excelHeadMap.get(fieldName).getCellNum())).trim();
+                        //if(!StringUtils.isEmpty(fieldValue) && RegularizationUtil.rularization(excelHeadMap.get(fieldName).getRegular(),fieldValue))
+                        BeanUtils.setProperty(record,fieldName,fieldValue);
                     } catch (Exception e) {
                         e.printStackTrace();
                         return new ResponseModel(-1,"读取Excel文件失败",JSON.toJSONString(row));

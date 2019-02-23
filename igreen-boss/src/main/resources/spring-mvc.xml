@@ -101,10 +101,10 @@
 			<value>UTF-8</value>
 		</property>
 		<property name="maxUploadSize">
-			<value>32505856</value><!-- 上传文件大小限制为31M，31*1024*1024 -->
+			<value>104857600</value><!-- 上传文件大小限制为31M，31*1024*1024 -->
 		</property>
 		<property name="maxInMemorySize">
-			<value>4096</value>
+			<value>104857600</value>
 		</property>
 	</bean> 
 
