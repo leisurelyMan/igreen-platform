@@ -392,7 +392,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
                         value =  new JsonPathSelector(value).select(rawText);
                     } else if(!StringUtil.isBlank(type) && "text".equals(type)) {
                     }
-                    if(!StringUtils.isEmpty(replaceReg)) value.replaceAll(replaceReg, "");
+                    if(!StringUtils.isEmpty(replaceReg)) value = value.replaceAll(replaceReg, "");
                     setValueField(result, value, field);
                 }
             }
