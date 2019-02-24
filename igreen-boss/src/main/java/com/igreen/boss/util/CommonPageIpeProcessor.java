@@ -509,7 +509,11 @@ public class CommonPageIpeProcessor implements PageProcessor {
             for(int i = 0; i < total; i ++){
                 Spider spider = Spider.create(new CommonPageIpeProcessor(config, resultService, pageNumber));
                 //System.out.println("total is :" + i + "==URL===:" + config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
-                spider.addUrl(config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
+                if(i==0){
+                    spider.addUrl(config.getPageUrlRegular().replace("-${page}","").replace("_${page}","").replace("${page}", ""));
+                }else{
+                    spider.addUrl(config.getPageUrlRegular().replace("${page}", String.valueOf(i)));
+                }
                 spider.run();
             }
         }
