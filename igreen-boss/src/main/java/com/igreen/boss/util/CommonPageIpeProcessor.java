@@ -301,15 +301,18 @@ public class CommonPageIpeProcessor implements PageProcessor {
                     if (!StringUtil.isBlank(type) && "xpath".equals(type)) {
                         value = getValue(eles, value, attractDom, attractType,replaceReg,verifyReg);
                     }
-                   /* if(field.equals("year") || field.equals("punishTime")){
+                    if(field.equals("year") || field.equals("punishTime")){
                         System.out.println(replaceReg);
-                    }*/
+                    }
+
+                    value = value.replace("\n","")
+                            .replace(" ","")
+                            .replaceAll(" ", "")
+                            .replaceAll("   ","")
+                            .replaceAll(" ","");
+
                     if(!StringUtils.isEmpty(replaceReg)/* && !"punishTime".equals(field)*/) {
-                        value = value.replace("\n","")
-                                .replace(" ","")
-                                .replaceAll(" ", "")
-                                .replaceAll("   ","")
-                                .replaceAll(replaceReg, "").replaceAll(" ","");
+                        value = value.replaceAll(replaceReg, "");
                     }/* else {
                         if("punishTime".equals(field)) {
                             value = value.replace("\n","")
