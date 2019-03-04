@@ -118,10 +118,14 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
         criteria.andIdIn(recordIdList);
         criteria.andStateEqualTo(1);
         if(crawlerIpeIndustryRecordMapper.countByExample(example) > 0){
-            new ResponseModel(-1, "包含已提交记录");
+            return new ResponseModel(-1, "包含已提交记录");
         }
 
+        example.clear();
+        criteria = example.createCriteria();
         criteria.andStateEqualTo(0);
+        criteria.andIdIn(recordIdList);
+
         List<CrawlerIpeIndustryRecord> crawlerIpeIndustryRecordList =
                 crawlerIpeIndustryRecordMapper.selectByExample(example);
         List<IpeIndustryRecord1> record1List = new ArrayList<IpeIndustryRecord1>();
@@ -130,6 +134,7 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
         for(CrawlerIpeIndustryRecord record:crawlerIpeIndustryRecordList){
             IpeIndustryRecord1 record1 = new IpeIndustryRecord1();
             org.springframework.beans.BeanUtils.copyProperties(record,record1);
+            record1.setFileName(record.getWebDetailResultUrl());
             record1.setCreatedTime(new Date());
             record1.setCreater(userId);
             record1.setSource(IpeIndustryRecordSourceEnum.CRAW.getValue());

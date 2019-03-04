@@ -6,10 +6,9 @@ jQuery(document).ready(function(){
 		url : '../ipe/industryList.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : [ '<b>企业名称</b>','<b>地址</b>', '<b>年度</b>', '<b>标题</b>', '<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : [ '<b>企业名称</b>', '<b>年度</b>', '<b>标题</b>', '<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 		 		    {name:'companyName',index:'companyName', width:80,sortable:false},
-		 		    {name:'address',index:'address', width:80,sortable:false},
 					{name:'year',index:'year', width:20,sortable:false},
 		 		    {name:'title',index:'title', width:200,sortable:false},
 					{name:'id',index:'id', width:130,formatter:getActions,sortable:false,resizable:false,align:'center'}
@@ -44,5 +43,9 @@ jQuery(document).ready(function(){
 
 function getActions(cellvalue, options, rowObject){
     //return '<a href="javascript:industry(\''+rowObject.id+'\')">查看详情</a>&nbsp;';
+    if(rowObject.fileName == null)
+    return "";
+    if(rowObject.fileName.indexOf("http")>=0)
+        return '<a href="'+rowObject.fileName+'" target="view_window">查看详情</a>'
     return '<a href="http://47.94.240.82/ipe/'+rowObject.fileName+'" target="view_window">查看详情</a>'
 }

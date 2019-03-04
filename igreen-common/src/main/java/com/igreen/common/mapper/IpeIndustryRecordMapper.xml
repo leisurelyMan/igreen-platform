@@ -39,9 +39,12 @@
     updater, updated_time, remark, province, city, district
   </sql>
   
-   <sql id="registItem_List" >
+<!--   <sql id="registItem_List" >
     ir.id, ir.company_name, ir.regist_item_id, ir.year, ir.title, ir.file_name, r.address, ir.province, ir.city, ir.district
-  </sql>
+  </sql>-->
+    <sql id="registItem_List" >
+        ir.id, ir.company_name, ir.regist_item_id, ir.year, ir.title, ir.file_name, ir.province, ir.city, ir.district
+    </sql>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -76,8 +79,10 @@
   <!-- 查询有效的总记录数 -->
    <select id="countIpeIndustryDto" resultType="java.lang.Integer" parameterType="map">
   	select count(1)
-  	from ipe_industry_record ir,regist_item r
-  	where ir.regist_item_id = r.id
+  	<!--from ipe_industry_record ir,regist_item r
+  	where ir.regist_item_id = r.id-->
+       from ipe_industry_record ir
+       where 1=1
   	<if test="companyName != null" >
   		and ir.company_name like concat(#{companyName,jdbcType=VARCHAR},'%')
   	</if>
@@ -87,16 +92,18 @@
   	<if test="title != null" >
   		and ir.title like concat(#{title,jdbcType=VARCHAR},'%')
   	</if>
-  	<if test="address != null" >
+<!--  	<if test="address != null" >
   		and r.address like concat(#{address,jdbcType=VARCHAR},'%')
-  	</if>
+  	</if>-->
   </select>
   
    <select id="pageIpeIndustryDto" resultMap="registItemMap" parameterType="map" >
   	select 
   	<include refid="registItem_List" />
-  	from ipe_industry_record ir,regist_item r
-  	where ir.regist_item_id = r.id
+  	from ipe_industry_record ir
+       <!--,regist_item r-->
+  	<!--where ir.regist_item_id = r.id-->
+       where 1=1
   	<if test="companyName != null" >
   		and ir.company_name like concat(#{companyName,jdbcType=VARCHAR},'%')
   	</if>
@@ -106,9 +113,9 @@
   	<if test="title != null" >
   		and ir.title like concat(#{title,jdbcType=VARCHAR},'%')
   	</if>
-  	<if test="address != null" >
+<!--  	<if test="address != null" >
   		and r.address like concat(#{address,jdbcType=VARCHAR},'%')
-  	</if>
+  	</if>-->
   	limit #{startRow},#{pageRows}
   </select>
   

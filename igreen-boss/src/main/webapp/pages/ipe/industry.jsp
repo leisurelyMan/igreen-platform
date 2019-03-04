@@ -47,7 +47,7 @@ textarea {
 		<div class="tools">
 			<ul class="toolbar">
 				<li>企业名称:<input id="companyName"	name="companyName" type="text" class="searchinput" /></li>
-				<li>地址:<input id="address"	name="address" type="text" class="searchinput" /></li>
+				<!--<li>地址:<input id="address"	name="address" type="text" class="searchinput" /></li>-->
 				<li>年度:<input id="year" name="year" type="text" class="searchinput" /></li>
 				<li>标题:<input id="title"	name="title" type="text" class="searchinput" /></li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>

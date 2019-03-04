@@ -9,12 +9,9 @@ var selectedRecord = new Array();
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
 		multiselect: true,
-		colNames : ['<b>网站名称</b>','<b>网站域名</b>','<b>年度</b>','<b>标题</b>','<b>url</b>','<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>县</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额</b>','<b>状态</b>','<b>操作</b>','' ],//jqGrid的列显示名字
+		colNames : ['<b>年度</b>','<b>url</b>','<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>县</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额</b>','<b>状态</b>','<b>操作</b>','' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
-		 		    {name:'webName',index:'webName', width:80,sortable:false},
-		 		    {name:'webDomain',index:'webDomain', width:80,sortable:false},
                     {name:'year',index:'year', width:20,sortable:false},
-                    {name:'webDetailName',index:'webDetailName', width:80,sortable:false},
                     {name:'webDetailUrl',index:'webDetailUrl', width:80,sortable:false},
                     {name:'companyName',index:'companyName', width:80,sortable:false},
                     {name:'province',index:'province', width:80,sortable:false},
@@ -109,7 +106,6 @@ var selectedRecord = new Array();
 	});
 	
 	$("#search").click(function(){
-		var webDomain = $('#searchWebDomain').val();
 		var webDetailUrl = $('#searchWebDetailUrl').val();
 		var companyName = $('#searchCompanyName').val();
         var province = $('#searchProvince').val();

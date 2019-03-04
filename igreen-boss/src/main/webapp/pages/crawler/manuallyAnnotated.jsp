@@ -29,7 +29,6 @@
 		</div>
 		<div class="tools">
 			<ul class="toolbar">
-				<li>网站域名：<input id="searchWebDomain" name="searchWebDomain" type="text" class="searchinput" /></li>
 				<li>url：<input id="searchWebDetailUrl" name="searchWebDetailUrl" type="text" class="searchinput" /></li>
 				<li>公司名称：<input id="searchCompanyName" name="searchCompanyName" type="text" class="searchinput" /></li>
 				<li>省：<input id="searchProvince" name="searchProvince" type="text" class="searchinput" /></li>
