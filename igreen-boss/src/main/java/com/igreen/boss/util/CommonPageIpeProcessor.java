@@ -61,7 +61,7 @@ public class CommonPageIpeProcessor implements PageProcessor {
     @Override
     public void process(Page page) {
 
-        String disk = HtmlDownload.DISK_PATH + config.getWebDomain() + "/";
+        String disk = HtmlDownload.DISK_PATH + (config.getWebDomain().contains(".") ? config.getWebDomain().split("\\.")[1] : config.getWebDomain()) + "/";
         CrawlerIpeIndustryRecord result = new CrawlerIpeIndustryRecord();
         String detailUrl = config.getDetailUrlRegular();
         String pageReqMethod= config.getPageReqMethod();
