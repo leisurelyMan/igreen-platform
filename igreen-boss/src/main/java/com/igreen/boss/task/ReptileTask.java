@@ -9,6 +9,11 @@ import java.util.concurrent.Executors;
 
 import javax.annotation.Resource;
 
+import com.igreen.boss.util.HtmlDownload;
+import com.igreen.common.dao.IpeIndustryRecord1Mapper;
+import com.igreen.common.enums.IpeIndustryRecordSourceEnum;
+import com.igreen.common.model.IpeIndustryRecord1;
+import com.igreen.common.model.IpeIndustryRecord1Example;
 import org.apache.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -18,11 +23,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.igreen.boss.service.basicInfo.ReptileService;
+import org.springframework.util.StringUtils;
 
 @Component
 public class ReptileTask {
 	@Resource
 	ReptileService reptileService;
+
+	@Resource
+	IpeIndustryRecord1Mapper ipeIndustryRecord1Mapper;
 	
 	/**
 	 * 环保部爬虫线程池
@@ -264,5 +273,31 @@ public class ReptileTask {
 	@Scheduled(cron="0 0 0/1 3,17 * ?")
 	public void updatePollutionLicenseSpider( ){
 		reptileService.pollutionLicenseTypeReptile();
+	}
+
+	@Scheduled(cron="0 25 23 * * ?")
+	public void  downloadHtml(){
+		logger.info("downloadHtml start");
+		new Runnable() {
+			@Override
+			public void run() {
+				IpeIndustryRecord1Example example = new IpeIndustryRecord1Example();
+				example.createCriteria()
+						.andSourceEqualTo(IpeIndustryRecordSourceEnum.EXCEL.getValue())
+						.andFileNameIsNull();
+				List<IpeIndustryRecord1> ipeList = ipeIndustryRecord1Mapper.selectByExample(example);
+				for(IpeIndustryRecord1 record:ipeList){
+					if(!StringUtils.isEmpty(record.getWebDetailUrl())){
+						try {
+							record.setFileName(HtmlDownload.download(record.getWebDetailUrl()));
+							ipeIndustryRecord1Mapper.updateByPrimaryKeySelective(record);
+						}catch (Exception e){
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}.run();
+		logger.info("downloadHtml end");
 	}
 }

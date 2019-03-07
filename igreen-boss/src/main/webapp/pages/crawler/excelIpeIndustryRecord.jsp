@@ -29,11 +29,7 @@
 		</div>
 		<div class="tools">
 			<ul class="toolbar">
-				<li>url：<input id="searchWebDetailUrl" name="searchWebDetailUrl" type="text" class="searchinput" /></li>
 				<li>公司名称：<input id="searchCompanyName" name="searchCompanyName" type="text" class="searchinput" /></li>
-				<li>省：<input id="searchProvince" name="searchProvince" type="text" class="searchinput" /></li>
-				<li>市：<input id="searchCity" name="searchCity" type="text" class="searchinput" /></li>
-				<li>县：<input id="searchDistrict" name="searchDistrict" type="text" class="searchinput" /></li>
 				<li>处罚类型：<input id="searchPunishType" name="searchPunishType" type="text" class="searchinput" /></li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
 				<li class="click" id="distinceupload"><span><img src="../static/images/ico04.png" /></span></li>

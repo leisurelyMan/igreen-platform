@@ -152,11 +152,11 @@ jQuery(document).ready(function(){
 
 
 	$("#search").click(function(){
-		var webName = $('#searchWebName').val();
-		var webDetailName = $('#searchWebDetailName').val();
-		var searchName = $('#searchName').val();
+		var companyName = $('#searchCompanyName').val();
+		var punishType = $('#searchPunishType').val();
+
 		
-		$("#list").jqGrid("setGridParam",{postData:{webName:webName,webDetailName:webDetailName,searchName:searchName},page:1} );//设置查询参数
+		$("#list").jqGrid("setGridParam",{postData:{companyName:companyName,punishType:punishType},page:1} );//设置查询参数
 		$("#list").trigger("reloadGrid");
 	});
 

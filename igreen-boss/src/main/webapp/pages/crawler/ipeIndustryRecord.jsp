@@ -34,7 +34,6 @@
 				<li>公司名称：<input id="searchCompanyName" name="searchCompanyName" type="text" class="searchinput" /></li>
 				<li>省：<input id="searchProvince" name="searchProvince" type="text" class="searchinput" /></li>
 				<li>市：<input id="searchCity" name="searchCity" type="text" class="searchinput" /></li>
-				<li>县：<input id="searchDistrict" name="searchDistrict" type="text" class="searchinput" /></li>
 				<li>状态：
                     <select id="searchState" name="searchState" >
                         <option value="">全部</option>
@@ -46,6 +45,7 @@
 				    <select id="searchPunishType" name="searchPunishType" >
                         <option value="">全部</option>
                         <option value="-1">空</option>
+                        <option value="-2">类型不符</option>
                         <option value="1">罚款</option>
                         <option value="2">暂扣、吊销许可证</option>
                         <option value="3">没收违法所得</option>

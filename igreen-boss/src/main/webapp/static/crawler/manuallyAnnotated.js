@@ -9,14 +9,13 @@ var selectedRecord = new Array();
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
 		multiselect: true,
-		colNames : ['<b>年度</b>','<b>url</b>','<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>县</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额</b>','<b>状态</b>','<b>操作</b>','' ],//jqGrid的列显示名字
+		colNames : ['<b>年度</b>','<b>url</b>','<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额</b>','<b>状态</b>','<b>操作</b>','' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
                     {name:'year',index:'year', width:20,sortable:false},
                     {name:'webDetailUrl',index:'webDetailUrl', width:80,sortable:false},
                     {name:'companyName',index:'companyName', width:80,sortable:false},
                     {name:'province',index:'province', width:80,sortable:false},
                     {name:'city',index:'city', width:80,sortable:false},
-                    {name:'district',index:'district', width:80,sortable:false},
                     {name:'punishType',index:'punishType', width:80,sortable:false},
                     {name:'punishTime',index:'punishTime', width:80,sortable:false},
                     {name:'punishMoney',index:'punishMoney', width:80,sortable:false},
@@ -106,15 +105,13 @@ var selectedRecord = new Array();
 	});
 	
 	$("#search").click(function(){
-		var webDetailUrl = $('#searchWebDetailUrl').val();
 		var companyName = $('#searchCompanyName').val();
         var province = $('#searchProvince').val();
         var city = $('#searchCity').val();
-        var district = $('#searchDistrict').val();
         var punishType = $('#searchPunishType').val();
         var state = $('#searchState').val();
 
-		$("#list").jqGrid("setGridParam",{postData:{webDomain:webDomain,webDetailUrl:webDetailUrl,companyName:companyName,province:province,city:city,district:district,punishType:punishType,state:state},page:1} );//设置查询参数
+		$("#list").jqGrid("setGridParam",{postData:{companyName:companyName,province:province,city:city,punishType:punishType,state:state},page:1} );//设置查询参数
 		$("#list").trigger("reloadGrid");
 	});
 
@@ -187,7 +184,8 @@ function view(id){
 
 
 function getActions(cellvalue, options, rowObject){
-    return '<a href="javascript:view(\''+rowObject.id+'\')">编辑</a>&nbsp;';
+    return '<a href="javascript:view(\''+rowObject.id+'\')">编辑</a>&nbsp;'+
+            '<a href="http://img.igreenbank.cn/'+rowObject.savePath.replace('/data/files/','')+'" target="view_window">查看本地文件</a>';
 }
 
 function getState(cellvalue, options, rowObject){

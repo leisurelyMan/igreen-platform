@@ -3,6 +3,7 @@ package com.igreen.common.enums;
 public enum PunishTypeEnum {
 
     IS_NULL("-1","空"),
+    NOT_EQUAL("-2","不符"),
     FINE("1","罚款"),
     REVOKE("2","暂扣、吊销许可证"),
     CONFISCATE("3","没收违法所得"),

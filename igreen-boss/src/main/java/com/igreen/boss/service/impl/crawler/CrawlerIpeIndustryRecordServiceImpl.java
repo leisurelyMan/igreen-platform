@@ -75,8 +75,15 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
             criteria.andStateEqualTo(record.getState());
         //处罚类型
         if (!StrUtil.isNull(record.getPunishType())){
-            if(record.getPunishType().equals(PunishTypeEnum.IS_NULL.getValue()))
+            if(record.getPunishType().equals(PunishTypeEnum.IS_NULL.getValue())) {
                 criteria.andPunishTypeIsNull();
+            }else if(record.getPunishType().equals(PunishTypeEnum.NOT_EQUAL.getValue())){
+                List<String> punishList = new ArrayList<>();
+                for(PunishTypeEnum punishTypeEnum:PunishTypeEnum.values()){
+                    punishList.add(punishTypeEnum.getName());
+                }
+                criteria.andPunishTypeNotIn(punishList);
+            }
             else
                 criteria.andPunishTypeEqualTo(PunishTypeEnum.getEnumByValue(record.getPunishType()).getName());
         }
@@ -134,7 +141,7 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
         for(CrawlerIpeIndustryRecord record:crawlerIpeIndustryRecordList){
             IpeIndustryRecord1 record1 = new IpeIndustryRecord1();
             org.springframework.beans.BeanUtils.copyProperties(record,record1);
-            record1.setFileName(record.getWebDetailResultUrl());
+            record1.setFileName(record.getSavePath());
             record1.setCreatedTime(new Date());
             record1.setCreater(userId);
             record1.setSource(IpeIndustryRecordSourceEnum.CRAW.getValue());

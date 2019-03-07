@@ -45,7 +45,7 @@ function getActions(cellvalue, options, rowObject){
     //return '<a href="javascript:industry(\''+rowObject.id+'\')">查看详情</a>&nbsp;';
     if(rowObject.fileName == null)
     return "";
-    if(rowObject.fileName.indexOf("http")>=0)
-        return '<a href="'+rowObject.fileName+'" target="view_window">查看详情</a>'
-    return '<a href="http://47.94.240.82/ipe/'+rowObject.fileName+'" target="view_window">查看详情</a>'
+    if(rowObject.fileName.indexOf("/data/files")>=0)
+        return '<a href="http://img.igreenbank.cn/'+rowObject.fileName.replace('/data/files/','')+'" target="view_window">查看详情</a>'
+    return '<a href="http://img.igreenbank.cn/ipe/'+rowObject.fileName+'" target="view_window">查看详情</a>'
 }

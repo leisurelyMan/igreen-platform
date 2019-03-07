@@ -68,7 +68,7 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
             criteria.andYearEqualTo(record.getYear());
         //详情页原url
         if (!StrUtil.isNull(record.getWebDetailUrl()))
-            criteria.andWebDetailUrlLike(record.getWebDetailUrl()+"%");
+            criteria.andWebDetailUrlLike("%"+record.getWebDetailUrl()+"%");
         //公司名称
         if (!StrUtil.isNull(record.getCompanyName()))
             criteria.andCompanyNameLike("%"+record.getCompanyName()+"%");
@@ -83,10 +83,7 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
             criteria.andDistrictLike("%"+record.getDistrict()+"%");
         //处罚类型
         if (!StrUtil.isNull(record.getPunishType())){
-            if(record.getPunishType().equals(PunishTypeEnum.IS_NULL.getValue()))
-                criteria.andPunishTypeIsNull();
-            else
-                criteria.andPunishTypeEqualTo(PunishTypeEnum.getEnumByValue(record.getPunishType()).getName());
+            criteria.andPunishTypeLike("%"+record.getPunishType()+"%");
         }
         example.setOrderByClause("id desc");
 
