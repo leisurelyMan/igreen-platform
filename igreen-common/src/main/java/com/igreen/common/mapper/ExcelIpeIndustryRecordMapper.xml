@@ -15,6 +15,8 @@
     <result column="punish_no" property="punishNo" jdbcType="VARCHAR" />
     <result column="creater" property="creater" jdbcType="INTEGER" />
     <result column="updater" property="updater" jdbcType="INTEGER" />
+    <result column="punish_reason" property="punishReason" jdbcType="VARCHAR" />
+    <result column="majority_type" property="majorityType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,7 +78,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, year, web_detail_url, company_name, province, city, district, punish_type, punish_time, 
-    punish_money, punish_no, creater, updater
+    punish_money, punish_no, creater, updater, punish_reason, majority_type
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.igreen.common.model.ExcelIpeIndustryRecordExample" >
     select
@@ -112,13 +114,13 @@
     insert into excel_ipe_industry_record (year, web_detail_url, company_name, 
       province, city, district, 
       punish_type, punish_time, punish_money, 
-      punish_no, creater, updater
-      )
+      punish_no, creater, updater, 
+      punish_reason, majority_type)
     values (#{year,jdbcType=VARCHAR}, #{webDetailUrl,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
       #{punishType,jdbcType=VARCHAR}, #{punishTime,jdbcType=VARCHAR}, #{punishMoney,jdbcType=VARCHAR}, 
-      #{punishNo,jdbcType=VARCHAR}, #{creater,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}
-      )
+      #{punishNo,jdbcType=VARCHAR}, #{creater,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}, 
+      #{punishReason,jdbcType=VARCHAR}, #{majorityType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.igreen.common.model.ExcelIpeIndustryRecord" useGeneratedKeys="true" keyProperty="id" >
     insert into excel_ipe_industry_record
@@ -159,6 +161,12 @@
       <if test="updater != null" >
         updater,
       </if>
+      <if test="punishReason != null" >
+        punish_reason,
+      </if>
+      <if test="majorityType != null" >
+        majority_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="year != null" >
@@ -196,6 +204,12 @@
       </if>
       <if test="updater != null" >
         #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="punishReason != null" >
+        #{punishReason,jdbcType=VARCHAR},
+      </if>
+      <if test="majorityType != null" >
+        #{majorityType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -247,6 +261,12 @@
       <if test="record.updater != null" >
         updater = #{record.updater,jdbcType=INTEGER},
       </if>
+      <if test="record.punishReason != null" >
+        punish_reason = #{record.punishReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorityType != null" >
+        majority_type = #{record.majorityType,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -266,7 +286,9 @@
       punish_money = #{record.punishMoney,jdbcType=VARCHAR},
       punish_no = #{record.punishNo,jdbcType=VARCHAR},
       creater = #{record.creater,jdbcType=INTEGER},
-      updater = #{record.updater,jdbcType=INTEGER}
+      updater = #{record.updater,jdbcType=INTEGER},
+      punish_reason = #{record.punishReason,jdbcType=VARCHAR},
+      majority_type = #{record.majorityType,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -310,6 +332,12 @@
       <if test="updater != null" >
         updater = #{updater,jdbcType=INTEGER},
       </if>
+      <if test="punishReason != null" >
+        punish_reason = #{punishReason,jdbcType=VARCHAR},
+      </if>
+      <if test="majorityType != null" >
+        majority_type = #{majorityType,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -326,7 +354,9 @@
       punish_money = #{punishMoney,jdbcType=VARCHAR},
       punish_no = #{punishNo,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=INTEGER},
-      updater = #{updater,jdbcType=INTEGER}
+      updater = #{updater,jdbcType=INTEGER},
+      punish_reason = #{punishReason,jdbcType=VARCHAR},
+      majority_type = #{majorityType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -73,7 +73,7 @@ public class ExcelIpeIndustryRecordExample {
     }
 
     /**
-     * excel_ipe_industry_record 2019-01-10
+     * excel_ipe_industry_record 2019-03-24
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -995,13 +995,153 @@ public class ExcelIpeIndustryRecordExample {
             addCriterion("updater not between", value1, value2, "updater");
             return (Criteria) this;
         }
+
+        public Criteria andPunishReasonIsNull() {
+            addCriterion("punish_reason is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonIsNotNull() {
+            addCriterion("punish_reason is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonEqualTo(String value) {
+            addCriterion("punish_reason =", value, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonNotEqualTo(String value) {
+            addCriterion("punish_reason <>", value, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonGreaterThan(String value) {
+            addCriterion("punish_reason >", value, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonGreaterThanOrEqualTo(String value) {
+            addCriterion("punish_reason >=", value, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonLessThan(String value) {
+            addCriterion("punish_reason <", value, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonLessThanOrEqualTo(String value) {
+            addCriterion("punish_reason <=", value, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonLike(String value) {
+            addCriterion("punish_reason like", value, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonNotLike(String value) {
+            addCriterion("punish_reason not like", value, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonIn(List<String> values) {
+            addCriterion("punish_reason in", values, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonNotIn(List<String> values) {
+            addCriterion("punish_reason not in", values, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonBetween(String value1, String value2) {
+            addCriterion("punish_reason between", value1, value2, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andPunishReasonNotBetween(String value1, String value2) {
+            addCriterion("punish_reason not between", value1, value2, "punishReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeIsNull() {
+            addCriterion("majority_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeIsNotNull() {
+            addCriterion("majority_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeEqualTo(String value) {
+            addCriterion("majority_type =", value, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeNotEqualTo(String value) {
+            addCriterion("majority_type <>", value, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeGreaterThan(String value) {
+            addCriterion("majority_type >", value, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("majority_type >=", value, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeLessThan(String value) {
+            addCriterion("majority_type <", value, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeLessThanOrEqualTo(String value) {
+            addCriterion("majority_type <=", value, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeLike(String value) {
+            addCriterion("majority_type like", value, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeNotLike(String value) {
+            addCriterion("majority_type not like", value, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeIn(List<String> values) {
+            addCriterion("majority_type in", values, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeNotIn(List<String> values) {
+            addCriterion("majority_type not in", values, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeBetween(String value1, String value2) {
+            addCriterion("majority_type between", value1, value2, "majorityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMajorityTypeNotBetween(String value1, String value2) {
+            addCriterion("majority_type not between", value1, value2, "majorityType");
+            return (Criteria) this;
+        }
     }
 
     /**
      * 描述:excel_ipe_industry_record表的实体类
      * @version
      * @author:  panjingxiao
-     * @创建时间: 2019-01-10
+     * @创建时间: 2019-03-24
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -1011,7 +1151,7 @@ public class ExcelIpeIndustryRecordExample {
     }
 
     /**
-     * excel_ipe_industry_record 2019-01-10
+     * excel_ipe_industry_record 2019-03-24
      */
     public static class Criterion {
         private String condition;

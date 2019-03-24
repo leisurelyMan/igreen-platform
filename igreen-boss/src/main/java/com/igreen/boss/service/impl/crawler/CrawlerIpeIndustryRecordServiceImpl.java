@@ -95,6 +95,61 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
     }
 
     @Override
+    public List<CrawlerIpeIndustryRecord> selectCrawlerIpeIndustryRecord(CrawlerIpeIndustryRecord record) {
+        CrawlerIpeIndustryRecordExample example = new CrawlerIpeIndustryRecordExample();
+        CrawlerIpeIndustryRecordExample.Criteria criteria = example.createCriteria();
+
+        //网站名称
+        if (!StrUtil.isNull(record.getWebName()))
+            criteria.andWebNameLike("%"+record.getWebName()+"%");
+        //网站域名
+        if (!StrUtil.isNull(record.getWebDomain()))
+            criteria.andWebDomainLike("%"+record.getWebDomain()+"%");
+        //年度
+        if (!StrUtil.isNull(record.getYear()))
+            criteria.andYearEqualTo(record.getYear());
+        //详情标题 对应title
+        if (!StrUtil.isNull(record.getWebDetailName()))
+            criteria.andWebDetailNameLike("%"+record.getWebDetailName()+"%");
+        //详情页原url
+        if (!StrUtil.isNull(record.getWebDetailUrl()))
+            criteria.andWebDetailUrlLike(record.getWebDetailUrl()+"%");
+        //公司名称
+        if (!StrUtil.isNull(record.getCompanyName()))
+            criteria.andCompanyNameLike("%"+record.getCompanyName()+"%");
+        //省
+        if (!StrUtil.isNull(record.getProvince()))
+            criteria.andProvinceLike("%"+record.getProvince()+"%");
+        //市
+        if (!StrUtil.isNull(record.getCity()))
+            criteria.andCityLike("%"+record.getCity()+"%");
+        //县
+        if (!StrUtil.isNull(record.getDistrict()))
+            criteria.andDistrictLike("%"+record.getDistrict()+"%");
+        //状态
+        if (record.getState() != null)
+            criteria.andStateEqualTo(record.getState());
+        //处罚类型
+        if (!StrUtil.isNull(record.getPunishType())){
+            if(record.getPunishType().equals(PunishTypeEnum.IS_NULL.getValue())) {
+                criteria.andPunishTypeIsNull();
+            }else if(record.getPunishType().equals(PunishTypeEnum.NOT_EQUAL.getValue())){
+                List<String> punishList = new ArrayList<>();
+                for(PunishTypeEnum punishTypeEnum:PunishTypeEnum.values()){
+                    punishList.add(punishTypeEnum.getName());
+                }
+                criteria.andPunishTypeNotIn(punishList);
+            }
+            else
+                criteria.andPunishTypeEqualTo(PunishTypeEnum.getEnumByValue(record.getPunishType()).getName());
+        }
+        example.setOrderByClause("id desc");
+
+        List<CrawlerIpeIndustryRecord> list = crawlerIpeIndustryRecordMapper.selectByExample(example);
+        return list;
+    }
+
+    @Override
     public CrawlerIpeIndustryRecord getOne(Integer recordId) {
         return crawlerIpeIndustryRecordMapper.selectByPrimaryKey(recordId);
     }

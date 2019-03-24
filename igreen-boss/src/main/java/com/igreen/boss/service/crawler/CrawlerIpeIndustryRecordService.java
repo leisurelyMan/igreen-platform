@@ -12,6 +12,8 @@ public interface CrawlerIpeIndustryRecordService {
 
     ListRange pageList(CrawlerIpeIndustryRecord record, Integer currentPage, Integer pageRows);
 
+    List<CrawlerIpeIndustryRecord> selectCrawlerIpeIndustryRecord(CrawlerIpeIndustryRecord record);
+
     CrawlerIpeIndustryRecord getOne(Integer recordId);
 
     ResponseModel saveOrUpdate(CrawlerIpeIndustryRecord record, Integer userId);

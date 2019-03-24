@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
 		url : '../excelIpeIndustry/pageList.do',//组件创建完成之后请求数据的url
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
-		colNames : ['<b>公司名称</b>','<b>url</b>','<b>省</b>','<b>市</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额</b>','<b>处罚编号</b>','<b>操作</b>' ],//jqGrid的列显示名字
+		colNames : ['<b>公司名称</b>','<b>url</b>','<b>省</b>','<b>市</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额(元)</b>','<b>处罚编号</b>','<b>操作</b>' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
                     {name:'companyName',index:'companyName', width:120,sortable:false},
                     {name:'webDetailUrl',index:'webDetailUrl', width:180,sortable:false},
@@ -237,6 +237,14 @@ function edit(recordId){
             $('#punishTime').val(obj.punishTime);
             $('#punishMoney').val(obj.punishMoney);
             $('#punishNo').val(obj.punishNo);
+            $('#majorityType').children("option").each(function(){
+                if($(this).val() == obj.majorityType){
+                    $(this).prop("selected",true);
+                }else{
+                    $(this).prop("selected",false);
+                }
+            });
+            $('#punishReason').val(obj.punishReason);
 
 			$("#dialog").dialog("open");
 		},

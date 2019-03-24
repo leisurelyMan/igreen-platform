@@ -1,7 +1,12 @@
 package com.igreen.boss.controller.crawler;
 
+import com.alibaba.fastjson.JSON;
 import com.igreen.boss.controller.BaseController;
 import com.igreen.boss.service.crawler.CrawlerIpeIndustryRecordService;
+import com.igreen.boss.util.xls.CellWriterSetting;
+import com.igreen.boss.util.xls.XlsType;
+import com.igreen.boss.util.xls.XlsWriter;
+import com.igreen.boss.util.xls.XlsWriterSetting;
 import com.igreen.common.model.CrawlerIpeIndustryRecord;
 import com.igreen.common.util.ListRange;
 import com.igreen.common.util.ResponseModel;
@@ -14,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +70,65 @@ public class CrawlerIpeIndustryRecordController extends BaseController {
             pageRows = 15;
         }
         return crawlerIpeIndustryRecordService.pageList(record,currentPage,pageRows);
+    }
+
+    /**
+     * 导出Excel
+     * @param record
+     * @return
+     */
+    @RequestMapping(value="exportexcel", method = { RequestMethod.POST,RequestMethod.GET })
+    public void exportexcel(CrawlerIpeIndustryRecord record,HttpServletResponse response){
+
+        try {
+            List<CellWriterSetting> columnList = new ArrayList<>();
+
+            columnList.add(new CellWriterSetting("网站名称", "webName", null));
+            columnList.add(new CellWriterSetting("网站域名", "webDomain", null));
+            columnList.add(new CellWriterSetting("年度", "year", null));
+            columnList.add(new CellWriterSetting("详情标题", "webDetailName", null));
+            columnList.add(new CellWriterSetting("详情页原url", "webDetailUrl", null));
+            columnList.add(new CellWriterSetting("公司名称", "companyName", null));
+            columnList.add(new CellWriterSetting("省", "province", null));
+            columnList.add(new CellWriterSetting("市", "city", null));
+            columnList.add(new CellWriterSetting("县", "district", null));
+            columnList.add(new CellWriterSetting("处罚类型", "punishType", null));
+            columnList.add(new CellWriterSetting("处罚公布时间", "punishTime", null));
+            columnList.add(new CellWriterSetting("处罚金额", "punishMoney", null));
+            columnList.add(new CellWriterSetting("处罚编号", "punishNo", null));
+            columnList.add(new CellWriterSetting("处罚原因", "punishReason", null));
+            columnList.add(new CellWriterSetting("污染类型", "majorityType", null));
+
+            XlsWriterSetting setting = new XlsWriterSetting(true, "", "人工标注数据", true, true, 0, "yyyy-MM-dd", columnList);
+            setting.setType(XlsType.XLSX);
+
+            List<CrawlerIpeIndustryRecord> records = crawlerIpeIndustryRecordService.selectCrawlerIpeIndustryRecord(record);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            XlsWriter.createXls(records, null, setting, outputStream);
+
+            byte[] content = outputStream.toByteArray();
+            InputStream is = new ByteArrayInputStream(content);
+            // 设置response参数，可以打开下载页面
+            response.reset();
+
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
+            response.setHeader("Content-Disposition", "attachment;filename="+ new String(("人工标注数据"+System.currentTimeMillis() + ".xlsx").getBytes(), "iso-8859-1"));
+            response.setContentLength(content.length);
+            ServletOutputStream output = response.getOutputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            BufferedOutputStream bos = new BufferedOutputStream(output);
+            byte[] buff = new byte[8192];
+            int bytesRead;
+            while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+                bos.write(buff, 0, bytesRead);
+            }
+            bis.close();
+            bos.close();
+            outputStream.flush();
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

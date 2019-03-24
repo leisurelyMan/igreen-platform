@@ -4,7 +4,7 @@ package com.igreen.common.model;
  * 描述:excel_ipe_industry_record表的实体类
  * @version
  * @author:  panjingxiao
- * @创建时间: 2019-01-10
+ * @创建时间: 2019-03-24
  */
 public class ExcelIpeIndustryRecord {
     /**
@@ -18,7 +18,7 @@ public class ExcelIpeIndustryRecord {
     private String year;
 
     /**
-     * 详情页原url
+     * 
      */
     private String webDetailUrl;
 
@@ -73,6 +73,16 @@ public class ExcelIpeIndustryRecord {
     private Integer updater;
 
     /**
+     * 处罚原因
+     */
+    private String punishReason;
+
+    /**
+     * 污染类型
+     */
+    private String majorityType;
+
+    /**
      * 
      * @return id 
      */
@@ -105,16 +115,16 @@ public class ExcelIpeIndustryRecord {
     }
 
     /**
-     * 详情页原url
-     * @return web_detail_url 详情页原url
+     * 
+     * @return web_detail_url 
      */
     public String getWebDetailUrl() {
         return webDetailUrl;
     }
 
     /**
-     * 详情页原url
-     * @param webDetailUrl 详情页原url
+     * 
+     * @param webDetailUrl 
      */
     public void setWebDetailUrl(String webDetailUrl) {
         this.webDetailUrl = webDetailUrl == null ? null : webDetailUrl.trim();
@@ -278,5 +288,37 @@ public class ExcelIpeIndustryRecord {
      */
     public void setUpdater(Integer updater) {
         this.updater = updater;
+    }
+
+    /**
+     * 处罚原因
+     * @return punish_reason 处罚原因
+     */
+    public String getPunishReason() {
+        return punishReason;
+    }
+
+    /**
+     * 处罚原因
+     * @param punishReason 处罚原因
+     */
+    public void setPunishReason(String punishReason) {
+        this.punishReason = punishReason == null ? null : punishReason.trim();
+    }
+
+    /**
+     * 污染类型
+     * @return majority_type 污染类型
+     */
+    public String getMajorityType() {
+        return majorityType;
+    }
+
+    /**
+     * 污染类型
+     * @param majorityType 污染类型
+     */
+    public void setMajorityType(String majorityType) {
+        this.majorityType = majorityType == null ? null : majorityType.trim();
     }
 }

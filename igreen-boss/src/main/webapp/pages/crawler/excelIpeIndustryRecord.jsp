@@ -53,6 +53,16 @@
                     <li><label>处罚公布时间</label><input id="punishTime" name="punishTime" type="text" class="dfinput" /></li>
                     <li><label>处罚金额</label><input id="punishMoney" name="punishMoney" type="text" class="dfinput" /></li>
                     <li><label>处罚编号</label><input id="punishNo" name="punishNo" type="text" class="dfinput" /></li>
+                    <li><label>污染类型</label>
+                        <select id="majorityType" name="majorityType" class="dfinput">
+                            <option value="空气">空气</option>
+                            <option value="水">水</option>
+                            <option value="土壤（含固废）">土壤（含固废）</option>
+                            <option value="噪声">噪声</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </li>
+                    <li><label>处罚原因</label><input id="punishReason" name="punishReason" type="text" class="dfinput" /></li>
 				</ul>
 			</form>
 		</div>

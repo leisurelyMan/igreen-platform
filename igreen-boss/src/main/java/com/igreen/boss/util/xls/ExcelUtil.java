@@ -1,28 +1,19 @@
-package com.igreen.boss.util;
+package com.igreen.boss.util.xls;
 
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Excel文件操作工具类，包括读、写、合并等功能
@@ -188,6 +179,7 @@ public class ExcelUtil {
 	 * 
 	 * @Title: writeExcel
 	 * @Date : 2014-9-11 下午01:50:38
+	 * @param xlsPath
 	 * @throws IOException
 	 */
 	public List<Row> readExcel() throws IOException{
@@ -424,6 +416,7 @@ public class ExcelUtil {
 	 * @Title: writeExcel_xlsx
 	 * @Date : 2014-9-11 下午01:50:38
 	 * @param rowList
+	 * @param xlsPath
 	 * @throws IOException
 	 */
 	public void writeExcel_xlsx(List<Row> rowList, String src_xlsPath, String dist_xlsPath) throws IOException {
@@ -582,27 +575,6 @@ public class ExcelUtil {
 	public static String getCellValue(Cell cell) {
 		Object result = "";
 		if (cell != null) {
-/*			switch (cell.getCellType()) {
-			case Cell.CELL_TYPE_STRING:
-				result = cell.getStringCellValue();
-				break;
-			case Cell.CELL_TYPE_NUMERIC:
-				result = cell.getNumericCellValue();
-				break;
-			case Cell.CELL_TYPE_BOOLEAN:
-				result = cell.getBooleanCellValue();
-				break;
-			case Cell.CELL_TYPE_FORMULA:
-				result = cell.getCellFormula();
-				break;
-			case Cell.CELL_TYPE_ERROR:
-				result = cell.getErrorCellValue();
-				break;
-			case Cell.CELL_TYPE_BLANK:
-				break;
-			default:
-				break;
-			}*/
 			if(cell.getCellTypeEnum() == CellType.STRING)
 				result = cell.getStringCellValue();
 			else if(cell.getCellTypeEnum() == CellType.NUMERIC){
@@ -611,7 +583,7 @@ public class ExcelUtil {
 
 	                return sdf.format(HSSFDateUtil.getJavaDate(cell.getNumericCellValue()));
 	            }
-				result = cell.getNumericCellValue();
+				result = NumberToTextConverter.toText(cell.getNumericCellValue());
 			}else if(cell.getCellTypeEnum() == CellType.BOOLEAN)
 				result = cell.getBooleanCellValue();
 			else if(cell.getCellTypeEnum() == CellType.FORMULA)
@@ -818,6 +790,8 @@ public class ExcelUtil {
 	 * 获取合并单元格的值
 	 * 
 	 * @param sheet
+	 * @param row
+	 * @param column
 	 * @return
 	 */
 	public void setMergedRegion(Sheet sheet) {
@@ -848,6 +822,7 @@ public class ExcelUtil {
 	/**
 	 * 打印消息，
 	 * @param msg 消息内容
+	 * @param tr 换行
 	 */
 	private void out(String msg){
 		if(printMsg){

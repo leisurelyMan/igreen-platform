@@ -9,7 +9,7 @@ var selectedRecord = new Array();
 		datatype : "json",//请求数据返回的类型。可选json,xml,txt
 		rownumbers: true,
 		multiselect: true,
-		colNames : ['<b>年度</b>','<b>url</b>','<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额</b>','<b>状态</b>','<b>操作</b>','' ],//jqGrid的列显示名字
+		colNames : ['<b>年度</b>','<b>url</b>','<b>公司名称</b>','<b>省</b>','<b>市</b>','<b>处罚类型</b>','<b>处罚公布时间</b>','<b>处罚金额(元)</b>','<b>状态</b>','<b>操作</b>','' ],//jqGrid的列显示名字
 		colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
                     {name:'year',index:'year', width:20,sortable:false},
                     {name:'webDetailUrl',index:'webDetailUrl', width:80,sortable:false},
@@ -147,6 +147,10 @@ var selectedRecord = new Array();
         }
     });
 
+	$("#exportExcel").click(function(){
+		exportexcel();
+	});
+
 
 });
 
@@ -169,9 +173,24 @@ function view(id){
             $('#province').val(obj.province);
             $('#city').val(obj.city);
             $('#district').val(obj.district);
-            $('#punishType').val(obj.punishType);
+            $('#punishType').children("option").each(function(){
+                if($(this).val() == obj.punishType){
+                    $(this).prop("selected",true);
+                }else{
+                    $(this).prop("selected",false);
+                }
+            });
             $('#punishTime').val(obj.punishTime);
             $('#punishMoney').val(obj.punishMoney);
+
+            $('#majorityType').children("option").each(function(){
+                if($(this).val() == obj.majorityType){
+                    $(this).prop("selected",true);
+                }else{
+                    $(this).prop("selected",false);
+                }
+            });
+            $('#punishReason').val(obj.punishReason);
 
 			//打开对话表
 			$("#dialog").dialog("open");
@@ -196,4 +215,34 @@ function getState(cellvalue, options, rowObject){
 	}else{
 		return "未定义";
 	}
+}
+
+
+
+function exportexcel(){
+
+	var companyName = $('<input type="hidden" name="companyName" value="'+$('#searchCompanyName').val()+'"/>');
+	var province = $('<input type="hidden" name="province" value="'+$('#searchProvince').val()+'"/>');
+	var city = $('<input type="hidden" name="city" value="'+$('#searchCity').val()+'"/>');
+	var punishType = $('<input type="hidden" name="punishType" value="'+$('#searchPunishType').val()+'"/>');
+	var state = $('<input type="hidden" name="state" value="'+$('#searchState').val()+'"/>');
+    // 取得要提交页面的URL
+    var action = "../crawlerIpeIndustry/exportexcel.do";
+    // 创建Form
+    var form = $('<form id="hiddenform"></form>');
+    // 设置属性
+    form.attr('action', action);
+    form.attr('method', 'post');
+    // form的target属性决定form在哪个页面提交
+    // _self -> 当前页面 _blank -> 新页面
+    form.attr('target', '_self');
+    // 附加到Form
+    form.append(companyName);
+    form.append(province);
+    form.append(city);
+    form.append(punishType);
+    form.append(state);
+    $("#hiddendiv").empty().append(form);
+    // 提交表单
+    $("#hiddenform").submit();
 }
