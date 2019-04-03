@@ -33,7 +33,7 @@ public class CrawlerWebIpeTask {
 	/**
 	 *  每个月的16号和26号，凌晨2点爬取环保部数据
 	 */
-	@Scheduled(cron="0 0 2 10,26 * ?")
+	@Scheduled(cron="0 0 2 15,28 * ?")
 	public void AirQualitySpider( ){
 		int count = configService.configCount(null);
 		final int totalPage = count / PAGE_ROWS + count % PAGE_ROWS;

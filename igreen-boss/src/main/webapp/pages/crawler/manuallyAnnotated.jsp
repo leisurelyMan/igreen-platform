@@ -44,13 +44,12 @@
                         <option value="">全部</option>
                         <option value="-1">空</option>
                         <option value="-2">类型不符</option>
-                        <option value="1">罚款</option>
-                        <option value="2">暂扣、吊销许可证</option>
-                        <option value="3">没收违法所得</option>
-                        <option value="4">行政拘留</option>
-                        <option value="5">责令改正</option>
-                        <option value="6">责令限停产或停建</option>
-                        <option value="7">其他</option>
+                        <option value="1">责令改正</option>
+                        <option value="2">责令限停产或停建</option>
+                        <option value="3">查封或关闭</option>
+                        <option value="4">严重违法</option>
+                        <option value="5">仅罚款</option>
+                        <option value="6">其他</option>
 				    </select>
 				</li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
@@ -77,12 +76,11 @@
                     <li><label>县</label><input id="district" name="district" type="text" class="dfinput" /></li>
                     <li><label>处罚类型</label>
                         <select id="punishType" name="punishType" class="dfinput">
-                            <option value="罚款">罚款</option>
-                            <option value="暂扣、吊销许可证">暂扣、吊销许可证</option>
-                            <option value="没收违法所得">没收违法所得</option>
-                            <option value="行政拘留">行政拘留</option>
                             <option value="责令改正">责令改正</option>
                             <option value="责令限停产或停建">责令限停产或停建</option>
+                            <option value="查封或关闭">查封或关闭</option>
+                            <option value="严重违法">严重违法</option>
+                            <option value="仅罚款">仅罚款</option>
                             <option value="其他">其他</option>
                         </select>
                     </li>

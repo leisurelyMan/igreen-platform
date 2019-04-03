@@ -15,6 +15,7 @@ import com.igreen.common.util.ResponseModel;
 import com.igreen.common.util.StrUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -80,7 +81,9 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
             }else if(record.getPunishType().equals(PunishTypeEnum.NOT_EQUAL.getValue())){
                 List<String> punishList = new ArrayList<>();
                 for(PunishTypeEnum punishTypeEnum:PunishTypeEnum.values()){
-                    punishList.add(punishTypeEnum.getName());
+                    if(Integer.parseInt(punishTypeEnum.getValue()) > 0){
+                        punishList.add(punishTypeEnum.getName());
+                    }
                 }
                 criteria.andPunishTypeNotIn(punishList);
             }
@@ -252,9 +255,12 @@ public class CrawlerIpeIndustryRecordServiceImpl implements CrawlerIpeIndustryRe
     public ResponseModel deleteHistory(String webDomain) {
         CrawlerIpeIndustryRecordExample example = new CrawlerIpeIndustryRecordExample();
         CrawlerIpeIndustryRecordExample.Criteria criteria = example.createCriteria();
-        criteria.andWebDomainEqualTo(webDomain);
-        criteria.andYearNotEqualTo("2018");
-        criteria.andYearNotEqualTo("");
+        if(!StringUtils.isEmpty(webDomain)){
+            criteria.andWebDomainEqualTo(webDomain);
+        }
+        criteria.andYearLessThan("2018");
+        //criteria.andYearNotEqualTo("2018");
+        //criteria.andYearNotEqualTo("");
         int opnum = crawlerIpeIndustryRecordMapper.deleteByExample(example);
         ResponseModel result = new ResponseModel(1, "SUCCESS");
         if(opnum <= 0){

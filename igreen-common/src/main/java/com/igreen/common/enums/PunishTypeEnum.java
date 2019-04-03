@@ -4,13 +4,14 @@ public enum PunishTypeEnum {
 
     IS_NULL("-1","空"),
     NOT_EQUAL("-2","不符"),
-    FINE("1","罚款"),
-    REVOKE("2","暂扣、吊销许可证"),
-    CONFISCATE("3","没收违法所得"),
-    DETENTION("4","行政拘留"),
-    CORRECT("5","责令改正"),
-    STOP_PRODUCTION("6","责令限停产或停建"),
-    OTHER("7","其他"),
+
+
+    FINE("1","责令改正"),
+    REVOKE("2","责令限停产或停建"),
+    CONFISCATE("3","查封或关闭"),
+    DETENTION("4","严重违法"),
+    CORRECT("5","仅罚款"),
+    STOP_PRODUCTION("6","其他")
     ;
 
     private String value;

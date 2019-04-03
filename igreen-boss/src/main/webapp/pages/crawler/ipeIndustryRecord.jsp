@@ -46,13 +46,12 @@
                         <option value="">全部</option>
                         <option value="-1">空</option>
                         <option value="-2">类型不符</option>
-                        <option value="1">罚款</option>
-                        <option value="2">暂扣、吊销许可证</option>
-                        <option value="3">没收违法所得</option>
-                        <option value="4">行政拘留</option>
-                        <option value="5">责令改正</option>
-                        <option value="6">责令限停产或停建</option>
-                        <option value="7">其他</option>
+                        <option value="1">责令改正</option>
+                        <option value="2">责令限停产或停建</option>
+                        <option value="3">查封或关闭</option>
+                        <option value="4">严重违法</option>
+                        <option value="5">仅罚款</option>
+                        <option value="6">其他</option>
 				    </select>
 				</li>
 				<li class="click" id="search"><span><img src="../static/images/ico06.png" /></span></li>
