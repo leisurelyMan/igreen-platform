@@ -45,13 +45,14 @@ public class ExcelIpeIndustryRecordController extends BaseController {
      */
     @RequestMapping(value="pageList", method = { RequestMethod.POST,RequestMethod.GET })
     public @ResponseBody
-    ListRange pageList(ExcelIpeIndustryRecord record, Integer currentPage, Integer pageRows){
+    ListRange pageList(HttpServletRequest request,HttpServletResponse response,ExcelIpeIndustryRecord record, Integer currentPage, Integer pageRows){
         if(currentPage == null){
             currentPage =1;
         }
         if(pageRows == null){
             pageRows = 15;
         }
+        record.setCreater(this.getUser(request,response).getId());
         return excelIpeIndustryRecordService.pageList(record,currentPage,pageRows);
     }
 

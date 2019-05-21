@@ -33,7 +33,7 @@ public class CrawlerWebIpeTask {
 	/**
 	 *  每个月的16号和26号，凌晨2点爬取环保部数据
 	 */
-	@Scheduled(cron="0 0 2 15,28 * ?")
+	@Scheduled(cron="0 0 22 15,21 * ?")
 	public void AirQualitySpider( ){
 		int count = configService.configCount(null);
 		final int totalPage = count / PAGE_ROWS + count % PAGE_ROWS;
@@ -49,7 +49,7 @@ public class CrawlerWebIpeTask {
 					final WebCrawlerConfigIpe temp = iterator.next();
 					temp.setPageUrlRegular(temp.getPageUrlRegular());
 					temp.setWebSearchUrl(temp.getWebSearchUrl());
-					temp.setMaxPage(3);
+					//temp.setMaxPage(3);
 					Callable<String> call = new Callable<String>() {
 						@Override
 						public String call() throws Exception {

@@ -85,6 +85,7 @@ public class ExcelIpeIndustryRecordServiceImpl implements ExcelIpeIndustryRecord
         if (!StrUtil.isNull(record.getPunishType())){
             criteria.andPunishTypeLike("%"+record.getPunishType()+"%");
         }
+        criteria.andCreaterEqualTo(record.getCreater());
         example.setOrderByClause("id desc");
 
         List<ExcelIpeIndustryRecord> list = excelIpeIndustryRecordMapper.selectByExample(example);
