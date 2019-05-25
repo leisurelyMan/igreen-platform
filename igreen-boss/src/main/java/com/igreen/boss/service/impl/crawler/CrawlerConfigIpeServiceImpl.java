@@ -27,9 +27,9 @@ public class CrawlerConfigIpeServiceImpl implements CrawlerConfigIpeService {
 	@Override
 	public ListRange configList(WebCrawlerConfigIpe crawlerConfig, Integer currentPage, Integer pageRows) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		if(!StrUtil.isNull(crawlerConfig.getWebName()))
+		if(crawlerConfig != null && !StrUtil.isNull(crawlerConfig.getWebName()))
 			params.put("webName", crawlerConfig.getWebName());
-		if(!StrUtil.isNull(crawlerConfig.getWebDomain()))
+		if(crawlerConfig != null && !StrUtil.isNull(crawlerConfig.getWebDomain()))
 			params.put("webDomain", crawlerConfig.getWebDomain());
 
 		params.put("startRow", (currentPage-1)*pageRows);
@@ -47,7 +47,7 @@ public class CrawlerConfigIpeServiceImpl implements CrawlerConfigIpeService {
 	@Override
 	public int configCount(WebCrawlerConfigIpe crawlerConfig) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		if(!StrUtil.isNull(crawlerConfig.getWebName()))
+		if(crawlerConfig != null && !StrUtil.isNull(crawlerConfig.getWebName()))
 			params.put("webName", crawlerConfig.getWebName());
 		return configMapper.countCrawlerConfig(params);
 	}

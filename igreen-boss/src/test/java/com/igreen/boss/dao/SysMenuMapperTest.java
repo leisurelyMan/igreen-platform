@@ -12,7 +12,7 @@ import com.igreen.common.dao.SysMenuMapper;
 import com.igreen.common.model.SysMenu;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring.xml","classpath:spring-mvc.xml","classpath:spring-mybatis.xml"})
+@ContextConfiguration(locations = {"classpath:spring-mvc.xml","classpath:spring.xml","classpath:spring-mybatis.xml"})
 public class SysMenuMapperTest {
 
 	@Autowired
